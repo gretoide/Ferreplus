@@ -14,8 +14,13 @@ from pathlib import Path
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Define the template directory path using os.path.join
+TEMPLATE_DIR = os.path.join(BASE_DIR, 'ferreplus','plantillas')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -55,7 +60,7 @@ ROOT_URLCONF = 'ferreplus.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,"plantillas")],  # This is where you specify your template directory
+        'DIRS': [TEMPLATE_DIR],  # This is where you specify your template directory
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

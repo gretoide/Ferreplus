@@ -15,7 +15,7 @@ def inicio(request):
     }
 
     # Renderizar la plantilla con los datos proporcionados
-    rendered_template = template.render(context, request)
+    rendered_template = template.render(context)
 
     # Devolver la plantilla renderizada como una respuesta HTTP
     return HttpResponse(rendered_template)
