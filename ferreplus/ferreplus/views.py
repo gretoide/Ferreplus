@@ -19,3 +19,15 @@ def inicio(request):
 
     # Devolver la plantilla renderizada como una respuesta HTTP
     return HttpResponse(rendered_template)
+
+def registro(request):
+    template = loader.get_template('registro_usuario.html')
+
+    # Los datos que se pasan a la plantilla
+    context = {}
+
+    # Renderizar la plantilla con los datos proporcionados
+    rendered_template = template.render(context)
+
+    # Devolver la plantilla renderizada como una respuesta HTTP
+    return HttpResponse(rendered_template)
