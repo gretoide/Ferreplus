@@ -9,12 +9,10 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
   <style>
     body {
       background-color: #1a1a1a; /* Dark gray background */
       color: #ffffff; /* White text */
-      font-family: 'Montserrat', sans-serif; /* Modern font */
       padding-top: 10;
     }
 
@@ -35,11 +33,35 @@
       padding-right: 10%;
     }
 
-    .btn-primary {
-      background-color: #3d3d3d; /* Dark gray button background */
-      border-color: #3d3d3d; /* Dark gray button border */
-      font-family: 'Montserrat', sans-serif; /* Modern font */
-      width: 300px;
+    .btn-register {
+      background-color: #3d3d3d; /* Gris oscuro */
+      border-color: #3d3d3d; /* Gris oscuro */
+      color: #ffffff; /* Blanco */
+      transition: background-color 0.3s ease; /* Transición de color */
+      width: 100%; /* Ancho completo */
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .btn-register::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background-color: #ffc107; /* Amarillo */
+      transition: left 0.3s ease; /* Transición de izquierda a derecha */
+      z-index: -1;
+    }
+
+    .btn-register:hover::before {
+      left: 0; /* Desplazar de izquierda a derecha */
+    }
+
+    .btn-register:hover {
+      color: #000000; /* Negro */
     }
 
     #login-form {
@@ -80,7 +102,7 @@
             <input type="password" class="form-control bg-dark text-white" placeholder="Contraseña" required>
           </div>
           <div class="d-grid gap-2">
-            <button type="submit" class="btn btn-primary text-center">Iniciar Sesión</button>
+            <button type="submit" class="btn btn-register">Iniciar Sesión</button>
           </div>
         </form>
     </div>   
