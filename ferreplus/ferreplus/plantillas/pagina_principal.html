@@ -13,7 +13,8 @@
     body {
       background-color: #1a1a1a; /* Dark gray background */
       color: #ffffff; /* White text */
-      padding-top: 10;
+      padding-top: 10px;
+      margin: 0; /* Remove default margin */
     }
 
     .jumbotron {
@@ -65,7 +66,7 @@
     }
 
     #login-form {
-      margin-top: 80px; /* Top margin for login form */
+      margin-top: 10px; /* Separación del formulario */
     }
 
     .text-primary {
@@ -82,6 +83,11 @@
     .form-control::placeholder {
       color: #a0a0a0; /* Cambia el color del placeholder a un gris claro */
     }
+
+    /* Agregar margen al texto "Iniciar sesión" */
+    h1.text-center.mb-4 {
+      margin-top: 30px;
+    }
   </style>
 </head>
 <body>
@@ -93,6 +99,7 @@
 
   <div class="container">
     <!-- Formulario de Inicio de Sesión -->
+    <h1 class="text-center mb-4">Iniciar sesión</h1>
     <div id="login-form" class="d-flex flex-column align-items-center">
         <form>
           <div class="mb-3">
