@@ -14,8 +14,7 @@
     body {
       background-color: #1a1a1a; /* Dark gray background */
       color: #ffffff; /* White text */
-      font-family: 'Arial', sans-serif; /* Modern font */
-      padding-top: 10;
+      font-family: 'Montserrat', sans-serif; /* Modern font */
     }
 
     .jumbotron {
@@ -38,6 +37,7 @@
       background-color: #3d3d3d; /* Dark gray button background */
       border-color: #3d3d3d; /* Dark gray button border */
       font-family: 'Montserrat', sans-serif; /* Modern font */
+      width: 300px;
     }
 
     #login-form {
@@ -51,6 +51,8 @@
     .form-control {
       padding: 0.5rem 1rem;
       color: #ffffff; /* Cambia el color del texto de los inputs */
+      width: 300px;
+      position: relative;
     }
 
     .form-control::placeholder {
@@ -67,19 +69,19 @@
 
   <div class="container">
     <!-- Formulario de Inicio de Sesión -->
-    <div id="login-form">
-      <form>
-        <div class="mb-3">
-          <input type="email" class="form-control bg-dark text-white" placeholder="Correo electrónico" required>
-        </div>
-        <div class="mb-3">
-          <input type="password" class="form-control bg-dark text-white" placeholder="Contraseña" required>
-        </div>
-        <div class="d-grid gap-2">
-          <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
-        </div>
-      </form>
-    </div>
+    <div id="login-form" class="d-flex flex-column align-items-center">
+        <form>
+          <div class="mb-3">
+            <input type="email" class="form-control bg-dark text-white" placeholder="Correo electrónico" required>
+          </div>
+          <div class="mb-3">
+            <input type="password" class="form-control bg-dark text-white" placeholder="Contraseña" required>
+          </div>
+          <div class="d-grid gap-2">
+            <button type="submit" class="btn btn-primary text-center">Iniciar Sesión</button>
+          </div>
+        </form>
+    </div>   
 
     <!-- Opciones adicionales -->
     <div class="text-center mt-3">
