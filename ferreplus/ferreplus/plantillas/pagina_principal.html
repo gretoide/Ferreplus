@@ -1,138 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Inicio</title>
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <style>
-    body {
-      background-color: #1a1a1a; /* Dark gray background */
-      color: #ffffff; /* White text */
-      margin: 0; /* Remove default margin */
-    }
-
-    .jumbotron {
-      background-image: url('https://images.unsplash.com/photo-1617123623686-2b7b339785da?q=80&w=2073&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
-      background-size: cover;
-      background-position: center;
-      color: #ffffff; /* White text */
-      text-shadow: 2px 4px 4px rgba(0, 0, 0, 0.712); /* Text shadow */
-      font-size: 6vw; /* Text size relative to viewport width */
-      height: 100vh; /* Full screen height */
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end; /* Align content to the bottom */
-      padding-bottom: 5vw; /* Bottom padding relative to viewport width */
-      width: 100vw; /* Full screen width */
-      padding-left: 10%; /* Left padding */
-      padding-right: 10%;
-    }
-
-    .btn-register {
-      background-color: #3d3d3d; /* Gris oscuro */
-      border-color: #3d3d3d; /* Gris oscuro */
-      color: #ffffff; /* Blanco */
-      transition: background-color 0.3s ease; /* Transición de color */
-      width: 100%; /* Ancho completo */
-      position: relative;
-      overflow: hidden;
-      z-index: 1;
-    }
-
-    .btn-register::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background-color: #ffc107; /* Amarillo */
-      transition: left 0.3s ease; /* Transición de izquierda a derecha */
-      z-index: -1;
-    }
-
-    .btn-register:hover::before {
-      left: 0; /* Desplazar de izquierda a derecha */
-    }
-
-    .btn-register:hover {
-      color: #000000; /* Negro */
-    }
-
-    #login-form {
-      margin-top: 10px; /* Separación del formulario */
-    }
-
-    .text-primary {
-      color: #ffd60a; /* Yellow text for links */
-    }
-
-    .form-control {
-      padding: 0.5rem 1rem;
-      color: #ffffff; /* Cambia el color del texto de los inputs */
-      width: 300px;
-      position: relative;
-    }
-
-    .form-control::placeholder {
-      color: #a0a0a0; /* Cambia el color del placeholder a un gris claro */
-    }
-
-    h1.display-4 {
-      font-size: 7vw; /* Tamaño de fuente responsive */
-      font-weight: bold; /* Estilo en negrita */
-    }
-
-    p.lead {
-      font-size: 4vw; /* Tamaño de fuente responsive */
-      padding-bottom: 40px; /* Ajuste el padding inferior */
-    }
-
-    h1.text-center.mb-4 {
-      margin-top: 4vw; /* Ajuste responsive del margen superior */
-      padding-bottom: 10px; /* Ajuste de padding inferior */
-      padding-top: 10px;
-    }
-
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Enlace a tu archivo CSS personalizado -->
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/pagina_principal.css' %}">
 </head>
 <body>
-  <!-- Portada (Cover) -->
-  <div class="jumbotron">
-    <h1 class="display-4">¡Bienvenido a FerrePlus!</h1>
-    <p class="lead">Por favor, inicia sesión para acceder a tu cuenta.</p>
-  </div>
-
-  <div class="container">
-    <!-- Formulario de Inicio de Sesión -->
-    <h1 class="text-center mb-4">Iniciar sesión</h1>
-    <div id="login-form" class="d-flex flex-column align-items-center">
-        <form>
-          <div class="mb-3">
-            <input type="email" class="form-control bg-dark text-white" placeholder="Correo electrónico" required>
-          </div>
-          <div class="mb-3">
-            <input type="password" class="form-control bg-dark text-white" placeholder="Contraseña" required>
-          </div>
-          <div class="d-grid gap-2">
-            <button type="submit" class="btn btn-register">Iniciar sesión</button>
-          </div>
-        </form>
-    </div>   
-
-    <!-- Opciones adicionales -->
-    <div class="text-center mt-3">
-      <p>¿No tienes una cuenta? <a href="/registro" class="text-primary">Regístrate</a></p>
-      <p><a href="recuperar-contraseña.html" class="text-primary">¿Olvidaste tu contraseña?</a></p>
+    <!-- Portada (Cover) -->
+    <div class="jumbotron">
+        <h1 class="display-4">¡Bienvenido a FerrePlus!</h1>
+        <p class="lead">Por favor, inicia sesión para acceder a tu cuenta.</p>
     </div>
-  </div>
 
-  <!-- Bootstrap JS (opcional) -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <div class="container custom-container">
+        <!-- Formulario de Inicio de Sesión -->
+        <h1 class="text-center mb-4 custom-heading">Iniciar sesión</h1>
+        <div id="login-form" class="d-flex flex-column align-items-center custom-login-form">
+            <form>
+                <div class="mb-3">
+                    <input type="email" class="form-control bg-dark text-white custom-input" placeholder="Correo electrónico" required>
+                </div>
+                <div class="mb-3">
+                    <input type="password" class="form-control bg-dark text-white custom-input" placeholder="Contraseña" required>
+                </div>
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-register custom-button">Iniciar sesión</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Opciones adicionales -->
+        <div class="text-center mt-3">
+            <p>¿No tienes una cuenta? <a href="/registro" class="text-primary">Regístrate</a></p>
+            <p><a href="recuperar-contraseña.html" class="text-primary">¿Olvidaste tu contraseña?</a></p>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS (opcional) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
