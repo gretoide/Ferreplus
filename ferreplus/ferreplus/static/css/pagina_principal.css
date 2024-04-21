@@ -2,9 +2,9 @@ body {
     background-color: #1a1a1a; /* Dark gray background */
     color: #ffffff; /* White text */
     margin: 0; /* Remove default margin */
-}
+  }
 
-.jumbotron {
+  .jumbotron {
     background-image: url('https://images.unsplash.com/photo-1617123623686-2b7b339785da?q=80&w=2073&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
     background-size: cover;
     background-position: center;
@@ -19,9 +19,9 @@ body {
     width: 100vw; /* Full screen width */
     padding-left: 10%; /* Left padding */
     padding-right: 10%;
-}
+  }
 
-.btn-register {
+  .btn-register {
     background-color: #3d3d3d; /* Gris oscuro */
     border-color: #3d3d3d; /* Gris oscuro */
     color: #ffffff; /* Blanco */
@@ -30,9 +30,9 @@ body {
     position: relative;
     overflow: hidden;
     z-index: 1;
-}
+  }
 
-.btn-register::before {
+  .btn-register::before {
     content: "";
     position: absolute;
     top: 0;
@@ -42,82 +42,47 @@ body {
     background-color: #ffc107; /* Amarillo */
     transition: left 0.3s ease; /* Transición de izquierda a derecha */
     z-index: -1;
-}
+  }
 
-.btn-register:hover::before {
+  .btn-register:hover::before {
     left: 0; /* Desplazar de izquierda a derecha */
-}
+  }
 
-.btn-register:hover {
+  .btn-register:hover {
     color: #000000; /* Negro */
-}
+  }
 
-#login-form {
+  #login-form {
     margin-top: 10px; /* Separación del formulario */
-}
+  }
 
-.text-primary {
+  .text-primary {
     color: #ffd60a; /* Yellow text for links */
-}
+  }
 
-.form-control {
+  .form-control {
     padding: 0.5rem 1rem;
     color: #ffffff; /* Cambia el color del texto de los inputs */
     width: 300px;
     position: relative;
-}
+  }
 
-.form-control::placeholder {
+  .form-control::placeholder {
     color: #a0a0a0; /* Cambia el color del placeholder a un gris claro */
-}
+  }
 
-h1.display-4 {
+  h1.display-4 {
     font-size: 7vw; /* Tamaño de fuente responsive */
     font-weight: bold; /* Estilo en negrita */
-}
+  }
 
-p.lead {
+  p.lead {
     font-size: 4vw; /* Tamaño de fuente responsive */
     padding-bottom: 40px; /* Ajuste el padding inferior */
-}
+  }
 
-h1.text-center.mb-4 {
+  h1.text-center.mb-4 {
     margin-top: 4vw; /* Ajuste responsive del margen superior */
     padding-bottom: 10px; /* Ajuste de padding inferior */
     padding-top: 10px;
-}
-
-/* Estilos personalizados */
-.custom-container {
-    margin-top: 2rem;
-}
-
-.custom-heading {
-    font-size: 2.5rem;
-    font-weight: bold;
-    color: #ffd60a;
-}
-
-.custom-login-form {
-    width: 100%;
-    max-width: 400px;
-}
-
-.custom-input {
-    background-color: #333333;
-    border: none;
-    border-radius: 0.25rem;
-}
-
-.custom-button {
-    background-color: #ffd60a;
-    color: #000000;
-    font-weight: bold;
-    border: none;
-    border-radius: 0.25rem;
-    transition: background-color 0.3s ease;
-}
-
-.custom-button:hover {
-    background-color: #ffca28;
-}
+  }
