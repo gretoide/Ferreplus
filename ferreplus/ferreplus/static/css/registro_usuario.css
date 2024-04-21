@@ -1,0 +1,95 @@
+/* Estilos generales */
+body {
+    background-color: #1a1a1a; /* Color de fondo negro */
+    color: #ffffff; /* Color de texto blanco */
+}
+
+.container {
+    max-width: 400px; /* Ancho máximo del contenedor */
+    margin: auto; /* Centrar el contenedor */
+    padding-top: 50px; /* Espacio superior */
+}
+
+.form-control {
+    margin-bottom: 20px; /* Espacio entre elementos del formulario */
+    background-color: #1a1a1a; /* Color de fondo negro */
+    color: #ffffff; /* Color de texto blanco */
+    width: 100%; /* Ancho completo */
+}
+
+/* Estilos para el input cuando está enfocado */
+.form-control:focus {
+    border-color: #ffc107; /* Color del borde al seleccionar */
+    box-shadow: 0 0 5px rgba(255, 193, 7, 0.5); /* Sombra alrededor del input */
+    background-color: #3d3d3d; /* Color de fondo cuando está seleccionado */
+    color: #ffffff;
+}
+
+/* Estilos para el texto dentro del input */
+.form-control::placeholder {
+    color: #ffffff; /* Color del texto blanco */
+}
+
+/* Estilos para el botón de registro */
+.btn-register {
+    background-color: #3d3d3d; /* Gris oscuro */
+    border-color: #3d3d3d; /* Gris oscuro */
+    color: #ffffff; /* Color de texto blanco */
+    transition: background-color 0.3s ease; /* Transición de color */
+    width: 100%; /* Ancho completo */
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.btn-register::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background-color: #ffc107; /* Amarillo */
+    transition: left 0.3s ease; /* Transición de izquierda a derecha */
+    z-index: -1;
+}
+
+.btn-register:hover::before {
+    left: 0; /* Desplazar de izquierda a derecha */
+}
+
+.btn-register:hover {
+    color: #000000; /* Negro */
+}
+
+/* Estilos para los enlaces de inicio de sesión */
+.login-link {
+    text-align: center; /* Alinear al centro */
+    margin-top: 20px; /* Espacio superior */
+}
+
+.login-link a {
+    color: #ffffff; /* Blanco */
+    text-decoration: none; /* Sin subrayado */
+}
+
+.login-link a:hover {
+    text-decoration: underline; /* Subrayado al pasar el ratón */
+}
+
+/* Estilos para el marcador de posición en diferentes navegadores */
+::-webkit-input-placeholder {
+    color: #ffffff; /* Color de texto blanco */
+}
+
+:-moz-placeholder {
+    color: #ffffff; /* Color de texto blanco */
+}
+
+::-moz-placeholder {
+    color: #ffffff; /* Color de texto blanco */
+}
+
+:-ms-input-placeholder {
+    color: #ffffff; /* Color de texto blanco */
+}

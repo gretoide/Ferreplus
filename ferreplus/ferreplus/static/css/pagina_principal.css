@@ -1,37 +1,40 @@
+/* Estilos para el cuerpo de la página */
 body {
-    background-color: #1a1a1a; /* Dark gray background */
-    color: #ffffff; /* White text */
-    margin: 0; /* Remove default margin */
+    background-color: #1a1a1a; /* Fondo gris oscuro */
+    color: #ffffff; /* Texto blanco */
+    margin: 0; /* Elimina el margen predeterminado */
   }
-
+  
+  /* Estilos para el contenedor principal */
   .jumbotron {
     background-image: url('https://images.unsplash.com/photo-1617123623686-2b7b339785da?q=80&w=2073&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
     background-size: cover;
     background-position: center;
-    color: #ffffff; /* White text */
-    text-shadow: 2px 4px 4px rgba(0, 0, 0, 0.712); /* Text shadow */
-    font-size: 6vw; /* Text size relative to viewport width */
-    height: 100vh; /* Full screen height */
+    color: #ffffff; /* Texto blanco */
+    text-shadow: 2px 4px 4px rgba(0, 0, 0, 0.712); /* Sombra del texto */
+    font-size: 6vw; /* Tamaño del texto en relación con el ancho de la ventana */
+    height: 100vh; /* Altura de la pantalla completa */
     display: flex;
     flex-direction: column;
-    justify-content: flex-end; /* Align content to the bottom */
-    padding-bottom: 5vw; /* Bottom padding relative to viewport width */
-    width: 100vw; /* Full screen width */
-    padding-left: 10%; /* Left padding */
-    padding-right: 10%;
+    justify-content: flex-end; /* Alinea el contenido en la parte inferior */
+    padding-bottom: 5vw; /* Relleno inferior en relación con el ancho de la ventana */
+    width: 100vw; /* Ancho de pantalla completa */
+    padding-left: 10%; /* Relleno izquierdo */
+    padding-right: 10%; /* Relleno derecho */
   }
-
+  
+  /* Estilos para el botón de registro */
   .btn-register {
     background-color: #3d3d3d; /* Gris oscuro */
-    border-color: #3d3d3d; /* Gris oscuro */
-    color: #ffffff; /* Blanco */
+    border-color: #3d3d3d; /* Borde gris oscuro */
+    color: #ffffff; /* Texto blanco */
     transition: background-color 0.3s ease; /* Transición de color */
     width: 100%; /* Ancho completo */
     position: relative;
     overflow: hidden;
     z-index: 1;
   }
-
+  
   .btn-register::before {
     content: "";
     position: absolute;
@@ -43,46 +46,59 @@ body {
     transition: left 0.3s ease; /* Transición de izquierda a derecha */
     z-index: -1;
   }
-
+  
   .btn-register:hover::before {
     left: 0; /* Desplazar de izquierda a derecha */
   }
-
+  
   .btn-register:hover {
-    color: #000000; /* Negro */
+    color: #000000; /* Texto negro al pasar el cursor */
   }
-
+  
+  /* Estilos para el formulario de inicio de sesión */
   #login-form {
-    margin-top: 10px; /* Separación del formulario */
+    margin-top: 10px; /* Margen superior del formulario */
   }
-
+  
+  /* Estilos para el texto primario */
   .text-primary {
-    color: #ffd60a; /* Yellow text for links */
+    color: #ffd60a; /* Texto amarillo para enlaces */
   }
-
+  
+  /* Estilos para los campos de formulario */
   .form-control {
     padding: 0.5rem 1rem;
-    color: #ffffff; /* Cambia el color del texto de los inputs */
+    color: #ffffff; /* Texto blanco */
     width: 300px;
     position: relative;
   }
 
+  /* Estilos para el input cuando está enfocado */
+.form-control:focus {
+    border-color: #ffc107; /* Cambia el color del borde al seleccionar */
+    box-shadow: 0 0 5px rgba(255, 193, 7, 0.5); /* Agrega una sombra alrededor del input */
+  }
+  
   .form-control::placeholder {
-    color: #a0a0a0; /* Cambia el color del placeholder a un gris claro */
+    color: #a0a0a0; /* Color del marcador de posición gris claro */
   }
-
+  
+  /* Estilos para el título de encabezado */
   h1.display-4 {
-    font-size: 7vw; /* Tamaño de fuente responsive */
-    font-weight: bold; /* Estilo en negrita */
+    font-size: 7vw; /* Tamaño de fuente responsivo */
+    font-weight: bold; /* Texto en negrita */
   }
-
+  
+  /* Estilos para el párrafo principal */
   p.lead {
-    font-size: 4vw; /* Tamaño de fuente responsive */
-    padding-bottom: 40px; /* Ajuste el padding inferior */
+    font-size: 4vw; /* Tamaño de fuente responsivo */
+    padding-bottom: 40px; /* Relleno inferior */
   }
-
+  
+  /* Estilos para el título centrado */
   h1.text-center.mb-4 {
-    margin-top: 4vw; /* Ajuste responsive del margen superior */
-    padding-bottom: 10px; /* Ajuste de padding inferior */
-    padding-top: 10px;
+    margin-top: 4vw; /* Margen superior responsivo */
+    padding-bottom: 10px; /* Relleno inferior */
+    padding-top: 10px; /* Relleno superior */
   }
+  
