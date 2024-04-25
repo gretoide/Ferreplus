@@ -1,0 +1,41 @@
+/* Estilos generales */
+body {
+    background-color: #1a1a1a; /* Color de fondo negro */
+    color: #ffffff; /* Color de texto blanco */
+}
+
+.container {
+    max-width: 400px; /* Ancho máximo del contenedor */
+    margin: auto; /* Centrar el contenedor */
+    padding-top: 50px; /* Espacio superior */
+}
+
+.form-group {
+    margin-bottom: 20px; /* Espacio entre elementos del formulario */
+}
+
+/* Estilos para los elementos del formulario */
+.form-control {
+    background-color: #1a1a1a; /* Color de fondo negro */
+    color: #ffffff; /* Color de texto blanco */
+    border: 1px solid #ffc107; /* Borde amarillo */
+}
+
+/* Estilos para el input cuando está enfocado */
+.form-control:focus {
+    border-color: #ffffff; /* Borde blanco al seleccionar */
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5); /* Sombra alrededor del input */
+    background-color: #3d3d3d; /* Color de fondo cuando está seleccionado */
+}
+
+/* Estilos para el botón de enviar */
+.btn-primary {
+    background-color: #ffc107; /* Amarillo */
+    border-color: #ffc107; /* Borde amarillo */
+    color: #000000; /* Color de texto negro */
+}
+
+.btn-primary:hover {
+    background-color: #ffcd38; /* Amarillo claro al pasar el ratón */
+    border-color: #ffcd38; /* Borde amarillo claro al pasar el ratón */
+}

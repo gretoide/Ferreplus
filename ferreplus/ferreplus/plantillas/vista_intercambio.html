@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intercambios</title>
+    <!-- Enlace a Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Estilos personalizados -->
+    <style>
+        /* Estilos para el sidebar */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 250px;
+            background-color: #343a40; /* Cambia el color del sidebar si es necesario */
+            padding-top: 56px; /* Deja espacio para la barra de navegación superior */
+            overflow-y: auto; /* Permite desplazamiento vertical si el contenido es demasiado largo */
+            z-index: 1000; /* Asegura que el sidebar esté detrás del contenido principal */
+        }
+
+        /* Estilos para el contenido principal */
+        .content {
+            margin-left: 250px; /* Ajusta el margen izquierdo para dejar espacio para el sidebar */
+            transition: margin-left 0.3s ease;
+        }
+
+        /* Estilos para los íconos */
+        .icon {
+            font-size: 24px;
+            color: #ffffff;
+            margin-right: 10px;
+        }
+
+        /* Estilos para el listado de filtros y opciones */
+        .filters {
+            margin-top: 20px;
+            padding: 0 20px;
+            color: #ffffff;
+        }
+
+        /* Estilos para la barra de búsqueda */
+        .search-bar {
+            margin-top: 20px;
+            padding: 0 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <!-- Icono de cuenta -->
+        <div class="d-flex justify-content-center align-items-center mt-3 mb-4">
+            <i class="bi bi-person-circle icon"></i>
+            <span class="text-light"></span>
+        </div>
+        <!-- Iconos de menú -->
+        <div class="d-flex justify-content-center mb-4">
+            <i class="bi bi-chat-square-text-fill icon"></i>
+            <i class="bi bi-arrow-left-right icon"></i>
+        </div>
+        <!-- Listado de filtros y opciones -->
+        <div class="filters">
+            <h5 class="mb-3">Filtros</h5>
+            <ul class="list-unstyled">
+                <li><i class="bi bi-filter icon"></i>
+                <select name="Localidad">
+                    <option value="value1">Value 1</option>
+                    <option value="value2" selected>Value 2</option>
+                    <option value="value3">Value 3</option>
+                  </select>
+                </li>
+            </ul>
+        </div>
+        <!-- Barra de búsqueda -->
+        <div class="search-bar">
+            <input type="text" class="form-control" placeholder="Buscar...">
+            </div>
+        </div>
+    </div>
+
+    <!-- Contenido de la página -->
+    <div class="content">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <!-- Botón del sidebar -->
+            <button class="navbar-toggler" type="button" id="sidebarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </nav>
+        <div class="container mt-4">
+            <!-- Contenido principal -->
+            <h2>Todas las publicaciones</h2>
+            <!-- Aquí puedes colocar el contenido de las publicaciones -->
+        </div>
+    </div>
+
+    <!-- Enlace a Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Script para controlar la apertura y cierre del sidebar -->
+    <script>
+        $(document).ready(function () {
+            $('#sidebarCollapse').on('click', function () {
+                $('.sidebar').toggleClass('active');
+                $('.content').toggleClass('active');
+            });
+        });
+    </script>
+</body>
+</html>

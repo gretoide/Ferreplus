@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulario de Intercambio</title>
+  <!-- Importa Bootstrap desde su CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-yXmFL6K/Qx3Vkv8r8ZKMTI4xY7jAzPdDqOKX0MLrZMnZYY2U5XGZj2n0yL+2n1z" crossorigin="anonymous">
+  <!-- Conecta el archivo CSS personalizado -->
+  <link rel="stylesheet" type="text/css" href="../static/css/crear_oferta.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Formulario de Intercambio</h1>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="product_name">Nombre del Producto:</label>
+        <input type="text" class="form-control" id="product_name" name="product_name" required>
+      </div>
+      <div class="form-group">
+        <label for="category">Categoría:</label>
+        <select class="form-control" id="category" name="category" required>
+          <option value="">Selecciona una categoría</option>
+          <option value="categoria1">Categoría 1</option>
+          <option value="categoria2">Categoría 2</option>
+          <option value="categoria3">Categoría 3</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="description">Descripción:</label>
+        <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+      </div>
+      <div class="form-group">
+        <label for="images">Imágenes (máximo 5):</label>
+        <input type="file" class="form-control-file" id="images" name="images[]" multiple accept="image/*" required>
+      </div>
+      <div class="form-group">
+        <label for="exchange_location">Sucursal de Intercambio:</label>
+        <input type="text" class="form-control" id="exchange_location" name="exchange_location" required>
+      </div>
+      <div class="form-group">
+        <label for="exchange_time">Hora de Intercambio:</label>
+        <select class="form-control" id="exchange_time" name="exchange_time" required>
+          <option value="">Selecciona una hora de intercambio</option>
+          <option value="8">8:00 AM</option>
+          <option value="9">9:00 AM</option>
+          <!-- Agrega opciones hasta las 16:00 -->
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary">Subir Oferta</button>
+    </form>
+  </div>
+  <!-- Importa los scripts de Bootstrap al final del cuerpo del documento -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-LV3dSiUoX1W1To8t7o2yjsiVbrT5LhHe+px3ejvBEcdxhqzEIdh3wNik3gxgSc++" crossorigin="anonymous"></script>
+</body>
+</html>
