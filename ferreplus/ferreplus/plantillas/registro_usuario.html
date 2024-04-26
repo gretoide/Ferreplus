@@ -11,24 +11,25 @@
 <body>
   <div class="container">
     <h1 class="text-center mb-4">Crea una cuenta</h1>
-    <form>
+    <form method="post"> <!-- Agregamos el método POST al formulario -->
+      {% csrf_token %}
       <div class="mb-3">
-        <input type="text" class="form-control" placeholder="Nombre completo" required>
+        <input type="text" class="form-control" placeholder="Nombre completo" name="nombre_completo" required> <!-- Agregamos el atributo name -->
       </div>
       <div class="mb-3">
-        <input type="text" class="form-control" placeholder="DNI" required>
+        <input type="text" class="form-control" placeholder="DNI" name="dni" required> <!-- Agregamos el atributo name -->
       </div>
       <div class="mb-3">
-        <input type="email" class="form-control" placeholder="Correo electrónico" required>
+        <input type="email" class="form-control" placeholder="Correo electrónico" name="correo_electronico" required> <!-- Agregamos el atributo name -->
       </div>
       <div class="mb-3">
-        <input type="password" class="form-control" placeholder="Contraseña" required>
+        <input type="password" class="form-control" placeholder="Contraseña" name="contraseña" required> <!-- Agregamos el atributo name -->
       </div>
       <div class="mb-3">
-        <input type="password" class="form-control" placeholder="Confirmar contraseña" required>
+        <input type="password" class="form-control" placeholder="Confirmar contraseña" name="confirmar_contraseña" required> <!-- Agregamos el atributo name -->
       </div>
       <div class="mb-3">
-        <input type="date" class="form-control" placeholder="Fecha de nacimiento" required>
+        <input type="date" class="form-control" placeholder="Fecha de nacimiento" name="fecha_nacimiento" required> <!-- Agregamos el atributo name -->
       </div>
       <button type="submit" class="btn btn-register">Crear cuenta</button>
       <p class="login-link">¿Ya tienes una cuenta? <a href="{% url 'inicio' %}" class="text-primary">Inicia sesión</a></p>
