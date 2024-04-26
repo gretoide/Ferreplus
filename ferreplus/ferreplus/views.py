@@ -6,7 +6,8 @@ from django.template import loader
 import os
 
 def inicio(request):
-    return render(request,"pagina_principal.html")
+    
+    return render(request,"pagina_principal.html",{})
 
 def registro(request):
 
