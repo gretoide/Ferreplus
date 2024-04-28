@@ -1,0 +1,26 @@
+/* Estilo personalizado para el sidebar */
+#mySidebar {
+    height: 100%;
+    width: 250px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #343a40;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+/* Estilo personalizado para el contenido principal */
+#main {
+    transition: margin-left .5s;
+    padding: 16px;
+}
+/* Estilo personalizado para el botón de cierre del sidebar */
+#closeBtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
