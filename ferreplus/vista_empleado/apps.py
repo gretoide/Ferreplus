@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class PublicacionesGeneralesConfig(AppConfig):
+class VistaEmpleadoConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'publicaciones_generales'
+    name = 'vista_empleado'

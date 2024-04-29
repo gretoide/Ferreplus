@@ -9,8 +9,4 @@ import os
 
 def inicio(request):
     
-    return render(request,"pagina_principal.html",{})
-
-def crear_oferta(request):
-    return render(request,"crear_oferta.html")
-    
+    return render(request,"pagina_inicio.html",{})
