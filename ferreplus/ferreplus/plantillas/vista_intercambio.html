@@ -50,29 +50,35 @@
 
         <!-- Filtrar por sucursal -->
         <div class="mb-3">
-            <select class="form-select" aria-label="Default select example">
-                <option selected>Sucursal</option>
-                <option value="1">La Plata</option>
-                <option value="2">San Isidro</option>
-                <option value="3">Quilmes</option>
-            </select>
+            <label class="select" for="slct">
+                <select id="slct" required>
+                    <option value="" disabled selected>Seleccionar sucursal</option>
+                    <option value="#">One</option>
+                    <option value="#">Two</option>
+                    <option value="#">Three</option>
+                    <option value="#">Four</option>
+                    <option value="#">Five</option>
+                    <option value="#">Six</option>
+                    <option value="#">Seven</option>
+                </select>
+            </label>
         </div>
 
         <!-- Filtrar por estado -->
-        <div class="mb-3">
-            <h6>Estado</h6>
+        <div class="mb-3" id="CheckerContainer">
+            <h6 class="fw-bold mb-3">Estado</h6>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="nuevoCheckbox">
-                <label class="form-check-label" for="nuevoCheckbox">
-                    Nuevo
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                <label class="form-check-label" for="flexRadioDefault1">
+                  Nuevo
                 </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="usadoCheckbox">
-                <label class="form-check-label" for="usadoCheckbox">
-                    Usado
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                <label class="form-check-label" for="flexRadioDefault2">
+                  Usado
                 </label>
-            </div>
+              </div>
         </div>
         
         <!-- Subir publicación -->

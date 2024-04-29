@@ -1,6 +1,6 @@
 /* Estilos para el sidebar */
 .sidebar {
-    width: 250px; /* Ancho del sidebar */
+    width: 300px; /* Ancho del sidebar */
     height: 100%; /* Altura del sidebar */
     position: fixed; /* Para que el sidebar permanezca fijo en la pantalla */
     top: 0;
@@ -33,7 +33,7 @@
 
 /* Estilos para los botones del sidebar */
 .sidebar a {
-    display: block; /* Convertir los enlaces en bloques para ocupar todo el ancho */
+    width: 90%;
     padding: 4px; /* Espaciado interno */
     padding-left: 10px;
     color: #d4d4d4; /* Color del texto */
@@ -76,6 +76,7 @@
 /* Estilos para el título de la página */
 h1 {
     margin-top: 40px; /* Ajusta este valor según sea necesario */
+    color: #ffffff;
 }
 
 
@@ -113,58 +114,153 @@ h1 {
     margin-top: 20px;
 }
 
-/* Estilos para los filtros por sucursal y estado */
-.filter-group {
-    margin-bottom: 20px;
-    text-align: center;
+
+.mb-3 {
+    position: relative;
 }
 
-.filter-group h6 {
-    color: #ffffff; /* Cambia el color del texto del título "Estado" a blanco */
-}
-
-.filter-group .form-check {
-    margin-bottom: 5px;
-}
-
-/* Estilos para los checkboxes de estado */
-.form-check-input {
-    /* Estilos generales para todos los checkboxes */
-    margin-right: 5px; /* Espacio a la derecha del checkbox */
+/* Estilos para la etiqueta del menú desplegable */
+.select {
     display: block;
-    text-align: left;
+    width: 100%;
 }
 
-/* Estilo para el texto asociado al checkbox "Nuevo" */
-#nuevoCheckbox + .form-check-label {
-    content: 'Nuevo'; /* Texto para el estado "Nuevo" */
-    color: #ffffff;
-}
-
-/* Estilo para el texto asociado al checkbox "Usado" */
-#usadoCheckbox + .form-check-label {
-    content: 'Usado'; /* Texto para el estado "Usado" */
-    color: #ffffff;
-}
-
-/* Estilos para el filtro de sucursal */
-.form-select {
-    background-color: #495057; /* Gris oscuro */
-    color: #ffffff; /* Blanco */
-    width: 100%; /* Ancho completo del elemento */
-    padding: 8px 10px; /* Espaciado interno */
-    border: 1px solid #ced4da; /* Borde */
+/* Estilos para el menú desplegable */
+#slct {
+    appearance: none; /* Elimina el estilo predeterminado del navegador */
+    background-color: #495057; /* Color de fondo oscuro */
+    color: #d4d4d4; /* Color de texto blanco */
+    width: calc(100% - 32px);
+    padding: 10px 15px; /* Espaciado interno */
+    border: 1px solid #495057; /* Borde ligeramente más oscuro */
     border-radius: 5px; /* Borde redondeado */
+    font-size: 16px; /* Tamaño de fuente */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el elemento */
+    outline: none; /* Elimina el contorno al enfocar */
+    margin-bottom: 15px; /* Separación del borde inferior del sidebar */
+    margin-left: 10px;
+    height: 40px;
 }
 
-/* Estilo para barra de búsqueda */
+/* Estilos para la opción predeterminada del menú desplegable */
+#slct option:disabled {
+    color: #d4d4d4; /* Color de texto gris oscuro */
+    background-color: #343a40; /* Fondo oscuro */
+}
+
+/* Estilos para el menú desplegable al enfocarse */
+#slct:focus {
+    background-color: #495057; /* Color de fondo al enfocarse */
+    border-color: #979797; /* Color del borde al enfocarse */
+    box-shadow: none; /* Elimina la sombra al enfocarse */
+}
+
+/* Estilos para la flecha del menú desplegable */
+#slct {
+    background-image: linear-gradient(45deg, transparent 50%, #6c757d 50%),
+                      linear-gradient(135deg, #6c757d 50%, transparent 50%);
+    background-position: calc(100% - 20px) calc(1em + 2px),
+                         calc(100% - 15px) calc(1em + 2px);
+    background-size: 5px 5px, 5px 5px;
+    background-repeat: no-repeat;
+}
+
+/* Estilos mejorados para la barra de búsqueda */
 .form-control {
-    background-color: #495057; /* Gris oscuro */
-    color: #ffffff; /* Blanco */
-    border: 1px solid #ced4da; /* Borde */
+    background-color: #495057; /* Color de fondo más oscuro */
+    color: #d4d4d4; /* Color del texto */
+    border: 1px solid #495057; /* Borde ligeramente más oscuro */
     border-radius: 5px; /* Borde redondeado */
-    padding: 8px 10px; /* Espaciado interno */
+    padding: 10px 15px; /* Espaciado interno ligeramente mayor */
+    transition: background-color 0.3s, border-color 0.3s; /* Transiciones suaves */
+    margin-bottom: 15px;
+    margin-left: 10px;
+    height: 40px;
+    width: calc(100% - 32px); /* Ancho igual al del selector de sucursal */
 }
+
+/* Estilos para la barra de búsqueda al enfocarse */
+.form-control:focus {
+    background-color: #495057; /* Color de fondo al enfocarse */
+    border-color: #979797; /* Color del borde al enfocarse */
+    box-shadow: none; /* Elimina la sombra al enfocarse */
+}
+
+/* Estilos para el texto dentro de la barra de búsqueda al escribir */
+.form-control:focus, .form-control:valid {
+    color: #d4d4d4; /* Color del texto al escribir */
+}
+
+.form-control::placeholder {
+    color: #d4d4d4;
+}
+
+
+#CheckerContainer {
+    padding-left: 10px;
+}
+
+.fw-bold {
+    font-weight: bold; /* Asegúrate de que el texto esté en negrita */
+    margin-bottom: 3px; /* Ajusta el margen inferior según sea necesario */
+    color: #d4d4d4; /* Color del texto */
+}
+
+.form-check {
+    display: flex;
+    align-items: center;
+    padding-left: 30px;
+    margin-bottom: 0; /* Elimina el margen inferior para ajustar la alineación */
+    margin-top: 4px; /* Ajusta el margen superior para alinear con el texto */
+}
+
+.form-check-label {
+    color: #d4d4d4;
+    display: inline-block; /* Hace que el label sea un bloque en línea */
+    padding-top: 3px;
+    line-height: 1; /* Ajusta la altura de línea para centrar el texto */
+    margin: 5px 0; /* Ajusta los márgenes superior e inferior */
+}
+
+/* Estilos para los radio buttons */
+.form-check-input[type="radio"] {
+    appearance: none; /* Elimina el estilo predeterminado del navegador */
+    width: 16px; /* Ancho del radio button */
+    height: 16px; /* Altura del radio button */
+    border-radius: 50%; /* Hace el radio button circular */
+    background-color: transparent; /* Fondo transparente */
+    border: 1px solid #c7c7c7; /* Borde blanco */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el radio button */
+    margin-right: 8px; /* Espacio a la derecha del radio button */
+    vertical-align: middle; /* Alinea verticalmente con el texto */
+    outline: none; /* Elimina el contorno cuando se enfoca */
+    position: relative; /* Necesario para posicionar el círculo interior */
+}
+
+/* Estilo para el radio button seleccionado */
+.form-check-input[type="radio"]:checked {
+    background-color: transparent; /* Mantiene el fondo transparente */
+}
+
+/* Círculo interior del radio button seleccionado */
+.form-check-input[type="radio"]:checked::after {
+    content: ""; /* Contenido vacío */
+    display: block; /* Hace que se muestre como un elemento de bloque */
+    width: 8px; /* Ancho del círculo interior */
+    height: 8px; /* Altura del círculo interior */
+    border-radius: 50%; /* Hace el círculo interior circular */
+    background-color: #c7c7c7; /* Color de fondo blanco */
+    position: absolute; /* Posicionamiento absoluto dentro del radio button */
+    top: 50%; /* Centrado vertical */
+    left: 50%; /* Centrado horizontal */
+    transform: translate(-50%, -50%); /* Centra el círculo interior */
+}
+
+/* Estilo para el radio button al pasar el mouse */
+.form-check-input[type="radio"]:hover {
+    border-color: #ffffff; /* Color del borde al pasar el mouse */
+}
+
 
 /* Estilos para el contenedor del botón de subir publicación */
 #btnSubirPublicacionContainer {
