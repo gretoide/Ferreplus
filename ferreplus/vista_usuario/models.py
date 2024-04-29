@@ -23,3 +23,5 @@ class Publicacion(models.Model):
     descripcion = models.TextField()
     sucursal_a_retirar = models.CharField(max_length=100)
     horario = models.CharField(max_length=100)
+    # Una publicación está ligada a un usuario
+    autor = models.ForeignKey(Usuario, on_delete=models.CASCADE, default=None)
