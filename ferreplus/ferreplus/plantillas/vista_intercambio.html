@@ -77,10 +77,9 @@
         
         <!-- Subir publicación -->
         <div class="mb-3">
-            <a class="btn btn-primary" role="button" data-bs-toggle="button">Subir publicación</a>
+            <button class="btn btn-primary" role="button" data-toggle="modal" data-target="#modalSubirPublicacion">Subir publicación</button>
         </div>
     </div>
-
 
     <!-- Contenido principal -->
     <div id="main">
@@ -120,8 +119,52 @@
         </div>
     </div>
 
+    <!-- Modal para subir publicación -->
+    <div class="modal fade" id="modalSubirPublicacion" tabindex="-1" aria-labelledby="modalSubirPublicacionLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg"> <!-- Tamaño grande del modal y centrado verticalmente -->
+            <div class="modal-content" style="background-color: #fff;"> <!-- Fondo claro -->
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalSubirPublicacionLabel">Subir publicación</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Formulario de subir publicación -->
+                    <form>
+                        <!-- Campos del formulario -->
+                        <div class="mb-3">
+                            <label for="titulo" class="form-label">Título</label>
+                            <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Título">
+                        </div>
+                        <div class="mb-3">
+                            <label for="descripcion" class="form-label">Descripción</label>
+                            <textarea class="form-control" id="descripcion" name="descripcion" placeholder="Descripción"></textarea>
+                        </div>
+                        <!-- Otros campos del formulario según tus necesidades -->
+                        <button type="submit" class="btn btn-primary">Subir</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Enlace a Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
     <script>
-        // Funciones para abrir y cerrar el sidebar
+        $('#modalSubirPublicacion').on('show.bs.modal', function (e) {
+            $('body').addClass('modal-open');
+            $('body').append('<div class="modal-backdrop fade show"></div>');
+        });
+
+        $('#modalSubirPublicacion').on('hidden.bs.modal', function (e) {
+            $('body').removeClass('modal-open');
+            $('.modal-backdrop').remove();
+        });
+
         function w3_open() {
             document.getElementById("mySidebar").style.display = "block";
             document.getElementById("main").style.marginLeft = "250px";
@@ -132,10 +175,5 @@
             document.getElementById("main").style.marginLeft = "0";
         }
     </script>
-
-    <!-- Enlace a Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
