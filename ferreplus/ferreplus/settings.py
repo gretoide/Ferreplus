@@ -20,7 +20,7 @@ import os
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Define the template directory path using os.path.join
-TEMPLATE_DIR = os.path.join(BASE_DIR, 'ferreplus','plantillas')
+TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
