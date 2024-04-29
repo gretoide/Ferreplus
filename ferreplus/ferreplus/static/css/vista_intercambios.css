@@ -1,28 +1,181 @@
-/* Estilo personalizado para el sidebar */
-#mySidebar {
-    height: 100%;
-    width: 250px;
-    position: fixed;
-    z-index: 1;
+/* Estilos para el sidebar */
+.sidebar {
+    width: 250px; /* Ancho del sidebar */
+    height: 100%; /* Altura del sidebar */
+    position: fixed; /* Para que el sidebar permanezca fijo en la pantalla */
     top: 0;
-    left: 0;
-    background-color: #343a40;
-    overflow-x: hidden;
-    transition: 0.5s;
-    padding-top: 60px;
-}
-/* Estilo personalizado para el contenido principal */
-#main {
-    transition: margin-left .5s;
-    padding: 16px;
-}
-/* Estilo personalizado para el botón de cierre del sidebar */
-#closeBtn {
-    position: absolute;
-    top: 0;
-    right: 25px;
-    font-size: 36px;
-    margin-left: 50px;
+    left: 0; /* Ajuste para que el sidebar sea visible por defecto */
+    background-color: #343a40; /* Color de fondo del sidebar */
+    overflow-y: auto; /* Para permitir el desplazamiento vertical si es necesario */
+    padding-top: 20px; /* Espacio superior */
+    transition: left 0.5s; /* Transición suave */
+    z-index: 1000; /* Z-index para estar encima del contenido */
 }
 
-/* Modal de subir publicación */
+/* Estilos para el contenido principal */
+#main {
+    margin-left: 250px; /* Margen izquierdo para dejar espacio para el sidebar */
+    padding: 20px; /* Espaciado del contenido */
+    transition: margin-left 0.5s; /* Transición suave para el cambio de margen */
+    background-color: #a1a7ad;
+}
+
+/* Estilos para el botón de cerrar el sidebar */
+#closeBtn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    background-color: transparent;
+    border-color: transparent;
+    color: #fff; /* Color del icono */
+}
+
+/* Estilos para los botones del sidebar */
+.sidebar a {
+    display: block; /* Convertir los enlaces en bloques para ocupar todo el ancho */
+    padding: 4px; /* Espaciado interno */
+    padding-left: 10px;
+    color: #d4d4d4; /* Color del texto */
+    text-decoration: none; /* Sin subrayado */
+    text-align: left;
+    background-color: transparent;
+    border-color: transparent;
+}
+
+/* Estilos para los botones del sidebar al pasar el mouse */
+.sidebar a:hover {
+    background-color: transparent; /* Color de fondo al pasar el mouse */
+    border-color: transparent;
+    text-decoration:solid;
+}
+
+/* Estilos para el icono de configuración */
+.bi-sliders {
+    font-size: 24px;
+    color: #fff; /* Color del icono */
+    background-color: transparent;
+    border-color: transparent;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+/* Estilos para el icono de menú */
+.bi-list {
+    font-size: 24px;
+    color: #fff; /* Color del icono */
+    border-radius: 10px;
+    background-color: transparent;
+    border-color: transparent;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+/* Estilos para el título de la página */
+h1 {
+    margin-top: 40px; /* Ajusta este valor según sea necesario */
+}
+
+
+/* Estilos para el contenido de las publicaciones */
+.card-body {
+    background-color: #f8f9fa; /* Color de fondo del contenido de las tarjetas */
+    border-radius: 10px; /* Borde redondeado */
+    padding: 15px; /* Espaciado interno */
+    margin-bottom: 20px; /* Margen inferior */
+}
+
+/* Estilos para los títulos de las publicaciones */
+.card-title {
+    margin-bottom: 10px; /* Margen inferior */
+}
+
+/* Estilos para los subtítulos de las publicaciones */
+.card-subtitle {
+    margin-bottom: 5px; /* Margen inferior */
+    font-size: 14px; /* Tamaño de fuente */
+    color: #6c757d; /* Color del texto */
+}
+
+/* Estilos para las imágenes de las publicaciones */
+.card-img-top {
+    border-radius: 10px; /* Borde redondeado */
+    margin-bottom: 10px; /* Margen inferior */
+}
+
+/* Estilos para los elementos del sidebar */
+.sidebar-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+/* Estilos para los filtros por sucursal y estado */
+.filter-group {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.filter-group h6 {
+    color: #ffffff; /* Cambia el color del texto del título "Estado" a blanco */
+}
+
+.filter-group .form-check {
+    margin-bottom: 5px;
+}
+
+/* Estilos para los checkboxes de estado */
+.form-check-input {
+    /* Estilos generales para todos los checkboxes */
+    margin-right: 5px; /* Espacio a la derecha del checkbox */
+    display: block;
+    text-align: left;
+}
+
+/* Estilo para el texto asociado al checkbox "Nuevo" */
+#nuevoCheckbox + .form-check-label {
+    content: 'Nuevo'; /* Texto para el estado "Nuevo" */
+    color: #ffffff;
+}
+
+/* Estilo para el texto asociado al checkbox "Usado" */
+#usadoCheckbox + .form-check-label {
+    content: 'Usado'; /* Texto para el estado "Usado" */
+    color: #ffffff;
+}
+
+/* Estilos para el filtro de sucursal */
+.form-select {
+    background-color: #495057; /* Gris oscuro */
+    color: #ffffff; /* Blanco */
+    width: 100%; /* Ancho completo del elemento */
+    padding: 8px 10px; /* Espaciado interno */
+    border: 1px solid #ced4da; /* Borde */
+    border-radius: 5px; /* Borde redondeado */
+}
+
+/* Estilo para barra de búsqueda */
+.form-control {
+    background-color: #495057; /* Gris oscuro */
+    color: #ffffff; /* Blanco */
+    border: 1px solid #ced4da; /* Borde */
+    border-radius: 5px; /* Borde redondeado */
+    padding: 8px 10px; /* Espaciado interno */
+}
+
+/* Estilos para el contenedor del botón de subir publicación */
+#btnSubirPublicacionContainer {
+    display: flex;
+    justify-content: center; /* Centra horizontalmente el contenido */
+    margin-top: auto; /* Para que el contenedor se alinee automáticamente hacia arriba */
+    margin-bottom: 20px; /* Espacio inferior */
+}
+
+#botonSubirPublicacion {
+    display: block;
+    background-color: green;
+    border-color: transparent;
+}
