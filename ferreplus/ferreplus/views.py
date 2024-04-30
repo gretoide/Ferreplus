@@ -10,7 +10,7 @@ import os
 
 def inicio(request):
     
-    return render(request,"pagina_principal.html",{})
+    return render(request,"pagina_inicio.html")
 
 def registro(request):
     if request.method == "POST":
@@ -20,13 +20,13 @@ def registro(request):
         condicion,motivo = modulos_sesion.verificar_fecha(usuario["fecha_nacimiento"])
         if not condicion:    
             print(motivo)
-        return redirect("vista_intercambio.html")
+        return redirect("pagina_inicio.html")
 
 
     return render(request,"registro_usuario.html")
 
 def intercambio(request):
-    return render(request,"vista_intercambio.html")
+    return render(request,"vista_principal.html")
 
 def crear_oferta(request):
     return render(request,"crear_oferta.html")

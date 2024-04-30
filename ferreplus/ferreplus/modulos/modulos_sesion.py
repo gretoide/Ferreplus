@@ -1,7 +1,8 @@
 from django.http import HttpResponse
 from datetime import datetime
+import re
 
-def verificar_dni(dni):
+def validar_dni(dni):
     condicion = True
     motivo = ""
     try:
@@ -14,56 +15,93 @@ def verificar_dni(dni):
         motivo = "Se debe ingresa digitos en el campo DNI"
     return(condicion,motivo)
 
-def verificar_correo(correo):
+
+def validar_correo(correo):
     condicion = True
     motivo = ""
-
-    if not ("@" in correo) or correo.isspace():
+    patron = r'^[\w\.-]+@[\w\.-]+\.\w+$'
+    
+    # Verificar si el correo coincide con el patrón
+    if not validar_espacio_blanco(correo) or not re.match(patron, correo):
         condicion = False
-        motivo = "Fromato invalido para correo"
+        motivo = "Formato invalido para correo"
     #chequear si deberia saber si mail existe o no
     return(condicion,motivo)
 
-def verificar_contraseña(contraseña):
+def validar_espacio_blanco(cadena):
+    condicion = True
+    if any(i.isspace() for i in cadena):
+        condicion = False
+    return condicion
+
+
+
+def validar_contraseña(contraseña):
     condicion = True
     motivo = ""
+
+    if not validar_espacio_blanco(contraseña):
+        condicion = False
+        motivo = "La contraseña no puede contener espacios en blanco"
     
+    if len(contraseña) < 6:
+        motivo = "La contraseña debe contener al menos 6 caracteres"
+        condicion = False 
+    
+    if not re.search(r"[A-Z]", contraseña) or condicion:
+        motivo = "La contraseña debe contener al menos una letra mayúscula"
+        condicion = False
+    if not re.search(r"\d", contraseña) or condicion:
+        
+        motivo = "La contraseña debe contener al menos un número"
+        motivo = False
     
     return(condicion,motivo)
 
-def verificar_confirmacion(contraseña,contraseña2):
+def validar_confirmacion(contraseña,contraseña2):
     condicion = True
     motivo = ""
-    if contraseña != contraseña2:
+    if not validar_espacio_blanco(contraseña2):
+        condicion = False
+        motivo = "La confirmacion no puede tener espacios en blanco"
+    if not condicion or contraseña != contraseña2:
         condicion = False
         motivo = "Las contraseñas no coinciden"
 
     
     return(condicion,motivo)
 
-def verificar_fecha(fecha):
-
+def validar_fecha(fecha):
     condicion = True
     motivo = ""
     mayoria_edad = 18
     fecha_actual = datetime.now().date()
-    formato_string = "%Y-%m-%d"
-    fecha = datetime.strptime(fecha,formato_string)
-    """try:
-        fecha = datetime.strptime(fecha,'%d/%m/%Y')
+    
+
+    try:
+        fecha = datetime.strptime(fecha, "%Y-%m-%d")
+        
         edad = fecha_actual.year - fecha.year - ((fecha_actual.month, fecha_actual.day) < (fecha.month, fecha.day))
+        
         if not edad >= mayoria_edad:
             condicion = False
             motivo = "Se debe ser mayor de edad para registrarse"
     except:
         condicion = False
-        motivo = "El dato ingresado en la fecha es invalido" """
+        motivo = "El dato ingresado en la fecha es invalido" 
 
+    return (condicion, motivo)
+
+def validar_nombre_usuario(nombre):
+    condicion = True
+    motivo = ""
+    patron = r'^[a-zA-Z]+$'
     
-    
-
-
-    return(condicion,motivo)
+    # Verificar si la cadena coincide con el patrón
+    if validar_espacio_blanco(nombre) or not re.match(patron, nombre):
+        condicion = False
+        motivo = "Formato invalido para nombre de usuario"
+    return (condicion,motivo)
 
 def verificar(usuario):
     if usuario["dni"] == "111":
