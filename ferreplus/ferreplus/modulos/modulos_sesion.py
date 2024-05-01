@@ -1,19 +1,34 @@
 from django.http import HttpResponse
 from datetime import datetime
 import re
+from vista_usuario.models import Usuario
 
 def validar_dni(dni):
     condicion = True
     motivo = ""
+
+    if validar_espacio_blanco(dni):
+        condicion = False
+        motivo = "El DNI no puede contener espacios en blanco"
+
+    if len(dni) != 8 or not dni.isdigit():
+        condicion = False
+        motivo = "Formato de DNI inválido"
+
     try:
         dni = int(dni)
-        if len(str(dni)) != 8:
-            condicion = False
-            motivo = "Formato de DNI invalido"
-    except:
+    except ValueError:
         condicion = False
-        motivo = "Se debe ingresa digitos en el campo DNI"
-    return(condicion,motivo)
+        motivo = "Se deben ingresar solo dígitos en el campo DNI"
+    else:
+        try:
+            usuario_existente = Usuario.objects.get(dni=dni)
+            condicion = False
+            motivo = "El DNI ingresado ya corresponde a un usuario"
+        except Usuario.DoesNotExist:
+            pass
+
+    return condicion, motivo
 
 
 def validar_correo(correo):
@@ -21,18 +36,25 @@ def validar_correo(correo):
     motivo = ""
     patron = r'^[\w\.-]+@[\w\.-]+\.\w+$'
     
-    # Verificar si el correo coincide con el patrón
-    if not validar_espacio_blanco(correo) or not re.match(patron, correo):
+    # Verificar si el correo coincide con el patrón y si no contiene espacios en blanco
+    if validar_espacio_blanco(correo) or not re.match(patron, correo):
         condicion = False
-        motivo = "Formato invalido para correo"
-    #chequear si deberia saber si mail existe o no
-    return(condicion,motivo)
+        motivo = "Formato inválido para correo"
+    else:
+        try:
+            # Verificar si el correo ya está en uso por otro usuario
+            if Usuario.objects.filter(email=correo).exists():
+                condicion = False
+                motivo = "Correo electrónico ya en uso"
+        except Exception as e:
+            motivo = str(e)
+            condicion = False
+
+    return (condicion, motivo)
+    
 
 def validar_espacio_blanco(cadena):
-    condicion = True
-    if any(i.isspace() for i in cadena):
-        condicion = False
-    return condicion
+    return any(i.isspace() for i in cadena)
 
 
 
@@ -40,7 +62,7 @@ def validar_contraseña(contraseña):
     condicion = True
     motivo = ""
 
-    if not validar_espacio_blanco(contraseña):
+    if validar_espacio_blanco(contraseña):
         condicion = False
         motivo = "La contraseña no puede contener espacios en blanco"
     
@@ -61,7 +83,7 @@ def validar_contraseña(contraseña):
 def validar_confirmacion(contraseña,contraseña2):
     condicion = True
     motivo = ""
-    if not validar_espacio_blanco(contraseña2):
+    if validar_espacio_blanco(contraseña2):
         condicion = False
         motivo = "La confirmacion no puede tener espacios en blanco"
     if not condicion or contraseña != contraseña2:
@@ -98,7 +120,7 @@ def validar_nombre_usuario(nombre):
     patron = r'^[a-zA-Z]+$'
     
     # Verificar si la cadena coincide con el patrón
-    if not validar_espacio_blanco(nombre) or not re.match(patron, nombre):
+    if validar_espacio_blanco(nombre) or not re.match(patron, nombre):
         condicion = False
         motivo = "Formato invalido para nombre de usuario"
     return (condicion,motivo)

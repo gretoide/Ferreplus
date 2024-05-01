@@ -2,12 +2,13 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from datetime import date
 
+
 class Usuario(models.Model):
     nombre = models.CharField(max_length=30)
-    apellido = models.CharField(max_length=30)
-    dni = models.PositiveIntegerField()  # Valor predeterminado de ejemplo
-    email = models.EmailField()  # Valor predeterminado de ejemplo
-    fecha_nacimiento = models.DateField()  # Valor predeterminado de ejemplo
+    dni = models.CharField(max_length= 8,primary_key=True, unique=True) 
+    contrasenia = models.CharField(max_length=20,default='')
+    email = models.EmailField(unique=True)  
+    fecha_nacimiento = models.DateField()  
 
 class Publicacion(models.Model):
     NUEVO = 'nuevo'

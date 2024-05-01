@@ -4,6 +4,7 @@ from django.template.loader import get_template
 from django.shortcuts import render, redirect
 from django.template import loader
 from pathlib import Path
+from .models import Usuario
 from ferreplus.modulos import modulos_sesion
 import os
 
@@ -26,7 +27,7 @@ def registro(request):
         usuario = request.POST.dict()
         condicion,motivo = modulos_sesion.verificar(usuario)
         if condicion: 
-            print("entre al if")
+            Usuario(usuario["nombre_completo"],usuario["dni"],usuario["contraseña"],usuario["correo_electronico"],usuario["fecha_nacimiento"]).save()
             return render(request,os.path.join(TEMPLATE_DIR,'pagina_inicio.html'),{"aviso": "Cuenta creada con exito"})
         return render(request, os.path.join(TEMPLATE_DIR,'vista_usuario','registro_usuario.html'),{'error' : motivo})
     else:
