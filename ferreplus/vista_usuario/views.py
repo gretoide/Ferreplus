@@ -27,7 +27,8 @@ def registro(request):
         condicion,motivo = modulos_sesion.verificar(usuario)
         if condicion: 
             print("entre al if")
-            return redirect("inicio",{"aviso" : "Cuenta creada con exito"})
+            return render(request,os.path.join(TEMPLATE_DIR,'pagina_inicio.html'),{"aviso": "Cuenta creada con exito"})
         return render(request, os.path.join(TEMPLATE_DIR,'vista_usuario','registro_usuario.html'),{'error' : motivo})
-    return render(request, os.path.join(TEMPLATE_DIR,'vista_usuario','registro_usuario.html'))
+    else:
+        return render(request, os.path.join(TEMPLATE_DIR,'vista_usuario','registro_usuario.html'),{})
     

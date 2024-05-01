@@ -48,10 +48,10 @@ def validar_contraseña(contraseña):
         motivo = "La contraseña debe contener al menos 6 caracteres"
         condicion = False 
     
-    if not re.search(r"[A-Z]", contraseña) or condicion:
+    if not re.search(r"[A-Z]", contraseña) or not condicion:
         motivo = "La contraseña debe contener al menos una letra mayúscula"
         condicion = False
-    if not re.search(r"\d", contraseña) or condicion:
+    if not re.search(r"\d", contraseña) or not condicion:
         
         motivo = "La contraseña debe contener al menos un número"
         motivo = False
