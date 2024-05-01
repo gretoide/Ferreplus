@@ -66,17 +66,17 @@ def validar_contraseña(contraseña):
         condicion = False
         motivo = "La contraseña no puede contener espacios en blanco"
     
-    if len(contraseña) < 6:
+    if condicion and len(contraseña) < 6:
         motivo = "La contraseña debe contener al menos 6 caracteres"
         condicion = False 
     
-    if not re.search(r"[A-Z]", contraseña) or not condicion:
+    if condicion and not re.search(r"[A-Z]", contraseña) :
         motivo = "La contraseña debe contener al menos una letra mayúscula"
         condicion = False
-    if not re.search(r"\d", contraseña) or not condicion:
+    if  condicion and not re.search(r"\d", contraseña):
         
         motivo = "La contraseña debe contener al menos un número"
-        motivo = False
+        condicion = False
     
     return(condicion,motivo)
 
