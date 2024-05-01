@@ -7,9 +7,9 @@ def validar_dni(dni):
     motivo = ""
     try:
         dni = int(dni)
-        if len(str(dni)) != 11:
+        if len(str(dni)) != 8:
             condicion = False
-            motivo = "Se debe ingresa digitos en el campo DNI"
+            motivo = "Formato de DNI invalido"
     except:
         condicion = False
         motivo = "Se debe ingresa digitos en el campo DNI"
@@ -98,12 +98,15 @@ def validar_nombre_usuario(nombre):
     patron = r'^[a-zA-Z]+$'
     
     # Verificar si la cadena coincide con el patrón
-    if validar_espacio_blanco(nombre) or not re.match(patron, nombre):
+    if not validar_espacio_blanco(nombre) or not re.match(patron, nombre):
         condicion = False
         motivo = "Formato invalido para nombre de usuario"
     return (condicion,motivo)
 
 def verificar(usuario):
-    if usuario["dni"] == "111":
-        return (False,"Motivo: ")
-    
+    lista_validaciones = [validar_nombre_usuario(usuario["nombre_completo"]),validar_dni(usuario["dni"]),validar_correo(usuario["correo_electronico"]),
+                       validar_contraseña(usuario["contraseña"]),validar_confirmacion(usuario["contraseña"],usuario["confirmar_contraseña"]),validar_fecha(usuario["fecha_nacimiento"])]
+    for condicion,motivo in lista_validaciones:
+        if not condicion:
+            break
+    return (condicion,motivo)

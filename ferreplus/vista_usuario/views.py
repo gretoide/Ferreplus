@@ -24,9 +24,10 @@ def registro(request):
     if request.method == "POST":
         #Obtengo usuario si el metodo fue un post
         usuario = request.POST.dict()
-        condicion,motivo = modulos_sesion.verificar_fecha(usuario["fecha_nacimiento"])
+        condicion,motivo = modulos_sesion.verificar(usuario)
         if condicion: 
-            return redirect("inicio")
+            print("entre al if")
+            return redirect("inicio",{"aviso" : "Cuenta creada con exito"})
         return render(request, os.path.join(TEMPLATE_DIR,'vista_usuario','registro_usuario.html'),{'error' : motivo})
     return render(request, os.path.join(TEMPLATE_DIR,'vista_usuario','registro_usuario.html'))
     
