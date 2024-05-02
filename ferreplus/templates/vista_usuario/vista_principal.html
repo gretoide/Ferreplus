@@ -11,81 +11,6 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/vista_intercambios.css' %}">
 </head>
 <body>
-    <!-- SIDE BAR MENU -->
-    <div id="mySidebar" class="sidebar">
-
-        <!-- Boton de configuración-->
-        <button class="bi bi-sliders"></button>
-        
-        <!-- Botón de cerrar menu -->
-        <button class="bi bi-x-circle" id="closeBtn" onclick="w3_close()"></button>
-
-        <!-- Apartado de la cuenta del usuario -->
-        <div class="d-flex justify-content-center align-items-center mt-3 mb-4">
-            <!-- Foto circular de la cuenta del usuario -->
-            <div class="rounded-circle overflow-hidden" style="width: 70px; height: 70px;">
-                <img src="https://picsum.photos/200/200" class="img-fluid" alt="Foto de perfil">
-            </div>
-        </div>
-
-        <!-- Solicitudes de oferta -->
-        <div class="mb-3">
-            <a class="btn btn-primary" role="button" data-bs-toggle="button">Solicitudes de oferta</a>
-        </div>
-
-        <!-- Ver intercambios -->
-        <div class="mb-3">
-            <a class="btn btn-primary" role="button" data-bs-toggle="button">Ver intercambios</a>
-        </div>
-
-        <!-- Mis publicaciones -->
-        <div class="mb-3">
-            <a class="btn btn-primary" role="button" data-bs-toggle="button">Mis publicaciones</a>
-        </div>
-
-        <!-- Barra de buscar por nombre de producto -->
-        <div class="mb-3">
-            <input class="form-control me-2" type="search" placeholder="Búsqueda" aria-label="Search">
-        </div>
-
-        <!-- Filtrar por sucursal -->
-        <div class="mb-3">
-            <label class="select" for="slct">
-                <select id="slct" required>
-                    <option value="" disabled selected>Seleccionar sucursal</option>
-                    <option value="#">One</option>
-                    <option value="#">Two</option>
-                    <option value="#">Three</option>
-                    <option value="#">Four</option>
-                    <option value="#">Five</option>
-                    <option value="#">Six</option>
-                    <option value="#">Seven</option>
-                </select>
-            </label>
-        </div>
-
-        <!-- Filtrar por estado -->
-        <div class="mb-3" id="CheckerContainer">
-            <h6 class="fw-bold mb-3">Estado</h6>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                <label class="form-check-label" for="flexRadioDefault1">
-                  Nuevo
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-                <label class="form-check-label" for="flexRadioDefault2">
-                  Usado
-                </label>
-              </div>
-        </div>
-        
-        <!-- Subir publicación -->
-        <div class="mb-3" id="btnSubirPublicacionContainer">
-            <button class="btn btn-primary" id="botonSubirPublicacion" role="button" data-toggle="modal" data-target="#modalSubirPublicacion">Subir publicación</button>
-        </div>
-    </div>
 
     <!-- CONTENIDO PRINCIPAL -->
     <div id="main">
@@ -125,118 +50,29 @@
         </div>
     </div>
 
+    <!-- SideBar-->
+    {% include 'vista_usuario/vista_principal_sidebar.html' %}
+
     <!-- MODAL para subir publicación -->
-    <div class="modal fade" id="modalSubirPublicacion" tabindex="-1" aria-labelledby="modalSubirPublicacionLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg"> <!-- Tamaño grande del modal y centrado verticalmente -->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalSubirPublicacionLabel">Subir publicación</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <!-- Formulario de subir publicación -->
-                    <form>
-                        <!-- Campos del formulario -->
-                        <div class="mb-3">
-                            <label for="titulo" class="form-label">Título</label>
-                            <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Título">
-                        </div>
-                        <!-- IMAGENES -->
-                        <div class="d-flex flex-row align-items-center justify-content-center">
-                            <div class="image-upload-container mr-3">
-                                <input type="file" class="image-upload-input d-none" id="customFile1" onchange="displaySelectedImage(event)" accept="image/*">
-                                <label for="customFile1" class="image-upload-label">
-                                    <span class="bi bi-plus-lg"></span>
-                                </label>
-                            </div>
-                            <div class="image-upload-container mr-3">
-                                <input type="file" class="image-upload-input d-none" id="customFile2" onchange="displaySelectedImage(event)" accept="image/*">
-                                <label for="customFile2" class="image-upload-label">
-                                    <span class="bi bi-plus-lg"></span>
-                                </label>
-                            </div>
-                            <div class="image-upload-container mr-3">
-                                <input type="file" class="image-upload-input d-none" id="customFile3" onchange="displaySelectedImage(event)" accept="image/*">
-                                <label for="customFile3" class="image-upload-label">
-                                    <span class="bi bi-plus-lg"></span>
-                                </label>
-                            </div>
-                            <div class="image-upload-container mr-3">
-                                <input type="file" class="image-upload-input d-none" id="customFile4" onchange="displaySelectedImage(event)" accept="image/*">
-                                <label for="customFile4" class="image-upload-label">
-                                    <span class="bi bi-plus-lg"></span>
-                                </label>
-                            </div>
-                            <div class="image-upload-container mr-3">
-                                <input type="file" class="image-upload-input d-none" id="customFile5" onchange="displaySelectedImage(event)" accept="image/*">
-                                <label for="customFile5" class="image-upload-label">
-                                    <span class="bi bi-plus-lg"></span>
-                                </label>
-                            </div>
-                        </div>
-                        
-                        <!-- Selección del estado del producto -->
-                        <div class="mb-3">
-                            <label class="select" for="slct">
-                                <label for="slct" class="form-label">Estado del producto</label>
-                                <select id="slct" required>
-                                    <option value="#">Nuevo</option>
-                                    <option value="#">Usado</option>
-                                </select>
-                            </label>
-                        </div>
-                        <!-- Selección de la categoría del producto-->
-                        <div class="mb-3">
-                            <label class="select" for="slct">
-                                <label for="slct" class="form-label">Categoría</label>
-                                <select id="slct" required>
-                                    <option value="" disabled selected>Otros</option>
-                                    <option value="#">Electricidad</option>
-                                    <option value="#">Ferretería general</option>
-                                    <option value="#">Construcción</option>
-                                    <option value="#">Herramientas</option>
-                                    <option value="#">Jardinería</option>
-                                    <option value="#">Protección personal</option>
-                                </select>
-                            </label>
-                        </div>
-                        <!-- Selección de sucursal deseada para el intercambio -->
-                        <div class="mb-3">
-                            <label class="select" for="slct">
-                                <label for="slct" class="form-label">Sucursal deseada para el encuentro</label>
-                                <select id="slct" required>
-                                    <option value="" disabled selected>Sucursal</option>
-                                    <option value="#">One</option>
-                                    <option value="#">Two</option>
-                                    <option value="#">Three</option>
-                                    <option value="#">Four</option>
-                                    <option value="#">Five</option>
-                                    <option value="#">Six</option>
-                                    <option value="#">Seven</option>
-                                </select>
-                            </label>
-                        </div>
-                        <!-- Descripción de la publicación -->
-                        <div class="mb-3">
-                            <label for="descripcion" class="form-label">Descripción</label>
-                            <textarea class="form-control" id="descripcion" name="descripcion" placeholder="Descripción"></textarea>
-                        </div>
-                        <!-- Subir publicación -->
-                        <div class="mb-3">
-                            <button type="submit" class="btn btn-primary">Subir</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
+    {% include 'vista_usuario/modal_subir_publicacion.html' %}
+
+    <!-- Popup de error -->
+    {% if error %}
+    <div class="popup">
+        <div class="popup-inner">
+            <h2>Error</h2>
+            <p>{{ error }}</p>
+            <button onclick="closePopup()">Cerrar</button>
         </div>
     </div>
+    {% endif %}
+
 
     <!-- Enlace a Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
 
     <script>
         $('#modalSubirPublicacion').on('show.bs.modal', function (e) {
@@ -283,6 +119,11 @@
             if (file) {
                 reader.readAsDataURL(file);
             }
+        }
+
+        // JavaScript en tu plantilla HTML
+        function closePopup() {
+            document.querySelector('.popup').style.display = 'none';
         }
     </script>
 </body>

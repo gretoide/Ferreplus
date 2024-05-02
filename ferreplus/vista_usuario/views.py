@@ -8,8 +8,9 @@ from django.conf import settings
 from django.urls import reverse
 from django.contrib.auth import views as auth_views
 from pathlib import Path
-from .models import Usuario
+from .models import Usuario, Publicacion, Imagen
 from ferreplus.modulos import modulos_sesion
+from .modulos import modulos_publicacion
 import os
 import secrets
 
@@ -21,8 +22,25 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Define the template directory path using os.path.join
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 
-def  principal(request):
-    return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario', 'vista_principal.html'))
+def subir_publicacion(request):
+    if request.method == "POST":
+        # Obtener datos de la publicación y las imágenes del formulario
+        datos_publicacion = request.POST.dict()
+        imagenes = request.FILES.getlist('imagen')  # Obtener lista de imágenes
+
+        # Verificar y crear la publicación utilizando la función modularizada
+        exito, mensaje = modulos_publicacion.verificar_y_crear_publicacion(datos_publicacion, imagenes)
+        
+        if exito:
+            # Redirigir a la misma página o a otra de tu elección
+            return render(request, 'vista_usuario/vista_principal.html', {'aviso': mensaje})
+        else:
+            # Mostrar mensaje de error
+            return render(request, 'vista_usuario/vista_principal.html', {'error': mensaje})
+    else:
+        # Si es una solicitud GET, simplemente renderizar la página principal
+        return render(request, 'vista_usuario/vista_principal.html')
+
 
 def crear_oferta(request):
     return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario','crear_oferta.html'))
