@@ -160,8 +160,8 @@
                             <label class="select" for="estado">
                                 <label for="estado" class="form-label">Estado del producto</label>
                                 <select id="estado" name="estado" required>
-                                    <option value="#">Nuevo</option>
-                                    <option value="#">Usado</option>
+                                    <option value="Nuevo">Nuevo</option>
+                                    <option value="Usado">Usado</option>
                                 </select>
                             </label>
                         </div>
@@ -170,13 +170,12 @@
                             <label class="select" for="categoria">
                                 <label for="categoria" class="form-label">Categoría</label>
                                 <select id="categoria" name="categoria" required>
-                                    <option value="" disabled selected>Otros</option>
-                                    <option value="#">Electricidad</option>
-                                    <option value="#">Ferretería general</option>
-                                    <option value="#">Construcción</option>
-                                    <option value="#">Herramientas</option>
-                                    <option value="#">Jardinería</option>
-                                    <option value="#">Protección personal</option>
+                                    <option value="Electricidad">Electricidad</option>
+                                    <option value="Ferretería general">Ferretería general</option>
+                                    <option value="Construcción">Construcción</option>
+                                    <option value="Herramientas">Herramientas</option>
+                                    <option value="Jardinería">Jardinería</option>
+                                    <option value="Protección personal">Protección personal</option>
                                 </select>
                             </label>
                         </div>
@@ -185,26 +184,21 @@
                             <label class="select" for="sucursal">
                                 <label for="sucursal" class="form-label">Sucursal deseada para el encuentro</label>
                                 <select id="sucursal" name="sucursal" required>
-                                    <option value="" disabled selected>Sucursal</option>
-                                    <option value="#">One</option>
-                                    <option value="#">Two</option>
-                                    <option value="#">Three</option>
-                                    <option value="#">Four</option>
-                                    <option value="#">Five</option>
-                                    <option value="#">Six</option>
-                                    <option value="#">Seven</option>
+                                    <option value="One">One</option>
+                                    <option value="Two">Two</option>
+                                    <option value="Three">Three</option>
+                                    <option value="Four">Four</option>
+                                    <option value="Five">Five</option>
+                                    <option value="Six">Six</option>
+                                    <option value="Seven">Seven</option>
                                 </select>
                             </label>
                         </div>
+
                         <!-- Descripción de la publicación -->
                         <div class="mb-3">
                             <label for="descripcion" class="form-label">Descripción</label>
                             <textarea class="form-control" id="descripcion" name="descripcion" placeholder="Descripción"></textarea>
-                        </div>
-                        <!-- Horario de la publicación -->
-                        <div class="mb-3">
-                            <label for="horario" class="form-label">Horario</label>
-                            <input type="text" class="form-control" id="horario" name="horario" placeholder="Horario">
                         </div>
                         <!-- Subir publicación -->
                         <div class="mb-3">

@@ -31,12 +31,13 @@ class Publicacion(models.Model):
         ('Protección personal', 'Protección personal'),
     ]
 
-    nombre_producto = models.CharField(max_length=100)
+    titulo = models.CharField(max_length=100)
     estado = models.CharField(max_length=10, choices=ESTADOS_CHOICES, default=NUEVO)
     categoria = models.CharField(max_length=50, choices=CATEGORIA_CHOICES)
+    sucursal = models.CharField(max_length=100)  # Esto puede cambiarse a ForeignKey si tienes una tabla de sucursales
     descripcion = models.TextField()
-    sucursal_a_retirar = models.CharField(max_length=100)  # Esto puede cambiarse a ForeignKey si tienes una tabla de sucursales
-    horario = models.CharField(max_length=100)
+    
+    #horario = models.CharField(max_length=100)
     #autor = models.ForeignKey(User, on_delete=models.CASCADE)  # Asumiendo que Usuario es tu modelo de usuario
 
 class Imagen(models.Model):

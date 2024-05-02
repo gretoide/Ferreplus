@@ -10,6 +10,7 @@ from django.contrib.auth import views as auth_views
 from pathlib import Path
 from .models import Usuario, Publicacion, Imagen
 from ferreplus.modulos import modulos_sesion
+from .modulos import modulos_publicacion
 import os
 import secrets
 
@@ -22,36 +23,40 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 
 def principal(request):
-    if request.method == 'POST':
-        titulo = request.POST.get('titulo')
-        estado = request.POST.get('estado')
-        categoria = request.POST.get('categoria')
-        descripcion = request.POST.get('descripcion')
-        sucursal = request.POST.get('sucursal')
-        horario = request.POST.get('horario')
+    if request.method == "POST":
+        # Obtener datos de la publicación y las imágenes del formulario
+        datos_publicacion = request.POST.dict()
+        imagenes = request.FILES.getlist('imagen')  # Obtener lista de imágenes
 
-        # Crear la nueva publicación
-        nueva_publicacion = Publicacion.objects.create(
-            nombre_producto=titulo,
-            estado=estado,
-            categoria=categoria,
-            descripcion=descripcion,
-            sucursal_a_retirar=sucursal,
-            horario=horario
-        )
+        # Verificar la publicación
+        condicion, motivo = modulos_publicacion.verificar_publicacion(datos_publicacion)
+        
+        if condicion:
+            # Crear la nueva publicación
+            nueva_publicacion = Publicacion.objects.create(
+                titulo=datos_publicacion.get('titulo'),
+                estado=datos_publicacion.get('estado'),
+                categoria=datos_publicacion.get('categoria'),
+                sucursal=datos_publicacion.get('sucursal'),
+                descripcion=datos_publicacion.get('descripcion')
+            )
 
-        # Guardar las imágenes asociadas a la publicación
-        for index in range(1, 6):
-            imagen_file = request.FILES.get(f'imagen{index}')
-            if imagen_file:
+            nueva_publicacion.save()
+
+            # Guardar las imágenes asociadas a la publicación
+            for imagen_file in imagenes:
                 imagen = Imagen(publicacion=nueva_publicacion, imagen=imagen_file)
                 imagen.save()
 
-        # Redirigir a la misma página o a otra de tu elección
-        return render(request, 'vista_usuario/vista_principal.html', {})
+            # Redirigir a la misma página o a otra de tu elección
+            return render(request, 'vista_usuario/vista_principal.html', {'aviso':'Publicación creada con éxito.'})
+        else:
+            # Mostrar mensaje de error
+            return render(request, 'vista_usuario/vista_principal.html', {'error': motivo})
     else:
-        # Si es una solicitud GET, simplemente renderiza la página principal
-        return render(request, 'vista_usuario/vista_principal.html')        
+        # Si es una solicitud GET, simplemente renderizar la página principal
+        return render(request, 'vista_usuario/vista_principal.html')
+
 
 def crear_oferta(request):
     return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario','crear_oferta.html'))
