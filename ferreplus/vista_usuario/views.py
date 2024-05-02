@@ -22,37 +22,21 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Define the template directory path using os.path.join
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 
-def principal(request):
+def subir_publicacion(request):
     if request.method == "POST":
         # Obtener datos de la publicación y las imágenes del formulario
         datos_publicacion = request.POST.dict()
         imagenes = request.FILES.getlist('imagen')  # Obtener lista de imágenes
 
-        # Verificar la publicación
-        condicion, motivo = modulos_publicacion.verificar_publicacion(datos_publicacion)
+        # Verificar y crear la publicación utilizando la función modularizada
+        exito, mensaje = modulos_publicacion.verificar_y_crear_publicacion(datos_publicacion, imagenes)
         
-        if condicion:
-            # Crear la nueva publicación
-            nueva_publicacion = Publicacion.objects.create(
-                titulo=datos_publicacion.get('titulo'),
-                estado=datos_publicacion.get('estado'),
-                categoria=datos_publicacion.get('categoria'),
-                sucursal=datos_publicacion.get('sucursal'),
-                descripcion=datos_publicacion.get('descripcion')
-            )
-
-            nueva_publicacion.save()
-
-            # Guardar las imágenes asociadas a la publicación
-            for imagen_file in imagenes:
-                imagen = Imagen(publicacion=nueva_publicacion, imagen=imagen_file)
-                imagen.save()
-
+        if exito:
             # Redirigir a la misma página o a otra de tu elección
-            return render(request, 'vista_usuario/vista_principal.html', {'aviso':'Publicación creada con éxito.'})
+            return render(request, 'vista_usuario/vista_principal.html', {'aviso': mensaje})
         else:
             # Mostrar mensaje de error
-            return render(request, 'vista_usuario/vista_principal.html', {'error': motivo})
+            return render(request, 'vista_usuario/vista_principal.html', {'error': mensaje})
     else:
         # Si es una solicitud GET, simplemente renderizar la página principal
         return render(request, 'vista_usuario/vista_principal.html')
