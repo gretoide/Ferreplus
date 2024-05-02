@@ -137,7 +137,8 @@
                 </div>
                 <div class="modal-body">
                     <!-- Formulario de subir publicación -->
-                    <form>
+                    <form method="post" action="{% url 'pagina-principal' %}">
+                        {% csrf_token %}
                         <!-- Campos del formulario -->
                         <div class="mb-3">
                             <label for="titulo" class="form-label">Título</label>
@@ -151,37 +152,14 @@
                                     <span class="bi bi-plus-lg"></span>
                                 </label>
                             </div>
-                            <div class="image-upload-container mr-3">
-                                <input type="file" class="image-upload-input d-none" id="customFile2" onchange="displaySelectedImage(event)" accept="image/*">
-                                <label for="customFile2" class="image-upload-label">
-                                    <span class="bi bi-plus-lg"></span>
-                                </label>
-                            </div>
-                            <div class="image-upload-container mr-3">
-                                <input type="file" class="image-upload-input d-none" id="customFile3" onchange="displaySelectedImage(event)" accept="image/*">
-                                <label for="customFile3" class="image-upload-label">
-                                    <span class="bi bi-plus-lg"></span>
-                                </label>
-                            </div>
-                            <div class="image-upload-container mr-3">
-                                <input type="file" class="image-upload-input d-none" id="customFile4" onchange="displaySelectedImage(event)" accept="image/*">
-                                <label for="customFile4" class="image-upload-label">
-                                    <span class="bi bi-plus-lg"></span>
-                                </label>
-                            </div>
-                            <div class="image-upload-container mr-3">
-                                <input type="file" class="image-upload-input d-none" id="customFile5" onchange="displaySelectedImage(event)" accept="image/*">
-                                <label for="customFile5" class="image-upload-label">
-                                    <span class="bi bi-plus-lg"></span>
-                                </label>
-                            </div>
+                            <!-- Repite esto para los otros campos de imagen -->
                         </div>
                         
                         <!-- Selección del estado del producto -->
                         <div class="mb-3">
-                            <label class="select" for="slct">
-                                <label for="slct" class="form-label">Estado del producto</label>
-                                <select id="slct" required>
+                            <label class="select" for="estado">
+                                <label for="estado" class="form-label">Estado del producto</label>
+                                <select id="estado" name="estado" required>
                                     <option value="#">Nuevo</option>
                                     <option value="#">Usado</option>
                                 </select>
@@ -189,9 +167,9 @@
                         </div>
                         <!-- Selección de la categoría del producto-->
                         <div class="mb-3">
-                            <label class="select" for="slct">
-                                <label for="slct" class="form-label">Categoría</label>
-                                <select id="slct" required>
+                            <label class="select" for="categoria">
+                                <label for="categoria" class="form-label">Categoría</label>
+                                <select id="categoria" name="categoria" required>
                                     <option value="" disabled selected>Otros</option>
                                     <option value="#">Electricidad</option>
                                     <option value="#">Ferretería general</option>
@@ -204,9 +182,9 @@
                         </div>
                         <!-- Selección de sucursal deseada para el intercambio -->
                         <div class="mb-3">
-                            <label class="select" for="slct">
-                                <label for="slct" class="form-label">Sucursal deseada para el encuentro</label>
-                                <select id="slct" required>
+                            <label class="select" for="sucursal">
+                                <label for="sucursal" class="form-label">Sucursal deseada para el encuentro</label>
+                                <select id="sucursal" name="sucursal" required>
                                     <option value="" disabled selected>Sucursal</option>
                                     <option value="#">One</option>
                                     <option value="#">Two</option>
@@ -223,6 +201,11 @@
                             <label for="descripcion" class="form-label">Descripción</label>
                             <textarea class="form-control" id="descripcion" name="descripcion" placeholder="Descripción"></textarea>
                         </div>
+                        <!-- Horario de la publicación -->
+                        <div class="mb-3">
+                            <label for="horario" class="form-label">Horario</label>
+                            <input type="text" class="form-control" id="horario" name="horario" placeholder="Horario">
+                        </div>
                         <!-- Subir publicación -->
                         <div class="mb-3">
                             <button type="submit" class="btn btn-primary">Subir</button>
@@ -232,6 +215,7 @@
             </div>
         </div>
     </div>
+
 
     <!-- Enlace a Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

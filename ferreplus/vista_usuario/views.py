@@ -8,7 +8,7 @@ from django.conf import settings
 from django.urls import reverse
 from django.contrib.auth import views as auth_views
 from pathlib import Path
-from .models import Usuario
+from .models import Usuario, Publicacion, Imagen
 from ferreplus.modulos import modulos_sesion
 import os
 import secrets
@@ -21,8 +21,37 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Define the template directory path using os.path.join
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 
-def  principal(request):
-    return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario', 'vista_principal.html'))
+def principal(request):
+    if request.method == 'POST':
+        titulo = request.POST.get('titulo')
+        estado = request.POST.get('estado')
+        categoria = request.POST.get('categoria')
+        descripcion = request.POST.get('descripcion')
+        sucursal = request.POST.get('sucursal')
+        horario = request.POST.get('horario')
+
+        # Crear la nueva publicación
+        nueva_publicacion = Publicacion.objects.create(
+            nombre_producto=titulo,
+            estado=estado,
+            categoria=categoria,
+            descripcion=descripcion,
+            sucursal_a_retirar=sucursal,
+            horario=horario
+        )
+
+        # Guardar las imágenes asociadas a la publicación
+        for index in range(1, 6):
+            imagen_file = request.FILES.get(f'imagen{index}')
+            if imagen_file:
+                imagen = Imagen(publicacion=nueva_publicacion, imagen=imagen_file)
+                imagen.save()
+
+        # Redirigir a la misma página o a otra de tu elección
+        return render(request, 'vista_usuario/vista_principal.html', {})
+    else:
+        # Si es una solicitud GET, simplemente renderiza la página principal
+        return render(request, 'vista_usuario/vista_principal.html')        
 
 def crear_oferta(request):
     return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario','crear_oferta.html'))
