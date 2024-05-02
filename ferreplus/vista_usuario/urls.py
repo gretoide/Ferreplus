@@ -7,6 +7,6 @@ urlpatterns = [
     path('pagina-principal/', user_views.subir_publicacion, name="pagina-principal"),
     path('restablecer-contraseña/', user_views.restablecerContraseña, name="restablecer_contraseña"),
     path('ingresar-codigo/<str:email>', user_views.ingresarCodigo, name="ingresar_codigo"),
-    path('cambiar-constraseña/<str:email>/<str:contraseña>', user_views.cambiarContraseña, name="cambiar_contraseña"),
+    path('cambiar-contraseña/<str:email>/<str:contraseña>', user_views.cambiarContraseña, name="cambiar_contraseña"),
     path('cambiar-contraseña-exito', user_views.cambiarContraseñaExito, name="cambiar_contraseña_exito"),
 ]

@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.template.loader import get_template
 from django.shortcuts import render, redirect
 from django.template import loader
@@ -81,7 +81,6 @@ def ingresarCodigo(request, email, codigo=[""]):
         })
     else:
         if request.POST["codigo"] == codigo[0]:
-            print("hola")
             return redirect("cambiar_contraseña", email=email, contraseña=user.contrasenia)
         else:
             return render(request, os.path.join(TEMPLATE_DIR,'vista_usuario','ingresar_codigo.html'), {
@@ -91,15 +90,23 @@ def ingresarCodigo(request, email, codigo=[""]):
 
 def cambiarContraseña(request, email, contraseña):
     user = get_object_or_404(Usuario, email=email)
+    if user.contrasenia != contraseña:
+        raise Http404
     if request.method == "GET":
         return render(request, os.path.join(TEMPLATE_DIR,'vista_usuario','cambiar_contraseña.html'), {
             "error": ""
         })
     else:
         if request.POST["contraseña1"] == request.POST["contraseña2"]:
-            user.contrasenia = request.POST["contraseña1"]
-            user.save()
-            return redirect("cambiar_contraseña_exito") 
+            resultado = modulos_sesion.validar_contraseña(request.POST["contraseña1"])
+            if resultado[0]:
+                user.contrasenia = request.POST["contraseña1"]
+                user.save()
+                return redirect("cambiar_contraseña_exito") 
+            else:
+                return render(request, os.path.join(TEMPLATE_DIR,'vista_usuario','cambiar_contraseña.html'), {
+                    "error": resultado[1]
+                })
         else:
             return render(request, os.path.join(TEMPLATE_DIR,'vista_usuario','cambiar_contraseña.html'), {
                 "error": "Las contraseñas no coinciden."
