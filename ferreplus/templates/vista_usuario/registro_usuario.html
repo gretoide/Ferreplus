@@ -13,9 +13,14 @@
     <h1 class="text-center mb-4">Crea una cuenta</h1>
     <form method="post"> <!-- Agregamos el método POST al formulario -->
       {% csrf_token %}
-      {{error}}
+      <div  class="mb-3">
+        {{error}}
+      </div>
       <div class="mb-3">
-        <input type="text" class="form-control" placeholder="Nombre completo" name="nombre_completo" required> <!-- Agregamos el atributo name -->
+        <input type="text" class="form-control" placeholder="Nombre" name="nombre" required> <!-- Agregamos el atributo name -->
+      </div>
+      <div class="mb-3">
+        <input type="text" class="form-control" placeholder="Apellido" name="apellido" required> <!-- Agregamos el atributo name -->
       </div>
       <div class="mb-3">
         <input type="text" class="form-control" placeholder="DNI" name="dni" required> <!-- Agregamos el atributo name -->

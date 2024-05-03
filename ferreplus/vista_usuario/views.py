@@ -51,11 +51,12 @@ def registro(request):
         usuario = request.POST.dict()
         condicion,motivo = modulos_sesion.verificar(usuario)
         if condicion: 
-            Usuario(usuario["nombre_completo"],usuario["dni"],usuario["contraseña"],usuario["correo_electronico"],usuario["fecha_nacimiento"]).save()
+            Usuario(usuario["nombre"],usuario["apellido"],usuario["dni"],usuario["contraseña"],usuario["correo_electronico"],usuario["fecha_nacimiento"]).save()
             return render(request,os.path.join(TEMPLATE_DIR,'pagina_inicio.html'),{"aviso": "Cuenta creada con exito"})
         return render(request, os.path.join(TEMPLATE_DIR,'vista_usuario','registro_usuario.html'),{'error' : motivo})
     else:
         return render(request, os.path.join(TEMPLATE_DIR,'vista_usuario','registro_usuario.html'),{})
+    
 
 def restablecerContraseña(request):
     if request.method == "GET":

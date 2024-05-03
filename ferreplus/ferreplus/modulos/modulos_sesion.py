@@ -114,7 +114,7 @@ def validar_fecha(fecha):
 
     return (condicion, motivo)
 
-def validar_nombre_usuario(nombre):
+def validar_nombre(nombre):
     condicion = True
     motivo = ""
     patron = r'^[a-zA-Z]+$'
@@ -122,11 +122,22 @@ def validar_nombre_usuario(nombre):
     # Verificar si la cadena coincide con el patrón
     if validar_espacio_blanco(nombre) or not re.match(patron, nombre):
         condicion = False
-        motivo = "Formato invalido para nombre de usuario"
+        motivo = "Formato invalido para el campo nombre"
+    return (condicion,motivo)
+
+def validar_apellido(apellido):
+    condicion = True
+    motivo = ""
+    patron = r'^[a-zA-Z]+$'
+    
+    # Verificar si la cadena coincide con el patrón
+    if validar_espacio_blanco(apellido) or not re.match(patron, apellido):
+        condicion = False
+        motivo = "Formato invalido para el campo apellido"
     return (condicion,motivo)
 
 def verificar(usuario):
-    lista_validaciones = [validar_nombre_usuario(usuario["nombre_completo"]),validar_dni(usuario["dni"]),validar_correo(usuario["correo_electronico"]),
+    lista_validaciones = [validar_nombre(usuario["nombre"]),validar_apellido(usuario["apellido"]),validar_dni(usuario["dni"]),validar_correo(usuario["correo_electronico"]),
                        validar_contraseña(usuario["contraseña"]),validar_confirmacion(usuario["contraseña"],usuario["confirmar_contraseña"]),validar_fecha(usuario["fecha_nacimiento"])]
     for condicion,motivo in lista_validaciones:
         if not condicion:
