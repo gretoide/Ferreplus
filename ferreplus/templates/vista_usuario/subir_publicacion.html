@@ -32,7 +32,7 @@
     {% endif %}
 
 
-    <form id="subirPublicacionForm" method="post" action="{% url 'subir_publicacion' %}">
+    <form id="subirPublicacionForm" method="post" action="{% url 'subir_publicacion' %}" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="mb-3">
             <label for="titulo" class="form-label">Título</label>
@@ -40,13 +40,8 @@
         </div>
         <!-- IMAGENES -->
         <div class="d-flex flex-row align-items-center justify-content-center">
-            <div class="image-upload-container mr-3">
-                <input type="file" class="image-upload-input d-none" id="customFile1" onchange="displaySelectedImage(event)" accept="image/*">
-                <label for="customFile1" class="image-upload-label">
-                    <span class="bi bi-plus-lg"></span>
-                </label>
-            </div>
-            <!-- Repite esto para los otros campos de imagen -->
+            <label class="form-label" for="customFile"></label>
+            <input type="file" class="form-control" name="imagen" id="customFile" multiple accept="image/*"/>
         </div>
         
         <!-- Selección del estado del producto -->
