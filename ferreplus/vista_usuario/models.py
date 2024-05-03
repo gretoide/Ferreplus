@@ -12,6 +12,8 @@ class Usuario(models.Model):
     contrasenia = models.CharField(max_length=20,default='')
     email = models.EmailField(unique=True)  
     fecha_nacimiento = models.DateField()  
+    
+    
 
 class Publicacion(models.Model):
 

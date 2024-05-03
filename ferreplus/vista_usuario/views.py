@@ -9,7 +9,7 @@ from django.urls import reverse
 from django.contrib.auth import views as auth_views
 from pathlib import Path
 from .models import Usuario, Publicacion, Imagen
-from ferreplus.modulos import modulos_sesion
+from ferreplus.modulos import modulos_registro
 from .modulos import modulos_publicacion
 import os
 import secrets
@@ -49,7 +49,7 @@ def registro(request):
     if request.method == "POST":
         #Obtengo usuario si el metodo fue un post
         usuario = request.POST.dict()
-        condicion,motivo = modulos_sesion.verificar(usuario)
+        condicion,motivo = modulos_registro.verificar(usuario)
         if condicion: 
             Usuario(usuario["nombre"],usuario["apellido"],usuario["dni"],usuario["contraseña"],usuario["correo_electronico"],usuario["fecha_nacimiento"]).save()
             return render(request,os.path.join(TEMPLATE_DIR,'pagina_inicio.html'),{"aviso": "Cuenta creada con exito"})
@@ -99,7 +99,7 @@ def cambiarContraseña(request, email, contraseña):
         })
     else:
         if request.POST["contraseña1"] == request.POST["contraseña2"]:
-            resultado = modulos_sesion.validar_contraseña(request.POST["contraseña1"])
+            resultado = modulos_registro.validar_contraseña(request.POST["contraseña1"])
             if resultado[0]:
                 user.contrasenia = request.POST["contraseña1"]
                 user.save()
