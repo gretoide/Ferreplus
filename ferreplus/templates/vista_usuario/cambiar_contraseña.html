@@ -11,13 +11,13 @@
 <body>
   <div class="container">
     <h2 class="text-center mb-4">Restablecer contraseña</h2>
-    <p style="color: red;">{{error}}</p>
     <form method="post"> <!-- Agregamos el método POST al formulario -->
       {% csrf_token %}
       <div class="mb-3">
         <input type="text" class="form-control" placeholder="contraseña" name="contraseña1" required>
         <input type="text" class="form-control" placeholder="reingresar contraseña" name="contraseña2" required>
       </div>
+      <p style="color: red;">{{error}}</p>
       <button type="submit" class="btn btn-register">Enviar</button>
     </form>
   </div>

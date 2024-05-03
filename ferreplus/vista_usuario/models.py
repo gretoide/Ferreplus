@@ -7,6 +7,7 @@ from datetime import date
 
 class Usuario(models.Model):
     nombre = models.CharField(max_length=30)
+    apellido = models.CharField(max_length=30)
     dni = models.CharField(max_length= 8,primary_key=True, unique=True) 
     contrasenia = models.CharField(max_length=20,default='')
     email = models.EmailField(unique=True)  

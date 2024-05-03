@@ -12,12 +12,12 @@
   <div class="container">
     <h2 class="text-center mb-4">Restablecer contraseña</h2>
     <p>Ingresar correo electronico para restablecer la contraseña.</p>
-    <p style="color: red;">{{error}}</p>
     <form method="post"> <!-- Agregamos el método POST al formulario -->
       {% csrf_token %}
       <div class="mb-3">
         <input type="text" class="form-control" placeholder="Ingresar correo electrónico" name="email" required>
       </div>
+      <p style="color: red;">{{error}}</p>
       <button type="submit" class="btn btn-register">Reestablecer contraseña</button>
     </form>
   </div>
