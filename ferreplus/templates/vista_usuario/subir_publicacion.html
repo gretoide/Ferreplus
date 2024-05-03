@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subir Publicación</title>
+    <!-- Enlace a Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css" rel="stylesheet">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/vista_intercambios.css' %}">
+    <!-- Agrega aquí tus enlaces a CSS y JavaScript externos si los necesitas -->
+</head>
+<body>
+
+<div class="container">
+    <h1>Subir Publicación</h1>
+    <!-- Formulario de subir publicación -->
+
+    <!-- Mensaje de alerta de error -->
+    {% if error %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
+    </div>
+    {% endif %}
+
+    <!-- Mensaje de alerta de éxito -->
+    {% if aviso %}
+    <div class="alert alert-success" role="alert" id="alertaExito">
+        {{ aviso }}
+    </div>
+    {% endif %}
+
+
+    <form id="subirPublicacionForm" method="post" action="{% url 'subir_publicacion' %}">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="titulo" class="form-label">Título</label>
+            <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Título" required>
+        </div>
+        <!-- IMAGENES -->
+        <div class="d-flex flex-row align-items-center justify-content-center">
+            <div class="image-upload-container mr-3">
+                <input type="file" class="image-upload-input d-none" id="customFile1" onchange="displaySelectedImage(event)" accept="image/*">
+                <label for="customFile1" class="image-upload-label">
+                    <span class="bi bi-plus-lg"></span>
+                </label>
+            </div>
+            <!-- Repite esto para los otros campos de imagen -->
+        </div>
+        
+        <!-- Selección del estado del producto -->
+        <div class="mb-3">
+            <label class="select" for="estado">Estado del producto</label>
+                <select id="estado" name="estado" required>
+                    <option disabled selected>Seleccionar</option>
+                    <option value="Nuevo">Nuevo</option>
+                    <option value="Usado">Usado</option>
+                </select>
+            </label>
+        </div>
+        <!-- Selección de la categoría del producto-->
+        <div class="mb-3">
+            <label class="select" for="categoria">Categoría</label>
+                <select id="categoria" name="categoria" required>
+                    <option disabled selected>Seleccionar</option>
+                    <option value="Electricidad">Electricidad</option>
+                    <option value="Ferretería general">Ferretería general</option>
+                    <option value="Construcción">Construcción</option>
+                    <option value="Herramientas">Herramientas</option>
+                    <option value="Jardinería">Jardinería</option>
+                    <option value="Protección personal">Protección personal</option>
+                </select>
+        </div>                                    
+        <!-- Selección de sucursal deseada para el intercambio -->
+        <div class="mb-3">
+            <label class="select" for="sucursal">Sucursal deseada para el encuentro</label>
+                <select id="sucursal" name="sucursal" required>
+                    <option disabled selected>Seleccionar</option>
+                    <option value="One">One</option>
+                    <option value="Two">Two</option>
+                    <option value="Three">Three</option>
+                    <option value="Four">Four</option>
+                    <option value="Five">Five</option>
+                    <option value="Six">Six</option>
+                    <option value="Seven">Seven</option>
+                </select>
+            </label>
+        </div>
+
+        <!-- Descripción de la publicación -->
+        <div class="mb-3">
+            <label for="descripcion" class="form-label">Descripción</label>
+            <textarea class="form-control" id="descripcion" name="descripcion" placeholder="Descripción" required></textarea>
+        </div>
+        <!-- Subir publicación -->
+        <div class="mb-3">
+            <button type="submit" class="btn btn-primary">Subir</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>
