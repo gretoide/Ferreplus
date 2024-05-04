@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from datetime import datetime
 import re
-from vista_usuario.models import Usuario
+from vista_usuario.models import User
 
 def validar_dni(dni):
     condicion = True

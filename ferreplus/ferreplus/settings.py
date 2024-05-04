@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Agregamos la aplicación para que nuestro sistema entero lo conozca
-    'vista_usuario',
+    'vista_usuario'
 ]
 
 MIDDLEWARE = [
@@ -141,3 +141,5 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'ferreplus22@gmail.com'
 EMAIL_HOST_PASSWORD = 'jquywokoibbnhged'
+
+AUTH_USER_MODEL = "vista_usuario.User"

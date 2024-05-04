@@ -8,9 +8,11 @@ from django.conf import settings
 from django.urls import reverse
 from django.contrib.auth import views as auth_views
 from pathlib import Path
-from .models import Usuario, Publicacion, Imagen
+from .models import User, Publicacion, Imagen
 from ferreplus.modulos import modulos_registro
 from .modulos import modulos_publicacion
+
+from django.core.exceptions import ValidationError
 import os
 import secrets
 
@@ -45,17 +47,40 @@ def subir_publicacion(request):
 def crear_oferta(request):
     return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario','crear_oferta.html'))
 
+
+
 def registro(request):
     if request.method == "POST":
-        #Obtengo usuario si el metodo fue un post
-        usuario = request.POST.dict()
-        condicion,motivo = modulos_registro.verificar(usuario)
-        if condicion: 
-            Usuario(usuario["nombre"],usuario["apellido"],usuario["dni"],usuario["contraseña"],usuario["correo_electronico"],usuario["fecha_nacimiento"]).save()
-            return render(request,os.path.join(TEMPLATE_DIR,'pagina_inicio.html'),{"aviso": "Cuenta creada con exito"})
-        return render(request, os.path.join(TEMPLATE_DIR,'vista_usuario','registro_usuario.html'),{'error' : motivo})
+        nombre = request.POST["nombre"]
+        apellido = request.POST["apellido"]
+        dni = request.POST["dni"]
+        correo_electronico = request.POST["correo_electronico"]
+        contrasena = request.POST["contraseña"]
+        fecha_nacimiento = request.POST["fecha_nacimiento"]
+
+        try:
+            usuario = User.objects.create(
+                username=correo_electronico,
+                email=correo_electronico,
+                password=contrasena,
+                first_name=nombre,
+                last_name=apellido,
+                dni=dni,
+                fecha_nacimiento=fecha_nacimiento
+            )
+            return redirect("inicio",{"aviso": "Cuenta creada con eéito"})
+        except ValidationError as e:
+            # Manejar errores de validación específicos de Django (por ejemplo, formato de fecha inválido)
+            mensaje_error = f"Error de validación: {e}"
+            return render(request, "vista_usuario/registro_usuario.html", {"error": mensaje_error})
+        except Exception as e:
+            # Manejar otras excepciones no relacionadas con la validación de Django
+            mensaje_error = f"Error al crear usuario: {e}"
+            return render(request, "vista_usuario/registro_usuario.html", {"error": mensaje_error})
+
     else:
-        return render(request, os.path.join(TEMPLATE_DIR,'vista_usuario','registro_usuario.html'),{})
+        return render(request, "vista_usuario/registro_usuario.html")
+
     
 
 def restablecerContraseña(request):

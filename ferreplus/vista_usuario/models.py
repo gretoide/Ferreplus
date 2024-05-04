@@ -1,17 +1,18 @@
 from django.core.exceptions import ValidationError
-from django.contrib.auth.models import User
-from django.db import models
 from datetime import date
+from django.contrib.auth.models import AbstractUser, PermissionsMixin ,UserManager
+from django.db import models
+from django.utils import timezone
+
+
+class User(AbstractUser):
+    # ... otros campos personalizados que puedas necesitar ...
+    email = models.EmailField(blank=True,default="",unique=True)
+    dni = models.CharField(max_length=8, primary_key=True, unique=True)
+    fecha_nacimiento = models.DateField()
 
 
 
-class Usuario(models.Model):
-    nombre = models.CharField(max_length=30)
-    apellido = models.CharField(max_length=30)
-    dni = models.CharField(max_length= 8,primary_key=True, unique=True) 
-    contrasenia = models.CharField(max_length=20,default='')
-    email = models.EmailField(unique=True)  
-    fecha_nacimiento = models.DateField()  
     
     
 
