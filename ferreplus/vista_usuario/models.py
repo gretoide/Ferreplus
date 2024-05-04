@@ -8,7 +8,7 @@ from django.utils import timezone
 class User(AbstractUser):
     # ... otros campos personalizados que puedas necesitar ...
     email = models.EmailField(blank=True,default="",unique=True)
-    dni = models.CharField(max_length=8, primary_key=True, unique=True)
+    dni = models.CharField(max_length=8, unique=True)
     fecha_nacimiento = models.DateField()
 
 

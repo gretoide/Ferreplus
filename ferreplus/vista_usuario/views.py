@@ -11,6 +11,7 @@ from pathlib import Path
 from .models import User, Publicacion, Imagen
 from ferreplus.modulos import modulos_registro
 from .modulos import modulos_publicacion
+from django.contrib.auth.decorators import login_required
 
 from django.core.exceptions import ValidationError
 import os
@@ -24,6 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Define the template directory path using os.path.join
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 
+@login_required
 def subir_publicacion(request):
     if request.method == "POST":
         # Obtener datos de la publicación y las imágenes del formulario
@@ -49,37 +51,48 @@ def crear_oferta(request):
 
 
 
-def registro(request):
-    if request.method == "POST":
-        nombre = request.POST["nombre"]
-        apellido = request.POST["apellido"]
-        dni = request.POST["dni"]
-        correo_electronico = request.POST["correo_electronico"]
-        contrasena = request.POST["contraseña"]
-        fecha_nacimiento = request.POST["fecha_nacimiento"]
 
-        try:
-            usuario = User.objects.create(
-                username=correo_electronico,
-                email=correo_electronico,
-                password=contrasena,
-                first_name=nombre,
-                last_name=apellido,
-                dni=dni,
-                fecha_nacimiento=fecha_nacimiento
-            )
-            return redirect("inicio",{"aviso": "Cuenta creada con eéito"})
-        except ValidationError as e:
-            # Manejar errores de validación específicos de Django (por ejemplo, formato de fecha inválido)
-            mensaje_error = f"Error de validación: {e}"
-            return render(request, "vista_usuario/registro_usuario.html", {"error": mensaje_error})
-        except Exception as e:
-            # Manejar otras excepciones no relacionadas con la validación de Django
-            mensaje_error = f"Error al crear usuario: {e}"
-            return render(request, "vista_usuario/registro_usuario.html", {"error": mensaje_error})
+def registro(request):
+    
+        
+    if request.method == "POST":
+        
+
+        usuario = request.POST.dict()
+
+        # Validar los datos del usuario
+        condicion_validacion, motivo_validacion = modulos_registro.verificar(usuario)
+
+        if condicion_validacion:
+            try:
+                # Crear el usuario en la base de datos
+                usuario_creado = User.objects.create(
+                    username=usuario["correo_electronico"],
+                    email=usuario["correo_electronico"],
+                    first_name=usuario["nombre"],
+                    last_name=usuario["apellido"],
+                    dni=usuario["dni"],
+                    fecha_nacimiento=usuario["fecha_nacimiento"]
+                )
+                usuario_creado.set_password(usuario["contraseña"])
+                usuario_creado.save()
+
+                # Mostrar mensaje de exito
+                mensaje_exito = "Usuario creado correctamente. Inicia sesión para continuar."
+                return render(request, "vista_usuario/registro_usuario.html", {"aviso": mensaje_exito})
+
+            except Exception:
+                # Manejar cualquier excepción que ocurra durante la creación del usuario
+                return render(request, "vista_usuario/registro_usuario.html", {"error": motivo_validacion})
+
+        else:
+            # Mostrar mensaje de error con la causa de la validación fallida
+            return render(request, "vista_usuario/registro_usuario.html", {"error": motivo_validacion})
 
     else:
         return render(request, "vista_usuario/registro_usuario.html")
+    
+
 
     
 
