@@ -24,8 +24,13 @@ def inicio(request):
             user = None
         
         if user:
-            login(request, user)
-            return redirect("pagina-principal")
+            if user.check_password(contrasena):
+                # Autenticación exitosa
+                login(request, user)
+                return redirect("pagina_principal")
+            else:
+                mensaje_error = "Correo electrónico o contraseña inválidos."
+                return render(request, "pagina_inicio.html", {"aviso": mensaje_error})
         else:
             mensaje_error = "Correo electrónico o contraseña inválidos."
             return render(request, "pagina_inicio.html", {"aviso": mensaje_error})

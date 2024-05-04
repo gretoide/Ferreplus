@@ -24,6 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Define the template directory path using os.path.join
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
+@login_required
+def pagina_principal(request):
+    return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario','vista_principal.html'))
 
 @login_required
 def subir_publicacion(request):
