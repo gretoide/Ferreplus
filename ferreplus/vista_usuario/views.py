@@ -30,20 +30,21 @@ def subir_publicacion(request):
     if request.method == "POST":
         # Obtener datos de la publicación y las imágenes del formulario
         datos_publicacion = request.POST.dict()
-        imagenes = request.FILES.getlist('imagen')  # Obtener lista de imágenes
-
-        # Verificar y crear la publicación utilizando la función modularizada
-        exito, mensaje = modulos_publicacion.verificar_y_crear_publicacion(datos_publicacion, imagenes)
+        imagenes = request.FILES.getlist('imagen')  
         
-        if exito:
-            # Redirigir a la misma página o a otra de tu elección
-            return render(request, 'vista_usuario/vista_principal.html', {'aviso': mensaje})
+        # Verificar campos
+        exito, mensaje_error = modulos_publicacion.verificar_campos(datos_publicacion)
+        if not exito:
+            return render(request, 'vista_usuario/subir_publicacion.html', {'error': mensaje_error})
         else:
-            # Mostrar mensaje de error
-            return render(request, 'vista_usuario/vista_principal.html', {'error': mensaje})
+            # Crear publicación
+            modulos_publicacion.crear_publicacion(datos_publicacion, imagenes)
+            
+            # Mostrar mensaje de éxito
+            return render(request, 'vista_usuario/subir_publicacion.html', {'aviso': "La publicación se ha creado con éxito."})
     else:
         # Si es una solicitud GET, simplemente renderizar la página principal
-        return render(request, 'vista_usuario/vista_principal.html')
+        return render(request, 'vista_usuario/subir_publicacion.html')
 
 
 def crear_oferta(request):

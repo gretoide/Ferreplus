@@ -53,21 +53,6 @@
     <!-- SideBar-->
     {% include 'vista_usuario/vista_principal_sidebar.html' %}
 
-    <!-- MODAL para subir publicación -->
-    {% include 'vista_usuario/modal_subir_publicacion.html' %}
-
-    <!-- Popup de error -->
-    {% if error %}
-    <div class="popup">
-        <div class="popup-inner">
-            <h2>Error</h2>
-            <p>{{ error }}</p>
-            <button onclick="closePopup()">Cerrar</button>
-        </div>
-    </div>
-    {% endif %}
-
-
     <!-- Enlace a Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
