@@ -13,14 +13,13 @@ h1 {
     margin: auto; /* Centrar el contenedor */
     padding-top: 50px; /* Espacio superior */
     width: 80%; /* Ancho del contenedor */
-    max-width: 1000px; /* Ancho máximo para evitar que se extienda demasiado en pantallas grandes */
+    max-width: 900px; /* Ancho máximo para evitar que se extienda demasiado en pantallas grandes */
 }
 
 .mb-3 {
     margin: auto;
     margin-top: 20px;
     color: #ffff;
-    font-size: large;
     padding: 10px;
     width: 100%;
 }
@@ -29,21 +28,21 @@ h1 {
 /* Estilos personalizados para d-flex y justify-content-center */
 .d-flex {
     display: flex; /* Hace que el elemento sea un contenedor flexible */
-    width: block;
+    width: 100%;
+    background-color: #101010;
+    border-radius: 30px;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 .justify-content-center {
     justify-content: left; /* Centra los elementos hijos horizontalmente */
 }
 
-/* Estilos para la etiqueta del formulario */
-.form-label {
-    font-size: large; /* Tamaño de la fuente */
-    margin-bottom: 10px; /* Espacio entre la etiqueta y el input */
-}
-
 .form-control {
     margin-bottom: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
     background-color: #404040;
     border-color: #505050;
     color: #d6d6d6;
@@ -52,10 +51,10 @@ h1 {
 
 /* Estilos para el input cuando está enfocado */
 .form-control:focus {
-border-color: #ffc107; /* Cambia el color del borde al seleccionar */
-box-shadow: 0 0 5px rgba(255, 193, 7, 0.5); /* Agrega una sombra alrededor del input */
-background-color: #202020;
-color: white;
+    border-color: #ffc107; /* Cambia el color del borde al seleccionar */
+    box-shadow: 0 0 5px rgba(255, 193, 7, 0.5); /* Agrega una sombra alrededor del input */
+    background-color: #202020;
+    color: white;
 }
 
 .form-control::placeholder {
@@ -104,9 +103,13 @@ color: white;
     padding: 8px 12px; /* Espaciado interno de las opciones */
 }
 
+.btn.btn-outline-primary {
+    margin-left: 35%;
+}
 
 .btn.btn-outline-primary.btn-lg.btn-block {
     /* Estilos personalizados */
+    font-size: medium;
     background-color: #3d3d3d; /* Color de fondo */
     border-color: #3d3d3d; /* Color del borde */
     color: #ffffff; /* Color del texto */
