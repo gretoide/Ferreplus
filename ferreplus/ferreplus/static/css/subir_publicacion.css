@@ -1,0 +1,121 @@
+body {
+    background-color: #202020;
+}
+
+h1 {
+    color: #ffff;
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+.container {
+    display: flex;
+    margin: auto; /* Centrar el contenedor */
+    padding-top: 50px; /* Espacio superior */
+    width: 80%; /* Ancho del contenedor */
+    max-width: 1000px; /* Ancho máximo para evitar que se extienda demasiado en pantallas grandes */
+}
+
+.mb-3 {
+    margin: auto;
+    margin-top: 20px;
+    color: #ffff;
+    font-size: large;
+    padding: 10px;
+    width: 100%;
+}
+
+
+/* Estilos personalizados para d-flex y justify-content-center */
+.d-flex {
+    display: flex; /* Hace que el elemento sea un contenedor flexible */
+    width: block;
+}
+
+.justify-content-center {
+    justify-content: left; /* Centra los elementos hijos horizontalmente */
+}
+
+/* Estilos para la etiqueta del formulario */
+.form-label {
+    font-size: large; /* Tamaño de la fuente */
+    margin-bottom: 10px; /* Espacio entre la etiqueta y el input */
+}
+
+.form-control {
+    margin-bottom: 20px;
+    background-color: #404040;
+    border-color: #505050;
+    color: #d6d6d6;
+    width: 100%;
+}
+
+/* Estilos para el input cuando está enfocado */
+.form-control:focus {
+border-color: #ffc107; /* Cambia el color del borde al seleccionar */
+box-shadow: 0 0 5px rgba(255, 193, 7, 0.5); /* Agrega una sombra alrededor del input */
+background-color: #202020;
+color: white;
+}
+
+.form-control::placeholder {
+    color: #a0a0a0; /* Color del marcador de posición gris claro */
+  }
+
+
+.select {
+    width: 100%;
+    margin-top: 10px;
+    appearance: none; /* Elimina el estilo predeterminado del navegador */
+    background-color: transparent; /* Color de fondo oscuro */
+}
+
+
+.form-select {
+    background-color: #404040;
+    border-color: #505050;
+    color: #d6d6d6;
+    border-radius: 5px;
+    display: block;
+    width: 100%;
+}
+
+.form-select:hover {
+    border-color: 3px #505050; /* Cambia el color del borde al seleccionar */
+    box-shadow: 0 0 1px rgba(255, 255, 255, 0.5); /* Agrega una sombra alrededor del input */
+    background-color: #505050;
+    color: white;
+}
+
+
+/* Estilo para las opciones del select al pasar el mouse sobre ellas */
+.form-select option:hover {
+    background-color: #505050 !important;/* Cambia el color de fondo al pasar el mouse */
+    color: #fff; /* Cambia el color del texto al pasar el mouse */
+}
+
+.form-select:focus {
+    color: white;
+}
+
+.form-select option {
+    color: #ffffff; /* Color del texto */
+    background-color: transparent;
+    padding: 8px 12px; /* Espaciado interno de las opciones */
+}
+
+
+.btn.btn-outline-primary.btn-lg.btn-block {
+    /* Estilos personalizados */
+    background-color: #3d3d3d; /* Color de fondo */
+    border-color: #3d3d3d; /* Color del borde */
+    color: #ffffff; /* Color del texto */
+    transition: background-color 0.3s ease; /* Transición de color */
+    width: 30%;
+}
+
+.btn.btn-outline-primary.btn-lg.btn-block:hover {
+    background-color: #ffc107; /* Cambio de color al pasar el cursor */
+    color: #000000; /* Cambio de color del texto al pasar el cursor */
+    width: 30%;
+}

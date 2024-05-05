@@ -11,47 +11,21 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/vista_intercambios.css' %}">
 </head>
 <body>
-
     <!-- CONTENIDO PRINCIPAL -->
     <div id="main">
-        <!-- Menu desplegable--> 
-        <button class="bi bi-list" onclick="w3_open()"></button>
-
-        <!-- Publicaciones disponibles -->
-        <h1>Publicaciones</h1>
-
-        <!-- Cuadrícula de publicaciones en formato cards -->
-        <div class="row">
-            <div class="col-md-4">
-                <div class="card-body">
-                    <h5 class="card-title">Publicación 1</h5>
-                    <img src="https://picsum.photos/200/200" class="card-img-top" alt="...">
-                    <h6 class="card-subtitle mb-2 text-muted">Estado</h6>
-                    <h6 class="card-subtitle mb-2 text-muted">Sucursal</h6>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card-body">
-                    <h5 class="card-title">Publicación 2</h5>
-                    <img src="https://picsum.photos/200/200" class="card-img-top" alt="...">
-                    <h6 class="card-subtitle mb-2 text-muted">Estado</h6>
-                    <h6 class="card-subtitle mb-2 text-muted">Sucursal</h6>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card-body">
-                    <h5 class="card-title">Publicación 3</h5>
-                    <img src="https://picsum.photos/200/200" class="card-img-top" alt="...">
-                    <h6 class="card-subtitle mb-2 text-muted">Estado</h6>
-                    <h6 class="card-subtitle mb-2 text-muted">Sucursal</h6>
-                </div>
-            </div>
-            <!-- Agrega más columnas según sea necesario para más publicaciones -->
-        </div>
+        <!-- Nav bar--> 
+        <nav class="navbar">
+            <button class="bi bi-list" onclick="w3_open()"></button>
+            <form class="form-inline mx-auto">
+                <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Buscar">
+                <button class="bi bi-search" type="submit"></button>
+            </form>       
+        </nav>     
     </div>
 
-    <!-- SideBar-->
+    <!-- Incluir el side -->
     {% include 'vista_usuario/vista_principal_sidebar.html' %}
+
 
     <!-- Enlace a Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -60,16 +34,6 @@
     
 
     <script>
-        $('#modalSubirPublicacion').on('show.bs.modal', function (e) {
-            $('body').addClass('modal-open');
-            $('body').append('<div class="modal-backdrop fade show"></div>');
-        });
-
-        $('#modalSubirPublicacion').on('hidden.bs.modal', function (e) {
-            $('body').removeClass('modal-open');
-            $('.modal-backdrop').remove();
-        });
-
         function w3_open() {
             document.getElementById("mySidebar").style.display = "block";
             document.getElementById("main").style.marginLeft = "250px";
@@ -78,37 +42,6 @@
         function w3_close() {
             document.getElementById("mySidebar").style.display = "none";
             document.getElementById("main").style.marginLeft = "0";
-        }
-
-        function displaySelectedImage(event) {
-            const file = event.target.files[0];
-            const reader = new FileReader();
-            const imageContainer = event.target.closest('.image-upload-container');
-            const imageLabel = imageContainer.querySelector('.image-upload-label');
-            const plusIcon = imageLabel.querySelector('.bi-plus-lg');
-            
-            reader.onload = function() {
-                const img = imageContainer.querySelector('img');
-                if (!img) {
-                    const newImg = document.createElement('img');
-                    newImg.src = reader.result;
-                    newImg.alt = 'Imagen seleccionada';
-                    newImg.classList.add('uploaded-image');
-                    imageLabel.appendChild(newImg);
-                    plusIcon.style.display = 'none'; // Ocultar el icono '+'
-                } else {
-                    img.src = reader.result;
-                }
-            };
-
-            if (file) {
-                reader.readAsDataURL(file);
-            }
-        }
-
-        // JavaScript en tu plantilla HTML
-        function closePopup() {
-            document.querySelector('.popup').style.display = 'none';
         }
     </script>
 </body>

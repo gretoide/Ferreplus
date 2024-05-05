@@ -1,78 +1,62 @@
 <!-- SIDE BAR MENU -->
 <div id="mySidebar" class="sidebar">
-    
-
     <!-- Boton de configuración-->
     <button class="bi bi-sliders"></button>
-    
-    <!-- Botón de cerrar menu -->
-    <button class="bi bi-x-circle" id="closeBtn" onclick="w3_close()"></button>
 
-    <!-- Apartado de la cuenta del usuario -->
+    <!-- Botón de cerrar menu -->
+    <button class="bi bi-arrow-left" id="closeBtn" onclick="w3_close()"></button>
+
     <div class="d-flex justify-content-center align-items-center mt-3 mb-4">
         <!-- Foto circular de la cuenta del usuario -->
         <div class="rounded-circle overflow-hidden" style="width: 70px; height: 70px;">
             <img src="https://picsum.photos/200/200" class="img-fluid" alt="Foto de perfil">
         </div>
     </div>
-
     <!-- Solicitudes de oferta -->
-    <div class="mb-3">
-        <a class="btn btn-primary" role="button" data-bs-toggle="button">Solicitudes de oferta</a>
+    <div class="nav-item">
+        <a class="btn btn-primary">Solicitudes de oferta</a>
     </div>
 
     <!-- Ver intercambios -->
-    <div class="mb-3">
-        <a class="btn btn-primary" role="button" data-bs-toggle="button">Ver intercambios</a>
+    <div class="nav-item">
+        <a class="btn btn-primary">Ver intercambios</a>
     </div>
 
     <!-- Mis publicaciones -->
-    <div class="mb-3">
-        <a class="btn btn-primary" role="button" data-bs-toggle="button">Mis publicaciones</a>
-    </div>
-
-    <!-- Barra de buscar por nombre de producto -->
-    <div class="mb-3">
-        <input class="form-control me-2" type="search" placeholder="Búsqueda" aria-label="Search">
+    <div class="nav-item">
+        <a class="btn btn-primary">Mis publicaciones</a>
     </div>
 
     <!-- Filtrar por sucursal -->
-    <div class="mb-3">
-        <label class="select" for="slct">
+    <div class="nav-item">
+        <label class="select">
             <select id="slct" required>
                 <option value="" disabled selected>Seleccionar sucursal</option>
                 <option value="#">One</option>
                 <option value="#">Two</option>
-                <option value="#">Three</option>
-                <option value="#">Four</option>
-                <option value="#">Five</option>
-                <option value="#">Six</option>
-                <option value="#">Seven</option>
+                <!-- Agrega más opciones aquí -->
             </select>
         </label>
     </div>
 
     <!-- Filtrar por estado -->
-    <div class="mb-3" id="CheckerContainer">
+    <div class="nav-item" id="CheckerContainer">
         <h6 class="fw-bold mb-3">Estado</h6>
         <div class="form-check">
             <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-            <label class="form-check-label" for="flexRadioDefault1">
-              Nuevo
-            </label>
-          </div>
-          <div class="form-check">
+            <label class="form-check-label" for="flexRadioDefault1">Nuevo</label>
+        </div>
+        <div class="form-check">
             <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-            <label class="form-check-label" for="flexRadioDefault2">
-              Usado
-            </label>
-          </div>
+            <label class="form-check-label" for="flexRadioDefault2">Usado</label>
+        </div>
     </div>
-    
+
     <!-- Subir publicación -->
-    <div class="mb-3" id="btnSubirPublicacionContainer">
-        <a href="{% url 'subir_publicacion' %}" class="btn btn-primary" id="botonSubirPublicacion">Subir publicación</a>
-
+    <div class="nav-item" id="btnSubirPublicacionContainer">
+        <a href="{% url 'subir_publicacion' %}" class="btn btn-primary d-flex flex-column align-items-center" id="botonSubirPublicacion">
+            <i class="bi bi-box-arrow-in-up"></i>
+            <span>Subir publicación</span>
+        </a>
     </div>
-
 </div>
