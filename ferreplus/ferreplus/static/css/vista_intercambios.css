@@ -12,6 +12,14 @@ body {
     background-color: #ffffff;
 }
 
+/* Estilo para la línea de separación */
+.sidebar-divider {
+    border: none; /* Elimina el borde predeterminado */
+    border-top: 2px solid #818181; /* Agrega una línea horizontal */
+    margin-left: -5px;
+    margin-right: 30px;
+}
+
 nav {
     position: fixed;
     top: 0;
@@ -138,13 +146,15 @@ nav.open ~ .overlay {
 
 /* Estilo para el contenedor del input y el ícono de búsqueda */
 .input-group.rounded {
-    padding-top: 10px;
+    position: fixed;
+    top: 20px;
+    left: 0;
+    right: 0;
+    margin: auto;
     width: 300px; /* Ancho deseado del input */
-    margin: 0 auto; /* Centrar horizontalmente */
 }
 
 .input-group.rounded:hover {
-    padding-top: 10px;
     margin: 0 auto; /* Centrar horizontalmente */
 }
 
@@ -186,4 +196,29 @@ nav.open ~ .overlay {
 
 
 /*----------------------------------------------------------------------------*/
-/* Estilos para el botón de cerrar el sidebar */
+/* Checkboxes */
+
+h6 {
+    color: #ecebeb;
+}
+
+/* Estilo para los checkboxes */
+.form-check-input {
+    /* Agrega tus estilos personalizados aquí */
+    /* Por ejemplo: */
+    margin-right: 5px; /* Margen derecho entre los checkboxes */
+}
+
+/* Estilo para las etiquetas de los checkboxes */
+.form-check-label {
+    /* Agrega tus estilos personalizados aquí */
+    /* Por ejemplo: */
+    font-size: 15px;
+    color: #d7d7d7; /* Color del texto */
+    margin-right: 15px; /* Margen derecho entre las etiquetas */
+}
+
+input[type="checkbox"] {
+    accent-color: #ffd100;
+    background-color: #404040;
+  }
