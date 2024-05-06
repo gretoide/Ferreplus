@@ -1,10 +1,16 @@
-/* Estilos para el cuerpo de la página */
-body {
-    background-color: #1a1a1a; /* Fondo gris oscuro */
-    color: #ffffff; /* Texto blanco */
-    margin: 0; /* Elimina el margen predeterminado */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    box-sizing: border-box;
   }
-  
+
+body {
+    min-height: 100%;
+    background-color: #202020;
+}
   /* Estilos para el contenedor principal */
   .jumbotron {
     background-image: url("../foto_inicio.png"); 
@@ -29,10 +35,11 @@ body {
     border-color: #3d3d3d; /* Borde gris oscuro */
     color: #ffffff; /* Texto blanco */
     transition: background-color 0.3s ease; /* Transición de color */
-    width: 100%; /* Ancho completo */
+    width: 50%; /* Ancho completo */
     position: relative;
     overflow: hidden;
     z-index: 1;
+    margin-left: 90px;
   }
   
   
@@ -51,22 +58,26 @@ body {
     color: #ffd60a; /* Texto amarillo para enlaces */
   }
   
-  /* Estilos para los campos de formulario */
   .form-control {
-    padding: 0.5rem 1rem;
-    color: #ffffff; /* Texto blanco */
-    width: 300px;
-    position: relative;
-  }
+    margin-bottom: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+    background-color: #404040;
+    border-color: #505050;
+    color: #d6d6d6;
+    width: 100%;
+}
 
-  /* Estilos para el input cuando está enfocado */
+/* Estilos para el input cuando está enfocado */
 .form-control:focus {
-    border-color: #ffc107; /* Cambia el color del borde al seleccionar */
-    box-shadow: 0 0 5px rgba(255, 193, 7, 0.5); /* Agrega una sombra alrededor del input */
-  }
-  
-  .form-control::placeholder {
-    color: #a0a0a0; /* Color del marcador de posición gris claro */
+    border-color: #606060; /* Cambia el color del borde al seleccionar */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Agrega una sombra alrededor del input */
+    background-color: #707070;
+    color: white;
+}
+
+.form-control::placeholder {
+    color: #d7d7d7; /* Color del marcador de posición gris claro */
   }
   
   /* Estilos para el título de encabezado */
@@ -77,14 +88,19 @@ body {
   
   /* Estilos para el párrafo principal */
   p.lead {
+    color: #ffffff;
     font-size: 4vw; /* Tamaño de fuente responsivo */
     padding-bottom: 40px; /* Relleno inferior */
   }
   
   /* Estilos para el título centrado */
   h1.text-center.mb-4 {
+    color: white;
     margin-top: 4vw; /* Margen superior responsivo */
     padding-bottom: 10px; /* Relleno inferior */
     padding-top: 10px; /* Relleno superior */
   }
   
+  p {
+    color: #d7d7d7;
+  }

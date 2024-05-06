@@ -9,7 +9,7 @@
 
 body {
     min-height: 100%;
-    background-color: #ffffff;
+    background-color: #202020;
 }
 
 /* Estilo para la línea de separación */
@@ -21,6 +21,7 @@ body {
 }
 
 nav {
+    border-bottom: 1px solid #707070!important;
     position: fixed;
     top: 0;
     left: 0;
@@ -28,7 +29,7 @@ nav {
     width: 100%;
     display: flex;
     align-items: center;
-    background-color: #505050;
+    background-color: #202020;
     box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
 }
 
@@ -65,7 +66,8 @@ nav .sidebar {
     height: 100%;
     width: 260px;
     padding: 20 10px;
-    background-color: #606060;
+    border-right: 1px solid #707070;
+    background-color: #202020;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
     transition: all 0.1ms ease;
 }
@@ -95,7 +97,7 @@ nav.open .sidebar {
     margin-right: 10px;
     padding: 14px 12px;
     border-radius: 8px;
-    background-color: #606060;
+    background-color: #202020;
 }
 
 .nav-link .icon {
@@ -146,6 +148,7 @@ nav.open ~ .overlay {
 
 /* Estilo para el contenedor del input y el ícono de búsqueda */
 .input-group.rounded {
+    border: 1px solid #707070; /* Añade un borde sólido de 1px alrededor del contenedor */
     position: fixed;
     top: 20px;
     left: 0;
@@ -199,7 +202,9 @@ nav.open ~ .overlay {
 /* Checkboxes */
 
 h6 {
-    color: #ecebeb;
+    color: #fff;
+    text-decoration:solid;
+    text-shadow: 3px #131313;
 }
 
 /* Estilo para los checkboxes */
@@ -222,3 +227,25 @@ input[type="checkbox"] {
     accent-color: #ffd100;
     background-color: #404040;
   }
+
+/*Apartado de filtros*/
+
+.mb-3 {
+    padding-top: 20px;
+}
+
+.form-select {
+    margin-top: 5px;
+    background-color: #404040;
+    color: #d6d6d6;
+    border-radius: 5px;
+    border: 1px #707070;
+    height: 40px;
+    width: 85%;
+}
+
+/* Color de los spans de acento*/
+
+span {
+    color: #fff;
+}

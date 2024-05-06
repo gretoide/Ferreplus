@@ -61,7 +61,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="nav-link">
+                        <a href="{% url 'subir_publicacion' %}" class="nav-link">
                             <i class="bx bx-image-add icon"></i>
                             <span class="link">Agregar publicación</span>
                         </a>
@@ -70,13 +70,27 @@
                     <hr class="sidebar-divider">
                             <h6>Filtros</h6>
                     </li>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                            <label class="form-check-label" for="inlineCheckbox1">Nuevo</label>
-                            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                            <label class="form-check-label" for="inlineCheckbox1">Usado</label>
+                        <div class="mb-3">
+                            <span>Estado del producto</span>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                                <label class="form-check-label" for="inlineCheckbox1">Nuevo</label>
+                                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                                <label class="form-check-label" for="inlineCheckbox1">Usado</label>
                       </div>
                     <li>
+                    <li>
+                        <div class="mb-3">
+                            <!-- Filtrar por sucursal -->
+                            <span>Sucursal de preferencia</span>
+                                <select class="form-select" required>
+                                    <option value="" disabled selected>Seleccionar</option>
+                                    <option value="#">One</option>
+                                    <option value="#">Two</option>
+                                    <!-- Agrega más opciones aquí -->
+                                </select>
+                        </div>
+                    </li>
                 </ul>
             </div>
         </div>
