@@ -22,7 +22,7 @@ body {
 
 nav {
     border-bottom: 1px solid #707070!important;
-    position: fixed;
+    position: rel;
     top: 0;
     left: 0;
     height: 70px;
@@ -70,6 +70,7 @@ nav .sidebar {
     background-color: #202020;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
     transition: all 0.1ms ease;
+    z-index: 1000;
 }
 
 nav.open .sidebar {
@@ -134,7 +135,8 @@ nav.open .sidebar {
     opacity: 0;
     pointer-events: none;
     transition: all 0.5s ease;
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(112, 112, 112, 0.466);
+    z-index: 1000;
 }
 
 nav.open ~ .overlay {
@@ -248,4 +250,19 @@ input[type="checkbox"] {
 
 span {
     color: #fff;
+}
+
+/* -------- Contenedor de publicaciones -------------*/
+
+.contenedor-publicaciones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center; /* Para centrar horizontalmente */
+    padding-top: 100px; /* Espacio sobre las tarjetas */
+}
+.card {
+    width: 18rem;
+    display: flexbox;
+    z-index: 2;
 }

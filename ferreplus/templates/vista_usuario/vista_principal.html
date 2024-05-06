@@ -12,6 +12,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/vista_intercambios.css' %}">
 </head>
 <body>
+    {% csrf_token %}
     
     <!-- Nav bar--> 
     <nav>
@@ -95,6 +96,30 @@
             </div>
         </div>
     </nav>
+
+    <!-- Contenedor para las tarjetas de publicaciones -->
+    <div class="contenedor-publicaciones">
+        {% for publicacion in publicaciones %}
+            <div class="card">
+                {% if primeras_imagenes_por_publicacion.publicacion %}
+                    <!-- Si hay una imagen asociada a la publicación, mostrarla -->
+                    <img src="{{ primeras_imagenes_por_publicacion.publicacion.url }}" alt="Imagen de la publicación">
+                {% else %}
+                    <!-- Si no hay imagen asociada, mostrar una imagen por defecto o un mensaje -->
+                    <img src="#" alt="No hay imagen disponible">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ publicacion.titulo }}</h5>
+                    <p class="card-text">{{ publicacion.descripcion }}</p>
+                    <div class="row">
+                        <span class="badge badge-secondary">{{ publicacion.categoria}}</span>
+                        <span class="badge badge-secondary">{{ publicacion.estado}}</span>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    
 
     <section class="overlay"></section>
 
