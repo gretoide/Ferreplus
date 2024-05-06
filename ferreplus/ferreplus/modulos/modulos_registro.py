@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from datetime import datetime
 import re
-from vista_usuario.models import Usuario
+from vista_usuario.models import User
 
 def validar_dni(dni):
     condicion = True
@@ -22,10 +22,10 @@ def validar_dni(dni):
         motivo = "Se deben ingresar solo dígitos en el campo DNI"
     else:
         try:
-            usuario_existente = Usuario.objects.get(dni=dni)
+            usuario_existente = User.objects.get(dni=dni)
             condicion = False
             motivo = "El DNI ingresado ya corresponde a un usuario"
-        except Usuario.DoesNotExist:
+        except User.DoesNotExist:
             pass
 
     return condicion, motivo
@@ -43,7 +43,7 @@ def validar_correo(correo):
     else:
         try:
             # Verificar si el correo ya está en uso por otro usuario
-            if Usuario.objects.filter(email=correo).exists():
+            if User.objects.filter(email=correo).exists():
                 condicion = False
                 motivo = "Correo electrónico ya en uso"
         except Exception as e:

@@ -8,9 +8,12 @@ from django.conf import settings
 from django.urls import reverse
 from django.contrib.auth import views as auth_views
 from pathlib import Path
-from .models import Usuario, Publicacion, Imagen
-from ferreplus.modulos import modulos_sesion
+from .models import User, Publicacion, Imagen
+from ferreplus.modulos import modulos_registro
 from .modulos import modulos_publicacion
+from django.contrib.auth.decorators import login_required
+
+from django.core.exceptions import ValidationError
 import os
 import secrets
 
@@ -21,10 +24,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Define the template directory path using os.path.join
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
-
+@login_required
 def pagina_principal(request):
     return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario','vista_principal.html'))
 
+@login_required
 def subir_publicacion(request):
     if request.method == "POST":
         # Obtener datos de la publicación y las imágenes del formulario
@@ -51,17 +55,51 @@ def subir_publicacion(request):
 def crear_oferta(request):
     return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario','crear_oferta.html'))
 
+
+
+
 def registro(request):
+    
+        
     if request.method == "POST":
-        #Obtengo usuario si el metodo fue un post
+        
+
         usuario = request.POST.dict()
-        condicion,motivo = modulos_sesion.verificar(usuario)
-        if condicion: 
-            Usuario(usuario["nombre"],usuario["apellido"],usuario["dni"],usuario["contraseña"],usuario["correo_electronico"],usuario["fecha_nacimiento"]).save()
-            return render(request,os.path.join(TEMPLATE_DIR,'pagina_inicio.html'),{"aviso": "Cuenta creada con exito"})
-        return render(request, os.path.join(TEMPLATE_DIR,'vista_usuario','registro_usuario.html'),{'error' : motivo})
+
+        # Validar los datos del usuario
+        condicion_validacion, motivo_validacion = modulos_registro.verificar(usuario)
+
+        if condicion_validacion:
+            try:
+                # Crear el usuario en la base de datos
+                usuario_creado = User.objects.create(
+                    username=usuario["correo_electronico"],
+                    email=usuario["correo_electronico"],
+                    first_name=usuario["nombre"],
+                    last_name=usuario["apellido"],
+                    dni=usuario["dni"],
+                    fecha_nacimiento=usuario["fecha_nacimiento"]
+                )
+                usuario_creado.set_password(usuario["contraseña"])
+                usuario_creado.save()
+
+                # Mostrar mensaje de exito
+                mensaje_exito = "Usuario creado correctamente. Inicia sesión para continuar."
+                return render(request, "vista_usuario/registro_usuario.html", {"aviso": mensaje_exito})
+
+            except Exception:
+                # Manejar cualquier excepción que ocurra durante la creación del usuario
+                return render(request, "vista_usuario/registro_usuario.html", {"error": motivo_validacion})
+
+        else:
+            # Mostrar mensaje de error con la causa de la validación fallida
+            return render(request, "vista_usuario/registro_usuario.html", {"error": motivo_validacion})
+
     else:
-        return render(request, os.path.join(TEMPLATE_DIR,'vista_usuario','registro_usuario.html'),{})
+        return render(request, "vista_usuario/registro_usuario.html")
+    
+
+
     
 
 def restablecerContraseña(request):
@@ -105,7 +143,7 @@ def cambiarContraseña(request, email, contraseña):
         })
     else:
         if request.POST["contraseña1"] == request.POST["contraseña2"]:
-            resultado = modulos_sesion.validar_contraseña(request.POST["contraseña1"])
+            resultado = modulos_registro.validar_contraseña(request.POST["contraseña1"])
             if resultado[0]:
                 user.contrasenia = request.POST["contraseña1"]
                 user.save()
