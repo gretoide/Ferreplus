@@ -40,7 +40,6 @@ class Publicacion(models.Model):
     categoria = models.CharField(max_length=50, choices=CATEGORIA_CHOICES)
     sucursal = models.CharField(max_length=100)  # Esto puede cambiarse a ForeignKey si tienes una tabla de sucursales
     descripcion = models.TextField()
-    contenido = models.TextField()
     autor = models.ForeignKey(User, on_delete=models.CASCADE)
 
 class Imagen(models.Model):
