@@ -23,7 +23,7 @@ h1 {
     margin: auto; /* Centrar el contenedor */
     padding-top: 50px; /* Espacio superior */
     width: 80%; /* Ancho del contenedor */
-    max-width: 900px; /* Ancho máximo para evitar que se extienda demasiado en pantallas grandes */
+    max-width: 800px; /* Ancho máximo para evitar que se extienda demasiado en pantallas grandes */
 }
 
 .mb-3 {
@@ -133,4 +133,9 @@ h1 {
     background-color: #ffc107; /* Cambio de color al pasar el cursor */
     color: #000000; /* Cambio de color del texto al pasar el cursor */
     width: 30%;
+}
+
+.alert {
+    width: 500px;
+    margin-left: 125px;
 }
