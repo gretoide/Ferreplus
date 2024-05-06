@@ -112,6 +112,8 @@ nav.open .sidebar {
 
 .nav-link:hover {
     background-color: #505050;
+    transform: scale(1.05);
+    transition: 0.5s ease;
 }
 
 /* texto de los hipervinculos */
@@ -151,20 +153,17 @@ nav.open ~ .overlay {
 /* Estilo para el contenedor del input y el ícono de búsqueda */
 .input-group.rounded {
     border: 1px solid #707070; /* Añade un borde sólido de 1px alrededor del contenedor */
-    position: fixed;
-    top: 20px;
+    position: rel;
     left: 0;
     right: 0;
-    margin: auto;
-    width: 300px; /* Ancho deseado del input */
-}
-
-.input-group.rounded:hover {
-    margin: 0 auto; /* Centrar horizontalmente */
+    margin-left: auto;
+    margin-right: 30px;
+    width: 400px; /* Ancho deseado del input */
 }
 
 /* Estilo para el input de búsqueda */
 .input-group.rounded input[type="search"] {
+    display: fixed;
     background-color: #404040; /* Color de fondo del input */
     color: #d6d6d6;
     border: none;
@@ -265,4 +264,66 @@ span {
     width: 18rem;
     display: flexbox;
     z-index: 2;
+}
+
+/*------------------IMAGENES CARD BOX---------------------*/
+
+/* Estilos para el contenedor de publicaciones */
+.contenedor-publicaciones {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px; /* Espacio entre las tarjetas de publicaciones */
+}
+
+.card {
+    width: 300px; /* Ancho inicial de las tarjetas */
+    height: auto; /* Altura automática */
+    background-color: #404040;
+    color: #eeeeee;
+    border: 1px solid #808080;
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.8);
+    transition: transform 0.5s ease; /* Transición para el efecto hover */
+}
+
+.card:hover {
+    transform: scale(1.05); /* Aumentar el tamaño en un 5% al hacer hover */
+}
+
+.carousel-inner {
+    background-color: #404040; /* Color de fondo deseado */
+    border: 1px solid #808080; /* Borde sólido con color deseado */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.800);
+}
+
+.carousel-item img {
+    border: none; /* Borde sólido con color deseado */
+    border-radius: 10px; /* Bordes redondeados */
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    width: 10%; /* Ancho de los controles de navegación */
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: rgba(0, 0, 0, 0.5); /* Color de fondo de los íconos de navegación */
+    border-radius: 50%; /* Forma de los íconos de navegación */
+}
+
+/* Estilo para ocultar el texto de accesibilidad de los controles de navegación */
+.carousel-control-prev .sr-only,
+.carousel-control-next .sr-only {
+    display: none;
+}
+
+/*Badges*/
+
+.badge {
+    background-color: #707070;
+    padding: 5px;
+    margin: 5px;
 }

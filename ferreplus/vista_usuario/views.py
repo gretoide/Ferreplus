@@ -45,23 +45,29 @@ def subir_publicacion(request):
     if request.method == "POST":
         # Obtener datos de la publicación y las imágenes del formulario
         datos_publicacion = request.POST.dict()
-        imagenes = request.FILES.getlist('imagen')  
+        imagenes = request.FILES.getlist('imagen')
+        usuario = request.user
         
         # Verificar campos
         exito, mensaje_error = modulos_publicacion.verificar_campos(datos_publicacion)
-        if len(imagenes) > 5:
-            return render(request, 'vista_usuario/subir_publicacion.html', {'error': 'El máximo de imágenes permitidas es 5.'})
+        if len(imagenes) > 5 or len(imagenes) <= 0:
+            return render(request, 'vista_usuario/subir_publicacion.html', {'error': 'El máximo de imágenes es 5 y el mínimo 1.'})
         if not exito:
             return render(request, 'vista_usuario/subir_publicacion.html', {'error': mensaje_error})
         else:
             # Crear publicación
-            modulos_publicacion.crear_publicacion(datos_publicacion, imagenes)
+            modulos_publicacion.crear_publicacion(datos_publicacion,usuario,imagenes)
             
             # Mostrar mensaje de éxito
             return render(request, 'vista_usuario/subir_publicacion.html', {'aviso': "La publicación se ha creado con éxito."})
     else:
         # Si es una solicitud GET, simplemente renderizar la página principal
         return render(request, 'vista_usuario/subir_publicacion.html')
+
+@login_required
+def mis_publicaciones(request):
+    publicaciones = Publicacion.objects.all()
+    return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario','mis_publicaciones.html'),{'publicaciones': publicaciones})
 
 
 def crear_oferta(request):

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intercambios</title>
+    <!-- Enlace a Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/mis_publicaciones.css' %}">
+</head>
+<body>
+    {% csrf_token %}
+    <div class="container">
+        <div id="Header">
+            <h1>Mis publicaciones</h1>
+        </div>
+        <a href="{% url 'pagina_principal' %}">
+            <i class="bx bx-arrow-back icon"></i>
+        <span>Volver</span>
+        </a>
+        <div class="mb-3">
+            <table class="table">
+                <thead>
+                    <th>Titulo</th>
+                    <th>Estado</th>
+                    <th>Categoría</th>
+                    <th>Sucursal</th>
+                    <th>Descripción</th>
+                  </thead>
+                  {% for publicacion in publicaciones %}
+                  <tr>
+                    <td>{{ publicacion.titulo}}</td>
+                    <td>{{ publicacion.estado}}</td>
+                    <td>{{ publicacion.categoria}}</td>
+                    <td>{{ publicacion.sucursal}}</td>
+                    <td>{{ publicacion.descripcion}}</td>
+                  </tr>
+                  {% endfor %}
+              </table>
+        </div>
+    </div>
+</body>
+</html>
