@@ -45,5 +45,8 @@ class Publicacion(models.Model):
     #autor = models.ForeignKey(User, on_delete=models.CASCADE)  # Asumiendo que Usuario es tu modelo de usuario
 
 class Imagen(models.Model):
-    publicacion = models.ForeignKey(Publicacion, related_name='imagenes', on_delete=models.CASCADE)
-    imagen = models.ImageField(upload_to='imagenes_publicaciones/')  # Asegúrate de tener Pillow instalado para manejar imágenes
+    publicacion = models.ForeignKey('Publicacion', on_delete=models.CASCADE)
+    imagen = models.ImageField(upload_to='imagenes/')
+
+    def __str__(self):
+        return self.imagen.url

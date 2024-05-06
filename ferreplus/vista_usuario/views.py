@@ -38,6 +38,8 @@ def subir_publicacion(request):
         
         # Verificar campos
         exito, mensaje_error = modulos_publicacion.verificar_campos(datos_publicacion)
+        if len(imagenes) > 5:
+            return render(request, 'vista_usuario/subir_publicacion.html', {'error': 'El máximo de imágenes permitidas es 5.'})
         if not exito:
             return render(request, 'vista_usuario/subir_publicacion.html', {'error': mensaje_error})
         else:
