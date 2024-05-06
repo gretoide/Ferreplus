@@ -12,6 +12,7 @@ from .models import User, Publicacion, Imagen
 from ferreplus.modulos import modulos_registro
 from .modulos import modulos_publicacion
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login,logout
 
 from django.core.exceptions import ValidationError
 import os
@@ -157,3 +158,7 @@ def cambiarContraseña(request, email, contraseña):
         
 def cambiarContraseñaExito(request):
     return render(request, os.path.join(TEMPLATE_DIR,'vista_usuario','cambiar_contraseña_exito.html'))
+
+def cerrar_sesion(request):
+    logout(request)
+    return redirect("inicio")

@@ -8,4 +8,5 @@ urlpatterns = [
     path('', views.inicio, name="inicio"),
     # Incluye las vistas exclusivas de usuario sin tener que repetir todo
     path('', include('vista_usuario.urls')),
+    path('logout/', user_views.cerrar_sesion, name='cerrar_sesion'),
 ]

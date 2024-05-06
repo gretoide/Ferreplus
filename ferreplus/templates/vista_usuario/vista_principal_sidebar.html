@@ -1,7 +1,6 @@
 <!-- SIDE BAR MENU -->
 <div id="mySidebar" class="sidebar">
     
-
     <!-- Boton de configuración-->
     <button class="bi bi-sliders"></button>
     
@@ -74,5 +73,7 @@
         <a href="{% url 'subir_publicacion' %}" class="btn btn-primary" id="botonSubirPublicacion">Subir publicación</a>
 
     </div>
-
-</div>
+    <div class="mb-3">
+        <a href="{% url 'cerrar_sesion' %}" class="btn btn-danger" role="button" onclick="return confirm('¿Estás seguro que deseas cerrar sesión?')">Cerrar sesión</a>
+    </div>
+   

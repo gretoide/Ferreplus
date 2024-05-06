@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.template.loader import get_template
 from django.shortcuts import render, redirect
 from django.template import loader
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login,logout
 from .modulos import modulos_registro
 from vista_usuario.models import User
 from django.contrib.auth import get_user_model
