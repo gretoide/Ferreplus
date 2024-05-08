@@ -1,20 +1,19 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, Http404
-from django.template.loader import get_template
+
 from django.shortcuts import render, redirect
-from django.template import loader
+
 from django.core.mail import send_mail
 from django.conf import settings
-from django.urls import reverse
-from django.contrib.auth import views as auth_views
+
 from pathlib import Path
-from .models import User, Publicacion, Imagen
+from .models import User
 from ferreplus.modulos import modulos_registro
 from .modulos import modulos_publicacion
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate, login,logout
+from django.contrib.auth import logout
 
-from django.core.exceptions import ValidationError
+
 import os
 import secrets
 
@@ -25,6 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Define the template directory path using os.path.join
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
+
 @login_required
 def pagina_principal(request):
     return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario','vista_principal.html'))
@@ -52,7 +52,7 @@ def subir_publicacion(request):
         # Si es una solicitud GET, simplemente renderizar la página principal
         return render(request, 'vista_usuario/subir_publicacion.html')
 
-
+@login_required
 def crear_oferta(request):
     return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario','crear_oferta.html'))
 
@@ -63,16 +63,12 @@ def registro(request):
     
         
     if request.method == "POST":
-        
-
         usuario = request.POST.dict()
 
-        # Validar los datos del usuario
+        
         condicion_validacion, motivo_validacion = modulos_registro.verificar(usuario)
 
         if condicion_validacion:
-            try:
-                # Crear el usuario en la base de datos
                 usuario_creado = User.objects.create(
                     username=usuario["correo_electronico"],
                     email=usuario["correo_electronico"],
@@ -84,16 +80,13 @@ def registro(request):
                 usuario_creado.set_password(usuario["contraseña"])
                 usuario_creado.save()
 
-                # Mostrar mensaje de exito
-                mensaje_exito = "Usuario creado correctamente. Inicia sesión para continuar."
-                return render(request, "vista_usuario/registro_usuario.html", {"aviso": mensaje_exito})
+                
+                mensaje_exito = "Usuario creado correctamente. Inicia sesión para continuar." #ACA SI LLEGA, PODRA PASAR ALGO EN EL MEDIO?
+                return render(request,"pagina_inicio.html",{"aviso": mensaje_exito}) #NUNCA LLEGA ACA AUNQUE 
 
-            except Exception:
-                # Manejar cualquier excepción que ocurra durante la creación del usuario
-                return render(request, "vista_usuario/registro_usuario.html", {"error": motivo_validacion})
 
+            
         else:
-            # Mostrar mensaje de error con la causa de la validación fallida
             return render(request, "vista_usuario/registro_usuario.html", {"error": motivo_validacion})
 
     else:

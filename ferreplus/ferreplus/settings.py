@@ -40,6 +40,7 @@ ALLOWED_HOSTS = ['*']
 
 # Application definition
 
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -147,3 +148,9 @@ EMAIL_HOST_USER = 'ferreplus22@gmail.com'
 EMAIL_HOST_PASSWORD = 'jquywokoibbnhged'
 
 AUTH_USER_MODEL = "vista_usuario.User"
+
+#Config de las cookies
+SESSION_COOKIE_AGE = 3600 
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+LOGIN_URL = "/"
