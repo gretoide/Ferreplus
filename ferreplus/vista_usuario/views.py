@@ -126,7 +126,7 @@ def restablecerContraseña(request):
                 "error": ""
             })
     else:
-        if Usuario.objects.filter(email=request.POST["email"]).exists():
+        if User.objects.filter(email=request.POST["email"]).exists():
             return redirect("ingresar_codigo", email=request.POST["email"])
         else:
             return render(request, os.path.join(TEMPLATE_DIR,'vista_usuario','reestablecer_contraseña.html'), {
@@ -134,7 +134,7 @@ def restablecerContraseña(request):
             })
         
 def ingresarCodigo(request, email, codigo=[""]):
-    user = get_object_or_404(Usuario, email=email)
+    user = get_object_or_404(User, email=email)
     if request.method == "GET":
         codigo[0] = secrets.token_urlsafe(6)
         send_mail("Cambiar contraseña", f"El codigo para cambiar su contraseña es {codigo[0]}", settings.EMAIL_HOST_USER,[email])
@@ -144,7 +144,7 @@ def ingresarCodigo(request, email, codigo=[""]):
         })
     else:
         if request.POST["codigo"] == codigo[0]:
-            return redirect("cambiar_contraseña", email=email, contraseña=user.contrasenia)
+            return redirect("cambiar_contraseña", email=email, contraseña=user.password)
         else:
             return render(request, os.path.join(TEMPLATE_DIR,'vista_usuario','ingresar_codigo.html'), {
             "codigo": codigo[0],
@@ -152,8 +152,8 @@ def ingresarCodigo(request, email, codigo=[""]):
         })
 
 def cambiarContraseña(request, email, contraseña):
-    user = get_object_or_404(Usuario, email=email)
-    if user.contrasenia != contraseña:
+    user = get_object_or_404(User, email=email)
+    if user.password != contraseña:
         raise Http404
     if request.method == "GET":
         return render(request, os.path.join(TEMPLATE_DIR,'vista_usuario','cambiar_contraseña.html'), {
@@ -163,7 +163,7 @@ def cambiarContraseña(request, email, contraseña):
         if request.POST["contraseña1"] == request.POST["contraseña2"]:
             resultado = modulos_registro.validar_contraseña(request.POST["contraseña1"])
             if resultado[0]:
-                user.contrasenia = request.POST["contraseña1"]
+                user.set_password(request.POST["contraseña1"])
                 user.save()
                 return redirect("cambiar_contraseña_exito") 
             else:
