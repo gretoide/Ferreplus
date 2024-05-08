@@ -104,7 +104,7 @@
                 <!-- Carousel para mostrar las imágenes -->
                 <div id="carousel{{ publicacion.id }}" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner">
-                        {% for i in publicaciones{} | get.id %}
+                        {% for i in "12345" %}
                         <div class="carousel-item{% if forloop.first %} active{% endif %}">
                             <img src="https://picsum.photos/seed/{{ publicacion.id }}{{ i }}/200/200" class="d-block w-100" alt="Imagen de la publicación">
                         </div>
