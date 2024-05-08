@@ -40,9 +40,8 @@ class Publicacion(models.Model):
     categoria = models.CharField(max_length=50, choices=CATEGORIA_CHOICES)
     sucursal = models.CharField(max_length=100)  # Esto puede cambiarse a ForeignKey si tienes una tabla de sucursales
     descripcion = models.TextField()
+    autor = models.ForeignKey(User, on_delete=models.CASCADE)
     
-    #horario = models.CharField(max_length=100)
-    #autor = models.ForeignKey(User, on_delete=models.CASCADE)  # Asumiendo que Usuario es tu modelo de usuario
 
 class Imagen(models.Model):
     publicacion = models.ForeignKey('Publicacion', on_delete=models.CASCADE)
