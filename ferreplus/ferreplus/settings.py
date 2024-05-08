@@ -48,7 +48,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Agregamos la aplicación para que nuestro sistema entero lo conozca
-    'vista_usuario'
+    'vista_usuario',
+    'vista_administrador'
 ]
 
 MIDDLEWARE = [

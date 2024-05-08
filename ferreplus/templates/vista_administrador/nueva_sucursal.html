@@ -11,15 +11,16 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/agregar_sucursal.css' %}">
 </head>
 <body>
-    {%load static%}
-    <form class="container">
-        <div class="mb-3">
+     {% csrf_token %}
+    <form method="POST" class="container">
+      {% csrf_token %}  
+      <div class="mb-3">
           <label for="input_nombre" class="form-label">Nombre de la sucursal</label>
-          <input type="text" class="form-control" id="input_nombre">
+          <input type="text" name="nombre" class="form-control" id="input_nombre">
         </div>
         <div class="mb-3">
           <label for="input_direccion" class="form-label">Direccion</label>
-          <input type="text" class="form-control" id="input_direccion">
+          <input type="text" name="direccion" class="form-control" id="input_direccion">
         </div>
         <button type="submit" class="btn btn-primary">Agregar</button>
       </form>
