@@ -10,9 +10,6 @@ class User(AbstractUser):
     email = models.EmailField(blank=True,default="",unique=True)
     dni = models.CharField(max_length=8, unique=True)
     fecha_nacimiento = models.DateField()
-
-
-
     
     
 

@@ -21,13 +21,17 @@
     <div class="container custom-container">
         <!-- Formulario de Inicio de Sesión -->
         <h1 class="text-center mb-4 custom-heading">Iniciar sesión</h1>
+        <!-- Mensaje de alerta de error -->
+        {% if error %}
+        <div class="alert alert-danger" role="alert">
+            {{ error }}
+        </div>
+        {% endif %}
         <div id="login-form" class="d-flex flex-column align-items-center custom-login-form">
             
             <form method="post">
                 {% csrf_token %}
-                <div  class="mb-3">
-                    {{aviso}}
-                </div>
+                
                 <div class="mb-3">
                     <input type="email" class="form-control" placeholder="Correo electrónico" name="correo_electronico" required>
                 </div>
