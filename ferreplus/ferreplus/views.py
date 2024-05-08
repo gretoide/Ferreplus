@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout, user_logged_in
 from vista_usuario.models import User
-from django.middleware.csrf import rotate_token  # Importa rotate_token
+
 
 def inicio(request):
     if request.method == "POST":
@@ -15,15 +15,19 @@ def inicio(request):
             user = None
         
         if user:
-            
             if user.check_password(contrasena):
                 # Autenticación exitosa
                 login(request, user)
-                return render(request, "vista_usuario/vista_principal.html")
-            
-        else:
-            mensaje_error = "Correo electrónico o contraseña inválidos."
+                next_page = request.GET.get('next')  
+                if next_page:
+                    return redirect(next_page)
+                else:
+                    return redirect('pagina_principal')  
+            else:
+                mensaje_error = "Correo electrónico o contraseña inválidos."
+        
         return render(request, "pagina_inicio.html", {"aviso": mensaje_error})
 
     else:
         return render(request, "pagina_inicio.html")
+

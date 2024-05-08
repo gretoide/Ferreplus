@@ -7,7 +7,7 @@ from django.core.mail import send_mail
 from django.conf import settings
 
 from pathlib import Path
-from .models import User
+from .models import User, Publicacion, Imagen
 from ferreplus.modulos import modulos_registro
 from .modulos import modulos_publicacion
 from django.contrib.auth.decorators import login_required
@@ -40,7 +40,7 @@ def pagina_principal(request):
         primeras_imagenes_por_publicacion[publicacion] = primera_imagen
 
     # Renderizar la plantilla con las publicaciones y las primeras imágenes asociadas
-    return render(request, 'vista_usuario/vista_principal.html', {'publicaciones': publicaciones, 'imagen': primera_imagen})
+    return render(request, 'vista_usuario/vista_principal.html')
 @login_required
 def subir_publicacion(request):
     if request.method == "POST":
@@ -79,10 +79,8 @@ def crear_oferta(request):
 
 def registro(request):
     
-        
     if request.method == "POST":
         usuario = request.POST.dict()
-
         
         condicion_validacion, motivo_validacion = modulos_registro.verificar(usuario)
 

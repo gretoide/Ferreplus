@@ -25,7 +25,7 @@
         <h1 class="text-center mb-4 custom-heading">Iniciar sesión</h1>
         <div id="login-form" class="d-flex flex-column align-items-center custom-login-form">
             
-            <form method="post">
+            <form method="post" action="{% url 'inicio' %}?next={{ request.GET.next }}">
                 {% csrf_token %}
                 <div  class="mb-3">
                     <p> {{aviso}}</p>
@@ -50,7 +50,7 @@
                 <!-- Agregar un campo oculto con el estado de autenticación -->
                 <input type="hidden" id="user-authenticated" value="true">
             {% else %}
-                <p>¿No tienes una cuenta? <a href="{% url 'registro' %}" class="text-primary">Regístrate</a></p>
+                <p>¿No tienes una cuenta? <a href="{% url 'registro' %}?next={{ request.GET.next }}">Registrarse</a></p>
                 <p><a href="{% url 'restablecer_contraseña' %}" class="text-primary">¿Olvidaste tu contraseña?</a></p>
                 <!-- Agregar un campo oculto con el estado de autenticación -->
                 <input type="hidden" id="user-authenticated" value="false">
