@@ -1,0 +1,106 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    box-sizing: border-box;
+  }
+
+body {
+    min-height: 100%;
+    background-color: #202020;
+}
+  /* Estilos para el contenedor principal */
+  .jumbotron {
+    background-image: url("../foto_inicio.png"); 
+    background-size: cover;
+    background-position: center;
+    color: #ffffff; /* Texto blanco */
+    text-shadow: 2px 4px 4px rgba(0, 0, 0, 0.712); /* Sombra del texto */
+    font-size: 6vw; /* Tamaño del texto en relación con el ancho de la ventana */
+    height: 100vh; /* Altura de la pantalla completa */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Alinea el contenido en la parte inferior */
+    padding-bottom: 5vw; /* Relleno inferior en relación con el ancho de la ventana */
+    width: 100vw; /* Ancho de pantalla completa */
+    padding-left: 10%; /* Relleno izquierdo */
+    padding-right: 10%; /* Relleno derecho */
+  }
+  
+  /* Estilos para el botón de registro */
+  .btn-register {
+    background-color: #3d3d3d; /* Gris oscuro */
+    border-color: #3d3d3d; /* Borde gris oscuro */
+    color: #ffffff; /* Texto blanco */
+    transition: background-color 0.3s ease; /* Transición de color */
+    width: 50%; /* Ancho completo */
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    margin-left: 90px;
+  }
+  
+  
+  .btn-register:hover {
+    background-color: #ffc107; /* Cambio de color al pasar el cursor */
+    color: #000000; /* Cambio de color del texto al pasar el cursor */
+  }
+  
+  /* Estilos para el formulario de inicio de sesión */
+  #login-form {
+    margin-top: 10px; /* Margen superior del formulario */
+  }
+  
+  /* Estilos para el texto primario */
+  .text-primary {
+    color: #ffd60a; /* Texto amarillo para enlaces */
+  }
+  
+  .form-control {
+    margin-bottom: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+    background-color: #404040;
+    border-color: #505050;
+    color: #d6d6d6;
+    width: 100%;
+}
+
+/* Estilos para el input cuando está enfocado */
+.form-control:focus {
+    border-color: #606060; /* Cambia el color del borde al seleccionar */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Agrega una sombra alrededor del input */
+    background-color: #707070;
+    color: white;
+}
+
+.form-control::placeholder {
+    color: #d7d7d7; /* Color del marcador de posición gris claro */
+  }
+  
+  /* Estilos para el título de encabezado */
+  h1.display-4 {
+    font-size: 7vw; /* Tamaño de fuente responsivo */
+    font-weight: bold; /* Texto en negrita */
+  }
+  
+  /* Estilos para el párrafo principal */
+  p.lead {
+    color: #ffffff;
+    font-size: 4vw; /* Tamaño de fuente responsivo */
+    padding-bottom: 40px; /* Relleno inferior */
+  }
+  
+  /* Estilos para el título centrado */
+  h1.text-center.mb-4 {
+    color: white;
+    margin-top: 4vw; /* Margen superior responsivo */
+    padding-bottom: 10px; /* Relleno inferior */
+    padding-top: 10px; /* Relleno superior */
+  }
+  
+  p {
+    color: #d7d7d7;
+  }
