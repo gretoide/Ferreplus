@@ -4,6 +4,10 @@ body {
     color: #ffffff; /* Color de texto blanco */
 }
 
+.error{
+    color: red;
+}
+
 .container {
     max-width: 500px; /* Ancho máximo del contenedor */
     margin: auto; /* Centrar el contenedor */

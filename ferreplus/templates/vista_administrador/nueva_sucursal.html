@@ -11,19 +11,17 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/agregar_sucursal.css' %}">
 </head>
 <body>
-     {% csrf_token %}
-    <form method="POST" class="container">
-      {% csrf_token %}  
-      <div class="mb-3">
-          <label for="input_nombre" class="form-label">Nombre de la sucursal</label>
-          <input type="text" name="nombre" class="form-control" id="input_nombre">
-        </div>
-        <div class="mb-3">
-          <label for="input_direccion" class="form-label">Direccion</label>
-          <input type="text" name="direccion" class="form-control" id="input_direccion">
-        </div>
-        <button type="submit" class="btn btn-primary">Agregar</button>
-      </form>
+  <div class="container-sm">
+    {% csrf_token %}
+    {% block content %}
+    <form method="post">
+      {% csrf_token %}
+      {{form.as_p}}
+      <input type="submit" value="Agregar" class="btn-primary">
+    </form>
+    
+      {% endblock %}
+  </div>
 
     <!-- Enlace a Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

@@ -10,8 +10,7 @@ from django.contrib.auth import views as auth_views
 from django.contrib import messages
 from pathlib import Path
 from .models import Sucursal
-from ferreplus.modulos import modulos_registro
-#from .modulos import modulos_publicacion
+from .forms import formularioSucursal as nue_sucur
 from django.contrib.auth.decorators import login_required
 
 from django.core.exceptions import ValidationError
@@ -22,7 +21,6 @@ import secrets
 # Create your views here.
 
 
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -31,24 +29,26 @@ TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 
 
 def inicio_admin(request):
-    return render(request, os.path.join(TEMPLATE_DIR, 'vista_administrador','pagina_principal_admin.html'))
+    return render(request, os.path.join(TEMPLATE_DIR, 'vista_administrador', 'pagina_principal_admin.html'))
+
 
 def agregar_sucursal(request):
-    return render(request,os.path.join(TEMPLATE_DIR,'vista_administrador','nueva_sucursal.html'))
-
-def crear_sucursal(request):
     if request.method == "POST":
-        try:
-            sucursal = request.POST.dict()
+
+        form_sucursal = nue_sucur(request.POST)
+
+        if form_sucursal.is_valid():
+            datos = form_sucursal.cleaned_data
+
             sucursal_nueva = Sucursal.objects.create(
-                nombre = sucursal["nombre"],
-                direccion = sucursal["direccion"]
+                nombre=datos['nombre'],
+                direccion=datos['direccion']
             )
             sucursal_nueva.save()
-            mensaje_de_exito = "La sucursal se creo correctamente"
-            #return render(request, "vista_empleado/nueva_sucursal.html", {"aviso",mensaje_de_exito})
-        except Exception:
-            mensaje_de_error= "La sucursal no se pudo crear"   
-            #return render(request, "vista_empleado/nueva_sucursal.html",{"error",mensaje_de_error})
-    
-#def crear_sucursal():
+    else:
+        form_sucursal = nue_sucur()
+    return render(request, os.path.join(TEMPLATE_DIR, 'vista_administrador', 'nueva_sucursal.html'),{"form":form_sucursal})
+
+# def nueva_sucursal(request):
+
+# def crear_sucursal():
