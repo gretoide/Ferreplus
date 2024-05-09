@@ -3,7 +3,7 @@ from datetime import date
 from django.contrib.auth.models import AbstractUser, PermissionsMixin ,UserManager
 from django.db import models
 from django.utils import timezone
-
+import os
 
 class User(AbstractUser):
     # ... otros campos personalizados que puedas necesitar ...
@@ -38,11 +38,10 @@ class Publicacion(models.Model):
     sucursal = models.CharField(max_length=100)  # Esto puede cambiarse a ForeignKey si tienes una tabla de sucursales
     descripcion = models.TextField()
     autor = models.ForeignKey(User, on_delete=models.CASCADE)
-    
+    imagenes = models.ManyToManyField('Imagen', related_name='publicaciones')  # Relación ManyToMany con Imagen
 
 class Imagen(models.Model):
-    publicacion = models.ForeignKey('Publicacion', on_delete=models.CASCADE)
     imagen = models.ImageField(upload_to='imagenes/')
 
     def __str__(self):
-        return self.imagen.url
+        return os.path.basename(self.imagen.name)
