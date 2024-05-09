@@ -36,11 +36,13 @@ def pagina_principal(request):
         # Obtener la primera imagen relacionada con la publicación actual
         primera_imagen = Imagen.objects.filter(publicacion_id=publicacion.id).first()
         
-        # Almacenar la primera imagen en el diccionario con la clave como la publicación misma
-        primeras_imagenes_por_publicacion[publicacion] = primera_imagen
+        # Verificar si hay una imagen asociada a la publicación
+        if primera_imagen:
+            # Almacenar la primera imagen en el diccionario con la clave como la publicación misma
+            primeras_imagenes_por_publicacion[publicacion] = primera_imagen
 
     # Renderizar la plantilla con las publicaciones y las primeras imágenes asociadas
-    return render(request, 'vista_usuario/vista_principal.html')
+    return render(request, 'vista_usuario/vista_principal.html', {'publicaciones': publicaciones})
 @login_required
 def subir_publicacion(request):
     if request.method == "POST":
