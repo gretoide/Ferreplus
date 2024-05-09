@@ -99,6 +99,7 @@
 
     <!-- Contenedor para las tarjetas de publicaciones -->
     <div class="contenedor-publicaciones">
+        {% if publicaciones %}
         {% for publicacion in publicaciones %}
             <div class="card">
                 <!-- Carousel para mostrar las imágenes -->
@@ -129,6 +130,11 @@
                 </div>
             </div>
         {% endfor %}
+        {% else %}
+            <div class="alert alert-info" role="alert">
+                No hay publicaciones disponibles.
+            </div>
+        {% endif %}
     </div>
     
 

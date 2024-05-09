@@ -28,7 +28,7 @@ TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 @login_required
 def pagina_principal(request):
     publicaciones = Publicacion.objects.all()
- # Crear un diccionario para almacenar las primeras imágenes asociadas a cada publicación
+    # Crear un diccionario para almacenar las primeras imágenes asociadas a cada publicación
     primeras_imagenes_por_publicacion = {}
 
     # Iterar sobre todas las publicaciones
@@ -36,13 +36,14 @@ def pagina_principal(request):
         # Obtener la primera imagen relacionada con la publicación actual
         primera_imagen = Imagen.objects.filter(publicacion_id=publicacion.id).first()
         
-        # Verificar si hay una imagen asociada a la publicación
-        if primera_imagen:
-            # Almacenar la primera imagen en el diccionario con la clave como la publicación misma
-            primeras_imagenes_por_publicacion[publicacion] = primera_imagen
+        # Almacenar la primera imagen en el diccionario con la clave como la publicación misma
+        primeras_imagenes_por_publicacion[publicacion] = primera_imagen
 
     # Renderizar la plantilla con las publicaciones y las primeras imágenes asociadas
-    return render(request, 'vista_usuario/vista_principal.html', {'publicaciones': publicaciones})
+    return render(request, 'vista_usuario/vista_principal.html', {'publicaciones': publicaciones, 'primeras_imagenes_por_publicacion': primeras_imagenes_por_publicacion})
+
+
+    
 @login_required
 def subir_publicacion(request):
     if request.method == "POST":
