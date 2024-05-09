@@ -262,6 +262,7 @@ span {
 }
 .card {
     width: 18rem;
+    height: 500px;
     display: flexbox;
     z-index: 2;
 }
@@ -274,6 +275,19 @@ span {
     flex-wrap: wrap;
     justify-content: center;
     gap: 20px; /* Espacio entre las tarjetas de publicaciones */
+}
+
+.card img {
+    width: 300px;
+    height: 300px; /* Establecer un ancho máximo para la imagen */
+
+}
+
+.card-body {
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .card {
@@ -295,7 +309,7 @@ span {
     background-color: #404040; /* Color de fondo deseado */
     border: 1px solid #808080; /* Borde sólido con color deseado */
     border-radius: 10px; /* Bordes redondeados */
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.800);
+    box-shadow: 0 0 px rgba(0, 0, 0, 0.800);
 }
 
 .carousel-item img {
@@ -323,7 +337,16 @@ span {
 /*Badges*/
 
 .badge {
-    background-color: #707070;
+    background-color: #606060;
+    padding: 10px;
+    border-radius: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+p {
     padding: 5px;
-    margin: 5px;
+    border-radius: 5px;
+    height: 200px;
+    width: 100%;
 }
