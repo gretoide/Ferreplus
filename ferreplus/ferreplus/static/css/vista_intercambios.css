@@ -1,312 +1,352 @@
-/* Estilos para el sidebar */
-.sidebar {
-    width: 300px; /* Ancho del sidebar */
-    height: 100%; /* Altura del sidebar */
-    position: fixed; /* Para que el sidebar permanezca fijo en la pantalla */
-    top: 0;
-    left: 0; /* Ajuste para que el sidebar sea visible por defecto */
-    background-color: #343a40; /* Color de fondo del sidebar */
-    overflow-y: auto; /* Para permitir el desplazamiento vertical si es necesario */
-    padding-top: 20px; /* Espacio superior */
-    transition: left 0.5s; /* Transición suave */
-    z-index: 1000; /* Z-index para estar encima del contenido */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    box-sizing: border-box;
+  }
+
+body {
+    min-height: 100%;
+    background-color: #202020;
 }
 
-/* Estilos para el contenido principal */
-#main {
-    margin-left: 250px; /* Margen izquierdo para dejar espacio para el sidebar */
-    padding: 20px; /* Espaciado del contenido */
-    transition: margin-left 0.5s; /* Transición suave para el cambio de margen */
-    background-color: #a1a7ad;
+/* Estilo para la línea de separación */
+.sidebar-divider {
+    border: none; /* Elimina el borde predeterminado */
+    border-top: 2px solid #818181; /* Agrega una línea horizontal */
+    margin-left: -5px;
+    margin-right: 30px;
 }
 
-/* Estilos para el botón de cerrar el sidebar */
-#closeBtn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 24px;
-    background-color: transparent;
-    border-color: transparent;
-    color: #fff; /* Color del icono */
-}
-
-/* Estilos para los botones del sidebar */
-.sidebar a {
-    width: 90%;
-    padding: 4px; /* Espaciado interno */
-    padding-left: 10px;
-    color: #d4d4d4; /* Color del texto */
-    text-decoration: none; /* Sin subrayado */
-    text-align: left;
-    background-color: transparent;
-    border-color: transparent;
-}
-
-/* Estilos para los botones del sidebar al pasar el mouse */
-.sidebar a:hover {
-    background-color: transparent; /* Color de fondo al pasar el mouse */
-    border-color: transparent;
-    text-decoration:solid;
-}
-
-/* Estilos para el icono de configuración */
-.bi-sliders {
-    font-size: 24px;
-    color: #fff; /* Color del icono */
-    background-color: transparent;
-    border-color: transparent;
-    position: absolute;
-    top: 10px;
-    left: 10px;
-}
-
-/* Estilos para el icono de menú */
-.bi-list {
-    font-size: 24px;
-    color: #fff; /* Color del icono */
-    border-radius: 10px;
-    background-color: transparent;
-    border-color: transparent;
-    position: absolute;
-    top: 10px;
-    left: 10px;
-}
-
-/* Estilos para el título de la página */
-h1 {
-    margin-top: 40px; /* Ajusta este valor según sea necesario */
-    color: #ffffff;
-}
-
-
-/* Estilos para el contenido de las publicaciones */
-.card-body {
-    background-color: #f8f9fa; /* Color de fondo del contenido de las tarjetas */
-    border-radius: 10px; /* Borde redondeado */
-    padding: 15px; /* Espaciado interno */
-    margin-bottom: 20px; /* Margen inferior */
-}
-
-/* Estilos para los títulos de las publicaciones */
-.card-title {
-    margin-bottom: 10px; /* Margen inferior */
-}
-
-/* Estilos para los subtítulos de las publicaciones */
-.card-subtitle {
-    margin-bottom: 5px; /* Margen inferior */
-    font-size: 14px; /* Tamaño de fuente */
-    color: #6c757d; /* Color del texto */
-}
-
-/* Estilos para las imágenes de las publicaciones */
-.card-img-top {
-    border-radius: 10px; /* Borde redondeado */
-    margin-bottom: 10px; /* Margen inferior */
-}
-
-/* Estilos para los elementos del sidebar */
-.sidebar-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 20px;
-}
-
-
-.mb-3 {
-    position: relative;
-}
-
-/* Estilos para la etiqueta del menú desplegable */
-.select {
-    display: block;
-    width: 100%;
-}
-
-/* Estilos para el menú desplegable */
-#slct {
-    appearance: none; /* Elimina el estilo predeterminado del navegador */
-    background-color: #495057; /* Color de fondo oscuro */
-    color: #d4d4d4; /* Color de texto blanco */
-    width: calc(100% - 32px);
-    padding: 10px 15px; /* Espaciado interno */
-    border: 1px solid #495057; /* Borde ligeramente más oscuro */
-    border-radius: 5px; /* Borde redondeado */
-    font-size: 16px; /* Tamaño de fuente */
-    cursor: pointer; /* Cambia el cursor al pasar sobre el elemento */
-    outline: none; /* Elimina el contorno al enfocar */
-    margin-bottom: 15px; /* Separación del borde inferior del sidebar */
-    margin-left: 10px;
-    height: 40px;
-}
-
-/* Estilos para la opción predeterminada del menú desplegable */
-#slct option:disabled {
-    color: #d4d4d4; /* Color de texto gris oscuro */
-    background-color: #343a40; /* Fondo oscuro */
-}
-
-/* Estilos para el menú desplegable al enfocarse */
-#slct:focus {
-    background-color: #495057; /* Color de fondo al enfocarse */
-    border-color: #979797; /* Color del borde al enfocarse */
-    box-shadow: none; /* Elimina la sombra al enfocarse */
-}
-
-/* Estilos para la flecha del menú desplegable */
-#slct {
-    background-image: linear-gradient(45deg, transparent 50%, #6c757d 50%),
-                      linear-gradient(135deg, #6c757d 50%, transparent 50%);
-    background-position: calc(100% - 20px) calc(1em + 2px),
-                         calc(100% - 15px) calc(1em + 2px);
-    background-size: 5px 5px, 5px 5px;
-    background-repeat: no-repeat;
-}
-
-/* Estilos mejorados para la barra de búsqueda */
-.form-control {
-    background-color: #495057; /* Color de fondo más oscuro */
-    color: #d4d4d4; /* Color del texto */
-    border: 1px solid #495057; /* Borde ligeramente más oscuro */
-    border-radius: 5px; /* Borde redondeado */
-    padding: 10px 15px; /* Espaciado interno ligeramente mayor */
-    transition: background-color 0.3s, border-color 0.3s; /* Transiciones suaves */
-    margin-bottom: 15px;
-    margin-left: 10px;
-    height: 40px;
-    width: calc(100% - 32px); /* Ancho igual al del selector de sucursal */
-}
-
-/* Estilos para la barra de búsqueda al enfocarse */
-.form-control:focus {
-    background-color: #495057; /* Color de fondo al enfocarse */
-    border-color: #979797; /* Color del borde al enfocarse */
-    box-shadow: none; /* Elimina la sombra al enfocarse */
-}
-
-/* Estilos para el texto dentro de la barra de búsqueda al escribir */
-.form-control:focus, .form-control:valid {
-    color: #d4d4d4; /* Color del texto al escribir */
-}
-
-.form-control::placeholder {
-    color: #d4d4d4;
-}
-
-
-#CheckerContainer {
-    padding-left: 10px;
-}
-
-.fw-bold {
-    font-weight: bold; /* Asegúrate de que el texto esté en negrita */
-    margin-bottom: 3px; /* Ajusta el margen inferior según sea necesario */
-    color: #d4d4d4; /* Color del texto */
-}
-
-.form-check {
-    display: flex;
-    align-items: center;
-    padding-left: 30px;
-    margin-bottom: 0; /* Elimina el margen inferior para ajustar la alineación */
-    margin-top: 4px; /* Ajusta el margen superior para alinear con el texto */
-}
-
-.form-check-label {
-    color: #d4d4d4;
-    display: inline-block; /* Hace que el label sea un bloque en línea */
-    padding-top: 3px;
-    line-height: 1; /* Ajusta la altura de línea para centrar el texto */
-    margin: 5px 0; /* Ajusta los márgenes superior e inferior */
-}
-
-/* Estilos para los radio buttons */
-.form-check-input[type="radio"] {
-    appearance: none; /* Elimina el estilo predeterminado del navegador */
-    width: 16px; /* Ancho del radio button */
-    height: 16px; /* Altura del radio button */
-    border-radius: 50%; /* Hace el radio button circular */
-    background-color: transparent; /* Fondo transparente */
-    border: 1px solid #c7c7c7; /* Borde blanco */
-    cursor: pointer; /* Cambia el cursor al pasar sobre el radio button */
-    margin-right: 8px; /* Espacio a la derecha del radio button */
-    vertical-align: middle; /* Alinea verticalmente con el texto */
-    outline: none; /* Elimina el contorno cuando se enfoca */
-    position: relative; /* Necesario para posicionar el círculo interior */
-}
-
-/* Estilo para el radio button seleccionado */
-.form-check-input[type="radio"]:checked {
-    background-color: transparent; /* Mantiene el fondo transparente */
-}
-
-/* Círculo interior del radio button seleccionado */
-.form-check-input[type="radio"]:checked::after {
-    content: ""; /* Contenido vacío */
-    display: block; /* Hace que se muestre como un elemento de bloque */
-    width: 8px; /* Ancho del círculo interior */
-    height: 8px; /* Altura del círculo interior */
-    border-radius: 50%; /* Hace el círculo interior circular */
-    background-color: #c7c7c7; /* Color de fondo blanco */
-    position: absolute; /* Posicionamiento absoluto dentro del radio button */
-    top: 50%; /* Centrado vertical */
-    left: 50%; /* Centrado horizontal */
-    transform: translate(-50%, -50%); /* Centra el círculo interior */
-}
-
-/* Estilo para el radio button al pasar el mouse */
-.form-check-input[type="radio"]:hover {
-    border-color: #ffffff; /* Color del borde al pasar el mouse */
-}
-
-
-/* Estilos para el contenedor del botón de subir publicación */
-#btnSubirPublicacionContainer {
-    display: flex;
-    justify-content: center; /* Centra horizontalmente el contenido */
-    margin-top: auto; /* Para que el contenedor se alinee automáticamente hacia arriba */
-    margin-bottom: 20px; /* Espacio inferior */
-}
-
-#botonSubirPublicacion {
-    display: block;
-    background-color: green;
-    border-color: transparent;
-}
-
-/* IMAGENES */
-
-.image-upload-container {
-    width: 150px;
-    height: 150px;
-    border: 2px dashed #ccc;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-}
-
-.image-upload-input {
-    position: absolute;
+nav {
+    border-bottom: 1px solid #707070!important;
+    position: rel;
     top: 0;
     left: 0;
+    height: 70px;
     width: 100%;
+    display: flex;
+    align-items: center;
+    background-color: #202020;
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
+}
+
+nav.logo {
+    display: flex;
+    align-items: center;
+    margin: 0 24px;
+}
+
+.logo .menu-icon {
+    color: #d6d6d6;
+    font-size: 24px;
+    cursor: pointer;
+    padding-left: 10px;
+    margin-right: 10px;
+    padding-top: 25px;
+    padding-bottom: 20px;
+}
+
+.logo .logo-name {
+    align-items: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    color: #ffd100;
+    font-size: 24px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+nav .sidebar {
+    position: fixed;
+    top: 0;
+    left: -100%;
     height: 100%;
+    width: 260px;
+    padding: 20 10px;
+    border-right: 1px solid #707070;
+    background-color: #202020;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.1ms ease;
+    z-index: 1000;
+}
+
+nav.open .sidebar {
+    left: 0%;
+}
+
+.sidebar .sidebar-content {
+    height: 100%;
+    padding-top: 30px 16px;
+    color: #d6d6d6;
+    justify-content: space-between;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-content .list {
+    list-style: none;
+}
+
+.list .nav-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    margin-left: -30px;
+    margin-right: 10px;
+    padding: 14px 12px;
+    border-radius: 8px;
+    background-color: #202020;
+}
+
+.nav-link .icon {
+    color: #d6d6d6;
+    font-size: 24px;
+    cursor: pointer;
+    padding-left: 10px;
+    margin-right: 10px;
+    padding-top: 0px;
+}
+
+.nav-link:hover {
+    background-color: #505050;
+    transform: scale(1.05);
+    transition: 0.5s ease;
+}
+
+/* texto de los hipervinculos */
+.nav-link:hover .icon,
+.nav-link:hover .link {
+    color: #fff;
+}
+
+.nav-link .link {
+    font-size: 15px;
+    color: #d7d7d7;
+    font-weight: 400;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: -100;
+    height: 1000vh;
+    width: 200%;
     opacity: 0;
-    cursor: pointer;
+    pointer-events: none;
+    transition: all 0.5s ease;
+    background: rgba(112, 112, 112, 0.466);
+    z-index: 1000;
 }
 
-.image-upload-label {
-    display: block;
+nav.open ~ .overlay {
+    opacity: 1;
+    left: 260px;
+    pointer-events: auto;
+
+}
+
+/*Barra de busqueda del side bar*/
+
+/* Estilo para el contenedor del input y el ícono de búsqueda */
+.input-group.rounded {
+    border: 1px solid #707070; /* Añade un borde sólido de 1px alrededor del contenedor */
+    position: rel;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: 30px;
+    width: 400px; /* Ancho deseado del input */
+}
+
+/* Estilo para el input de búsqueda */
+.input-group.rounded input[type="search"] {
+    display: fixed;
+    background-color: #404040; /* Color de fondo del input */
+    color: #d6d6d6;
+    border: none;
+    border-top-left-radius: 8px; /* Borde superior izquierdo redondeado */
+    border-bottom-left-radius: 8px; /* Borde inferior izquierdo redondeado */
+}
+
+.input-group.rounded input[type="search"]::placeholder {
+    color: #d6d6d6;
+    width: 400px;
+}
+/* Estilo para el input de búsqueda al estar enfocado */
+.input-group.rounded input[type="search"]:focus {
+    outline: none; /* Elimina el contorno predeterminado */
+    border: none; /* Cambia el borde al estar enfocado */
+    box-shadow: 0 0 0px; /* Agrega una sombra al estar enfocado */
+}
+
+/* Estilo para el ícono de búsqueda */
+.input-group-text.border-0 {
+    background-color: #707070; /* Color de fondo del ícono */
+    border-top-left-radius: 0; /* Borde superior izquierdo redondeado */
+    border-bottom-left-radius: 0; /* Borde inferior izquierdo redondeado */
+    cursor: pointer; 
+    color: #d6d6d6;/* Cambiar cursor al pasar sobre el ícono */
+}
+
+/* Estilo para el ícono de búsqueda al pasar el mouse */
+.input-group-text.border-0:hover {
+    background-color: #ffd100; /* Color de fondo al pasar el mouse */
+    transition: all 0.3s;
+    color:  #131313;
+}
+
+
+/*----------------------------------------------------------------------------*/
+/* Checkboxes */
+
+h6 {
+    color: #fff;
+    text-decoration:solid;
+    text-shadow: 3px #131313;
+}
+
+/* Estilo para los checkboxes */
+.form-check-input {
+    /* Agrega tus estilos personalizados aquí */
+    /* Por ejemplo: */
+    margin-right: 5px; /* Margen derecho entre los checkboxes */
+}
+
+/* Estilo para las etiquetas de los checkboxes */
+.form-check-label {
+    /* Agrega tus estilos personalizados aquí */
+    /* Por ejemplo: */
+    font-size: 15px;
+    color: #d7d7d7; /* Color del texto */
+    margin-right: 15px; /* Margen derecho entre las etiquetas */
+}
+
+input[type="checkbox"] {
+    accent-color: #ffd100;
+    background-color: #404040;
+  }
+
+/*Apartado de filtros*/
+
+.mb-3 {
+    padding-top: 20px;
+}
+
+.form-select {
+    margin-top: 5px;
+    background-color: #404040;
+    color: #d6d6d6;
+    border-radius: 5px;
+    border: 1px #707070;
+    height: 40px;
+    width: 85%;
+}
+
+/* Color de los spans de acento*/
+
+span {
+    color: #fff;
+}
+
+/* -------- Contenedor de publicaciones -------------*/
+
+.contenedor-publicaciones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center; /* Para centrar horizontalmente */
+    padding-top: 100px; /* Espacio sobre las tarjetas */
+}
+.card {
+    width: 18rem;
+    height: 500px;
+    display: flexbox;
+    z-index: 2;
+}
+
+/*------------------IMAGENES CARD BOX---------------------*/
+
+/* Estilos para el contenedor de publicaciones */
+.contenedor-publicaciones {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px; /* Espacio entre las tarjetas de publicaciones */
+}
+
+.card img {
+    width: 300px;
+    height: 300px; /* Establecer un ancho máximo para la imagen */
+
+}
+
+.card-body {
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.card {
+    width: 300px; /* Ancho inicial de las tarjetas */
+    height: auto; /* Altura automática */
+    background-color: #404040;
+    color: #eeeeee;
+    border: 1px solid #808080;
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.8);
+    transition: transform 0.5s ease; /* Transición para el efecto hover */
+}
+
+.card:hover {
+    transform: scale(1.05); /* Aumentar el tamaño en un 5% al hacer hover */
+}
+
+.carousel-inner {
+    background-color: #404040; /* Color de fondo deseado */
+    border: 1px solid #808080; /* Borde sólido con color deseado */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 0 px rgba(0, 0, 0, 0.800);
+}
+
+.carousel-item img {
+    border: none; /* Borde sólido con color deseado */
+    border-radius: 10px; /* Bordes redondeados */
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    width: 10%; /* Ancho de los controles de navegación */
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: rgba(0, 0, 0, 0.5); /* Color de fondo de los íconos de navegación */
+    border-radius: 50%; /* Forma de los íconos de navegación */
+}
+
+/* Estilo para ocultar el texto de accesibilidad de los controles de navegación */
+.carousel-control-prev .sr-only,
+.carousel-control-next .sr-only {
+    display: none;
+}
+
+/*Badges*/
+
+.badge {
+    background-color: #606060;
+    padding: 10px;
+    border-radius: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+p {
+    padding: 5px;
+    border-radius: 5px;
+    height: 200px;
     width: 100%;
-    height: 100%;
-    text-align: center;
-    cursor: pointer;
-}
-
-.image-upload-label span {
-    font-size: 3rem;
-    color: #666;
 }

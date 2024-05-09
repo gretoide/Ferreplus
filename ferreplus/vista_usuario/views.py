@@ -7,7 +7,7 @@ from django.core.mail import send_mail
 from django.conf import settings
 
 from pathlib import Path
-from .models import User
+from .models import User, Publicacion, Imagen
 from ferreplus.modulos import modulos_registro
 from .modulos import modulos_publicacion
 from django.contrib.auth.decorators import login_required
@@ -28,20 +28,24 @@ TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 @login_required
 def pagina_principal(request):
     publicaciones = Publicacion.objects.all()
- # Crear un diccionario para almacenar las primeras imágenes asociadas a cada publicación
-    primeras_imagenes_por_publicacion = {}
+
+    # Crear un diccionario para almacenar las imágenes asociadas a cada publicación
+    imagenes_por_publicacion = {}
 
     # Iterar sobre todas las publicaciones
     for publicacion in publicaciones:
-        # Obtener la primera imagen relacionada con la publicación actual
-        primera_imagen = Imagen.objects.filter(publicacion_id=publicacion.id).first()
+        # Obtener todas las imágenes relacionadas con la publicación actual
+        imagenes_publicacion = publicacion.imagenes.all()
         
-        # Almacenar la primera imagen en el diccionario con la clave como la publicación misma
-        primeras_imagenes_por_publicacion[publicacion] = primera_imagen
+        # Almacenar las imágenes en el diccionario con la clave como la publicación misma
+        imagenes_por_publicacion[publicacion] = imagenes_publicacion
 
-    # Renderizar la plantilla con las publicaciones y las primeras imágenes asociadas
-    return render(request, 'vista_usuario/vista_principal.html', {'publicaciones': publicaciones, 'imagen': primera_imagen})
+    # Renderizar la plantilla con las publicaciones y las imágenes asociadas
+    print('-'*100,imagenes_por_publicacion)
+    return render(request, 'vista_usuario/vista_principal.html', {'publicaciones': publicaciones, 'imagenes_por_publicacion': imagenes_por_publicacion})
 
+
+    
 @login_required
 def subir_publicacion(request):
     if request.method == "POST":
@@ -80,10 +84,8 @@ def crear_oferta(request):
 
 def registro(request):
     
-        
     if request.method == "POST":
         usuario = request.POST.dict()
-
         
         condicion_validacion, motivo_validacion = modulos_registro.verificar(usuario)
 

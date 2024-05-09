@@ -7,109 +7,161 @@
     <!-- Enlace a Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/vista_intercambios.css' %}">
 </head>
 <body>
+    {% csrf_token %}
+    
+    <!-- Nav bar--> 
+    <nav>
+        <div class="logo">
+            <i class="bx bx-menu menu-icon"></i>
+            <span class="logo-name">FerrePlus</span>
 
-    <!-- CONTENIDO PRINCIPAL -->
-    <div id="main">
-        <!-- Menu desplegable--> 
-        <button class="bi bi-list" onclick="w3_open()"></button>
-
-        <!-- Publicaciones disponibles -->
-        <h1>Publicaciones</h1>
-
-        <!-- Cuadrícula de publicaciones en formato cards -->
-        <div class="row">
-            <div class="col-md-4">
-                <div class="card-body">
-                    <h5 class="card-title">Publicación 1</h5>
-                    <img src="https://picsum.photos/200/200" class="card-img-top" alt="...">
-                    <h6 class="card-subtitle mb-2 text-muted">Estado</h6>
-                    <h6 class="card-subtitle mb-2 text-muted">Sucursal</h6>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card-body">
-                    <h5 class="card-title">Publicación 2</h5>
-                    <img src="https://picsum.photos/200/200" class="card-img-top" alt="...">
-                    <h6 class="card-subtitle mb-2 text-muted">Estado</h6>
-                    <h6 class="card-subtitle mb-2 text-muted">Sucursal</h6>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card-body">
-                    <h5 class="card-title">Publicación 3</h5>
-                    <img src="https://picsum.photos/200/200" class="card-img-top" alt="...">
-                    <h6 class="card-subtitle mb-2 text-muted">Estado</h6>
-                    <h6 class="card-subtitle mb-2 text-muted">Sucursal</h6>
-                </div>
-            </div>
-            <!-- Agrega más columnas según sea necesario para más publicaciones -->
         </div>
-    </div>
+        <div class="input-group rounded">
+            <input type="search" class="form-control rounded" placeholder="Buscar" aria-label="Search" aria-describedby="search-addon" />
+            <span class="input-group-text border-0" id="search-addon">
+              <i class="bx bx-search-alt"></i>
+            </span>
+          </div>
+        <div class="sidebar">
+            <!-- Logo del menu-->
+            <div class="logo">
+                <i class="bx bx-menu menu-icon"></i>
+                <span class="logo-name">FerrePlus</span>
+            </div>
+            
+            <!-- Elementos del sidebar -->
+            <div class="sidebar-content">
+                <ul class="list">
+                    <li>
+                        <a href="#" class="nav-link">
+                            <i class="bx bx-user icon"></i>
+                            <span class="link">Mi cuenta</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link">
+                            <i class="bx bx-bell icon"></i>
+                            <span class="link">Oferta de intercambios</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link">
+                            <i class="bx bx-repost icon"></i>
+                            <span class="link">Historial de intercambios</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'mis_publicaciones' %}" class="nav-link">
+                            <i class="bx bx-photo-album icon"></i>
+                            <span class="link">Mis publicaciones</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'subir_publicacion' %}" class="nav-link">
+                            <i class="bx bx-image-add icon"></i>
+                            <span class="link">Agregar publicación</span>
+                        </a>
+                    </li>
+                    <!-- Línea de separación -->
+                    <hr class="sidebar-divider">
+                            <h6>Filtros</h6>
+                    </li>
+                        <div class="mb-3">
+                            <span>Estado del producto</span>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                                <label class="form-check-label" for="inlineCheckbox1">Nuevo</label>
+                                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                                <label class="form-check-label" for="inlineCheckbox1">Usado</label>
+                      </div>
+                    <li>
+                    <li>
+                        <div class="mb-3">
+                            <!-- Filtrar por sucursal -->
+                            <span>Sucursal de preferencia</span>
+                                <select class="form-select" required>
+                                    <option value="" disabled selected>Seleccionar</option>
+                                    <option value="#">One</option>
+                                    <option value="#">Two</option>
+                                    <!-- Agrega más opciones aquí -->
+                                </select>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-    <!-- SideBar-->
-    {% include 'vista_usuario/vista_principal_sidebar.html' %}
+    <!-- Contenedor para las tarjetas de publicaciones -->
+    <div class="contenedor-publicaciones">
+        {% if publicaciones %}
+        {% for publicacion, imagenes in imagenes_por_publicacion.items %}
+            <div class="card">
+                <!-- Carousel para mostrar las imágenes -->
+                <div id="carousel{{ publicacion.id }}" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        {% for imagen in imagenes %}
+                        <div class="carousel-item{% if forloop.first %} active{% endif %}">
+                            <img src="{{  imagen.imagen.url  }}" class="d-block w-100" alt="Imagen de la publicación">
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <a class="carousel-control-prev" href="#carousel{{ publicacion.id }}" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only"></span>
+                    </a>
+                    <a class="carousel-control-next" href="#carousel{{ publicacion.id }}" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only"></span>
+                    </a>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ publicacion.titulo }}</h5>
+                    <p class="card-text">{{ publicacion.descripcion }}</p>
+                    <div class="row">
+                        <span class="badge badge-secondary">{{ publicacion.categoria}}</span>
+                        <span class="badge badge-secondary">{{ publicacion.estado}}</span>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        {% else %}
+            <div class="alert alert-info" role="alert">
+                No hay publicaciones disponibles.
+            </div>
+        {% endif %}
+    </div>
+    
+
+    <section class="overlay"></section>
 
     <!-- Enlace a Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    
 
     <script>
-        $('#modalSubirPublicacion').on('show.bs.modal', function (e) {
-            $('body').addClass('modal-open');
-            $('body').append('<div class="modal-backdrop fade show"></div>');
+        document.addEventListener('DOMContentLoaded', () => {
+            const navBar = document.querySelector('nav');
+            const menuBtns = document.querySelectorAll('.menu-icon');
+            const overlay = document.querySelector('.overlay');
+    
+            menuBtns.forEach((menuBtn) => {
+                menuBtn.addEventListener('click', () => {
+                    navBar.classList.toggle('open');
+                });
+            });
+                
+            overlay.addEventListener('click', () => {
+                navBar.classList.remove('open');
+            });
         });
-
-        $('#modalSubirPublicacion').on('hidden.bs.modal', function (e) {
-            $('body').removeClass('modal-open');
-            $('.modal-backdrop').remove();
-        });
-
-        function w3_open() {
-            document.getElementById("mySidebar").style.display = "block";
-            document.getElementById("main").style.marginLeft = "250px";
-        }
-
-        function w3_close() {
-            document.getElementById("mySidebar").style.display = "none";
-            document.getElementById("main").style.marginLeft = "0";
-        }
-
-        function displaySelectedImage(event) {
-            const file = event.target.files[0];
-            const reader = new FileReader();
-            const imageContainer = event.target.closest('.image-upload-container');
-            const imageLabel = imageContainer.querySelector('.image-upload-label');
-            const plusIcon = imageLabel.querySelector('.bi-plus-lg');
-            
-            reader.onload = function() {
-                const img = imageContainer.querySelector('img');
-                if (!img) {
-                    const newImg = document.createElement('img');
-                    newImg.src = reader.result;
-                    newImg.alt = 'Imagen seleccionada';
-                    newImg.classList.add('uploaded-image');
-                    imageLabel.appendChild(newImg);
-                    plusIcon.style.display = 'none'; // Ocultar el icono '+'
-                } else {
-                    img.src = reader.result;
-                }
-            };
-
-            if (file) {
-                reader.readAsDataURL(file);
-            }
-        }
-
-        // JavaScript en tu plantilla HTML
-        function closePopup() {
-            document.querySelector('.popup').style.display = 'none';
-        }
     </script>
+    
 </body>
 </html>

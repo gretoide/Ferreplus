@@ -3,16 +3,13 @@ from datetime import date
 from django.contrib.auth.models import AbstractUser, PermissionsMixin ,UserManager
 from django.db import models
 from django.utils import timezone
-
+import os
 
 class User(AbstractUser):
     # ... otros campos personalizados que puedas necesitar ...
     email = models.EmailField(blank=True,default="",unique=True)
     dni = models.CharField(max_length=8, unique=True)
     fecha_nacimiento = models.DateField()
-
-
-
     
     
 
@@ -40,10 +37,11 @@ class Publicacion(models.Model):
     categoria = models.CharField(max_length=50, choices=CATEGORIA_CHOICES)
     sucursal = models.CharField(max_length=100)  # Esto puede cambiarse a ForeignKey si tienes una tabla de sucursales
     descripcion = models.TextField()
-    
-    #horario = models.CharField(max_length=100)
-    #autor = models.ForeignKey(User, on_delete=models.CASCADE)  # Asumiendo que Usuario es tu modelo de usuario
+    autor = models.ForeignKey(User, on_delete=models.CASCADE)
+    imagenes = models.ManyToManyField('Imagen', related_name='publicaciones')  # Relación ManyToMany con Imagen
 
 class Imagen(models.Model):
-    publicacion = models.ForeignKey(Publicacion, related_name='imagenes', on_delete=models.CASCADE)
-    imagen = models.ImageField(upload_to='imagenes_publicaciones/')  # Asegúrate de tener Pillow instalado para manejar imágenes
+    imagen = models.ImageField(upload_to='imagenes/')
+
+    def __str__(self):
+        return os.path.basename(self.imagen.name)

@@ -1,4 +1,4 @@
-from vista_usuario.models import Publicacion, Imagen
+from vista_usuario.models import Publicacion, Imagen, User
 
 def verificar_campos(datos_publicacion):
     """
@@ -14,21 +14,24 @@ def verificar_campos(datos_publicacion):
     return True, None
 
 
-def crear_publicacion(datos_publicacion, imagenes):
-
+def crear_publicacion(datos_publicacion, user, imagenes):
     # Crear la nueva publicación
     nueva_publicacion = Publicacion.objects.create(
         titulo=datos_publicacion.get('titulo'),
         estado=datos_publicacion.get('estado'),
         categoria=datos_publicacion.get('categoria'),
         sucursal=datos_publicacion.get('sucursal'),
-        descripcion=datos_publicacion.get('descripcion')
+        descripcion=datos_publicacion.get('descripcion'),
+        autor=user
     )
 
+    # Guardar la nueva publicación en la base de datos
     nueva_publicacion.save()
 
-    # Guardar las imágenes asociadas a la publicación
-    for imagen_file in imagenes:
-        imagen = Imagen(publicacion=nueva_publicacion, imagen=imagen_file)
-        imagen.save()
+    # Asociar las imágenes con la publicación
+    for imagen in imagenes:
+        imagen_obj = Imagen.objects.create(imagen=imagen)
+        nueva_publicacion.imagenes.add(imagen_obj)
 
+    # Guardar la asociación en la base de datos
+    nueva_publicacion.save()

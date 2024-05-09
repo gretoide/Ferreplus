@@ -22,6 +22,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Define the template directory path using os.path.join
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
@@ -35,6 +39,7 @@ ALLOWED_HOSTS = ['*']
 
 
 # Application definition
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -143,3 +148,9 @@ EMAIL_HOST_USER = 'ferreplus22@gmail.com'
 EMAIL_HOST_PASSWORD = 'jquywokoibbnhged'
 
 AUTH_USER_MODEL = "vista_usuario.User"
+
+#Config de las cookies
+SESSION_COOKIE_AGE = 3600 
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+LOGIN_URL = "/"
