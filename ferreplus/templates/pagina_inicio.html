@@ -41,9 +41,11 @@
                 <div class="mb-3">
                     <input type="password" class="form-control" placeholder="Contraseña" name="contraseña" required>
                 </div>
-                <div class="d-grid gap-2">
-                    <button type="submit" class="btn btn-register">Iniciar sesión</button>
-                </div>
+                {% if not user.is_authenticated %}
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-register">Iniciar sesión</button>
+                    </div>
+                {% endif %}
             </form>
         </div>
 

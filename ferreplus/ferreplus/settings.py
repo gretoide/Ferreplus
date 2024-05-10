@@ -49,7 +49,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Agregamos la aplicación para que nuestro sistema entero lo conozca
-    'vista_usuario'
+    'vista_usuario',
+    'vista_empleado',
+    'vista_administrador',
 ]
 
 MIDDLEWARE = [
@@ -60,6 +62,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'vista_usuario.middelwares.middelware.NoBackMiddleware'
 ]
 
 ROOT_URLCONF = 'ferreplus.urls'
