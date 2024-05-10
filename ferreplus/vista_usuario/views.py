@@ -11,6 +11,7 @@ from .models import User, Publicacion, Imagen
 from ferreplus.modulos import modulos_registro
 from .modulos import modulos_publicacion
 from django.contrib.auth.decorators import login_required
+from ferreplus.modulos.modulos_inicio_sesion import normal_required
 from django.views.decorators.cache import never_cache
 from django.contrib.auth import logout
 
@@ -27,6 +28,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 
 @login_required
+@normal_required
 @never_cache
 def pagina_principal(request):
     publicaciones = Publicacion.objects.all()
@@ -49,6 +51,7 @@ def pagina_principal(request):
 
     
 @login_required
+@normal_required
 def subir_publicacion(request):
     if request.method == "POST":
         # Obtener datos de la publicación y las imágenes del formulario
@@ -73,11 +76,13 @@ def subir_publicacion(request):
         return render(request, 'vista_usuario/subir_publicacion.html')
 
 @login_required
+@normal_required
 def mis_publicaciones(request):
     publicaciones = Publicacion.objects.all()
     return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario','mis_publicaciones.html'),{'publicaciones': publicaciones})
 
 @login_required
+@normal_required
 def crear_oferta(request):
     return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario','crear_oferta.html'))
 

@@ -18,3 +18,19 @@ def staff_required(view_func):
             return HttpResponse("No tienes permiso para acceder a esta página.")
         return view_func(request, *args, **kwargs)
     return wrapper
+
+
+def admin_required(view_func):
+    def wrapper(request, *args, **kwargs):
+        if not request.user.is_authenticated or not request.user.is_superuser:
+            return HttpResponse("No tienes permiso para acceder a esta página.")
+        return view_func(request, *args, **kwargs)
+    return wrapper
+
+
+def normal_required(view_func):
+    def wrapper(request, *args, **kwargs):
+        if not request.user.is_authenticated or request.user.is_staff or request.user.is_superuser:
+            return HttpResponse("No tienes permiso para acceder a esta página.")
+        return view_func(request, *args, **kwargs)
+    return wrapper
