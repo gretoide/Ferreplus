@@ -11,6 +11,7 @@ from .models import User, Publicacion, Imagen
 from ferreplus.modulos import modulos_registro
 from .modulos import modulos_publicacion
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.cache import never_cache
 from django.contrib.auth import logout
 
 
@@ -26,6 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 
 @login_required
+@never_cache
 def pagina_principal(request):
     publicaciones = Publicacion.objects.all()
 
@@ -75,7 +77,7 @@ def mis_publicaciones(request):
     publicaciones = Publicacion.objects.all()
     return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario','mis_publicaciones.html'),{'publicaciones': publicaciones})
 
-
+@login_required
 def crear_oferta(request):
     return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario','crear_oferta.html'))
 
@@ -175,6 +177,7 @@ def cambiarContraseña(request, email, contraseña):
 def cambiarContraseñaExito(request):
     return render(request, os.path.join(TEMPLATE_DIR,'vista_usuario','cambiar_contraseña_exito.html'))
 
+@login_required
 def cerrar_sesion(request):
     logout(request)
     return redirect("inicio")

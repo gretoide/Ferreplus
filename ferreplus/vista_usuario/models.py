@@ -7,8 +7,8 @@ import os
 
 class User(AbstractUser):
     # ... otros campos personalizados que puedas necesitar ...
-    email = models.EmailField(blank=True,default="",unique=True)
-    dni = models.CharField(max_length=8, unique=True)
+    email = models.EmailField(blank=True,default="")
+    dni = models.CharField(max_length=8)
     fecha_nacimiento = models.DateField()
     
     

@@ -20,8 +20,9 @@ def validar_dni(dni):
     else:
         try:
             usuario_existente = User.objects.get(dni=dni)
-            condicion = False
-            motivo = "El DNI ingresado ya corresponde a un usuario"
+            if not usuario_existente.is_staff:
+                condicion = False
+                motivo = "El DNI ingresado ya corresponde a un usuario"
         except User.DoesNotExist:
             pass
 
