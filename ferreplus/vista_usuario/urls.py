@@ -10,5 +10,6 @@ urlpatterns = [
     path('ingresar-codigo/<str:email>', user_views.ingresarCodigo, name="ingresar_codigo"),
     path('cambiar-contraseña/<str:email>/<str:contraseña>', user_views.cambiarContraseña, name="cambiar_contraseña"),
     path('cambiar-contraseña-exito', user_views.cambiarContraseñaExito, name="cambiar_contraseña_exito"),
-    path('mis-publicacaiones', user_views.mis_publicaciones, name="mis_publicaciones"),
+    path('mis-publicaciones', user_views.mis_publicaciones, name="mis_publicaciones"),
+    path('editar-publicacion/<int:publicacion_id>/', user_views.editar_publicacion, name="editar_publicacion"),
 ]
