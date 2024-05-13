@@ -3,6 +3,7 @@ from datetime import date
 from django.contrib.auth.models import AbstractUser, PermissionsMixin ,UserManager
 from django.db import models
 from django.utils import timezone
+from vista_administrador.models import Sucursal
 import os
 
 class User(AbstractUser):
@@ -10,6 +11,8 @@ class User(AbstractUser):
     email = models.EmailField(blank=True,default="")
     dni = models.CharField(max_length=8)
     fecha_nacimiento = models.DateField()
+    cuil = models.CharField(max_length=13,default="")
+    sucursal = models.ForeignKey(Sucursal, on_delete=models.SET_NULL,default="", null=True)
     
     
 
