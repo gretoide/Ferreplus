@@ -79,7 +79,6 @@ def verificar(empleado):
                        modulos_registro.validar_confirmacion(empleado["contraseña"],empleado["confirmar_contraseña"]),validar_fecha(empleado["fecha_nacimiento"])]
     
     for condicion,motivo in lista_validaciones:
-        print(condicion, motivo)
         if not condicion:
             break
     return (condicion,motivo)
