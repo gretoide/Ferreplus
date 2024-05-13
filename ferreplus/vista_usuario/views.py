@@ -14,7 +14,8 @@ from django.contrib.auth.decorators import login_required
 from ferreplus.modulos.modulos_inicio_sesion import normal_required
 from django.views.decorators.cache import never_cache
 from django.contrib.auth import logout
-
+from django.contrib import messages
+from django.http import HttpResponseForbidden
 
 import os
 import secrets
@@ -75,12 +76,45 @@ def subir_publicacion(request):
         # Si es una solicitud GET, simplemente renderizar la página principal
         return render(request, 'vista_usuario/subir_publicacion.html')
 
+# Apartado de 'Mis publicaciones'
 @login_required
 @normal_required
 def mis_publicaciones(request):
-    publicaciones = Publicacion.objects.all()
-    return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario','mis_publicaciones.html'),{'publicaciones': publicaciones})
+    if request.method == 'POST':
+        publicacion_id = request.POST.get('publicacion_id')
+        publicacion = get_object_or_404(Publicacion, pk=publicacion_id)
+        
+        if request.user == publicacion.autor:
+            publicacion.delete()
+            messages.success(request, "Publicación eliminada con éxito.")
+            return redirect('mis_publicaciones')
+        else:
+            messages.error(request, "No tienes permiso para eliminar esta publicación.")
+            return redirect('mis_publicaciones')
 
+    publicaciones = Publicacion.objects.filter(autor=request.user)
+    return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario','mis_publicaciones.html'), {'publicaciones': publicaciones})
+
+@login_required
+@normal_required
+def editar_publicacion(request):
+    return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario','editar_publicacion.html'))
+
+@login_required
+@normal_required
+def eliminar_publicacion(request, publicacion_id):
+    publicacion = get_object_or_404(Publicacion, pk=publicacion_id)
+    
+    if request.method == 'POST':
+        # Verifica si el usuario tiene permiso para eliminar la publicación
+        if request.user == publicacion.autor:  # Asume que la publicación tiene un campo 'autor' que indica quién la creó
+            # Si el usuario tiene permiso, elimina la publicación
+            publicacion.delete()
+            return HttpResponseForbidden("Publicación eliminada con éxito.")
+        else:
+            # Si el usuario no tiene permiso, devuelve un error de prohibido
+            return HttpResponseForbidden("No tienes permiso para eliminar esta publicación.")
+        
 @login_required
 @normal_required
 def crear_oferta(request):
