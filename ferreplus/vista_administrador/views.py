@@ -44,7 +44,7 @@ def cargar_empleado(request):
                      usuario_creado.email = usuario["correo_personal"]
                 else:
                      usuario_creado.email = usuario["correo_electronico"]
-
+                usuario_creado.is_staff = True
                 usuario_creado.set_password(usuario["contraseña"])
                 #usuario_creado.set_sucursal_id(usuario["sucursal"]) FALTA LA PARTE DE MAURICIO
                 usuario_creado.save()
