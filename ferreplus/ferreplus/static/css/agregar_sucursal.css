@@ -1,0 +1,68 @@
+/* Estilos generales */
+body {
+    background-color: #1a1a1a; /* Color de fondo negro */
+    color: #ffffff; /* Color de texto blanco */
+}
+
+.error{
+    color: red;
+}
+
+.container {
+    max-width: 500px; /* Ancho máximo del contenedor */
+    margin: auto; /* Centrar el contenedor */
+    padding-top: 50px; /* Espacio superior */
+}
+
+.form-group {
+    margin-bottom: 30px; /* Espacio adicional entre elementos del formulario */
+}
+
+/* Estilos para los elementos del formulario */
+.form-control {
+    margin-bottom: 20px; /* Espacio entre elementos del formulario */
+    background-color: #1a1a1a; /* Color de fondo negro */
+    color: #ffffff; /* Color de texto blanco */
+    width: 100%; /* Ancho completo */
+    border: 1px solid #ffc107; /* Borde amarillo */
+    transition: border-color 0.3s ease; /* Transición del color del borde */
+    padding: 10px; /* Espaciado interno */
+}
+
+/* Estilos para el input cuando está enfocado */
+.form-control:focus {
+    border-color: #ffc107; /* Borde amarillo al seleccionar */
+    box-shadow: 0 0 5px rgba(255, 193, 7, 0.5); /* Sombra alrededor del input */
+    background-color: #3d3d3d; /* Color de fondo cuando está seleccionado */
+    color: #ffffff;
+}
+
+/* Estilos para el texto dentro del input */
+.form-control::placeholder {
+    color: #ffffff; /* Color del texto blanco */
+}
+
+/* Estilos para el botón de registro */
+.btn-primary {
+    background-color: #3d3d3d; /* Gris oscuro */
+    border-color: #3d3d3d; /* Borde gris oscuro */
+    color: #ffffff; /* Color de texto blanco */
+    transition: background-color 0.3s ease; /* Transición de color */
+    width: 100%; /* Ancho completo */
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    padding: 10px; /* Espaciado interno */
+}
+
+
+.btn-primary:hover {
+    background-color: #ffc107; /* Cambio de color al pasar el cursor */
+    color: #000000; /* Cambio de color del texto al pasar el cursor */
+  }
+
+error{
+    color: red;
+}
+
+exito{color: lightgreen;}
