@@ -55,3 +55,14 @@ body {
     padding: 10px; /* Espaciado interno */
 }
 
+
+.btn-primary:hover {
+    background-color: #ffc107; /* Cambio de color al pasar el cursor */
+    color: #000000; /* Cambio de color del texto al pasar el cursor */
+  }
+
+error{
+    color: red;
+}
+
+exito{color: lightgreen;}
