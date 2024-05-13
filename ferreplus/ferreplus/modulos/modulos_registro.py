@@ -7,24 +7,22 @@ def validar_dni(dni):
     condicion = True
     motivo = ""
 
-    if validar_espacio_blanco(dni):
-        condicion = False
-        motivo = "El DNI no puede contener espacios en blanco"
 
-    if len(dni) != 8 or not dni.isdigit():
+    if validar_espacio_blanco(dni) or len(dni) != 8 or not dni.isdigit():
         condicion = False
-        motivo = "Formato de DNI inválido"
+        motivo = "Formato de DNI inválido, el DNI deben ser 8 números sin espacios en blanco"
 
     try:
         dni = int(dni)
     except ValueError:
         condicion = False
-        motivo = "Se deben ingresar solo dígitos en el campo DNI"
+        motivo = "Formato de DNI inválido, el DNI deben ser 8 números sin espacios en blanco"
     else:
         try:
             usuario_existente = User.objects.get(dni=dni)
-            condicion = False
-            motivo = "El DNI ingresado ya corresponde a un usuario"
+            if not usuario_existente.is_staff:
+                condicion = False
+                motivo = "El DNI ingresado ya corresponde a un usuario"
         except User.DoesNotExist:
             pass
 
@@ -64,29 +62,30 @@ def validar_contraseña(contraseña):
 
     if validar_espacio_blanco(contraseña):
         condicion = False
-        motivo = "La contraseña no puede contener espacios en blanco"
+        
     
     if condicion and len(contraseña) < 6:
-        motivo = "La contraseña debe contener al menos 6 caracteres"
+        
         condicion = False 
     
     if condicion and not re.search(r"[A-Z]", contraseña) :
-        motivo = "La contraseña debe contener al menos una letra mayúscula"
-        condicion = False
-    if  condicion and not re.search(r"\d", contraseña):
-        
-        motivo = "La contraseña debe contener al menos un número"
+
         condicion = False
     
+    if  condicion and not re.search(r"\d", contraseña):
+        
+        condicion = False
+    
+    if not condicion:
+        motivo = "La contraseña debe contener 6 caracteres como minimo, solo acepta letras o números, incluyendo una mayúscula y un número"
+
+
     return(condicion,motivo)
 
 def validar_confirmacion(contraseña,contraseña2):
     condicion = True
     motivo = ""
-    if validar_espacio_blanco(contraseña2):
-        condicion = False
-        motivo = "La confirmacion no puede tener espacios en blanco"
-    if not condicion or contraseña != contraseña2:
+    if contraseña != contraseña2:
         condicion = False
         motivo = "Las contraseñas no coinciden"
 

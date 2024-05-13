@@ -14,7 +14,14 @@
     <form method="post"> <!-- Agregamos el método POST al formulario -->
       {% csrf_token %}
       <div  class="mb-3">
-        {{error}}
+        <!-- Mensaje de alerta de error -->
+        {% if error %}
+        <div class="alert alert-danger" role="alert">
+            {{ error }}
+        </div>
+        {% endif %}
+
+      
       </div>
       <div class="mb-3">
         <input type="text" class="form-control" placeholder="Nombre" name="nombre" required> <!-- Agregamos el atributo name -->

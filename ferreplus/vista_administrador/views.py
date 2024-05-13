@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, Http404
 from django.template.loader import get_template
@@ -17,9 +18,21 @@ from django.core.exceptions import ValidationError
 import os
 import secrets
 
+=======
+from django.shortcuts import render
+import os
+from pathlib import Path
+from ferreplus.modulos.modulos_inicio_sesion import admin_required
+from django.contrib.auth.decorators import login_required
+>>>>>>> master
 
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Define the template directory path using os.path.join
+TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 # Create your views here.
 
+<<<<<<< HEAD
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -65,3 +78,9 @@ def ver_sucursales(request):
 def detalle_sucursal(request, sucursal_id):
     a_ver = Sucursal.objects.get(id=sucursal_id)
     return render(request, os.path.join(TEMPLATE_DIR, 'detalle_sucursal.html'), {'sucursal': a_ver})
+=======
+@login_required
+@admin_required
+def pagina_administrador(request):
+    return render(request,os.path.join(TEMPLATE_DIR,'vista_administrador','inicio_administrador.html'))
+>>>>>>> master
