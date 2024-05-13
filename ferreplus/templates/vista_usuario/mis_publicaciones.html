@@ -19,7 +19,7 @@
         </div>
         <a href="{% url 'pagina_principal' %}">
             <i class="bx bx-arrow-back icon"></i>
-        <span>Volver</span>
+            <span>Volver</span>
         </a>
         <div class="mb-3">
             <table class="table">
@@ -29,17 +29,32 @@
                     <th>Categoría</th>
                     <th>Sucursal</th>
                     <th>Descripción</th>
-                  </thead>
-                  {% for publicacion in publicaciones %}
-                  <tr>
-                    <td>{{ publicacion.titulo}}</td>
-                    <td>{{ publicacion.estado}}</td>
-                    <td>{{ publicacion.categoria}}</td>
-                    <td>{{ publicacion.sucursal}}</td>
-                    <td>{{ publicacion.descripcion}}</td>
-                  </tr>
-                  {% endfor %}
-              </table>
+                    <th>Acciones</th> <!-- Nueva columna para botones de acción -->
+                </thead>
+                {% for publicacion in publicaciones %}
+                <tr>
+                    <td>{{ publicacion.titulo }}</td>
+                    <td>{{ publicacion.estado }}</td>
+                    <td>{{ publicacion.categoria }}</td>
+                    <td>{{ publicacion.sucursal }}</td>
+                    <td>{{ publicacion.descripcion }}</td>
+                    <td>
+                        <a href="{% url 'editar_publicacion' publicacion.id %}" class="btn btn-primary">
+                            <i class='bx bx-edit'></i>
+                            <span>Editar</span>
+                        </a>
+                        <form method="post" style="display: inline;">
+                            {% csrf_token %}
+                            <input type="hidden" name="publicacion_id" value="{{ publicacion.id }}">
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('¿Estás seguro que deseas eliminar esta publicación?');">
+                                <i class='bx bx-trash'></i>
+                                <span>Eliminar</span>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
         </div>
     </div>
 </body>

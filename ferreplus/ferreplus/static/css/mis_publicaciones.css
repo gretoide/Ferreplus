@@ -61,7 +61,7 @@ h1 {
 
 /* Estilos para la tabla */
 .table {
-    background-color: #404040;
+    background-color: #303030;
     color: #ffffff;
     border-collapse: collapse;
     width: 100%;
@@ -77,20 +77,51 @@ h1 {
 
 /* Estilos para las celdas de la tabla */
 .table td {
-    border: 1px solid #808080;
+    border: 1px solid #505050;
     padding: 10px;
 }
 
 /* Estilos para las filas impares */
 .table tbody tr:nth-child(odd) {
-    background-color: #505050;
+    background-color: #303030;
     border-radius: 10px;
 }
 
 /* Estilos para el hover de las filas */
 .table tbody tr:hover {
-    transform: scale(1.02);
-    border-color: #808080;
-    transition: 0.2s ease-in-out;
-    background-color: #606060;
+    background-color: #404040;
+}
+
+/* Botones */
+
+button {
+    padding: 10px;
+    margin: 5px;
+    width: auto;
+}
+
+/* Estilos para los iconos dentro de los botones */
+.btn i {
+    padding-right: 5px;
+}
+
+/* Estilos específicos para el botón de editar */
+.btn-primary {
+    background-color: transparent; /* Cambia el color de fondo del botón de editar */
+    border-color: transparent; /* Cambia el color del borde del botón de editar */
+    border-radius: 10px;/* Cambia el color del borde del botón de editar */
+}
+
+/* Estilos específicos para el botón de eliminar */
+.btn-danger {
+    background-color: transparent; /* Cambia el color de fondo del botón de eliminar */
+    border-color: transparent; /* Cambia el color del borde del botón de eliminar */
+    border-radius: 8px;/* Cambia el color del borde del botón de editar */
+}
+
+/* Estilos para los botones cuando se pasa el mouse sobre ellos */
+.btn:hover {
+    background-color: #606060; /* Cambia el color de fondo del botón de editar */
+    border-color: #606060; 
+    border-radius: 8px;/* Cambia el color del borde del botón de editar */
 }
