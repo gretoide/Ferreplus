@@ -16,7 +16,9 @@ body {
     margin: auto; /* Centrar el contenedor */
     padding-top: 50px; /* Espacio superior */
 }
-
+.cerrar-sesion{
+    align-self: flex-end;
+}
 button{
     background-color: #3d3d3d; /* Gris oscuro */
     border-color: #3d3d3d; /* Borde gris oscuro */
