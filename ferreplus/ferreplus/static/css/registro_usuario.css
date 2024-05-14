@@ -31,9 +31,6 @@ p {
 }
 
 .form-control {
-    margin-bottom: 20px;
-    margin-left: 10px;
-    margin-right: 10px;
     background-color: #404040;
     border-color: #505050;
     color: #d6d6d6;
@@ -57,15 +54,12 @@ p {
     border-color: #3d3d3d; /* Borde gris oscuro */
     color: #ffffff; /* Texto blanco */
     transition: background-color 0.3s ease; /* Transición de color */
-    width: 60%; /* Ancho completo */
-    position: relative;
-    overflow: hidden;
-    z-index: 1;
-    margin-left: 80px;
+    width: 150px; /* Ancho del botón */
+    margin: 0 auto; /* Centra horizontalmente el botón */
   }
   
   
-  .btn-register:hover {
+.btn-register:hover {
     background-color: #ffc107; /* Cambio de color al pasar el cursor */
     color: #000000; /* Cambio de color del texto al pasar el cursor */
   }
@@ -100,3 +94,7 @@ p {
 :-ms-input-placeholder {
     color: #ffffff; /* Color de texto blanco */
 }
+
+/* Estilos para restablecer contraseña*/
+
+

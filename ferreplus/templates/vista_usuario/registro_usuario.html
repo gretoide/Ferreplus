@@ -9,7 +9,7 @@
   <link rel="stylesheet" type="text/css" href="{% static 'css/registro_usuario.css' %}">
 </head>
 <body>
-  <div class="container">
+  <div class="container text-center">
     <h1 class="text-center mb-4">Crea una cuenta</h1>
     <form method="post"> <!-- Agregamos el método POST al formulario -->
       {% csrf_token %}
@@ -20,8 +20,6 @@
             {{ error }}
         </div>
         {% endif %}
-
-      
       </div>
       <div class="mb-3">
         <input type="text" class="form-control" placeholder="Nombre" name="nombre" required> <!-- Agregamos el atributo name -->

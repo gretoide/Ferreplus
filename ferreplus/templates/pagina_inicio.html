@@ -32,7 +32,9 @@
             <form method="post" action="{% url 'inicio' %}?next={{ request.GET.next }}">
                 {% csrf_token %}
                 {% if aviso %}
+                <div class="alert-container">
                     <div class="alert alert-dark mb-3" role="alert">{{ aviso }}</div>
+                </div>
                 {% endif %}
                 <input type="email" class="form-control mb-3" placeholder="Correo electrónico" name="correo_electronico" required>
                 <input type="password" class="form-control mb-3" placeholder="Contraseña" name="contraseña" required>

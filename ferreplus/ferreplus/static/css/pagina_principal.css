@@ -59,10 +59,17 @@ body {
     padding: 20px;
     margin-top: 10px;
     margin-bottom: 30px;
+    width: 500px;
   }
 
 
   /*----inputs---*/
+
+.alert-container {
+    word-wrap: break-word; /* Permite que el texto se ajuste automáticamente */
+    max-width: 350px; /* Ajusta este valor según tus necesidades */
+    margin: 0 auto; /* Centra el contenedor horizontalmente */
+}
 
 /* Estilos para el formulario de inicio de sesión en dark mode */
 
