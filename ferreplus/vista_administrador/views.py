@@ -24,7 +24,6 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from vista_usuario.models import User
 from ferreplus.modulos import modulos_carga_empleado
-from .models import Sucursal
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -56,8 +55,8 @@ def agregar_sucursal(request):
             datos = form_sucursal.cleaned_data
 
             if Sucursal.objects.filter(nombre=datos['nombre']).exists():
-               error = 'Ya existe una sucursal con ese nombre'
-               return render(request,  os.path.join(TEMPLATE_DIR, 'nueva_sucursal.html'), {"form": form_sucursal, 'error': error})
+                messages.success(request,"Ya existe una sucursal con ese nombre")
+                return render(request,  os.path.join(TEMPLATE_DIR, 'nueva_sucursal.html'), {"form": form_sucursal})
 
             exito = 'Sucursal creada con exito'
             sucursal_nueva = Sucursal.objects.create(
@@ -65,7 +64,8 @@ def agregar_sucursal(request):
                 direccion=datos['direccion']
             )
             sucursal_nueva.save()
-            return render(request,  os.path.join(TEMPLATE_DIR, 'nueva_sucursal.html'), {"form": form_sucursal, 'exito': exito})
+            messages.success(request,f"La sucursal {sucursal_nueva.nombre} se creo con exito")
+            return render(request,  os.path.join(TEMPLATE_DIR, 'nueva_sucursal.html'), {"form": form_sucursal})
 
     else:
         form_sucursal = nue_sucur()
@@ -76,6 +76,17 @@ def agregar_sucursal(request):
 def ver_sucursales(request):
     sucursales = Sucursal.objects.all()
     return render(request, os.path.join(TEMPLATE_DIR, 'ver_sucursales.html'), {'sucursales': sucursales})
+
+def eliminar_sucursal(request,sucursal_id):
+    try:
+        a_eliminar = Sucursal.objects.get(id=sucursal_id)
+    except Sucursal.DoesNotExist:
+        messages.error(request,"La sucursal no existe")
+        return redirect(ver_sucursales)
+    a_eliminar.delete()
+    messages.success(request,f"La sucursal {a_eliminar.nombre} se elimino con exito")
+    return redirect(ver_sucursales)
+
 
 #@login_required
 #@admin_required

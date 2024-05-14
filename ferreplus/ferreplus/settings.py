@@ -40,6 +40,8 @@ ALLOWED_HOSTS = ['*']
 
 # Application definition
 
+MESSEGE_STORAGE="django.contrib.messeges.storage.cookie.CookieStorage"
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',

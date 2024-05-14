@@ -11,11 +11,15 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/agregar_sucursal.css' %}">
 </head>
 <body>
-  <div class="container-sm">
+  <div class="container">
+    <h1>Nueva sucursal</h1>
     {% csrf_token %}
-    {{error}}
-    {{exito}}
     {% block content %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="container"><h3>{{ message }}</h3></div>
+        {% endfor %}
+    {% endif %}
     <form method="post">
       {% csrf_token %}
       {{form.as_p}}
@@ -29,17 +33,5 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    
-    <script>
-            function w3_open() {
-            document.getElementById("mySidebar").style.display = "block";
-            document.getElementById("main").style.marginLeft = "250px";
-        }
-
-        function w3_close() {
-            document.getElementById("mySidebar").style.display = "none";
-            document.getElementById("main").style.marginLeft = "0";
-        }
-    </script>
 </body>
 </html>
