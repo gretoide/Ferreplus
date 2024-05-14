@@ -3,23 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Intercambios</title>
+    <title>Inicio Administrador</title>
     <!-- Enlace a Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css" rel="stylesheet">
     {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/vista_intercambios.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/inicio_administrador.css' %}">
 </head>
 <body>
     <!-- Menu de opciones -->
-    <div class="">
-        <button>Cerrar sesion</button>
+    <div>
+        <button class="cerrar-sesion">Cerrar sesion</button>
     </div>
-    <div class="containers">
-        <button>Ver sucursales</button>
-        <button>Cargar Sucursal +</button>
-
-        <button></button>
+    <div class="container">
+        <h2>Sucursales</h2>
+        <a href="{% url "ver-sucursales" %}"><button><i class="bi bi-card-list"><p>Ver sucursales</p></i></button></a>
+        <a href="{% url "agregar-sucursal" %}"><button><i class="bi bi-house-add-fill"><p>Agregar Sucursal</p></i></button></a>
+    </div>
+    <div class="container">
+        <h2>Empleados</h2>
+        <a><button><i class="bi bi-person-lines-fill"><p>Ver empleados</p></i></button></a>
+        <a><button><i class="bi bi-person-plus"><p>Agregar empleado </p></i></button></a>
     </div>
 
     <!-- Enlace a Bootstrap JS -->
