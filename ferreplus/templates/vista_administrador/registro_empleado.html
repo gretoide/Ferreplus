@@ -56,6 +56,14 @@
       <div class="mb-3">
         <input type="date" class="form-control" placeholder="Fecha de nacimiento" name="fecha_nacimiento" required> <!-- Agregamos el atributo name -->
       </div>
+      <div class="mb-3">
+        <select class="form-control" name="sucursal" required>
+          <option value="" disabled selected>Seleccione una sucursal</option>
+          {% for sucursal in sucursales %}
+            <option value="{{ sucursal.id }}">{{ sucursal.nombre }}</option>
+          {% endfor %}
+        </select>
+      </div>
       <button type="submit" class="btn btn-register">Crear cuenta</button>
       
     </form>

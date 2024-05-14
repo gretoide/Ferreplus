@@ -24,6 +24,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from vista_usuario.models import User
 from ferreplus.modulos import modulos_carga_empleado
+from .models import Sucursal
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -81,3 +82,45 @@ def ver_sucursales(request):
 def detalle_sucursal(request, sucursal_id):
     a_ver = Sucursal.objects.get(id=sucursal_id)
     return render(request, os.path.join(TEMPLATE_DIR, 'detalle_sucursal.html'), {'sucursal': a_ver})
+
+
+def cargar_empleado(request):
+    #sucursales = Sucursal
+
+    if request.method == "POST":
+        usuario = request.POST.dict()
+        
+        condicion_validacion, motivo_validacion = modulos_carga_empleado.verificar(usuario)
+
+        if condicion_validacion:
+                sucursal = Sucursal.objects.get(id=usuario["sucursal"])
+                usuario_creado = User.objects.create(
+                    username=usuario["correo_electronico"],
+                    first_name=usuario["nombre"],
+                    last_name=usuario["apellido"],
+                    dni=usuario["dni"],
+                    cuil=usuario["cuil"],
+                    fecha_nacimiento=usuario["fecha_nacimiento"],
+                    sucursal=sucursal
+    
+                )
+                if usuario["correo_personal"]:
+                     usuario_creado.email = usuario["correo_personal"]
+                else:
+                     usuario_creado.email = usuario["correo_electronico"]
+                usuario_creado.is_staff = True
+                usuario_creado.set_password(usuario["contraseña"])
+                #usuario_creado.set_sucursal_id(usuario["sucursal"]) 
+                usuario_creado.save()
+
+                
+                mensaje_exito = "Empleado cargado correctamente." 
+                return render(request,os.path.join(TEMPLATE_DIR,'registro_empleado.html'),{"aviso": mensaje_exito, "sucursales": Sucursal.objects.all()}) 
+
+
+            
+        else:
+            return render(request, os.path.join(TEMPLATE_DIR,'registro_empleado.html'), {"error": motivo_validacion, "sucursales": Sucursal.objects.all()})
+
+    else:
+        return render(request,os.path.join(TEMPLATE_DIR,'registro_empleado.html'),{"sucursales": Sucursal.objects.all()})
