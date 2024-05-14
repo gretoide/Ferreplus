@@ -38,14 +38,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Define the template directory path using os.path.join
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates', 'vista_administrador')
 
-@login_required
-@admin_required
+#@login_required
+#@admin_required
 def inicio_admin(request):
     return render(request,os.path.join(TEMPLATE_DIR,'pagina_principal_admin.html'))
 
 
-@login_required
-@admin_required
+#@login_required
+#@admin_required
 def agregar_sucursal(request):
     if request.method == "POST":
 
@@ -70,14 +70,14 @@ def agregar_sucursal(request):
         form_sucursal = nue_sucur()
     return render(request, os.path.join(TEMPLATE_DIR, 'nueva_sucursal.html'), {"form": form_sucursal})
 
-@login_required
-@admin_required
+#@login_required
+#@admin_required
 def ver_sucursales(request):
     sucursales = Sucursal.objects.all()
     return render(request, os.path.join(TEMPLATE_DIR, 'ver_sucursales.html'), {'sucursales': sucursales})
 
-@login_required
-@admin_required
+#@login_required
+#@admin_required
 def detalle_sucursal(request, sucursal_id):
     a_ver = Sucursal.objects.get(id=sucursal_id)
     return render(request, os.path.join(TEMPLATE_DIR, 'detalle_sucursal.html'), {'sucursal': a_ver})

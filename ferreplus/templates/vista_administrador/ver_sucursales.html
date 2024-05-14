@@ -30,7 +30,7 @@
                     <td>{{ sucursal.id}}</td>
                     <td>{{ sucursal.nombre }}</td>
                     <td>{{ sucursal.direccion }}</td>
-                    <td><a href="{% url 'detalle_sucursal' sucursal.id %}"><button><i class="bi bi-search"></i> </button><button id="eliminar_{{sucursal.id}}"><i class="bi bi-x-circle"></i>
+                    <td><a href="{% url 'detalle-sucursal' sucursal.id %}"><button><i class="bi bi-search"></i> </button><button id="eliminar_{{sucursal.id}}"><i class="bi bi-x-circle"></i>
                     </button>
                 </tr>
             {% endfor %}
