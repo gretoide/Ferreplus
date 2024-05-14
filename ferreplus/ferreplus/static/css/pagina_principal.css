@@ -51,6 +51,15 @@ body {
   font-size: 54px; /* Tamaño del ícono */
   margin-left: 5px; /* Espacio a la izquierda del ícono */
 }
+
+ /*--------------- imagen ------------------*/
+
+ .logo {
+  display: block; /* Asegura que la imagen se comporte como un bloque */
+  margin: 0 auto; /* Establece los márgenes izquierdo y derecho a "auto" para centrar horizontalmente */
+  margin-bottom: 10px;
+}
+
   /*-------------- Containers--------------*/
 
 
