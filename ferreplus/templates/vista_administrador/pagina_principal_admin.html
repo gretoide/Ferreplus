@@ -7,18 +7,27 @@
     <!-- Enlace a Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/inicio_administrador.css' %}">
 </head>
 <body>
-    <!-- Menu de opciones -->
-    <div>
-        <button class="cerrar-sesion">Cerrar sesion</button>
+    {% csrf_token %}
+<!-- Nav bar--> 
+<nav>
+    <div class="logo">
+        <i class="bx bx-menu menu-icon"></i>
+        <span class="logo-name">FerrePlus</span>
     </div>
+    <div class="cerrar-sesion" >
+        <a href="{% url 'cerrar_sesion' %}">Cerrar Sesión</a>
+    </div>
+</nav>
     <div class="container">
         <h2>Sucursales</h2>
-        <a href="{% url "ver-sucursales" %}"><button><i class="bi bi-card-list"><p>Ver sucursales</p></i></button></a>
-        <a href="{% url "agregar-sucursal" %}"><button><i class="bi bi-house-add-fill"><p>Agregar Sucursal</p></i></button></a>
+        <a href="{% url 'ver-sucursales' %}"><button><i class="bi bi-card-list"><p>Ver sucursales</p></i></button></a>
+        <a href="{% url 'agregar-sucursal' %}"><button><i class="bi bi-house-add-fill"><p>Agregar Sucursal</p></i></button></a>
     </div>
     <div class="container">
         <h2>Empleados</h2>
@@ -32,15 +41,22 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     
     <script>
-            function w3_open() {
-            document.getElementById("mySidebar").style.display = "block";
-            document.getElementById("main").style.marginLeft = "250px";
-        }
-
-        function w3_close() {
-            document.getElementById("mySidebar").style.display = "none";
-            document.getElementById("main").style.marginLeft = "0";
-        }
+        document.addEventListener('DOMContentLoaded', () => {
+            const navBar = document.querySelector('nav');
+            const menuBtns = document.querySelectorAll('.menu-icon');
+            const overlay = document.querySelector('.overlay');
+    
+            menuBtns.forEach((menuBtn) => {
+                menuBtn.addEventListener('click', () => {
+                    navBar.classList.toggle('open');
+                });
+            });
+                
+            overlay.addEventListener('click', () => {
+                navBar.classList.remove('open');
+            });
+        });
+    
     </script>
 </body>
 </html>
