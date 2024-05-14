@@ -7,7 +7,7 @@ def direccion(user):
     if user.is_staff:
         direc = "inicio_emp"
     elif user.is_superuser:
-        direc = "inicio_admin"
+        direc = "inicio-admin"
     return direc
 
 

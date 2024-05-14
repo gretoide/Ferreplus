@@ -1,0 +1,37 @@
+* {
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    box-sizing: border-box;
+  }
+
+
+body {
+    background-color: #1a1a1a; /* Color de fondo negro */
+    color: #ffffff; /* Color de texto blanco */
+}
+
+.container {
+    max-width: 500px; /* Ancho máximo del contenedor */
+    margin: auto; /* Centrar el contenedor */
+    padding-top: 50px; /* Espacio superior */
+}
+
+button{
+    background-color: #3d3d3d; /* Gris oscuro */
+    border-color: #3d3d3d; /* Borde gris oscuro */
+    color: #ffffff; /* Color de texto blanco */
+    transition: background-color 0.3s ease; /* Transición de color */
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    padding: 10px; /* Espaciado interno */
+    border-radius: 100%;
+}
+
+
+
+button:hover {
+    background-color: #ffc107; /* Cambio de color al pasar el cursor */
+    color: #000000; /* Cambio de color del texto al pasar el cursor */
+}
