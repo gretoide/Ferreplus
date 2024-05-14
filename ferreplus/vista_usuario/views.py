@@ -97,9 +97,30 @@ def mis_publicaciones(request):
 
 @login_required
 @normal_required
-def editar_publicacion(request):
-    return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario','editar_publicacion.html'))
+def editar_publicacion(request, publicacion_id):
+    # Obtiene la instancia de la publicación
+    publicacion = get_object_or_404(Publicacion, pk=publicacion_id)
+    
+    if request.method == 'POST':
+        # Obtener datos del formulario y las nuevas imágenes
+        datos_publicacion = request.POST.dict()
+        nuevas_imagenes = request.FILES.getlist('imagen')
 
+        # Verificar campos
+        exito, mensaje_error = modulos_publicacion.verificar_campos(datos_publicacion)
+        if not exito:
+            return render(request, 'vista_usuario/editar_publicacion.html', {'publicacion': publicacion, 'error': mensaje_error})
+        else:
+                exito, mensaje = modulos_publicacion.editar_publicacion(publicacion, datos_publicacion, nuevas_imagenes)
+                if exito:
+                    return render(request, 'vista_usuario/editar_publicacion.html', {'publicacion': publicacion, 'aviso': mensaje})
+                else:
+                    return render(request, 'vista_usuario/editar_publicacion.html', {'publicacion': publicacion, 'error': mensaje})       
+    else:
+        # Renderizar el formulario de edición con los datos actuales de la publicación
+        return render(request, 'vista_usuario/editar_publicacion.html', {'publicacion': publicacion})
+
+    
 @login_required
 @normal_required
 def eliminar_publicacion(request, publicacion_id):
