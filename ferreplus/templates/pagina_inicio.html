@@ -8,6 +8,7 @@
     <meta http-equiv="Expires" content="0">
     <title>Inicio</title>
     <!-- Bootstrap CSS -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Enlace a tu archivo CSS personalizado -->
     {% load static %}
@@ -15,34 +16,28 @@
 </head>
 <body>
     <!-- Portada (Cover) -->
-    <div class="jumbotron">
+    <div class="jumbotron text-center">
         <h1 class="display-4">¡Bienvenido a FerrePlus!</h1>
         <p class="lead">Por favor, inicia sesión para acceder a tu cuenta.</p>
+        <!-- Flecha hacia abajo -->
+        <a href="#login-form" class="arrow-down-link">
+            <i class='bx bxs-chevron-down bx-fade-down' ></i>
+        </a>
     </div>
 
-    <div class="container custom-container">
+    <div class="container">
         <!-- Formulario de Inicio de Sesión -->
-        <h1 class="text-center mb-4 custom-heading">Iniciar sesión</h1>
-        <div id="login-form" class="d-flex flex-column align-items-center custom-login-form">
-            
+        <h2 id="login-form" class="text-center mb-4">Iniciar sesión</h1>
+        <div class="d-flex flex-column align-items-center">
             <form method="post" action="{% url 'inicio' %}?next={{ request.GET.next }}">
                 {% csrf_token %}
-                <div  class="mb-3">
-                    <!-- Mensaje de alerta de aviso-->
-                    {% if aviso %}
-                    <div class="alert alert-secondary" role="alert">
-                        {{ aviso }}
-                    </div>
-                    {% endif %}
-                </div>
-                <div class="mb-3">
-                    <input type="email" class="form-control" placeholder="Correo electrónico" name="correo_electronico" required>
-                </div>
-                <div class="mb-3">
-                    <input type="password" class="form-control" placeholder="Contraseña" name="contraseña" required>
-                </div>
+                {% if aviso %}
+                    <div class="alert alert-dark mb-3" role="alert">{{ aviso }}</div>
+                {% endif %}
+                <input type="email" class="form-control mb-3" placeholder="Correo electrónico" name="correo_electronico" required>
+                <input type="password" class="form-control mb-3" placeholder="Contraseña" name="contraseña" required>
                 {% if not user.is_authenticated %}
-                    <div class="d-grid gap-2">
+                    <div class="d-grid gap-2 mb-3">
                         <button type="submit" class="btn btn-register">Iniciar sesión</button>
                     </div>
                 {% endif %}
@@ -50,7 +45,7 @@
         </div>
 
         <!-- Opciones adicionales -->
-        <div class="text-center mt-3">
+        <div class="text-center">
             {% if user.is_authenticated %}
                 <p>Bienvenido, {{ user.username }}!</p>
                 <a href="{% url 'cerrar_sesion' %}">Cerrar sesión</a>
