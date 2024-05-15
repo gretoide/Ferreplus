@@ -32,7 +32,11 @@ TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 @normal_required
 @never_cache
 def pagina_principal(request):
-    publicaciones = Publicacion.objects.all()
+    # Obtener el usuario actual
+    usuario_actual = request.user
+
+    # Obtener todas las publicaciones excepto las del usuario actual
+    publicaciones = Publicacion.objects.exclude(autor=usuario_actual)
 
     # Crear un diccionario para almacenar las imágenes asociadas a cada publicación
     imagenes_por_publicacion = {}
