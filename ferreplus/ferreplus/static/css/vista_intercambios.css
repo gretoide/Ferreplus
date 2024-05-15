@@ -137,7 +137,7 @@ nav.open .sidebar {
     opacity: 0;
     pointer-events: none;
     transition: all 0.5s ease;
-    background: rgba(112, 112, 112, 0.466);
+    background: rgba(22, 22, 22, 0.466);
     z-index: 1000;
 }
 
@@ -232,7 +232,7 @@ input[type="checkbox"] {
 /*Apartado de filtros*/
 
 .mb-3 {
-    padding-top: 20px;
+    margin-top: 20px;
 }
 
 .form-select {
@@ -349,4 +349,49 @@ p {
     border-radius: 5px;
     height: 200px;
     width: 100%;
+}
+
+/*BOTON Cerrar sesion*/
+
+/* Estilos para el contenedor personalizado */
+.custom-container {
+
+    margin-top: 280px;
+    margin-right: 30px;
+
+}
+
+/* Estilos para el botón personalizado */
+.custom-container button {
+    background-color: transparent; /* Color de fondo */
+    color: #ffffff; /* Color del texto */
+    border: none; /* Sin borde */
+    padding: 10px; /* Relleno */
+    width: 100%;
+    border-radius: 8px; /* Borde redondeado */
+    cursor: pointer; /* Cambio de cursor al pasar el ratón */
+    text-decoration: none; /* Sin subrayado */
+    background-color: #353535;
+}
+
+/* Estilos para el botón al pasar el cursor */
+.custom-container button:hover {
+    background-color: #505050; /* Cambio de color de fondo al pasar el cursor */
+}
+
+/* Estilos para el enlace dentro del botón */
+.custom-container button a {
+    color: inherit; /* Hereda el color del texto del contenedor */
+    text-decoration: none; /* Sin subrayado */
+}
+
+/* Estilos para el icono dentro del botón */
+.custom-container button i {
+    vertical-align: middle; /* Alinear verticalmente con el texto */
+    margin-right: 5px; /* Espacio a la derecha del icono */
+}
+
+/* Estilos para el texto dentro del botón */
+.custom-container button span {
+    vertical-align: top; /* Alinear verticalmente con el icono */
 }
