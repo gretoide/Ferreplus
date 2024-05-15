@@ -13,14 +13,19 @@
 </head>
 <body>
     {% csrf_token %}
+    <div class="custom-container">
+        <button id="BotonVolver" class="btn btn-secondary">
+          <a href="{% url 'pagina_principal' %}">
+            <i class='bx bx-chevron-left'>
+              <span>Volver</span>
+            </i>
+          </a>
+        </button>
+      </div>
     <div class="container">
         <div id="Header">
             <h1>Mis publicaciones</h1>
         </div>
-        <a href="{% url 'pagina_principal' %}">
-            <i class="bx bx-arrow-back icon"></i>
-            <span>Volver</span>
-        </a>
         <div class="mb-3">
             <table class="table">
                 <thead>
