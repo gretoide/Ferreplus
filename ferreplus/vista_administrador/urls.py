@@ -7,5 +7,7 @@ urlpatterns = [
     path('ver-sucursales/',admin_view.ver_sucursales, name='ver-sucursales'),
     path('detalle-sucursal/<str:sucursal_id>/',admin_view.detalle_sucursal,name='detalle-sucursal'),
     path('cargar-empleado/',admin_view.cargar_empleado,name='cargar-empleado'),
-    path('eliminar-sucursal/<str:sucursal_id>/',admin_view.eliminar_sucursal,name='eliminar-sucursal')
+    path('eliminar-sucursal/<str:sucursal_id>/',admin_view.eliminar_sucursal,name='eliminar-sucursal'),
+    path('ver-empleados/',admin_view.ver_empleados, name='ver-empleados'),
+    path('eliminar-empleado/<str:empleado_id>/',admin_view.eliminar_empleado,name='eliminar-empleado')
     ]

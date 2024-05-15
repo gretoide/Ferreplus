@@ -75,6 +75,7 @@ def agregar_sucursal(request):
 #@admin_required
 def ver_sucursales(request):
     sucursales = Sucursal.objects.all()
+
     return render(request, os.path.join(TEMPLATE_DIR, 'ver_sucursales.html'), {'sucursales': sucursales})
 
 def eliminar_sucursal(request,sucursal_id):
@@ -92,7 +93,8 @@ def eliminar_sucursal(request,sucursal_id):
 #@admin_required
 def detalle_sucursal(request, sucursal_id):
     a_ver = Sucursal.objects.get(id=sucursal_id)
-    return render(request, os.path.join(TEMPLATE_DIR, 'detalle_sucursal.html'), {'sucursal': a_ver})
+    empleados_de_sucursal = User.objects.filter(is_staff=1).filter(sucursal_id=sucursal_id)
+    return render(request, os.path.join(TEMPLATE_DIR, 'detalle_sucursal.html'), {'sucursal': a_ver, 'empleados':empleados_de_sucursal})
 
 
 def cargar_empleado(request):
@@ -135,3 +137,20 @@ def cargar_empleado(request):
 
     else:
         return render(request,os.path.join(TEMPLATE_DIR,'registro_empleado.html'),{"sucursales": Sucursal.objects.all()})
+    
+
+#@login_required
+#@admin_required
+def ver_empleados(request):
+    empleados = User.objects.filter(is_staff=1)
+    return render(request, os.path.join(TEMPLATE_DIR, 'ver_empleados.html'), {'empleados': empleados})
+
+def eliminar_empleado(request,empleado_id):
+    try:
+        a_eliminar = User.objects.get(id=empleado_id)
+    except User.DoesNotExist:
+        messages.error(request,"El empleado no existe")
+        return redirect(ver_empleados)
+    a_eliminar.delete()
+    messages.success(request,f"El empleado con CUIL {a_eliminar.cuil} se elimino con exito")
+    return redirect(ver_empleados)

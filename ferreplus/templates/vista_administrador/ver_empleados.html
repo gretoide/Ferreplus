@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ver sucursales</title>
+    <!-- Enlace a Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css" rel="stylesheet">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/ver_sucursales.css' %}">
+</head>
+<body>
+    <div class="container">
+    <h1>Empleados de Ferreplus</h1>
+    </div>
+
+    {% block content %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="container"><h3>{{ message }}</h3></div>
+        {% endfor %}
+    {% endif %}
+
+    <div class= "container-lg">
+    <table class="table table-dark table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Número</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Apellido</th>
+                <th scope='col'>CUIL</th>
+                <th scope="col">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for empleado in empleados %}
+                <tr>
+                    <td>{{ empleado.id}}</td>
+                    <td>{{ empleado.first_name }}</td>
+                    <td>{{ empleado.last_name }}</td>
+                    <td>{{ empleado.cuil }}</td>
+                    <td><a href=""><button><i class="bi bi-search"></i></button></a><button id="{{empleado.id}}" onclick="confirmarEliminacion('{{ empleado.id }}')"><i class="bi bi-x-circle"></i></button>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+<script>
+    function confirmarEliminacion(empleadoId) {
+        if (confirm('¿Estás seguro de que quieres eliminar este empleado?')) {
+            window.location.href = '/eliminar-empleado/' + empleadoId + '/';
+        }
+    }
+</script>
+    <!-- Enlace a Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> 
+    </body>
+</html>
