@@ -12,6 +12,10 @@ body {
     background-color: #202020;
 }
 
+.logo {
+    margin-bottom: 10px;
+  }
+
 /* Estilo para la línea de separación */
 .sidebar-divider {
     border: none; /* Elimina el borde predeterminado */
