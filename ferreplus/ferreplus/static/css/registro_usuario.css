@@ -24,6 +24,10 @@ p {
     color: #d6d6d6;
 }
 
+.mb-3 {
+    margin: 5px;
+}
+
 .container {
     max-width: 400px; /* Ancho máximo del contenedor */
     margin: auto; /* Centrar el contenedor */
@@ -97,4 +101,43 @@ p {
 
 /* Estilos para restablecer contraseña*/
 
+/*BOTON VOLVER*/
 
+/* Estilos para el contenedor personalizado */
+.custom-container {
+    margin-top: 10px;
+    margin-left: 20px;
+}
+
+/* Estilos para el botón personalizado */
+.custom-container button {
+    background-color: transparent; /* Color de fondo */
+    color: #ffffff; /* Color del texto */
+    border: none; /* Sin borde */
+    padding: 10px; /* Relleno */
+    border-radius: 8px; /* Borde redondeado */
+    cursor: pointer; /* Cambio de cursor al pasar el ratón */
+    text-decoration: none; /* Sin subrayado */
+}
+
+/* Estilos para el botón al pasar el cursor */
+.custom-container button:hover {
+    background-color: #505050; /* Cambio de color de fondo al pasar el cursor */
+}
+
+/* Estilos para el enlace dentro del botón */
+.custom-container button a {
+    color: inherit; /* Hereda el color del texto del contenedor */
+    text-decoration: none; /* Sin subrayado */
+}
+
+/* Estilos para el icono dentro del botón */
+.custom-container button i {
+    vertical-align: middle; /* Alinear verticalmente con el texto */
+    margin-right: 5px; /* Espacio a la derecha del icono */
+}
+
+/* Estilos para el texto dentro del botón */
+.custom-container button span {
+    vertical-align: top; /* Alinear verticalmente con el icono */
+}
