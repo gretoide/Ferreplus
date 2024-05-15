@@ -41,7 +41,7 @@ def validar_correo(correo):
     else:
         try:
             # Verificar si el correo ya está en uso por otro usuario
-            if User.objects.filter(email=correo).exists():
+            if User.objects.filter(username=correo).exists():
                 condicion = False
                 motivo = "Correo electrónico ya en uso"
         except Exception as e:

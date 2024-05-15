@@ -92,7 +92,7 @@
                                 </select>
                         </div>
                         <div class="mb-3">
-                            <a href="{% url 'cerrar_sesion' %}">Cerrar Sesión</a>
+                            <a href="{% url 'cerrar_sesion' %}" onclick="return confirmarCierreSesion()">Cerrar Sesión</a>
                         </div>
                     </li>
                 </ul>
@@ -165,6 +165,12 @@
             });
         });
     </script>
-    
+    <script>
+        function confirmarCierreSesion() {
+            return confirm('¿Estás seguro de que quieres cerrar sesión?');
+        }
+    </script>
+
+
 </body>
 </html>
