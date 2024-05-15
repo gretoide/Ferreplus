@@ -9,15 +9,19 @@
   <link rel="stylesheet" type="text/css" href="{% static 'css/registro_usuario.css' %}">
 </head>
 <body>
-  <div class="container">
+  <div class="container text-center">
     <h2 class="text-center mb-4">Restablecer contraseña</h2>
-    <p>Hemos enviado un codigo a la direccion de correo electronico, ingreselo para cambiar la contraseña</p>
+    <p>Se ha enviado un código a la dirección de correo electrónico proporcionada. Por favor, ingréselo a continuación para restablecer su contraseña.</p>
     <form method="post"> <!-- Agregamos el método POST al formulario -->
       {% csrf_token %}
       <div class="mb-3">
-        <input type="text" class="form-control" placeholder="codigo" name="codigo" required>
+        <input type="text" class="form-control" placeholder="Código" name="codigo" required>
       </div>
-      <p style="color: red;">{{error}}</p>
+      {% if error %}
+        <div class="alert alert-danger" role="alert">
+            {{ error }}
+        </div>
+      {% endif %}
       <button type="submit" class="btn btn-register">Enviar</button>
     </form>
   </div>

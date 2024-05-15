@@ -24,6 +24,10 @@ p {
     color: #d6d6d6;
 }
 
+.mb-3 {
+    margin: 5px;
+}
+
 .container {
     max-width: 400px; /* Ancho máximo del contenedor */
     margin: auto; /* Centrar el contenedor */
@@ -31,9 +35,6 @@ p {
 }
 
 .form-control {
-    margin-bottom: 20px;
-    margin-left: 10px;
-    margin-right: 10px;
     background-color: #404040;
     border-color: #505050;
     color: #d6d6d6;
@@ -57,15 +58,12 @@ p {
     border-color: #3d3d3d; /* Borde gris oscuro */
     color: #ffffff; /* Texto blanco */
     transition: background-color 0.3s ease; /* Transición de color */
-    width: 60%; /* Ancho completo */
-    position: relative;
-    overflow: hidden;
-    z-index: 1;
-    margin-left: 80px;
+    width: 150px; /* Ancho del botón */
+    margin: 0 auto; /* Centra horizontalmente el botón */
   }
   
   
-  .btn-register:hover {
+.btn-register:hover {
     background-color: #ffc107; /* Cambio de color al pasar el cursor */
     color: #000000; /* Cambio de color del texto al pasar el cursor */
   }
@@ -99,4 +97,47 @@ p {
 
 :-ms-input-placeholder {
     color: #ffffff; /* Color de texto blanco */
+}
+
+/* Estilos para restablecer contraseña*/
+
+/*BOTON VOLVER*/
+
+/* Estilos para el contenedor personalizado */
+.custom-container {
+    margin-top: 10px;
+    margin-left: 20px;
+}
+
+/* Estilos para el botón personalizado */
+.custom-container button {
+    background-color: transparent; /* Color de fondo */
+    color: #ffffff; /* Color del texto */
+    border: none; /* Sin borde */
+    padding: 10px; /* Relleno */
+    border-radius: 8px; /* Borde redondeado */
+    cursor: pointer; /* Cambio de cursor al pasar el ratón */
+    text-decoration: none; /* Sin subrayado */
+}
+
+/* Estilos para el botón al pasar el cursor */
+.custom-container button:hover {
+    background-color: #505050; /* Cambio de color de fondo al pasar el cursor */
+}
+
+/* Estilos para el enlace dentro del botón */
+.custom-container button a {
+    color: inherit; /* Hereda el color del texto del contenedor */
+    text-decoration: none; /* Sin subrayado */
+}
+
+/* Estilos para el icono dentro del botón */
+.custom-container button i {
+    vertical-align: middle; /* Alinear verticalmente con el texto */
+    margin-right: 5px; /* Espacio a la derecha del icono */
+}
+
+/* Estilos para el texto dentro del botón */
+.custom-container button span {
+    vertical-align: top; /* Alinear verticalmente con el icono */
 }

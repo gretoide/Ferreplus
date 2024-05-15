@@ -11,7 +11,7 @@ body {
     min-height: 100%;
     background-color: #202020;
 }
-  /* Estilos para el contenedor principal */
+  /* Estilos para el contenedor principal y portada */
   .jumbotron {
     background-image: url("../foto_inicio.png"); 
     background-size: cover;
@@ -22,85 +22,97 @@ body {
     height: 100vh; /* Altura de la pantalla completa */
     display: flex;
     flex-direction: column;
-    justify-content: flex-end; /* Alinea el contenido en la parte inferior */
+    justify-content: center; /* Alinea el contenido en la parte inferior */
     padding-bottom: 5vw; /* Relleno inferior en relación con el ancho de la ventana */
     width: 100vw; /* Ancho de pantalla completa */
     padding-left: 10%; /* Relleno izquierdo */
     padding-right: 10%; /* Relleno derecho */
   }
-  
-  /* Estilos para el botón de registro */
-  .btn-register {
-    background-color: #3d3d3d; /* Gris oscuro */
-    border-color: #3d3d3d; /* Borde gris oscuro */
-    color: #ffffff; /* Texto blanco */
-    transition: background-color 0.3s ease; /* Transición de color */
-    width: 50%; /* Ancho completo */
-    position: relative;
-    overflow: hidden;
-    z-index: 1;
-    margin-left: 90px;
+
+  .jumbotron h1 {
+    font-size: 85px;
+    font-weight: 500;
   }
-  
-  
-  .btn-register:hover {
-    background-color: #ffc107; /* Cambio de color al pasar el cursor */
-    color: #000000; /* Cambio de color del texto al pasar el cursor */
+
+  .jumbotron p {
+    font-size: 30px;
   }
-  
-  /* Estilos para el formulario de inicio de sesión */
-  #login-form {
-    margin-top: 10px; /* Margen superior del formulario */
+
+/* Estilos para el enlace con el ícono de flecha hacia abajo */
+.arrow-down-link {
+  /* Agrega estilos personalizados aquí */
+  color: #ffffff; /* Color del enlace */
+  text-decoration: none; /* Quita el subrayado del enlace */
+}
+
+/* Estilos para el ícono */
+.bx.bxs-chevron-down {
+  /* Agrega estilos personalizados aquí */
+  font-size: 54px; /* Tamaño del ícono */
+  margin-left: 5px; /* Espacio a la izquierda del ícono */
+}
+
+ /*--------------- imagen ------------------*/
+
+ .logo {
+  display: block; /* Asegura que la imagen se comporte como un bloque */
+  margin: 0 auto; /* Establece los márgenes izquierdo y derecho a "auto" para centrar horizontalmente */
+  margin-bottom: 10px;
+}
+
+  /*-------------- Containers--------------*/
+
+
+  .container {
+    color: #ffffff;
+    padding: 20px;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    width: 500px;
   }
-  
-  /* Estilos para el texto primario */
-  .text-primary {
-    color: #ffd60a; /* Texto amarillo para enlaces */
-  }
-  
-  .form-control {
-    margin-bottom: 20px;
-    margin-left: 10px;
-    margin-right: 10px;
-    background-color: #404040;
-    border-color: #505050;
-    color: #d6d6d6;
-    width: 100%;
+
+
+  /*----inputs---*/
+
+.alert-container {
+    word-wrap: break-word; /* Permite que el texto se ajuste automáticamente */
+    max-width: 350px; /* Ajusta este valor según tus necesidades */
+    margin: 0 auto; /* Centra el contenedor horizontalmente */
+}
+
+/* Estilos para el formulario de inicio de sesión en dark mode */
+
+.form-control {
+  background-color: #404040;
+  border-color: #505050;
+  color: #d6d6d6;
+  width: 100%;
 }
 
 /* Estilos para el input cuando está enfocado */
 .form-control:focus {
-    border-color: #606060; /* Cambia el color del borde al seleccionar */
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Agrega una sombra alrededor del input */
-    background-color: #707070;
-    color: white;
+  border-color: #606060; /* Cambia el color del borde al seleccionar */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Agrega una sombra alrededor del input */
+  background-color: #707070;
+  color: white;
 }
 
 .form-control::placeholder {
-    color: #d7d7d7; /* Color del marcador de posición gris claro */
+  color: #d7d7d7; /* Color del marcador de posición gris claro */
+}
+
+/* Estilos para el botón de registro */
+.btn-register {
+    background-color: #3d3d3d; /* Gris oscuro */
+    border-color: #3d3d3d; /* Borde gris oscuro */
+    color: #ffffff; /* Texto blanco */
+    transition: background-color 0.3s ease; /* Transición de color */
+    width: 150px; /* Ancho del botón */
+    margin: 0 auto; /* Centra horizontalmente el botón */
   }
   
-  /* Estilos para el título de encabezado */
-  h1.display-4 {
-    font-size: 7vw; /* Tamaño de fuente responsivo */
-    font-weight: bold; /* Texto en negrita */
-  }
   
-  /* Estilos para el párrafo principal */
-  p.lead {
-    color: #ffffff;
-    font-size: 4vw; /* Tamaño de fuente responsivo */
-    padding-bottom: 40px; /* Relleno inferior */
-  }
-  
-  /* Estilos para el título centrado */
-  h1.text-center.mb-4 {
-    color: white;
-    margin-top: 4vw; /* Margen superior responsivo */
-    padding-bottom: 10px; /* Relleno inferior */
-    padding-top: 10px; /* Relleno superior */
-  }
-  
-  p {
-    color: #d7d7d7;
+.btn-register:hover {
+    background-color: #ffc107; /* Cambio de color al pasar el cursor */
+    color: #000000; /* Cambio de color del texto al pasar el cursor */
   }

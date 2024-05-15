@@ -19,19 +19,14 @@ h1 {
 }
 
 .container {
-    display: flex;
+    max-width: 600px; /* Ancho máximo del contenedor */
     margin: auto; /* Centrar el contenedor */
     padding-top: 50px; /* Espacio superior */
-    width: 80%; /* Ancho del contenedor */
-    max-width: 800px; /* Ancho máximo para evitar que se extienda demasiado en pantallas grandes */
 }
 
 .mb-3 {
-    margin: auto;
-    margin-top: 20px;
-    color: #ffff;
-    padding: 10px;
-    width: 100%;
+    margin: 5px;
+    color: #fff;
 }
 
 
@@ -39,9 +34,6 @@ h1 {
 .d-flex {
     display: flex; /* Hace que el elemento sea un contenedor flexible */
     width: 100%;
-    border: 1px solid #707070; /* Borde sólido de 1px de ancho y color blanco */
-    background-color: #505050;
-    border-radius: 30px;
     padding-left: 5px;
     padding-right: 5px;
 }
@@ -116,7 +108,8 @@ h1 {
 }
 
 .btn.btn-outline-primary {
-    margin-left: 35%;
+    width: 150px; /* Ancho del botón */
+    margin: 0 auto; /* Centra horizontalmente el botón */
 }
 
 .btn.btn-outline-primary.btn-lg.btn-block {
@@ -136,7 +129,45 @@ h1 {
 }
 
 .alert {
-    width: 500px;
-    margin-left: 125px;
+    width: 400px; /* Ancho del botón */
+    margin: 0 auto; /* Centra horizontalmente el botón */
 }
 
+/* Estilos para el contenedor personalizado */
+.custom-container {
+    margin-top: 10px;
+    margin-left: 20px;
+}
+
+/* Estilos para el botón personalizado */
+.custom-container button {
+    background-color: transparent; /* Color de fondo */
+    color: #ffffff; /* Color del texto */
+    border: none; /* Sin borde */
+    padding: 10px; /* Relleno */
+    border-radius: 8px; /* Borde redondeado */
+    cursor: pointer; /* Cambio de cursor al pasar el ratón */
+    text-decoration: none; /* Sin subrayado */
+}
+
+/* Estilos para el botón al pasar el cursor */
+.custom-container button:hover {
+    background-color: #505050; /* Cambio de color de fondo al pasar el cursor */
+}
+
+/* Estilos para el enlace dentro del botón */
+.custom-container button a {
+    color: inherit; /* Hereda el color del texto del contenedor */
+    text-decoration: none; /* Sin subrayado */
+}
+
+/* Estilos para el icono dentro del botón */
+.custom-container button i {
+    vertical-align: middle; /* Alinear verticalmente con el texto */
+    margin-right: 5px; /* Espacio a la derecha del icono */
+}
+
+/* Estilos para el texto dentro del botón */
+.custom-container button span {
+    vertical-align: top; /* Alinear verticalmente con el icono */
+}
