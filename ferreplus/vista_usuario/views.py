@@ -61,8 +61,12 @@ def subir_publicacion(request):
     if request.method == "POST":
         # Obtener datos de la publicación y las imágenes del formulario
         datos_publicacion = request.POST.dict()
-        imagenes = request.FILES.getlist('imagen')
         usuario = request.user
+
+        # Verificar campos y obtener las imágenes
+        imagenes = request.FILES.getlist('imagen')
+        if len(imagenes) > 5 or len(imagenes) <= 0:
+            return render(request, 'vista_usuario/subir_publicacion.html', {'error': 'El máximo de imágenes es 5 y el mínimo 1.'})
         
         # Verificar campos
         exito, mensaje_error = modulos_publicacion.verificar_campos(datos_publicacion)
