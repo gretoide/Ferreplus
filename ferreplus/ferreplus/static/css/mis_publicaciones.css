@@ -164,3 +164,61 @@ button {
 .custom-container button span {
     vertical-align: top; /* Alinear verticalmente con el icono */
 }
+
+/*---------------------MODAL--------------------*/
+#BotonModal {
+    color: #ffffff;
+    size: 20PX;
+}
+
+.modal-header {
+    background-color: #202020;
+    color: #ffffff;
+    border-color: #707070;
+}
+
+.modal-body {
+    display: flex;
+    flex-direction: column;
+    background-color: #202020;
+    color: #ffffff;
+
+}
+
+.modal-content {
+    width: 100%;
+    max-width: 800px; /* Ajusta el ancho máximo según tus necesidades */
+}
+
+.carousel-container {
+    margin: 0 auto;
+    max-width: 600px; /* Ajusta el ancho máximo según tus necesidades */
+}
+
+.carousel-inner {
+    margin: 0 auto;
+    max-height: 400px;
+    max-width: 400px;
+}
+
+.carousel-item img {
+    border: none; /* Borde sólido con color deseado */
+    border-radius: 10px; /* Bordes redondeados */
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    width: 10%; /* Ancho de los controles de navegación */
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: rgba(0, 0, 0, 0.5); /* Color de fondo de los íconos de navegación */
+    border-radius: 50%; /* Forma de los íconos de navegación */
+}
+
+/* Estilo para ocultar el texto de accesibilidad de los controles de navegación */
+.carousel-control-prev .sr-only,
+.carousel-control-next .sr-only {
+    display: none;
+}
