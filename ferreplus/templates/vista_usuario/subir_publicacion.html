@@ -138,13 +138,9 @@
                         <span>Sucursal de encuentro</span>
                         <select class="form-select" id="select" name="sucursal" required>
                             <option disabled selected>Seleccionar</option>
-                            <option value="One">One</option>
-                            <option value="Two">Two</option>
-                            <option value="Three">Three</option>
-                            <option value="Four">Four</option>
-                            <option value="Five">Five</option>
-                            <option value="Six">Six</option>
-                            <option value="Seven">Seven</option>
+                            {% for sucursal in sucursales %}
+                            <option value="{{ sucursal.id }}">{{ sucursal.nombre }}</option>
+                            {% endfor %}
                         </select>
                     </label>
                 </div>

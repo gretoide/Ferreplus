@@ -119,7 +119,7 @@
                 <div class="mb-3">
                     <span>Categoría</span>
                     <select class="form-select" id="select" name="categoria" required>
-                        <option value="Electricidad" {% if publicacion.categoria == "Electricidad" %} selected {% endif %}>Electricidad</option>
+                        <option>{{ publicacion.categoria }}</option>
                         <!-- Agrega los demás options con las categorías -->
                     </select>
                 </div>                                    
@@ -127,8 +127,10 @@
                 <div class="mb-3">
                     <span>Sucursal de encuentro</span>
                     <select class="form-select" id="select" name="sucursal" required>
-                        <option value="One" {% if publicacion.sucursal == "One" %} selected {% endif %}>One</option>
-                        <!-- Agrega las demás options con las sucursales -->
+                        <option>{{ publicacion.sucursal }}</option>
+                        {% for sucursal in sucursales %}
+                            <option value="{{ sucursal.id }}">{{ sucursal.nombre }}</option>
+                        {% endfor %}
                     </select>
                 </div>
             </div>

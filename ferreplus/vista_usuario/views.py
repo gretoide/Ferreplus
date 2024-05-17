@@ -1,12 +1,10 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, Http404
-
 from django.shortcuts import render, redirect
-
 from django.core.mail import send_mail
 from django.conf import settings
-
 from pathlib import Path
+from vista_administrador.models import Sucursal
 from .models import User, Publicacion, Imagen
 from ferreplus.modulos import modulos_registro
 from .modulos import modulos_publicacion
@@ -16,7 +14,6 @@ from django.views.decorators.cache import never_cache
 from django.contrib.auth import logout
 from django.contrib import messages
 from django.http import HttpResponseForbidden
-
 from django.core.files.uploadedfile import InMemoryUploadedFile
 
 import os
@@ -60,6 +57,7 @@ def pagina_principal(request):
 @login_required
 @normal_required
 def subir_publicacion(request):
+
     if request.method == "POST":
         # Obtener datos de la publicación y las imágenes del formulario
         datos_publicacion = request.POST.dict()
@@ -84,7 +82,7 @@ def subir_publicacion(request):
             return render(request, 'vista_usuario/subir_publicacion.html', {'aviso': "La publicación se ha creado con éxito."})
     else:
         # Si es una solicitud GET, simplemente renderizar la página principal
-        return render(request, 'vista_usuario/subir_publicacion.html')
+        return render(request, 'vista_usuario/subir_publicacion.html',{"sucursales": Sucursal.objects.all()})
 
 # Apartado de 'Mis publicaciones'
 @login_required
@@ -135,7 +133,7 @@ def editar_publicacion(request, publicacion_id):
         urls_imagenes_exist = [imagen.imagen.url for imagen in publicacion.imagenes.all()]
 
         # Renderizar el formulario de edición con los datos actuales de la publicación
-        return render(request, 'vista_usuario/editar_publicacion.html', {'publicacion': publicacion, 'urls_imagenes_exist': urls_imagenes_exist})
+        return render(request, 'vista_usuario/editar_publicacion.html', {'publicacion': publicacion, 'urls_imagenes_exist': urls_imagenes_exist,"sucursales": Sucursal.objects.all()})
     
 @login_required
 @normal_required
