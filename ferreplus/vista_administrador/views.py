@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect
 from django.template import loader
 from django.core.mail import send_mail
 from django.conf import settings
+from django.conf import settings
 from django.urls import reverse
 from django.contrib.auth import views as auth_views
 from django.contrib import messages
@@ -123,7 +124,12 @@ def cargar_empleado(request):
                 usuario_creado.set_password(usuario["contraseña"])
                 #usuario_creado.set_sucursal_id(usuario["sucursal"]) 
                 usuario_creado.save()
+                subject = 'Bienvenido a la empresa'
+                message = f'Hola {usuario["nombre"]},\n\nTu cuenta ha sido creada exitosamente. Tu contraseña es: {usuario["contraseña"]}'
+                from_email = settings.EMAIL_HOST_USER
+                recipient_list = [usuario_creado.email]
 
+                send_mail(subject, message, from_email, recipient_list, fail_silently=False)
                 
                 mensaje_exito = "Empleado cargado correctamente." 
                 return render(request,os.path.join(TEMPLATE_DIR,'registro_empleado.html'),{"aviso": mensaje_exito, "sucursales": Sucursal.objects.all()}) 
