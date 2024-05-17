@@ -41,27 +41,21 @@
                 {% endif %}
                 <input type="email" class="form-control mb-3" placeholder="Correo electrónico" name="correo_electronico" required>
                 <input type="password" class="form-control mb-3" placeholder="Contraseña" name="contraseña" required>
-                {% if not user.is_authenticated %}
+    
                     <div class="d-grid gap-2 mb-3">
                         <button type="submit" class="btn btn-register">Iniciar sesión</button>
                     </div>
-                {% endif %}
+                
             </form>
         </div>
 
         <!-- Opciones adicionales -->
         <div class="text-center">
-            {% if user.is_authenticated %}
-                <p>Bienvenido, {{ user.username }}!</p>
-                <a href="{% url 'cerrar_sesion' %}">Cerrar sesión</a>
-                <!-- Agregar un campo oculto con el estado de autenticación -->
-                <input type="hidden" id="user-authenticated" value="true">
-            {% else %}
+            
                 <p>¿No tienes una cuenta? <a href="{% url 'registro' %}?next={{ request.GET.next }}">Registrarse</a></p>
                 <p><a href="{% url 'restablecer_contraseña' %}" class="text-primary">¿Olvidaste tu contraseña?</a></p>
                 <!-- Agregar un campo oculto con el estado de autenticación -->
-                <input type="hidden" id="user-authenticated" value="false">
-            {% endif %}
+            
         </div>
     </div>
 
