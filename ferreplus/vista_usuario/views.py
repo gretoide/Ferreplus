@@ -108,31 +108,34 @@ def mis_publicaciones(request):
 @login_required
 @normal_required
 def editar_publicacion(request, publicacion_id):
+
     # Obtener la instancia de la publicación
     publicacion = get_object_or_404(Publicacion, pk=publicacion_id)
 
     if request.method == 'POST':
-        # Obtener datos del formulario y las nuevas imágenes
+        # Obtener datos del formulario
         datos_publicacion = request.POST.dict()
 
-        # Verificar campos y obtener las imágenes
-        imagenes = request.FILES.getlist('imagen')
-        if len(imagenes) > 5 or len(imagenes) <= 0:
-            return render(request, 'vista_usuario/subir_publicacion.html', {'error': 'El máximo de imágenes es 5 y el mínimo 1.'})
+        # Obtener las imágenes existentes
+        imagenes_existentes = publicacion.imagenes.all()
+
+        # Obtener las nuevas imágenes
+        nuevas_imagenes = request.FILES.getlist('imagen')
 
         # Verificar campos y guardar la publicación
-        exito, mensaje = modulos_publicacion.editar_publicacion(publicacion, datos_publicacion, imagenes)
+        exito, mensaje = modulos_publicacion.editar_publicacion_modulo(publicacion, datos_publicacion, nuevas_imagenes, imagenes_existentes)
+
         if exito:
             return render(request, 'vista_usuario/editar_publicacion.html', {'publicacion': publicacion, 'aviso': mensaje})
         else:
-            return render(request, 'vista_usuario/editar_publicacion.html', {'publicacion': publicacion, 'error': mensaje})       
+            return render(request, 'vista_usuario/editar_publicacion.html', {'publicacion': publicacion, 'error': mensaje})
+
     else:
         # Obtener las URLs de las imágenes existentes
         urls_imagenes_exist = [imagen.imagen.url for imagen in publicacion.imagenes.all()]
 
-        # Renderizar el formulario de edición con los datos actuales de la publicación y las URLs de las imágenes existentes
+        # Renderizar el formulario de edición con los datos actuales de la publicación
         return render(request, 'vista_usuario/editar_publicacion.html', {'publicacion': publicacion, 'urls_imagenes_exist': urls_imagenes_exist})
-
     
 @login_required
 @normal_required

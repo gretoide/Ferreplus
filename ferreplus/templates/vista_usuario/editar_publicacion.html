@@ -13,7 +13,15 @@
     <!-- Agrega aquí tus enlaces a CSS y JavaScript externos si los necesitas -->
 </head>
 <body>
-
+    <div class="custom-container">
+        <button id="BotonVolver" class="btn btn-secondary">
+          <a href="{% url 'mis_publicaciones' %}">
+            <i class='bx bx-chevron-left'>
+              <span>Volver</span>
+            </i>
+          </a>
+        </button>
+      </div>
 <div class="container">
     
     <div class="mb-3">
@@ -29,7 +37,7 @@
 
         {% if aviso %}
         <div class="alert alert-success" role="alert" id="alertaExito">
-            {{ aviso }} <a class="lass="link-warning link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"" href="{% url 'pagina_principal' %}">Ver aquí.</a>
+            {{ aviso }} <a class="lass="link-warning link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"" href="{% url 'mis_publicaciones' %}">Ver aquí.</a>
         </div>
         {% endif %}
 
@@ -153,6 +161,11 @@
             img.className = "img-fluid";
             imagePreview.innerHTML = '';
             imagePreview.appendChild(img);
+
+            // Agregar el botón de "Eliminar"
+            var deleteButtonContainer = document.getElementById('deleteButton' + previewId.replace('preview', ''));
+            deleteButtonContainer.innerHTML = '<button type="button" class="btn btn-danger btn-sm" onclick="removeFile(\'' + previewId + '\')">Eliminar</button>';
+
         });
     });
 
