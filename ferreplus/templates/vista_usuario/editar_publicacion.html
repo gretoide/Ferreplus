@@ -140,6 +140,22 @@
 </div>
 
 <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Obtener la lista de URLs de imágenes de la publicación
+        var imagenes = {{ urls_imagenes_exist|safe }};
+        
+        // Iterar sobre cada imagen y asignarla a los contenedores de vista previa
+        imagenes.forEach(function(imagenUrl, index) {
+            var previewId = 'preview' + (index + 1);
+            var imagePreview = document.getElementById(previewId);
+            var img = new Image();
+            img.src = imagenUrl;
+            img.className = "img-fluid";
+            imagePreview.innerHTML = '';
+            imagePreview.appendChild(img);
+        });
+    });
+
     function loadFile(event, previewId) {
         var imagePreview = document.getElementById(previewId);
         var reader = new FileReader();

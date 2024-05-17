@@ -114,21 +114,24 @@ def editar_publicacion(request, publicacion_id):
     if request.method == 'POST':
         # Obtener datos del formulario y las nuevas imágenes
         datos_publicacion = request.POST.dict()
-        nuevas_imagenes = []
-        for i in range(1, 6):  # Iterar sobre los campos de archivo
-            imagen = request.FILES.get(f'imagen{i}')
-            if imagen:
-                nuevas_imagenes.append(imagen)
+
+        # Verificar campos y obtener las imágenes
+        imagenes = request.FILES.getlist('imagen')
+        if len(imagenes) > 5 or len(imagenes) <= 0:
+            return render(request, 'vista_usuario/subir_publicacion.html', {'error': 'El máximo de imágenes es 5 y el mínimo 1.'})
 
         # Verificar campos y guardar la publicación
-        exito, mensaje = modulos_publicacion.editar_publicacion(publicacion, datos_publicacion, nuevas_imagenes)
+        exito, mensaje = modulos_publicacion.editar_publicacion(publicacion, datos_publicacion, imagenes)
         if exito:
             return render(request, 'vista_usuario/editar_publicacion.html', {'publicacion': publicacion, 'aviso': mensaje})
         else:
             return render(request, 'vista_usuario/editar_publicacion.html', {'publicacion': publicacion, 'error': mensaje})       
     else:
-        # Renderizar el formulario de edición con los datos actuales de la publicación
-        return render(request, 'vista_usuario/editar_publicacion.html', {'publicacion': publicacion})
+        # Obtener las URLs de las imágenes existentes
+        urls_imagenes_exist = [imagen.imagen.url for imagen in publicacion.imagenes.all()]
+
+        # Renderizar el formulario de edición con los datos actuales de la publicación y las URLs de las imágenes existentes
+        return render(request, 'vista_usuario/editar_publicacion.html', {'publicacion': publicacion, 'urls_imagenes_exist': urls_imagenes_exist})
 
     
 @login_required
