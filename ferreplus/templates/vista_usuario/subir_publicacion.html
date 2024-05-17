@@ -55,46 +55,59 @@
                 <span>Imágenes del producto</span>
                 <div class="container mb-3" id="imgBox">
                     <div class="image-preview-container">
-                        <div class="image-preview-box">
-                            <input id="file1" type="file" class="form-control" name="imagen" accept="image/*" style="display: none;" onchange="loadFile(event, 'preview1')">
-                            <label for="file1" class="image-preview">
-                                <i class='bx bx-image-add'></i>
-                            </label>
-                            <div id="preview1" class="image-preview"></div>
+                        <div>
+                            <div class="image-preview-box">
+                                <input id="file1" type="file" class="form-control" name="imagen" accept="image/*" style="display: none;" onchange="loadFile(event, 'preview1')">
+                                <label for="file1" class="image-preview">
+                                    <i class='bx bx-image-add'></i>
+                                </label>
+                                <div id="preview1" class="image-preview"></div>
+                            </div>
+                            <div id="deleteButton1" class="delete-button"></div>
                         </div>
-                        <div class="image-preview-box">
-                            <input id="file2" type="file" class="form-control" name="imagen" accept="image/*" style="display: none;" onchange="loadFile(event, 'preview2')">
-                            <label for="file2" class="image-preview">
-                                <i class='bx bx-image-add'></i>
-                            </label>
-                            <div id="preview2" class="image-preview"></div>
+                        <div>
+                            <div class="image-preview-box">
+                                <input id="file2" type="file" class="form-control" name="imagen" accept="image/*" style="display: none;" onchange="loadFile(event, 'preview2')">
+                                <label for="file2" class="image-preview">
+                                    <i class='bx bx-image-add'></i>
+                                </label>
+                                <div id="preview2" class="image-preview"></div>
+                            </div>
+                            <div id="deleteButton2" class="delete-button"></div>
                         </div>
-                        <div class="image-preview-box">
-                            <input id="file3" type="file" class="form-control" name="imagen" accept="image/*" style="display: none;" onchange="loadFile(event, 'preview3')">
-                            <label for="file3" class="image-preview">
-                                <i class='bx bx-image-add'></i>
-                            </label>
-                            <div id="preview3" class="image-preview"></div>
+                        <div>
+                            <div class="image-preview-box">
+                                <input id="file3" type="file" class="form-control" name="imagen" accept="image/*" style="display: none;" onchange="loadFile(event, 'preview3')">
+                                <label for="file3" class="image-preview">
+                                    <i class='bx bx-image-add'></i>
+                                </label>
+                                <div id="preview3" class="image-preview"></div>
+                            </div>
+                            <div id="deleteButton3" class="delete-button"></div>
                         </div>
-                        <div class="image-preview-box">
-                            <input id="file4" type="file" class="form-control" name="imagen" accept="image/*" style="display: none;" onchange="loadFile(event, 'preview4')">
-                            <label for="file4" class="image-preview">
-                                <i class='bx bx-image-add'></i>
-                            </label>
-                            <div id="preview4" class="image-preview"></div>
+                        <div>
+                            <div class="image-preview-box">
+                                <input id="file4" type="file" class="form-control" name="imagen" accept="image/*" style="display: none;" onchange="loadFile(event, 'preview4')">
+                                <label for="file4" class="image-preview">
+                                    <i class='bx bx-image-add'></i>
+                                </label>
+                                <div id="preview4" class="image-preview"></div>
+                            </div>
+                            <div id="deleteButton4" class="delete-button"></div>
                         </div>
-                        <div class="image-preview-box">
-                            <input id="file5" type="file" class="form-control" name="imagen" accept="image/*" style="display: none;" onchange="loadFile(event, 'preview5')">
-                            <label for="file5" class="image-preview">
-                                <i class='bx bx-image-add'></i>
-                            </label>
-                            <div id="preview5" class="image-preview"></div>
+                        <div>
+                            <div class="image-preview-box">
+                                <input id="file5" type="file" class="form-control" name="imagen" accept="image/*" style="display: none;" onchange="loadFile(event, 'preview5')">
+                                <label for="file5" class="image-preview">
+                                    <i class='bx bx-image-add'></i>
+                                </label>
+                                <div id="preview5" class="image-preview"></div>
+                            </div>
+                            <div id="deleteButton5" class="delete-button"></div>
                         </div>
                     </div>
                 </div>
             </div>
-
-            
             <label class="form-label" for="customFile">Características</label>
             <div class="d-flex justify-content-center"> 
                 <!-- Selección del estado del producto -->
@@ -158,11 +171,26 @@
         reader.onload = function() {
             var img = new Image();
             img.src = reader.result;
-            img.className = "img-fluid"; // Clase de Bootstrap para imágenes responsivas
-            imagePreview.innerHTML = ''; // Limpia el contenedor antes de agregar la nueva imagen
-            imagePreview.appendChild(img); // Agrega la imagen al contenedor
+            img.className = "img-fluid";
+            imagePreview.innerHTML = '';
+            imagePreview.appendChild(img);
+
+            // Agregar el botón de "Eliminar"
+            var deleteButtonContainer = document.getElementById('deleteButton' + previewId.replace('preview', ''));
+            deleteButtonContainer.innerHTML = '<button type="button" class="btn btn-danger btn-sm" onclick="removeFile(\'' + previewId + '\')">Eliminar</button>';
         };
         reader.readAsDataURL(event.target.files[0]);
+    }
+
+    function removeFile(previewId) {
+        var imagePreview = document.getElementById(previewId);
+        imagePreview.innerHTML = '';
+        var fileInput = document.getElementById(previewId.replace('preview', 'file'));
+        fileInput.value = '';
+
+        // Eliminar el botón de "Eliminar"
+        var deleteButtonContainer = document.getElementById('deleteButton' + previewId.replace('preview', ''));
+        deleteButtonContainer.innerHTML = '';
     }
 </script>
 </body>
