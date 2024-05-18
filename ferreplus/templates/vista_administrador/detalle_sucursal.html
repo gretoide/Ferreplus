@@ -13,17 +13,28 @@
 <body>
     <div class="container">
     <h1>Sucursal numero {{sucursal.id}}</h1>
+
+    {%block content%}
+                
+                {% if messages %}
+                {% for message in messages %}
+                    <div class="container"><h3>{{ message }}</h3></div>
+                {% endfor %}
+            {% endif %}
+
+
     </div>
         <div class="container">
             <div id='acciones' >
-                <a><button><i class="bi bi-pencil"></i></button></a>
+                <a href="{% url 'editar-sucursal' sucursal.id %}"><button><i class="bi bi-pencil"></i></button></a>
                 <a><button><i class="bi bi-x-circle"></i></button></a>
             </div>
             <div>
                 <p>Nombre: {{sucursal.nombre}}</p>
                 <p>Direccion: {{sucursal.direccion}}</p>
                 
-                {%block content%}
+            
+                
                 <div class= "container-lg">
                     <table class="table table-dark table-striped">
                         <thead>
