@@ -15,6 +15,7 @@ from django.contrib.auth import logout
 from django.contrib import messages
 from django.http import HttpResponseForbidden
 from django.core.files.uploadedfile import InMemoryUploadedFile
+from django.views.decorators.csrf import csrf_protect
 from django.core.signing import Signer
 signer = Signer()
 
@@ -29,6 +30,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Define the template directory path using os.path.join
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 
+@csrf_protect
 @login_required
 @normal_required
 @never_cache
@@ -59,7 +61,7 @@ def pagina_principal(request):
 @login_required
 @normal_required
 def subir_publicacion(request):
-
+    
     if request.method == "POST":
         # Obtener datos de la publicación y las imágenes del formulario
         datos_publicacion = request.POST.dict()

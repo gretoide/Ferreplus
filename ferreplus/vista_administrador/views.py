@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect
 from django.template import loader
 from django.core.mail import send_mail
 from django.conf import settings
+from django.conf import settings
 from django.urls import reverse
 from django.contrib.auth import views as auth_views
 from django.contrib import messages
@@ -110,28 +111,35 @@ def cargar_empleado(request):
             usuario)
 
         if condicion_validacion:
-            sucursal = Sucursal.objects.get(id=usuario["sucursal"])
-            usuario_creado = User.objects.create(
-                username=usuario["correo_electronico"],
-                first_name=usuario["nombre"],
-                last_name=usuario["apellido"],
-                dni=usuario["dni"],
-                cuil=usuario["cuil"],
-                fecha_nacimiento=usuario["fecha_nacimiento"],
-                sucursal=sucursal
+                sucursal = Sucursal.objects.get(id=usuario["sucursal"])
+                usuario_creado = User.objects.create(
+                    username=usuario["correo_electronico"],
+                    first_name=usuario["nombre"],
+                    last_name=usuario["apellido"],
+                    dni=usuario["dni"],
+                    cuil=usuario["cuil"],
+                    fecha_nacimiento=usuario["fecha_nacimiento"],
+                    sucursal=sucursal
+    
+                )
+                if usuario["correo_personal"]:
+                     usuario_creado.email = usuario["correo_personal"]
+                else:
+                    usuario_creado.email = usuario["correo_electronico"]
+                    usuario_creado.is_staff = True
+                    usuario_creado.set_password(usuario["contraseña"])
+                    #usuario_creado.set_sucursal_id(usuario["sucursal"]) 
+                    usuario_creado.save()
+                    subject = 'Bienvenido a la empresa'
+                    message = f'Hola {usuario["nombre"]},\n\nTu cuenta ha sido creada exitosamente. Tu contraseña es: {usuario["contraseña"]}'
+                    from_email = settings.EMAIL_HOST_USER
+                    recipient_list = [usuario_creado.email]
 
-            )
-            if usuario["correo_personal"]:
-                usuario_creado.email = usuario["correo_personal"]
-            else:
-                usuario_creado.email = usuario["correo_electronico"]
-            usuario_creado.is_staff = True
-            usuario_creado.set_password(usuario["contraseña"])
-            # usuario_creado.set_sucursal_id(usuario["sucursal"])
-            usuario_creado.save()
+                    send_mail(subject, message, from_email, recipient_list, fail_silently=False)
+                    
 
-            mensaje_exito = "Empleado cargado correctamente."
-            return render(request, os.path.join(TEMPLATE_DIR, 'registro_empleado.html'), {"aviso": mensaje_exito, "sucursales": Sucursal.objects.all()})
+                mensaje_exito = "Empleado cargado correctamente."
+                return render(request, os.path.join(TEMPLATE_DIR, 'registro_empleado.html'), {"aviso": mensaje_exito, "sucursales": Sucursal.objects.all()})
 
         else:
             return render(request, os.path.join(TEMPLATE_DIR, 'registro_empleado.html'), {"error": motivo_validacion, "sucursales": Sucursal.objects.all()})
