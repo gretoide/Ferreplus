@@ -15,6 +15,8 @@ from django.contrib.auth import logout
 from django.contrib import messages
 from django.http import HttpResponseForbidden
 from django.core.files.uploadedfile import InMemoryUploadedFile
+from django.core.signing import Signer
+signer = Signer()
 
 import os
 import secrets
@@ -200,13 +202,19 @@ def restablecerContraseña(request):
             })
     else:
         if User.objects.filter(email=request.POST["email"]).exists():
-            return redirect("ingresar_codigo", email=request.POST["email"])
+            response = redirect("ingresar_codigo")
+            response.set_cookie("email", request.POST["email"], httponly=True, secure=True)
+            return response
         else:
             return render(request, os.path.join(TEMPLATE_DIR,'vista_usuario','reestablecer_contraseña.html'), {
                 "error": "El correo electronico ingresado no esta registrado."
             })
         
-def ingresarCodigo(request, email, codigo=[""]):
+def ingresarCodigo(request, codigo=[""]):
+    if not "email" in request.COOKIES:
+        raise Http404
+
+    email = request.COOKIES["email"]
     user = get_object_or_404(User, email=email)
     if request.method == "GET":
         codigo[0] = secrets.token_urlsafe(6)
@@ -217,17 +225,25 @@ def ingresarCodigo(request, email, codigo=[""]):
         })
     else:
         if request.POST["codigo"] == codigo[0]:
-            return redirect("cambiar_contraseña", email=email, contraseña=user.password)
+            response = redirect("cambiar_contraseña")
+            response.set_cookie("valid", True, httponly=True, secure=True)
+            response.set_cookie("email", signer.sign(value=email), httponly=True, secure=True)
+            return response
         else:
             return render(request, os.path.join(TEMPLATE_DIR,'vista_usuario','ingresar_codigo.html'), {
             "codigo": codigo[0],
             "error": "El codigo ingresado no coincide con el enviado al correo electronico."
         })
 
-def cambiarContraseña(request, email, contraseña):
-    user = get_object_or_404(User, email=email)
-    if user.password != contraseña:
+def cambiarContraseña(request):
+    if "valid" not in request.COOKIES:
         raise Http404
+    try:    
+        email = signer.unsign(request.COOKIES["email"])
+    except:
+        raise Http404
+    
+    user = get_object_or_404(User, email=email)
     if request.method == "GET":
         return render(request, os.path.join(TEMPLATE_DIR,'vista_usuario','cambiar_contraseña.html'), {
             "error": ""
@@ -238,7 +254,10 @@ def cambiarContraseña(request, email, contraseña):
             if resultado[0]:
                 user.set_password(request.POST["contraseña1"])
                 user.save()
-                return redirect("cambiar_contraseña_exito") 
+                response = redirect("cambiar_contraseña_exito")
+                response.delete_cookie("email")
+                response.delete_cookie("valid")
+                return response
             else:
                 return render(request, os.path.join(TEMPLATE_DIR,'vista_usuario','cambiar_contraseña.html'), {
                     "error": resultado[1]
@@ -255,3 +274,80 @@ def cambiarContraseñaExito(request):
 def cerrar_sesion(request):
     logout(request)
     return redirect("inicio")
+
+@login_required
+@normal_required
+def mostrarPerfilCliente(request):
+    user = get_object_or_404(User, email=request.user)
+    if request.method == "GET":
+        return render(request, os.path.join(TEMPLATE_DIR,'vista_usuario','mi_cuenta.html'),{
+            "nombre": user.first_name,
+            "apellido": user.last_name,
+            "email": user.email,
+            "dni": user.dni,
+            "fecha_nacimiento": user.fecha_nacimiento
+        })
+    else:
+        return render(request, os.path.join(TEMPLATE_DIR,'vista_usuario','mi_cuenta.html'))
+
+@login_required
+@normal_required
+def editarPerfilCliente(request):
+    user = get_object_or_404(User, email=request.user)
+    if request.method == "GET":
+        return render(request, os.path.join(TEMPLATE_DIR,'vista_usuario','editar_perfil_cliente.html'), {
+            "nombre": user.first_name,
+            "apellido": user.last_name,
+            "exito": "",
+            "error": ""
+        })
+    else:
+        resultado_nombre = modulos_registro.validar_nombre(request.POST["nombre"])
+        resultado_apellido =  modulos_registro.validar_nombre(request.POST["apellido"])
+        if not resultado_nombre[0] or not resultado_apellido[0]:
+            return render(request, os.path.join(TEMPLATE_DIR,'vista_usuario','editar_perfil_cliente.html'), {
+                "nombre": user.first_name,
+                "apellido": user.last_name,
+                "exito": "",
+                "error": "Formato invalido para nombre/apellido."
+            })
+        else:
+            user.first_name = request.POST["nombre"]
+            user.last_name = request.POST["apellido"]
+            user.save()
+            return render(request, os.path.join(TEMPLATE_DIR,'vista_usuario','editar_perfil_cliente.html'), {
+                "nombre": user.first_name,
+                "apellido": user.last_name,
+                "exito": "Cambios guardados correctamentes.",
+                "error": ""
+            })
+    
+@login_required
+@normal_required
+def cambiarContraseñaCliente(request):
+    user = get_object_or_404(User, email=request.user)
+    if request.method == "GET":
+        return render(request, os.path.join(TEMPLATE_DIR,'vista_usuario','cambiar_contraseña_cliente.html'), {
+            "exito": "",
+            "error": ""
+        })
+    else:
+        if request.POST["contraseña1"] == request.POST["contraseña2"]:
+            resultado = modulos_registro.validar_contraseña(request.POST["contraseña1"])
+            if resultado[0]:
+                user.set_password(request.POST["contraseña1"])
+                user.save()
+                return render(request, os.path.join(TEMPLATE_DIR,'vista_usuario','cambiar_contraseña_cliente.html'), {
+                    "exito": "Contraseña cambiada exitosamente.\nDebe iniciar sesion nuevamente.",
+                    "error": ""
+                })
+            else:
+                return render(request, os.path.join(TEMPLATE_DIR,'vista_usuario','cambiar_contraseña_cliente.html'), {
+                    "exito": "",
+                    "error": resultado[1]
+                })
+        else:
+            return render(request, os.path.join(TEMPLATE_DIR,'vista_usuario','cambiar_contraseña_cliente.html'), {
+                    "exito": "",
+                    "error": "Las contraseñas no coinciden."
+                })
