@@ -37,7 +37,7 @@
         <div class="container">
             <div id='acciones' >
                 <a href="{% url 'editar-sucursal' sucursal.id %}"><button><i class="bi bi-pencil">Editar</i></button></a>
-                <a><button><i class="bi bi-x-circle">Eliminar</i></button></a>
+                <a><button onclick="confirmarEliminacionSucursal('{{ sucursal.id }}')"><i class="bi bi-x-circle">Eliminar</i></button></a>
             </div>
             <div>
                 <p>Nombre: {{sucursal.nombre}}</p>
@@ -63,7 +63,7 @@
                                     <td>{{ empleado.first_name }}</td>
                                     <td>{{ empleado.last_name }}</td>
                                     <td>{{ empleado.cuil }}</td>
-                                    <td><a href=""><button><i class="bi bi-search"></i></button></a><button id="{{empleado.id}}" onclick="confirmarEliminacion('{{ empleado.id }}')"><i class="bi bi-x-circle"></i></button>
+                                    <td><a href=""><button><i class="bi bi-search"></i></button></a><button id="{{empleado.id}}" onclick="confirmarEliminacionEmpleado('{{ empleado.id }}')"><i class="bi bi-x-circle"></i></button>
                                 </tr>
                             {% endfor %}
                         </tbody>
@@ -82,14 +82,16 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     
     <script>
-            function w3_open() {
-            document.getElementById("mySidebar").style.display = "block";
-            document.getElementById("main").style.marginLeft = "250px";
+        function confirmarEliminacionSucursal(sucursalId) {
+            if (confirm('¿Estás seguro de que quieres eliminar esta sucursal?')) {
+                window.location.href = '/eliminar-sucursal/' + sucursalId + '/';
+            }
         }
 
-        function w3_close() {
-            document.getElementById("mySidebar").style.display = "none";
-            document.getElementById("main").style.marginLeft = "0";
+        function confirmarEliminacionEmpleado(empleadoId) {
+            if (confirm('¿Estás seguro de que quieres eliminar esta sucursal?')) {
+                window.location.href = '/eliminar-empleado/' + empleadoId + '/';
+            }
         }
     </script>
 </body>
