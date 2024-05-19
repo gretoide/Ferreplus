@@ -26,18 +26,6 @@
                     <div class="container"><h3>{{ message }}</h3></div>
                 {% endfor %}
             {% endif %}
-
-                <form method="POST">
-                    {%csrf_token%}
-                    <p>Nombre:</p>
-                    <input value="{{sucursal.nombre}}" name="nombre">
-                    <p>Direccion:</p>
-                    <input value="{{sucursal.direccion}}" name="direccion">
-                    <button type="submit">Guardar</button>
-                </form>
-                {% endblock %}
-                <a href={% url 'ver-sucursales' %}><button class='btn-primary'>Cancelar</button></a>
-            </div>
         <div>
                 <form method="POST">
                     {%csrf_token%}
