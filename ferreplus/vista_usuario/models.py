@@ -4,6 +4,7 @@ from django.contrib.auth.models import AbstractUser, PermissionsMixin ,UserManag
 from django.db import models
 from django.utils import timezone
 from vista_administrador.models import Sucursal
+from django.core.validators import MaxValueValidator
 import os
 
 class User(AbstractUser):
@@ -41,7 +42,11 @@ class Publicacion(models.Model):
     sucursal = models.CharField(max_length=100)  # Esto puede cambiarse a ForeignKey si tienes una tabla de sucursales
     descripcion = models.TextField()
     autor = models.ForeignKey(User, on_delete=models.CASCADE)
-    imagenes = models.ManyToManyField('Imagen', related_name='publicaciones')  # Relación ManyToMany con Imagen
+    imagenes = models.ManyToManyField(
+        'Imagen',
+        related_name='publicaciones',
+        validators=[MaxValueValidator(5, 'Solo se permiten hasta 5 imágenes.')]
+    )  # Relación ManyToMany con Imagen
 
 class Imagen(models.Model):
     imagen = models.ImageField(upload_to='imagenes/')

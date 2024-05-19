@@ -1,204 +1,90 @@
 <!DOCTYPE html>
-<html lang="es">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Publicación</title>
-    <!-- Enlace a Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/subir_publicacion.css' %}">
-    <!-- Agrega aquí tus enlaces a CSS y JavaScript externos si los necesitas -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/editar_publicacion.css' %}">
 </head>
 <body>
     <div class="custom-container">
         <button id="BotonVolver" class="btn btn-secondary">
-          <a href="{% url 'mis_publicaciones' %}">
-            <i class='bx bx-chevron-left'>
-              <span>Volver</span>
-            </i>
-          </a>
+            <a href="{% url 'mis_publicaciones' %}">
+                <i class='bx bx-chevron-left'><span>Volver</span></i>
+            </a>
         </button>
-      </div>
-<div class="container">
-    
-    <div class="mb-3">
-        <h1>Editar publicación</h1>
-        <!-- Formulario de subir publicación -->
+    </div>
 
-        <!-- Mensaje de alerta de error -->
-        {% if error %}
-        <div class="alert alert-danger" role="alert">
-            {{ error }}
+    <div class="container">
+        <div class="mb-3 text-center">
+            <h1>Editar Publicación</h1>
+            {% if error %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endif %}
+            {% if aviso %}
+                <div class="alert alert-success" role="alert" id="alertaExito">
+                    {{ aviso }} <a class="link-warning link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="{% url 'mis_publicaciones' %}">Ver aquí.</a>
+                </div>
+            {% endif %}
         </div>
-        {% endif %}
 
-        {% if aviso %}
-        <div class="alert alert-success" role="alert" id="alertaExito">
-            {{ aviso }} <a class="lass="link-warning link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"" href="{% url 'mis_publicaciones' %}">Ver aquí.</a>
-        </div>
-        {% endif %}
-
-        <form method="post" enctype="multipart/form-data">
+        <form method="post" enctype="multipart/form-data" class="text-left">
             {% csrf_token %}
-            <div>
-                <label for="titulo" class="form-label">Título</label>
-                <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Título" value="{{ publicacion.titulo }}" required>
+            <div class="form-group">
+                <span>Título</span>
+                <label for="titulo" class="form-label"></label>
+                {{ form_publicacion.titulo }}
             </div>
-            <!-- IMAGENES -->
-            <div>
-                <span>Imágenes del producto</span>
-                <div class="container mb-3" id="imgBox">
-                    <div class="image-preview-container">
-                        <div>
-                            <div class="image-preview-box">
-                                <input id="file1" type="file" class="form-control" name="imagen" accept="image/*" style="display: none;" onchange="loadFile(event, 'preview1')">
-                                <label for="file1" class="image-preview">
-                                    <i class='bx bx-image-add'></i>
-                                </label>
-                                <div id="preview1" class="image-preview"></div>
-                            </div>
-                            <div id="deleteButton1" class="delete-button"></div>
+            <div class="form-group">
+                <span>Estado</span>
+                <label for="estado" class="form-label"></label>
+                {{ form_publicacion.estado }}
+            </div>
+            <div class="form-group">
+                <span>Categoría</span>
+                <label for="categoria" class="form-label"></label>
+                {{ form_publicacion.categoria }}
+            </div>
+            <div class="form-group">
+                <span>Sucursal</span>
+                <label for="sucursal" class="form-label"></label>
+                <select class="form-select" id="select" name="sucursal" required>
+                    <option>{{ publicacion.sucursal }}</option>
+                    {% for sucursal in sucursales %}
+                        <option value="{{ sucursal.id }}">{{ sucursal.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <span>Descripción</span>
+                <label for="descripcion" class="form-label"></label>
+                {{ form_publicacion.descripcion }}
+            </div>
+            <div class="form-group">
+                <div class="form-group">
+                    <h6>Imágenes existentes</h6>
+                    {% for imagen in publicacion.imagenes.all %}
+                        <div class="imagen-container">
+                            <img src="{{ imagen.imagen.url }}" alt="{{ imagen.imagen.name }}">
+                            <input type="checkbox" name="eliminar_imagenes" value="{{ imagen.pk }}"> Eliminar
                         </div>
-                        <div>
-                            <div class="image-preview-box">
-                                <input id="file2" type="file" class="form-control" name="imagen" accept="image/*" style="display: none;" onchange="loadFile(event, 'preview2')">
-                                <label for="file2" class="image-preview">
-                                    <i class='bx bx-image-add'></i>
-                                </label>
-                                <div id="preview2" class="image-preview"></div>
-                            </div>
-                            <div id="deleteButton2" class="delete-button"></div>
-                        </div>
-                        <div>
-                            <div class="image-preview-box">
-                                <input id="file3" type="file" class="form-control" name="imagen" accept="image/*" style="display: none;" onchange="loadFile(event, 'preview3')">
-                                <label for="file3" class="image-preview">
-                                    <i class='bx bx-image-add'></i>
-                                </label>
-                                <div id="preview3" class="image-preview"></div>
-                            </div>
-                            <div id="deleteButton3" class="delete-button"></div>
-                        </div>
-                        <div>
-                            <div class="image-preview-box">
-                                <input id="file4" type="file" class="form-control" name="imagen" accept="image/*" style="display: none;" onchange="loadFile(event, 'preview4')">
-                                <label for="file4" class="image-preview">
-                                    <i class='bx bx-image-add'></i>
-                                </label>
-                                <div id="preview4" class="image-preview"></div>
-                            </div>
-                            <div id="deleteButton4" class="delete-button"></div>
-                        </div>
-                        <div>
-                            <div class="image-preview-box">
-                                <input id="file5" type="file" class="form-control" name="imagen" accept="image/*" style="display: none;" onchange="loadFile(event, 'preview5')">
-                                <label for="file5" class="image-preview">
-                                    <i class='bx bx-image-add'></i>
-                                </label>
-                                <div id="preview5" class="image-preview"></div>
-                            </div>
-                            <div id="deleteButton5" class="delete-button"></div>
-                        </div>
-                    </div>
+                {% endfor %}
+                </div>
+                <div class="form-group">
+                    <h6>Agregar nuevas imágenes</h6>
+                <input type="file" name="nuevas_imagenes" multiple>
                 </div>
             </div>
-
-            <div class="d-flex justify-content-center"> 
-                <!-- Selección del estado del producto -->
-                <div class="mb-3">
-                    <span>Estado</span>
-                    <select class="form-select" id="select" name="estado" required>
-                        <option value="Nuevo" {% if publicacion.estado == "Nuevo" %} selected {% endif %}>Nuevo</option>
-                        <option value="Usado" {% if publicacion.estado == "Usado" %} selected {% endif %}>Usado</option>
-                    </select>
-                </div>
-                <!-- Selección de la categoría del producto-->
-                <div class="mb-3">
-                    <span>Categoría</span>
-                    <select class="form-select" id="select" name="categoria" required>
-                        <option>{{ publicacion.categoria }}</option>
-                        <!-- Agrega los demás options con las categorías -->
-                    </select>
-                </div>                                    
-                <!-- Selección de sucursal deseada para el intercambio -->
-                <div class="mb-3">
-                    <span>Sucursal de encuentro</span>
-                    <select class="form-select" id="select" name="sucursal" required>
-                        <option>{{ publicacion.sucursal }}</option>
-                        {% for sucursal in sucursales %}
-                            <option value="{{ sucursal.id }}">{{ sucursal.nombre }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-            </div>
-
-            <!-- Descripción de la publicación -->
-            <div class="mb-3">
-                <label for="descripcion" class="form-label">Descripción</label>
-                <textarea class="form-control" id="descripcion" name="descripcion" placeholder="Descripción" required>{{ publicacion.descripcion }}</textarea>
-            </div>
-            <!-- Botón para guardar cambios -->
-            <div class="mb-3">
+            <div class="form-group">
                 <button type="submit" class="btn btn-outline-primary btn-lg btn-block">Guardar cambios</button>
             </div>
         </form>
     </div>
-        
-</div>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        // Obtener la lista de URLs de imágenes de la publicación
-        var imagenes = {{ urls_imagenes_exist|safe }};
-        
-        // Iterar sobre cada imagen y asignarla a los contenedores de vista previa
-        imagenes.forEach(function(imagenUrl, index) {
-            var previewId = 'preview' + (index + 1);
-            var imagePreview = document.getElementById(previewId);
-            var img = new Image();
-            img.src = imagenUrl;
-            img.className = "img-fluid";
-            imagePreview.innerHTML = '';
-            imagePreview.appendChild(img);
-
-            // Agregar el botón de "Eliminar"
-            var deleteButtonContainer = document.getElementById('deleteButton' + previewId.replace('preview', ''));
-            deleteButtonContainer.innerHTML = '<button type="button" class="btn btn-danger btn-sm" onclick="removeFile(\'' + previewId + '\')">Eliminar</button>';
-
-        });
-    });
-
-    function loadFile(event, previewId) {
-        var imagePreview = document.getElementById(previewId);
-        var reader = new FileReader();
-        reader.onload = function() {
-            var img = new Image();
-            img.src = reader.result;
-            img.className = "img-fluid";
-            imagePreview.innerHTML = '';
-            imagePreview.appendChild(img);
-
-            // Agregar el botón de "Eliminar"
-            var deleteButtonContainer = document.getElementById('deleteButton' + previewId.replace('preview', ''));
-            deleteButtonContainer.innerHTML = '<button type="button" class="btn btn-danger btn-sm" onclick="removeFile(\'' + previewId + '\')">Eliminar</button>';
-        };
-        reader.readAsDataURL(event.target.files[0]);
-    }
-
-    function removeFile(previewId) {
-        var imagePreview = document.getElementById(previewId);
-        imagePreview.innerHTML = '';
-        var fileInput = document.getElementById(previewId.replace('preview', 'file'));
-        fileInput.value = '';
-
-        // Eliminar el botón de "Eliminar"
-        var deleteButtonContainer = document.getElementById('deleteButton' + previewId.replace('preview', ''));
-        deleteButtonContainer.innerHTML = '';
-    }
-</script>
-
 </body>
 </html>
