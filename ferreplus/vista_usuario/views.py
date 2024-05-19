@@ -118,36 +118,63 @@ def editar_publicacion(request, pk):
 
         if form_publicacion.is_valid():
             try:
-                publicacion = form_publicacion.save()
-
                 # Manejar la eliminación de imágenes
                 imagenes_a_eliminar = request.POST.getlist('eliminar_imagenes')
-                if imagenes_a_eliminar:
-                    imagenes_restantes = publicacion.imagenes.exclude(pk__in=imagenes_a_eliminar)
-                    if imagenes_restantes.count() >= 1:
-                        for imagen in publicacion.imagenes.filter(pk__in=imagenes_a_eliminar):
-                            imagen.delete()
-                    else:
-                        error = 'Debe haber al menos una imagen asociada a la publicación.'
-                        return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario', 'editar_publicacion.html'), {'form_publicacion': form_publicacion, 'publicacion': publicacion, 'sucursales': Sucursal.objects.all(), 'error': error})
+                nuevas_imagenes = request.FILES.getlist('nuevas_imagenes')
+                
+                # Número total de imágenes después de las eliminaciones y adiciones
+                imagenes_actuales = publicacion.imagenes.count()
+                nuevas_imagenes_count = len(nuevas_imagenes)
+                imagenes_a_eliminar_count = len(imagenes_a_eliminar)
+                imagenes_finales_count = imagenes_actuales - imagenes_a_eliminar_count + nuevas_imagenes_count
+                
+                if imagenes_finales_count < 1:
+                    error = 'Debe haber al menos una imagen asociada a la publicación.'
+                    return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario', 'editar_publicacion.html'), {
+                        'form_publicacion': form_publicacion,
+                        'publicacion': publicacion,
+                        'sucursales': Sucursal.objects.all(),
+                        'error': error
+                    })
+                
+                if imagenes_finales_count > 5:
+                    error = 'Solo se permiten hasta 5 imágenes.'
+                    return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario', 'editar_publicacion.html'), {
+                        'form_publicacion': form_publicacion,
+                        'publicacion': publicacion,
+                        'sucursales': Sucursal.objects.all(),
+                        'error': error
+                    })
+                
+                # Guardar la publicación
+                publicacion = form_publicacion.save()
 
-                # Manejar la adición de imágenes
-                imagenes = request.FILES.getlist('nuevas_imagenes')
-                for imagen in imagenes:
-                    if publicacion.imagenes.count() < 5:
-                        publicacion.imagenes.add(Imagen.objects.create(imagen=imagen))
-                    else:
-                        error = 'Solo se permiten hasta 5 imágenes.'
-                        return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario', 'editar_publicacion.html'), {'form_publicacion': form_publicacion, 'publicacion': publicacion, 'sucursales': Sucursal.objects.all(), 'error': error})
+                # Eliminar las imágenes especificadas
+                for imagen_id in imagenes_a_eliminar:
+                    imagen = publicacion.imagenes.get(pk=imagen_id)
+                    imagen.delete()
+
+                # Agregar las nuevas imágenes
+                for imagen in nuevas_imagenes:
+                    publicacion.imagenes.add(Imagen.objects.create(imagen=imagen))
 
                 return redirect('mis_publicaciones')
             except ValidationError as e:
                 error = '; '.join(str(v[0]) for v in e.message_dict.values())
-                return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario', 'editar_publicacion.html'), {'form_publicacion': form_publicacion, 'publicacion': publicacion, 'sucursales': Sucursal.objects.all(), 'error': error})
+                return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario', 'editar_publicacion.html'), {
+                    'form_publicacion': form_publicacion,
+                    'publicacion': publicacion,
+                    'sucursales': Sucursal.objects.all(),
+                    'error': error
+                })
     else:
         form_publicacion = PublicacionForm(instance=publicacion)
 
-    return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario', 'editar_publicacion.html'), {'form_publicacion': form_publicacion, 'publicacion': publicacion, 'sucursales': Sucursal.objects.all()})
+    return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario', 'editar_publicacion.html'), {
+        'form_publicacion': form_publicacion,
+        'publicacion': publicacion,
+        'sucursales': Sucursal.objects.all()
+    })
 
 @login_required
 @normal_required
