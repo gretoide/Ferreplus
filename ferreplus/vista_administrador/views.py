@@ -92,8 +92,8 @@ def eliminar_sucursal(request, sucursal_id):
     return redirect(ver_sucursales)
 
 
-# @login_required
-# @admin_required
+@login_required
+@admin_required
 def detalle_sucursal(request, sucursal_id):
     a_ver = Sucursal.objects.get(id=sucursal_id)
     empleados_de_sucursal = User.objects.filter(
@@ -148,7 +148,8 @@ def ver_empleados(request):
         messages.error(request, "No hay empleados para mostrar")
     return render(request, os.path.join(TEMPLATE_DIR, 'ver_empleados.html'), {'empleados': empleados})
 
-
+@login_required
+@admin_required
 def eliminar_empleado(request, empleado_id):
     try:
         a_eliminar = User.objects.get(id=empleado_id)
@@ -160,7 +161,8 @@ def eliminar_empleado(request, empleado_id):
         request, f"El empleado con CUIL {a_eliminar.cuil} se elimino con exito")
     return redirect(ver_empleados)
 
-
+@login_required
+@admin_required
 def editar_sucursal(request, sucursal_id):
     aEditar = get_object_or_404(Sucursal, id=sucursal_id)
     if request.method == "POST":
