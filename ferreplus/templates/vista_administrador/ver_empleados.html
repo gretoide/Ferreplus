@@ -52,7 +52,7 @@
                     <td>{{ empleado.first_name }}</td>
                     <td>{{ empleado.last_name }}</td>
                     <td>{{ empleado.cuil }}</td>
-                    <!--<td><a href=""><button><i class="bi bi-search">Ver detalle</i></button></a>--><button id="{{empleado.id}}" onclick="confirmarEliminacion('{{ empleado.id }}')"><i class="bi bi-x-circle">Eliminar</i></button>
+                    <td><!--<a href=""><button><i class="bi bi-search">Ver detalle</i></button></a>--><button id="{{empleado.id}}" onclick="confirmarEliminacion('{{ empleado.id }}')"><i class="bi bi-x-circle">Eliminar</i></button>
                 </tr>
             {% endfor %}
         </tbody>
