@@ -28,7 +28,7 @@
     </div>
         <div class="container">
             <div id='acciones' >
-                <a><button><i class="bi bi-x-circle"></i>Eliminar</button></a>
+                <a><button  onclick="confirmarEliminacion('{{ sucursal.id }}')"><i class="bi bi-x-circle"></i>Eliminar</button></a>
             </div>
             <div>
             {%block content%}
@@ -55,6 +55,13 @@
         <div>
     </div>
     </div>
+    <script>
+        function confirmarEliminacion(sucursalId) {
+            if (confirm('¿Estás seguro de que quieres eliminar esta sucursal?')) {
+                window.location.href = '/eliminar-sucursal/' + sucursalId + '/';
+            }
+        }
+    </script>
     <!-- Enlace a Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
