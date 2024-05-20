@@ -47,7 +47,7 @@ form .mb-3 {
 /* Ajusta el span dentro del formulario */
 form .mb-3 span {
     display: block; /* Asegúrate de que el span se comporte como un bloque */
-    color: #ffffff; /* Ajusta el color si es necesario */
+    color: #606060; /* Ajusta el color si es necesario */
     margin-bottom: 5px; /* Espacio inferior */
 }
 
