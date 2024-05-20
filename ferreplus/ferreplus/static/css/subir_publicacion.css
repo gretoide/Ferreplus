@@ -217,3 +217,29 @@ h1 {
     font-size: 30px; /* Tamaño del icono */
     color: #fff; /* Color del icono */
 }
+
+/*------------------------------Boton de eliminar--------------------------------*/
+
+
+.delete-button {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.delete-button .btn.btn-secondary{
+    background-color: transparent;
+    border: none;
+}
+
+
+.delete-button i {
+    color: #ffd100;
+    font-size: 20px;
+}
+
+
+.delete-button i:hover {
+    color: red; /* Cambia el color al pasar el ratón */
+    font-size: 20px; /* Cambia el tamaño de la fuente al pasar el ratón */
+}

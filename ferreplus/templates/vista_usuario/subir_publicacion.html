@@ -47,7 +47,7 @@
         <form id="subirPublicacionForm" method="post" action="{% url 'subir_publicacion' %}" enctype="multipart/form-data">
             {% csrf_token %}
             <div >
-                <label for="titulo" class="form-label">Título</label>
+                <label for="titulo" class="form-label"></label>
                 <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Título" required>
             </div>
             <!-- IMAGENES -->
@@ -148,7 +148,7 @@
 
             <!-- Descripción de la publicación -->
             <div class="mb-3">
-                <label for="descripcion" class="form-label">Descripción</label>
+                <label for="descripcion" class="form-label"></label>
                 <textarea class="form-control" id="descripcion" name="descripcion" placeholder="Descripción" required></textarea>
             </div>
             <!-- Subir publicación -->
@@ -173,7 +173,7 @@
 
             // Agregar el botón de "Eliminar"
             var deleteButtonContainer = document.getElementById('deleteButton' + previewId.replace('preview', ''));
-            deleteButtonContainer.innerHTML = '<button type="button" class="btn btn-danger btn-sm" onclick="removeFile(\'' + previewId + '\')">Eliminar</button>';
+            deleteButtonContainer.innerHTML = '<button type="button" class="btn btn-secondary btn-sm" onclick="removeFile(\'' + previewId + '\')"><i class="bx bx-trash"></i></button>';
         };
         reader.readAsDataURL(event.target.files[0]);
     }
