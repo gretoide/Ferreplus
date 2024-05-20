@@ -67,14 +67,17 @@
                 {{ form_publicacion.descripcion }}
             </div>
             <div class="form-group">
-                <div class="form-group">
-                    <h6>Imágenes existentes</h6>
+                <h6>Imágenes existentes</h6>
+                <div class="form-group" id="imagesContainer">
                     {% for imagen in publicacion.imagenes.all %}
-                        <div class="imagen-container">
-                            <img src="{{ imagen.imagen.url }}" alt="{{ imagen.imagen.name }}">
-                            <input type="checkbox" name="eliminar_imagenes" value="{{ imagen.pk }}"> Eliminar
+                    <div class="imagen-container">
+                        <img src="{{ imagen.imagen.url }}" alt="{{ imagen.imagen.name }}">
+                        <div class="delete-checkbox-container">
+                            <input type="checkbox" name="eliminar_imagenes" value="{{ imagen.pk }}" class="delete-checkbox-input">
+                            <i class="bx bx-trash delete-checkbox-icon"></i>
                         </div>
-                {% endfor %}
+                    </div>
+                    {% endfor %}
                 </div>
                 <div class="form-group">
                     <h6>Agregar nuevas imágenes</h6>
