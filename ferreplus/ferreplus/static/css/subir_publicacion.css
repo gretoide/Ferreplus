@@ -26,7 +26,7 @@ h1 {
 
 .mb-3 {
     margin: 5px;
-    color: #fff;
+    color: #d6d6d6;
 }
 
 
@@ -59,7 +59,7 @@ h1 {
 }
 
 .form-control::placeholder {
-    color: #d7d7d7; /* Color del marcador de posición gris claro */
+    color: #ffff; /* Color del marcador de posición gris claro */
   }
 
 
@@ -74,7 +74,7 @@ h1 {
 .form-select {
     background-color: #404040;
     border-color: #505050;
-    color: #d6d6d6;
+    color: #fff;
     border-radius: 5px;
     display: block;
     width: 100%;
