@@ -186,10 +186,10 @@ def eliminar_publicacion(request, publicacion_id):
         if request.user == publicacion.autor:  # Asume que la publicación tiene un campo 'autor' que indica quién la creó
             # Si el usuario tiene permiso, elimina la publicación
             publicacion.delete()
-            return HttpResponseForbidden("Publicación eliminada con éxito.")
+            return redirect("mis_publicaciones")
         else:
             # Si el usuario no tiene permiso, devuelve un error de prohibido
-            return HttpResponseForbidden("No tienes permiso para eliminar esta publicación.")
+            return redirect("mis_publicaciones")
         
 @login_required
 @normal_required
