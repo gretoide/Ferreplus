@@ -52,8 +52,8 @@ form .mb-3 span {
 }
 
 .form-control {
-    background-color: #404040;
-    border-color: #505050;
+    background-color: #505050;
+    border-color: #707070;
     color: #d7d7d7;
     width: 100%;
 }
@@ -67,7 +67,7 @@ form .mb-3 span {
 }
 
 .form-control::placeholder {
-    color: #d7d7d7; /* Color del marcador de posición gris claro */
+    color: #ffffff; /* Color del marcador de posición gris claro */
   }
 
 .btn-register {
