@@ -24,15 +24,18 @@
       <p>Ingresar correo eléctronico para restablecer la contraseña.</p>
       <form method="post"> <!-- Agregamos el método POST al formulario -->
         {% csrf_token %}
-        <div class="mb-3">
+        <div class="mb-4">
           <input type="text" class="form-control" placeholder="Ingresar correo electrónico" name="email" required>
+          
+          <div class="mb-3 text-center">
           {% if error %}
-          <div class="alert alert-danger" role="alert">
-              {{ error }}
+            <div class="alert alert-danger" role="alert">
+                {{ error }}
+            </div>
+            {% endif %}
           </div>
-          {% endif %}
         </div>
-        <div class="mb-3">
+        <div class="mb-3 text-center">
           <button id="Restablecer" type="submit" class="btn btn-register">Siguiente</button>
         </div>
       </form>
