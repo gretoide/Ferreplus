@@ -1,0 +1,135 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    box-sizing: border-box;
+  }
+
+body {
+    min-height: 100%;
+    background-color: #202020;
+}
+
+#Header {
+    position: relative;
+    align-items: center;
+    text-align: center;
+}
+
+a {
+    text-decoration: none; /* Elimina el subrayado predeterminado del enlace */
+    color: #d7d7d7; /* Define el color del texto del enlace */
+}
+
+a:hover {
+    color: #ffffff; /* Define el color del texto del enlace cuando se hace hover */
+    text-decoration: none;
+}
+
+.icon {
+    margin-right: 5px; /* Añade un espacio entre el icono y el texto */
+}
+
+.icon,
+span {
+    font-size: 16px;
+    display: inline-block; /* Permite que los elementos se comporten como bloques en línea */
+    vertical-align: middle; /* Alinea verticalmente los elementos */
+    line-height: 1; /* Ajusta la altura de línea para alinear los elementos correctamente */
+}
+
+
+/*
+    Elementos
+*/
+
+.container {
+    padding: 40px;
+}
+
+h1 {
+    color: white;
+}
+
+.mb-3 {
+    padding-top: 20px;
+}
+
+/* Botones */
+
+button {
+    padding: 10px;
+    margin: 5px;
+    width: auto;
+}
+
+/* Estilos para el contenedor personalizado */
+.custom-container {
+    margin-top: 10px;
+    margin-left: 20px;
+}
+
+/* Estilos para el botón personalizado */
+.custom-container button {
+    background-color: transparent; /* Color de fondo */
+    color: #ffffff; /* Color del texto */
+    border: none; /* Sin borde */
+    padding: 10px; /* Relleno */
+    border-radius: 8px; /* Borde redondeado */
+    cursor: pointer; /* Cambio de cursor al pasar el ratón */
+    text-decoration: none; /* Sin subrayado */
+}
+
+/* Estilos para el botón al pasar el cursor */
+.custom-container button:hover {
+    background-color: #505050; /* Cambio de color de fondo al pasar el cursor */
+}
+
+/* Estilos para el enlace dentro del botón */
+.custom-container button a {
+    color: inherit; /* Hereda el color del texto del contenedor */
+    text-decoration: none; /* Sin subrayado */
+}
+
+/* Estilos para el icono dentro del botón */
+.custom-container button i {
+    vertical-align: middle; /* Alinear verticalmente con el texto */
+    margin-right: 5px; /* Espacio a la derecha del icono */
+}
+
+/* Estilos para el texto dentro del botón */
+.custom-container button span {
+    vertical-align: top; /* Alinear verticalmente con el icono */
+}
+
+
+h1 {
+    color: white;
+}
+
+.account-details {
+    color: #d6d6d6;
+    font-size: 20px;
+}
+
+.account-details p {
+    margin-bottom: 10px;
+}
+
+.highlight {
+    color: #ffd100;
+}
+
+.edit-button {
+    border: none;
+    background-color: transparent;
+    color: white;
+    margin: 10px;
+}
+
+.edit-button:hover {
+    background-color: #505050;
+    color: white;
+}
