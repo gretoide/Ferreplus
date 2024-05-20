@@ -371,22 +371,27 @@ def cambiarContraseñaCliente(request):
             "error": ""
         })
     else:
-        if request.POST["contraseña1"] == request.POST["contraseña2"]:
-            resultado = modulos_registro.validar_contraseña(request.POST["contraseña1"])
-            if resultado[0]:
-                user.set_password(request.POST["contraseña1"])
-                user.save()
-                return render(request, os.path.join(TEMPLATE_DIR,'vista_usuario','cambiar_contraseña_cliente.html'), {
-                    "exito": "Contraseña cambiada exitosamente.\nDebe iniciar sesion nuevamente.",
-                    "error": ""
-                })
+        if user.check_password(request.POST["contraseña"]):
+            if request.POST["contraseña1"] == request.POST["contraseña2"]:
+                resultado = modulos_registro.validar_contraseña(request.POST["contraseña1"])
+                if resultado[0]:
+                    user.set_password(request.POST["contraseña1"])
+                    user.save()
+                    return render(request, os.path.join(TEMPLATE_DIR,'pagina_inicio.html'), {
+                        "aviso": "Contraseña cambiada exitosamente.\nDebe iniciar sesion nuevamente.",
+                    })
+                else:
+                    return render(request, os.path.join(TEMPLATE_DIR,'vista_usuario','cambiar_contraseña_cliente.html'), {
+                        "exito": "",
+                        "error": resultado[1]
+                    })
             else:
                 return render(request, os.path.join(TEMPLATE_DIR,'vista_usuario','cambiar_contraseña_cliente.html'), {
-                    "exito": "",
-                    "error": resultado[1]
-                })
+                        "exito": "",
+                        "error": "Las contraseñas no coinciden."
+                    })
         else:
             return render(request, os.path.join(TEMPLATE_DIR,'vista_usuario','cambiar_contraseña_cliente.html'), {
-                    "exito": "",
-                    "error": "Las contraseñas no coinciden."
-                })
+                        "exito": "",
+                        "error": "La contraseña es incorrecta."
+                    })
