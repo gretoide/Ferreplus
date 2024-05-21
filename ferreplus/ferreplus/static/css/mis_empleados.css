@@ -1,0 +1,173 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    box-sizing: border-box;
+  }
+
+body {
+    min-height: 100%;
+    background-color: #202020;
+}
+
+#Header {
+    position: relative;
+    align-items: center;
+    text-align: center;
+}
+
+a {
+    text-decoration: none; /* Elimina el subrayado predeterminado del enlace */
+    color: #d7d7d7; /* Define el color del texto del enlace */
+}
+
+a:hover {
+    color: #ffffff; /* Define el color del texto del enlace cuando se hace hover */
+    text-decoration: none;
+}
+
+.icon {
+    margin-right: 5px; /* Añade un espacio entre el icono y el texto */
+}
+
+.icon,
+span {
+    font-size: 16px;
+    display: inline-block; /* Permite que los elementos se comporten como bloques en línea */
+    vertical-align: middle; /* Alinea verticalmente los elementos */
+    line-height: 1; /* Ajusta la altura de línea para alinear los elementos correctamente */
+}
+
+
+/*
+    Elementos
+*/
+
+.alert {
+    width: 400px; /* Ancho del botón */
+    margin: 0 auto; /* Centra horizontalmente el botón */
+    margin-bottom: 5px;
+}
+
+
+.container {
+    padding: 10px;
+}
+
+h1 {
+    color: white;
+}
+
+.mb-3 {
+    padding-top: 20px;
+}
+
+/* tabla configuraciones*/
+
+/* Estilos para la tabla */
+.table {
+    background-color: #303030;
+    color: #ffffff;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+/* Estilos para el encabezado de la tabla */
+.table th {
+    background-color: #303030;
+    border: none;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+/* Estilos para las celdas de la tabla */
+.table td {
+    border: 1px solid #505050;
+    padding: 10px;
+}
+
+/* Estilos para las filas impares */
+.table tbody tr:nth-child(odd) {
+    background-color: #303030;
+    border-radius: 10px;
+}
+
+/* Estilos para el hover de las filas */
+.table tbody tr:hover {
+    background-color: #404040;
+}
+
+/* Botones */
+
+button {
+    padding: 10px;
+    margin: 5px;
+    width: auto;
+}
+
+/* Estilos para los iconos dentro de los botones */
+.btn i {
+    padding-right: 5px;
+}
+
+/* Estilos específicos para el botón de editar */
+.btn-primary {
+    background-color: transparent; /* Cambia el color de fondo del botón de editar */
+    border-color: transparent; /* Cambia el color del borde del botón de editar */
+    border-radius: 10px;/* Cambia el color del borde del botón de editar */
+}
+
+/* Estilos específicos para el botón de eliminar */
+.btn-danger {
+    background-color: transparent; /* Cambia el color de fondo del botón de eliminar */
+    border-color: transparent; /* Cambia el color del borde del botón de eliminar */
+    border-radius: 8px;/* Cambia el color del borde del botón de editar */
+}
+
+/* Estilos para los botones cuando se pasa el mouse sobre ellos */
+.btn:hover {
+    background-color: #606060; /* Cambia el color de fondo del botón de editar */
+    border-color: #606060; 
+    border-radius: 8px;/* Cambia el color del borde del botón de editar */
+}
+
+/* Estilos para el contenedor personalizado */
+.custom-container {
+    margin-top: 10px;
+    margin-left: 20px;
+}
+
+/* Estilos para el botón personalizado */
+.custom-container button {
+    background-color: transparent; /* Color de fondo */
+    color: #ffffff; /* Color del texto */
+    border: none; /* Sin borde */
+    padding: 10px; /* Relleno */
+    border-radius: 8px; /* Borde redondeado */
+    cursor: pointer; /* Cambio de cursor al pasar el ratón */
+    text-decoration: none; /* Sin subrayado */
+}
+
+/* Estilos para el botón al pasar el cursor */
+.custom-container button:hover {
+    background-color: #505050; /* Cambio de color de fondo al pasar el cursor */
+}
+
+/* Estilos para el enlace dentro del botón */
+.custom-container button a {
+    color: inherit; /* Hereda el color del texto del contenedor */
+    text-decoration: none; /* Sin subrayado */
+}
+
+/* Estilos para el icono dentro del botón */
+.custom-container button i {
+    vertical-align: middle; /* Alinear verticalmente con el texto */
+    margin-right: 5px; /* Espacio a la derecha del icono */
+}
+
+/* Estilos para el texto dentro del botón */
+.custom-container button span {
+    vertical-align: top; /* Alinear verticalmente con el icono */
+}
