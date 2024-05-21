@@ -8,6 +8,7 @@
   }
 
 body {
+    min-height: 100%;
     background-color: #202020;
 }
 
@@ -18,37 +19,227 @@ h1 {
 }
 
 .container {
-    margin-top: 50px;
-    padding: 60px;
+    max-width: 700px; /* Ancho máximo del contenedor */
+    margin: auto; /* Centrar el contenedor */
+    padding-top: 50px; /* Espacio superior */
 }
-.mb-4 {
-    margin-bottom: 30px;
+
+.mb-3 {
+    margin: 5px;
+    color: #d6d6d6;
 }
-h2 {
+
+
+/* Estilos personalizados para d-flex y justify-content-center */
+.d-flex {
+    display: flex; /* Hace que el elemento sea un contenedor flexible */
+    width: 100%;
+}
+
+.justify-content-center {
+    justify-content: left; /* Centra los elementos hijos horizontalmente */
+}
+
+.form-control {
     margin-bottom: 20px;
-    color: #0366d6; /* Azul */
+    margin-left: 10px;
+    margin-right: 10px;
+    background-color: #505050;
+    border-color: #707070;
+    color: #ffff;
+    width: 100%;
 }
-.btn-column {
+
+/* Estilos para el input cuando está enfocado */
+.form-control:focus {
+    border-color: #606060; /* Cambia el color del borde al seleccionar */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Agrega una sombra alrededor del input */
+    background-color: #707070;
+    color: white;
+}
+
+.form-control::placeholder {
+    color: #ffff; /* Color del marcador de posición gris claro */
+  }
+
+
+.select {
+    width: 100%;
+    margin-top: 10px;
+    appearance: none; /* Elimina el estilo predeterminado del navegador */
+    background-color: transparent; /* Color de fondo oscuro */
+}
+
+
+.form-select {
+    background-color: #404040;
+    border-color: #505050;
+    color: #fff;
+    border-radius: 5px;
+    display: block;
+    width: 100%;
+}
+
+.form-select:hover {
+    border-color: 3px #505050; /* Cambia el color del borde al seleccionar */
+    box-shadow: 0 0 1px rgba(255, 255, 255, 0.5); /* Agrega una sombra alrededor del input */
+    background-color: #505050;
+    color: white;
+}
+
+
+/* Estilo para las opciones del select al pasar el mouse sobre ellas */
+.form-select option:hover {
+    border: #606060;
+    background-color: #606060 !important;/* Cambia el color de fondo al pasar el mouse */
+    color: #fff; /* Cambia el color del texto al pasar el mouse */
+}
+
+.form-select:focus {
+    color: white;
+}
+
+.form-select option {
+    color: #ffffff; /* Color del texto */
+    background-color: transparent;
+    padding: 8px 12px; /* Espaciado interno de las opciones */
+}
+
+.btn.btn-outline-primary {
+    width: 150px; /* Ancho del botón */
+    margin: 0 auto; /* Centra horizontalmente el botón */
+}
+
+.btn.btn-outline-primary.btn-lg.btn-block {
+    /* Estilos personalizados */
+    font-size: medium;
+    background-color: #3d3d3d; /* Color de fondo */
+    border-color: #3d3d3d; /* Color del borde */
+    color: #ffffff; /* Color del texto */
+    transition: background-color 0.3s ease; /* Transición de color */
+    width: 30%;
+}
+
+.btn.btn-outline-primary.btn-lg.btn-block:hover {
+    background-color: #ffc107; /* Cambio de color al pasar el cursor */
+    color: #000000; /* Cambio de color del texto al pasar el cursor */
+    width: 30%;
+}
+
+.alert {
+    width: 400px; /* Ancho del botón */
+    margin: 0 auto; /* Centra horizontalmente el botón */
+}
+
+/* Estilos para el contenedor personalizado */
+.custom-container {
+    margin-top: 10px;
+    margin-left: 20px;
+}
+
+/* Estilos para el botón personalizado */
+.custom-container button {
+    background-color: transparent; /* Color de fondo */
+    color: #ffffff; /* Color del texto */
+    border: none; /* Sin borde */
+    padding: 10px; /* Relleno */
+    border-radius: 8px; /* Borde redondeado */
+    cursor: pointer; /* Cambio de cursor al pasar el ratón */
+    text-decoration: none; /* Sin subrayado */
+}
+
+/* Estilos para el botón al pasar el cursor */
+.custom-container button:hover {
+    background-color: #505050; /* Cambio de color de fondo al pasar el cursor */
+}
+
+/* Estilos para el enlace dentro del botón */
+.custom-container button a {
+    color: inherit; /* Hereda el color del texto del contenedor */
+    text-decoration: none; /* Sin subrayado */
+}
+
+/* Estilos para el icono dentro del botón */
+.custom-container button i {
+    vertical-align: middle; /* Alinear verticalmente con el texto */
+    margin-right: 5px; /* Espacio a la derecha del icono */
+}
+
+/* Estilos para el texto dentro del botón */
+.custom-container button span {
+    vertical-align: top; /* Alinear verticalmente con el icono */
+}
+
+/*---------imagenes de la publicacion---------------*/
+
+/*---------imagenes de la publicacion---------------*/
+
+#imgBox {
+    padding: 20px;
     display: flex;
-    flex-direction: column;
+    justify-content: center; /* Alinea los elementos horizontalmente */
+    align-items: center;
 }
-.btn-column button {
-    margin-bottom: 10px;
+
+.image-preview-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
 }
-.cerrar-sesion {
-    position: absolute;
-    top: 10px;
-    right: 10px;
+
+/* Estilos para el contenedor de la imagen */
+.image-preview-box {
+    width: 100px; /* Tamaño deseado para el contenedor */
+    height: 100px; /* Tamaño deseado para el contenedor */
+    border: 2px solid #404040; /* Borde sólido con color gris */
+    background-color: #505050;
+    margin: 10px;
+    border-radius: 8px; /* Bordes redondeados */
+    overflow: hidden; /* Oculta el desbordamiento de la imagen */
+    position: relative; /* Establece la posición relativa para posicionar la imagen */
+    display: flex; /* Hace que los elementos sean flexibles */
+    justify-content: center; /* Centra horizontalmente el contenido */
+    align-items: center; /* Centra verticalmente el contenido */
 }
-.cerrar-sesion a {
-    color: #dc3545; /* Rojo */
-    font-weight: bold;
+
+/* Estilos para la imagen dentro del contenedor */
+.image-preview img {
+    width: 100%; /* La imagen ocupará todo el ancho del contenedor */
+    height: 100%; /* Altura automática para mantener la proporción */
+    display: block; /* La imagen se muestra como bloque */
+    position: absolute; /* Establece la posición absoluta para superponerla al icono */
+    top: 0; /* Coloca la imagen en la parte superior del contenedor */
+    left: 0; /* Coloca la imagen en la parte izquierda del contenedor */
 }
-.btn-primary {
-    background-color: #17a2b8; /* Azul claro */
-    border-color: #17a2b8;
+
+/* Estilos para el icono de carga */
+.image-preview i {
+    font-size: 30px; /* Tamaño del icono */
+    color: #fff; /* Color del icono */
 }
-.btn-primary:hover {
-    background-color: #138496; /* Azul oscuro */
-    border-color: #138496;
+
+/*------------------------------Boton de eliminar--------------------------------*/
+
+
+.delete-button {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.delete-button .btn.btn-secondary{
+    background-color: transparent;
+    border: none;
+}
+
+
+.delete-button i {
+    color: #ffd100;
+    font-size: 20px;
+}
+
+
+.delete-button i:hover {
+    color: red; /* Cambia el color al pasar el ratón */
+    font-size: 20px; /* Cambia el tamaño de la fuente al pasar el ratón */
 }
