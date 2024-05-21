@@ -99,10 +99,8 @@ def mis_publicaciones(request):
         
         if request.user == publicacion.autor:
             publicacion.delete()
-            messages.success(request, "Publicación eliminada con éxito.")
             return redirect('mis_publicaciones')
         else:
-            messages.error(request, "No tienes permiso para eliminar esta publicación.")
             return redirect('mis_publicaciones')
 
     publicaciones = Publicacion.objects.filter(autor=request.user)
@@ -246,7 +244,7 @@ def restablecerContraseña(request):
             return response
         else:
             return render(request, os.path.join(TEMPLATE_DIR,'vista_usuario','reestablecer_contraseña.html'), {
-                "error": "El correo electronico ingresado no esta registrado."
+                "error": "El correo electrónico ingresado no está registrado."
             })
         
 def ingresarCodigo(request, codigo=[""]):
@@ -257,7 +255,7 @@ def ingresarCodigo(request, codigo=[""]):
     user = get_object_or_404(User, email=email)
     if request.method == "GET":
         codigo[0] = secrets.token_urlsafe(6)
-        send_mail("Cambiar contraseña", f"El codigo para cambiar su contraseña es {codigo[0]}", settings.EMAIL_HOST_USER,[email])
+        send_mail("Cambiar contraseña", f"El código para cambiar su contraseña es '{codigo[0]}'.", settings.EMAIL_HOST_USER,[email])
         return render(request, os.path.join(TEMPLATE_DIR,'vista_usuario','ingresar_codigo.html'), {
             "codigo": codigo[0],
             "error": ""
@@ -271,7 +269,7 @@ def ingresarCodigo(request, codigo=[""]):
         else:
             return render(request, os.path.join(TEMPLATE_DIR,'vista_usuario','ingresar_codigo.html'), {
             "codigo": codigo[0],
-            "error": "El codigo ingresado no coincide con el enviado al correo electronico."
+            "error": "El código ingresado no coincide con el enviado al correo electrónico."
         })
 
 def cambiarContraseña(request):
@@ -348,7 +346,7 @@ def editarPerfilCliente(request):
                 "nombre": user.first_name,
                 "apellido": user.last_name,
                 "exito": "",
-                "error": "Formato invalido para nombre/apellido."
+                "error": "Formato inválido para nombre/apellido."
             })
         else:
             user.first_name = request.POST["nombre"]
@@ -357,7 +355,7 @@ def editarPerfilCliente(request):
             return render(request, os.path.join(TEMPLATE_DIR,'vista_usuario','editar_perfil_cliente.html'), {
                 "nombre": user.first_name,
                 "apellido": user.last_name,
-                "exito": "Cambios guardados correctamentes.",
+                "exito": "Cambios guardados correctamente.",
                 "error": ""
             })
     
@@ -378,7 +376,7 @@ def cambiarContraseñaCliente(request):
                     user.set_password(request.POST["contraseña1"])
                     user.save()
                     return render(request, os.path.join(TEMPLATE_DIR,'pagina_inicio.html'), {
-                        "aviso": "Contraseña cambiada exitosamente.\nDebe iniciar sesion nuevamente.",
+                        "aviso": "Contraseña cambiada exitosamente.\nDebe iniciar sesión nuevamente.",
                     })
                 else:
                     return render(request, os.path.join(TEMPLATE_DIR,'vista_usuario','cambiar_contraseña_cliente.html'), {

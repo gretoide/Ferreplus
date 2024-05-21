@@ -56,7 +56,7 @@ def agregar_sucursal(request):
 
             if Sucursal.objects.filter(nombre=datos['nombre']).exists():
                 messages.success(
-                    request, "Ya existe una sucursal con ese nombre")
+                    request, "Ya existe una sucursal con ese nombre.")
                 return render(request,  os.path.join(TEMPLATE_DIR, 'nueva_sucursal.html'), {"form": form_sucursal})
             sucursal_nueva = Sucursal.objects.create(
                 nombre=datos['nombre'],
@@ -64,7 +64,7 @@ def agregar_sucursal(request):
             )
             sucursal_nueva.save()
             messages.success(
-                request, f"La sucursal {sucursal_nueva.nombre} se creo con exito")
+                request, f"La sucursal '{sucursal_nueva.nombre}' se creó con éxito.")
             return render(request,  os.path.join(TEMPLATE_DIR, 'nueva_sucursal.html'), {"form": form_sucursal})
 
     else:
@@ -76,7 +76,7 @@ def agregar_sucursal(request):
 def ver_sucursales(request):
     sucursales = Sucursal.objects.all()
     if len(sucursales) == 0:
-        messages.error(request, "No hay sucursales disponibles para mostrar")
+        messages.error(request, "No hay sucursales disponibles para mostrar.")
     return render(request, os.path.join(TEMPLATE_DIR, 'ver_sucursales.html'), {'sucursales': sucursales})
 
 @login_required
@@ -85,11 +85,11 @@ def eliminar_sucursal(request, sucursal_id):
     try:
         a_eliminar = Sucursal.objects.get(id=sucursal_id)
     except Sucursal.DoesNotExist:
-        messages.error(request, "La sucursal no existe")
+        messages.error(request, "La sucursal no existe.")
         return redirect(ver_sucursales)
     a_eliminar.delete()
     messages.success(
-        request, f"La sucursal {a_eliminar.nombre} se elimino con exito")
+        request, f"La sucursal '{a_eliminar.nombre}' se eliminó con éxito.")
     return redirect(ver_sucursales)
 
 
@@ -130,8 +130,8 @@ def cargar_empleado(request):
                     usuario_creado.set_password(usuario["contraseña"])
                     #usuario_creado.set_sucursal_id(usuario["sucursal"]) 
                     usuario_creado.save()
-                    subject = 'Bienvenido a la empresa'
-                    message = f'Hola {usuario["nombre"]},\n\nTu cuenta ha sido creada exitosamente. Tu contraseña es: {usuario["contraseña"]}'
+                    subject = "¡Bienvenido a la empresa!"
+                    message = f'Hola {usuario["nombre"]},\n\nTu cuenta ha sido creada exitosamente. Tu contraseña es: "{usuario["contraseña"]}"'
                     from_email = settings.EMAIL_HOST_USER
                     recipient_list = [usuario_creado.email]
 
@@ -153,7 +153,7 @@ def cargar_empleado(request):
 def ver_empleados(request):
     empleados = User.objects.filter(is_staff=1)
     if len(empleados) == 0:
-        messages.error(request, "No hay empleados para mostrar")
+        messages.error(request, "No hay empleados para mostrar.")
     return render(request, os.path.join(TEMPLATE_DIR, 'ver_empleados.html'), {'empleados': empleados})
 
 @login_required
@@ -166,7 +166,7 @@ def eliminar_empleado(request, empleado_id):
         return redirect(ver_empleados)
     a_eliminar.delete()
     messages.success(
-        request, f"El empleado con CUIL {a_eliminar.cuil} se elimino con exito")
+        request, f"El empleado con CUIL '{a_eliminar.cuil}' se eliminó con éxito.")
     return redirect(ver_empleados)
 
 @login_required
@@ -183,12 +183,12 @@ def editar_sucursal(request, sucursal_id):
                 aEditar.direccion = datos["direccion"]
                 aEditar.save()
             else:
-                messages.error(request,"El nombre que se quiere ingresar ya se encuentra registrado")
+                messages.error(request,"El nombre que se quiere ingresar ya se encuentra registrado.")
                 return render(request, os.path.join(TEMPLATE_DIR, 'editar_sucursal.html'), {'sucursal': aEditar})
         except Sucursal.DoesNotExist:
             aEditar.nombre = datos["nombre"]
             aEditar.direccion = datos["direccion"]
             aEditar.save()
-        messages.success(request,"La sucursal se modifico con exito")
+        messages.success(request,"La sucursal se modificó con éxito.")
         return redirect(detalle_sucursal,aEditar.id)
     return render(request, os.path.join(TEMPLATE_DIR, 'editar_sucursal.html'), {'sucursal': aEditar})
