@@ -14,7 +14,12 @@
 <body>
     <!-- Botón de cierre de sesión -->
     <div class="cerrar-sesion">
-        <a href="{% url 'cerrar_sesion' %}" onclick="return confirmarCierreSesion()">Cerrar Sesión</a>
+        <a href="{% url 'cerrar_sesion' %}" onclick="return confirmarCierreSesion()">
+            <button class="btn-cerrar-sesion">
+                <i class='bx bx-log-out' id="IconoCerrarSesion"></i>
+                <span id="CerrarSesionSpan">Cerrar sesión</span>
+            </button>
+        </a>
     </div>
     
     <!-- Contenido principal -->

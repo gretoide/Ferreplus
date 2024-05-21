@@ -1,11 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap');
 
 * {
     font-family: "Poppins", sans-serif;
     font-weight: 400;
     font-style: normal;
     box-sizing: border-box;
-  }
+}
 
 body {
     min-height: 100%;
@@ -18,8 +18,8 @@ body {
 }
 
 .row {
-    border: 1px solid #303030; /* Define grosor, estilo, y color del borde */
-    padding: 50px;
+    border: 1px solid #505050;
+    padding: 20px;
     border-radius: 8px;
 }
 
@@ -29,13 +29,19 @@ body {
 
 h2 {
     margin-bottom: 20px;
-    color: #ffff;
+    color: #ffffff;
 }
+
 .btn-column {
     width: 100%;
     display: flex;
     flex-direction: column;
 }
+
+.btn-column a {
+    text-decoration: none; /* Eliminar subrayado en los enlaces */
+}
+
 .btn-column button {
     margin-bottom: 10px;
     width: 100%;
@@ -44,50 +50,82 @@ h2 {
     border-radius: 8px;
     border: none;
     background-color: #404040;
+    display: flex; /* Utilizar flexbox para alinear elementos */
+    align-items: center; /* Alinear elementos verticalmente al centro */
+    justify-content: center; /* Alinear elementos horizontalmente al centro */
+    padding: 10px; /* Añadir relleno */
 }
 
-.btn-column .button i {
-    color: #dc3545;
+.btn-column button i {
+    margin-right: 8px; /* Añadir espacio entre el icono y el texto */
+}
+
+.btn-column button span {
+    margin-left: 10px; /* Espacio entre icono y texto */
 }
 
 .cerrar-sesion {
     position: absolute;
     top: 10px;
     right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
+
 .cerrar-sesion a {
-    margin: 5px;
-    padding: 10px;
-    color: #dc3545; /* Rojo */
-    text-decoration: none; /* Eliminar subrayado al pasar el mouse */
+    text-decoration: none; /* Eliminar subrayado */
 }
+
+.btn-cerrar-sesion {
+    background-color: #353535;
+    border: none;
+    color: #ffff;
+    padding: 10px 20px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+
+}
+
+.btn-cerrar-sesion i {
+    font-size: 18px;
+    color: #ffff;
+    margin-right: 8px;
+    border: none;
+}
+
+.btn-cerrar-sesion:hover {
+    background-color: #505050;
+}
+
 .btn-primary {
-    text-decoration: none; /* Eliminar subrayado al pasar el mouse */
     max-width: 250px;
     margin: 0 auto;
-    background-color: #505050; /* Azul claro */
+    background-color: #505050; 
     border-color: #505050;
     color: #d7d7d7;
     padding: 10px;
     display: flex; /* Utilizar flexbox para alinear elementos */
     align-items: center; /* Alinear elementos verticalmente al centro */
     justify-content: center; /* Alinear elementos horizontalmente al centro */
+    text-decoration: none; /* Eliminar subrayado por defecto */
 }
+
 .btn-primary:hover {
-    text-decoration: none; /* Eliminar subrayado al pasar el mouse */
     background-color: #505050;
     transform: scale(1.05);
     transition: 0.5s ease;
-}
-
-a:hover {
     text-decoration: none; /* Eliminar subrayado al pasar el mouse */
 }
 
 span {
-    margin-left: 20px;
+    margin-top: 1px;
     text-decoration: none;
 }
+
 /*------------------------Iconos----------------------------*/
 
 /* Editar el icono de Ver sucursales */
