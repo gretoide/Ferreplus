@@ -123,13 +123,13 @@ h1 {
 }
 
 .edit-button {
-    border: none;
-    background-color: transparent;
-    color: white;
+    background-color: #3d3d3d; /* Gris oscuro */
+    border-color: #3d3d3d; /* Borde gris oscuro */
+    color: #ffffff; /* Texto blanco */
     margin: 10px;
 }
 
 .edit-button:hover {
-    background-color: #505050;
-    color: white;
+    background-color: #ffc107; /* Cambio de color al pasar el cursor */
+    color: #000000; /* Cambio de color del texto al pasar el cursor */
 }
