@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 * {
     font-family: "Poppins", sans-serif;
     font-weight: 400;
@@ -6,29 +8,104 @@
   }
 
 body {
-    background-color: #1a1a1a; /* Color de fondo negro */
-    color: #ffffff; /* Color de texto blanco */
+    min-height: 100%;
+    color: #ffffff;
+    background-color: #202020;
 }
 
 .container {
-    max-width: 500px; /* Ancho máximo del contenedor */
-    margin: auto; /* Centrar el contenedor */
-    padding-top: 50px; /* Espacio superior */
+    margin-top: 100px;
 }
 
-button{
-    background-color: #3d3d3d; /* Gris oscuro */
-    border-color: #3d3d3d; /* Borde gris oscuro */
-    color: #ffffff; /* Color de texto blanco */
-    transition: background-color 0.3s ease; /* Transición de color */
-    position: relative;
-    overflow: hidden;
-    z-index: 1;
-    padding: 10px; /* Espaciado interno */
-    border-radius: 100%;
+.row {
+    border: 1px solid #303030; /* Define grosor, estilo, y color del borde */
+    padding: 50px;
+    border-radius: 8px;
 }
 
-button:hover {
-    background-color: #ffc107; /* Cambio de color al pasar el cursor */
-    color: #000000; /* Cambio de color del texto al pasar el cursor */
+.mb-4 {
+    margin-bottom: 30px;
+}
+
+h2 {
+    margin-bottom: 20px;
+    color: #ffff;
+}
+.btn-column {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.btn-column button {
+    margin-bottom: 10px;
+    width: 100%;
+    color: #d6d6d6;
+    cursor: pointer;
+    border-radius: 8px;
+    border: none;
+    background-color: #404040;
+}
+
+.btn-column .button i {
+    color: #dc3545;
+}
+
+.cerrar-sesion {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+.cerrar-sesion a {
+    margin: 5px;
+    padding: 10px;
+    color: #dc3545; /* Rojo */
+    text-decoration: none; /* Eliminar subrayado al pasar el mouse */
+}
+.btn-primary {
+    text-decoration: none; /* Eliminar subrayado al pasar el mouse */
+    max-width: 250px;
+    margin: 0 auto;
+    background-color: #505050; /* Azul claro */
+    border-color: #505050;
+    color: #d7d7d7;
+    padding: 10px;
+    display: flex; /* Utilizar flexbox para alinear elementos */
+    align-items: center; /* Alinear elementos verticalmente al centro */
+    justify-content: center; /* Alinear elementos horizontalmente al centro */
+}
+.btn-primary:hover {
+    text-decoration: none; /* Eliminar subrayado al pasar el mouse */
+    background-color: #505050;
+    transform: scale(1.05);
+    transition: 0.5s ease;
+}
+
+a:hover {
+    text-decoration: none; /* Eliminar subrayado al pasar el mouse */
+}
+
+span {
+    margin-left: 20px;
+    text-decoration: none;
+}
+/*------------------------Iconos----------------------------*/
+
+/* Editar el icono de Ver sucursales */
+.btn-column .bi-card-list:before {
+    font-size: 25px;
+}
+
+/* Editar el icono de Agregar Sucursal */
+.btn-column .bi-house-add:before {
+    font-size: 25px;
+}
+
+/* Editar el icono de Ver empleados */
+.btn-column .bi-person-lines-fill:before {
+    font-size: 25px;
+}
+
+/* Editar el icono de Agregar empleado */
+.btn-column .bi-person-plus:before {
+    font-size: 25px;
 }
