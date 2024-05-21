@@ -10,7 +10,7 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
     {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/ver_sucursales.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/registro_usuario.css' %}">
 </head>
 <body>
 
@@ -22,46 +22,41 @@
             </i>
           </a>
         </button>
-      </div>    
+    </div>    
     <div class="container">
-    <h1>Editar sucursal numero {{sucursal.id}}</h1>
-    </div>
-        <div class="container">
-            <div id='acciones' >
-                <a><button  onclick="confirmarEliminacion('{{ sucursal.id }}')"><i class="bi bi-x-circle"></i>Eliminar</button></a>
-            </div>
-            <div>
+        <div class="mb-3 text-center">
+            <h1>Editar sucursal Nº {{sucursal.id}}</h1>
             {%block content%}
                 
                 {% if messages %}
                 {% for message in messages %}
-                    <div class="container"><h3>{{ message }}</h3></div>
+                <div class="alert alert-dark" role="alert">{{ message }}</div>
                 {% endfor %}
             {% endif %}
-        <div>
-                <form method="POST">
-                    {%csrf_token%}
-                    <p>Nombre:</p>
-                    <input value="{{sucursal.nombre}}" name="nombre">
-                    <p>Direccion:</p>
-                    <input value="{{sucursal.direccion}}" name="direccion">
-                    <div>
-                    <button type="submit">Guardar</button>
-                </form>
-                {% endblock %}
-                <a href={% url 'ver-sucursales' %}><button class='btn-primary'>Cancelar</button></a>
-            </div>
-            </div>
+        </div>
+        <div class="mb-3">
+            <form method="POST">
+                {%csrf_token%}
+                <div class="mb-3">
+                    <span>Nombre</span>
+                    <input class="form-control" value="{{sucursal.nombre}}" name="nombre">
+                </div>
+                <div class="mb-3">
+                    <span>Dirección</span>
+                    <input class="form-control" value="{{sucursal.direccion}}" name="direccion">
+                </div>
+                <div class="mb-3 text-center">
+                    <button type="submit" class="btn btn-register">Guardar</button>
+                </div>
+                <div>
+            </form>
+            {% endblock %}
+        </div>
+        </div>
         <div>
     </div>
     </div>
-    <script>
-        function confirmarEliminacion(sucursalId) {
-            if (confirm('¿Estás seguro de que quieres eliminar esta sucursal?')) {
-                window.location.href = '/eliminar-sucursal/' + sucursalId + '/';
-            }
-        }
-    </script>
+
     <!-- Enlace a Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
