@@ -1,39 +1,76 @@
+/* Importar la fuente Poppins desde Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
 * {
     font-family: "Poppins", sans-serif;
-    font-weight: 400;
-    font-style: normal;
     box-sizing: border-box;
-  }
+}
 
 body {
-    background-color: #1a1a1a; /* Color de fondo negro */
-    color: #ffffff; /* Color de texto blanco */
+    background-color: #1a1a1a; /* Color de fondo oscuro */
+    color: #e0e0e0; /* Color de texto claro */
 }
 
 .container {
-    max-width: 500px; /* Ancho máximo del contenedor */
-    margin: auto; /* Centrar el contenedor */
-    padding-top: 50px; /* Espacio superior */
+    max-width: 800px; /* Ancho máximo del contenedor */
+    margin: 0 auto; /* Centrar horizontalmente el contenedor */
+    padding: 30px; /* Espaciado interno del contenedor */
 }
 
-.table-group {
-    margin-bottom: 30px; /* Espacio adicional entre elementos del formulario */
-
+h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 20px;
 }
 
-button{
-    background-color: #3d3d3d; /* Gris oscuro */
-    border-color: #3d3d3d; /* Borde gris oscuro */
-    color: #ffffff; /* Color de texto blanco */
+.alert {
+    background-color: #2d2d2d; /* Color de fondo oscuro para las alertas */
+    border-color: #404040; /* Color de borde oscuro para las alertas */
+    color: #e0e0e0; /* Color de texto claro para las alertas */
+}
+
+.btn {
+    background-color: #3d3d3d; /* Color de fondo oscuro para los botones */
+    border-color: #3d3d3d; /* Color de borde oscuro para los botones */
+    color: #ffffff; /* Color de texto blanco para los botones */
     transition: background-color 0.3s ease; /* Transición de color */
-    position: relative;
-    overflow: hidden;
-    z-index: 1;
-    padding: 10px; /* Espaciado interno */
-    border-radius: 100%;
+    padding: 8px 16px; /* Espaciado interno de los botones */
+    border-radius: 4px; /* Borde redondeado de los botones */
+    margin: 5px;
 }
 
-button:hover {
-    background-color: #ffc107; /* Cambio de color al pasar el cursor */
-    color: #000000; /* Cambio de color del texto al pasar el cursor */
+.btn:hover {
+    color: #FFFF; /* Cambio de color del texto al pasar el cursor */
+}
+
+.card {
+    background-color: #2d2d2d; /* Color de fondo oscuro para las tarjetas */
+    border-color: #404040; /* Color de borde oscuro para las tarjetas */
+    color: #e0e0e0; /* Color de texto claro para las tarjetas */
+    margin-bottom: 20px; /* Espacio entre tarjetas */
+}
+
+.card-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.table {
+    background-color: #2d2d2d; /* Color de fondo oscuro para la tabla */
+    border-color: #404040; /* Color de borde oscuro para la tabla */
+    color: #e0e0e0; /* Color de texto claro para la tabla */
+}
+
+.table th,
+.table td {
+    border-color: #404040; /* Color de borde oscuro para las celdas de la tabla */
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #3d3d3d; /* Color de fondo oscuro para las filas impares */
+}
+
+.table-hover tbody tr:hover {
+    background-color: #4d4d4d; /* Color de fondo oscuro al pasar el cursor sobre las filas */
 }
