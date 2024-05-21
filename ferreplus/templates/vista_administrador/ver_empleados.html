@@ -3,14 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ver sucursales</title>
+    <title>Ver empleados</title>
     <!-- Enlace a Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/ver_sucursales.css' %}">
 </head>
 <body>
+
+    <div class="custom-container">
+        <button id="BotonVolver" class="btn btn-secondary">
+          <a href="{% url 'inicio-admin' %}">
+            <i class='bx bx-chevron-left'>
+              <span>Volver</span>
+            </i>
+          </a>
+        </button>
+      </div>   
     <div class="container">
     <h1>Empleados de Ferreplus</h1>
     </div>
@@ -40,7 +52,7 @@
                     <td>{{ empleado.first_name }}</td>
                     <td>{{ empleado.last_name }}</td>
                     <td>{{ empleado.cuil }}</td>
-                    <td><a href=""><button><i class="bi bi-search"></i></button></a><button id="{{empleado.id}}" onclick="confirmarEliminacion('{{ empleado.id }}')"><i class="bi bi-x-circle"></i></button>
+                    <td><!--<a href=""><button><i class="bi bi-search">Ver detalle</i></button></a>--><button id="{{empleado.id}}" onclick="confirmarEliminacion('{{ empleado.id }}')"><i class="bi bi-x-circle">Eliminar</i></button>
                 </tr>
             {% endfor %}
         </tbody>

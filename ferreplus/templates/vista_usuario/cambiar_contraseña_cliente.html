@@ -31,10 +31,13 @@
             <form method="post"> <!-- Agregamos el método POST al formulario -->
             {% csrf_token %}
             <div class="mb-3">
-                <input type="text" class="form-control" placeholder="Contraseña" name="contraseña1" required>
+              <input type="password" class="form-control" placeholder="Contraseña actual" name="contraseña" required>
             </div>
             <div class="mb-3">
-                <input type="text" class="form-control" placeholder="Repetir contraseña" name="contraseña2" required>
+                <input type="password" class="form-control" placeholder="Contraseña" name="contraseña1" required>
+            </div>
+            <div class="mb-3">
+                <input type="password" class="form-control" placeholder="Repetir contraseña" name="contraseña2" required>
             </div>
             <p style="color: greenyellow;">{{exito}}</p>
             <p style="color: red;">{{error}}</p>
