@@ -158,3 +158,48 @@ form .mb-3 span {
 .custom-container button span {
     vertical-align: top; /* Alinear verticalmente con el icono */
 }
+
+.select {
+    width: 100%;
+    margin-top: 10px;
+    appearance: none; /* Elimina el estilo predeterminado del navegador */
+    background-color: transparent; /* Color de fondo oscuro */
+}
+
+
+.form-select {
+    background-color: #505050;
+    border-color: #707070;
+    color: #fff;
+    border-radius: 5px;
+    display: block;
+    width: 100%;
+}
+
+.form-select:hover {
+    border-color: transparent; /* Cambia el color del borde al seleccionar */
+    box-shadow:none; /* Agrega una sombra alrededor del input */
+    background-color: #505050;
+    color: white;
+}
+
+/* Estilo para las opciones del select al pasar el mouse sobre ellas */
+.form-select option:hover {
+    border: #606060;
+    background-color: #606060 !important;/* Cambia el color de fondo al pasar el mouse */
+    color: #fff; /* Cambia el color del texto al pasar el mouse */
+}
+
+.form-select:focus {
+    color: white;
+    border-color: transparent; /* Cambia el color del borde al seleccionar */
+    box-shadow:none; /* Agrega una sombra alrededor del input */
+}
+
+.form-select option {
+    color: #ffffff; /* Color del texto */
+    background-color: transparent;
+    padding: 8px 12px; /* Espaciado interno de las opciones */
+    border-color: none; /* Cambia el color del borde al seleccionar */
+    box-shadow:none; /* Agrega una sombra alrededor del input */
+}
