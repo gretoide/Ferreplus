@@ -8,9 +8,8 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-
     {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/agregar_sucursal.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/registro_usuario.css' %}">
 </head>
 <body>
   <div class="custom-container">
@@ -23,18 +22,22 @@
       </button>
     </div>    
   <div class="container">
-    <h1>Nueva sucursal</h1>
-    {% csrf_token %}
-    {% block content %}
-    {% if messages %}
-        {% for message in messages %}
-            <div class="container"><h3>{{ message }}</h3></div>
-        {% endfor %}
-    {% endif %}
+    <div class="mb-3 text-center">
+      <h1>Nueva sucursal</h1>
+      {% csrf_token %}
+      {% block content %}
+      {% if messages %}
+          {% for message in messages %}
+          <div class="alert alert-dark" role="alert">{{ message }}</div>
+          {% endfor %}
+      {% endif %}
+  </div>
     <form method="post">
       {% csrf_token %}
       {{form.as_p}}
-      <input type="submit" value="Agregar" class='btn-primary'>
+      <div class="mb-3 text-center">
+        <button type="submit" class="btn btn-register">Agregar sucursal</button>
+      </div>
     </form>
     
       {% endblock %}
