@@ -74,7 +74,8 @@ h1 {
 }
 
 .table-hover tbody tr:hover {
-    background-color: #4d4d4d; /* Color de fondo oscuro al pasar el cursor sobre las filas */
+    background-color: #505050; 
+    color: white;/* Color de fondo oscuro al pasar el cursor sobre las filas */
 }
 
 
