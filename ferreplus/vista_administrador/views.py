@@ -4,6 +4,7 @@ from django.template.loader import get_template
 from django.shortcuts import render, redirect
 from django.template import loader
 from django.core.mail import send_mail
+from django.utils.crypto import get_random_string
 from django.conf import settings
 from django.conf import settings
 from django.urls import reverse
@@ -112,6 +113,7 @@ def cargar_empleado(request):
 
         if condicion_validacion:
                 sucursal = Sucursal.objects.get(id=usuario["sucursal"])
+                
                 usuario_creado = User.objects.create(
                     username=usuario["correo_electronico"],
                     first_name=usuario["nombre"],
@@ -126,16 +128,18 @@ def cargar_empleado(request):
                      usuario_creado.email = usuario["correo_personal"]
                 else:
                     usuario_creado.email = usuario["correo_electronico"]
-                    usuario_creado.is_staff = True
-                    usuario_creado.set_password(usuario["contraseña"])
-                    #usuario_creado.set_sucursal_id(usuario["sucursal"]) 
-                    usuario_creado.save()
-                    subject = "¡Bienvenido a la empresa!"
-                    message = f'Hola {usuario["nombre"]},\n\nTu cuenta ha sido creada exitosamente. Tu contraseña es: "{usuario["contraseña"]}"'
-                    from_email = settings.EMAIL_HOST_USER
-                    recipient_list = [usuario_creado.email]
+                
+                usuario_creado.is_staff = True
+                password = get_random_string(length=12).upper()
+                usuario_creado.set_password(password)
+                #usuario_creado.set_sucursal_id(usuario["sucursal"]) 
+                usuario_creado.save()
+                subject = 'Bienvenido a la empresa'
+                message = f'Hola {usuario["nombre"]},\n\nTu cuenta ha sido creada exitosamente. Tu contraseña es: {password}'
+                from_email = settings.EMAIL_HOST_USER
+                recipient_list = [usuario_creado.email]
 
-                    send_mail(subject, message, from_email, recipient_list, fail_silently=False)
+                send_mail(subject, message, from_email, recipient_list, fail_silently=False)
                     
 
                 mensaje_exito = "Empleado cargado correctamente."

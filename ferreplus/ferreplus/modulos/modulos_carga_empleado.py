@@ -74,9 +74,8 @@ def validar_fecha(fecha):
 def verificar(empleado):
     lista_validaciones = [modulos_registro.validar_nombre(empleado["nombre"]),modulos_registro.validar_apellido(empleado["apellido"]),
                           validar_dni(empleado["dni"]),validar_cuil(empleado["cuil"],empleado["dni"]),
-                          modulos_registro.validar_correo(empleado["correo_electronico"]),validar_correo_personal(empleado["correo_personal"]),
-                       modulos_registro.validar_contraseña(empleado["contraseña"]),
-                       modulos_registro.validar_confirmacion(empleado["contraseña"],empleado["confirmar_contraseña"]),validar_fecha(empleado["fecha_nacimiento"])]
+                          modulos_registro.validar_correo(empleado["correo_electronico"]),validar_correo_personal(empleado["correo_personal"])
+                          ,validar_fecha(empleado["fecha_nacimiento"])]
     
     for condicion,motivo in lista_validaciones:
         if not condicion:
