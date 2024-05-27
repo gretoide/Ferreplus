@@ -40,6 +40,13 @@ span {
     line-height: 1; /* Ajusta la altura de línea para alinear los elementos correctamente */
 }
 
+.alert {
+    width: 400px; /* Ancho del botón */
+    margin: 0 auto; /* Centra horizontalmente el botón */
+    margin-bottom: 5px;
+}
+
+
 
 /*
     Elementos

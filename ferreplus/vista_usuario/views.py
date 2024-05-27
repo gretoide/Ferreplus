@@ -93,18 +93,10 @@ def subir_publicacion(request):
 @login_required
 @normal_required
 def mis_publicaciones(request):
-    if request.method == 'POST':
-        publicacion_id = request.POST.get('publicacion_id')
-        publicacion = get_object_or_404(Publicacion, pk=publicacion_id)
-        
-        if request.user == publicacion.autor:
-            publicacion.delete()
-            return redirect('mis_publicaciones')
-        else:
-            return redirect('mis_publicaciones')
-
     publicaciones = Publicacion.objects.filter(autor=request.user)
-    return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario','mis_publicaciones.html'), {'publicaciones': publicaciones})
+    if len(publicaciones) == 0:
+        error = 'No hay publicaciones cargadas.'
+    return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario','mis_publicaciones.html'), {'publicaciones': publicaciones, 'error' : error})
 
 @login_required
 @normal_required
