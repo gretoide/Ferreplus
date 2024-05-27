@@ -93,10 +93,22 @@ def subir_publicacion(request):
 @login_required
 @normal_required
 def mis_publicaciones(request):
+    if request.method == 'POST':
+        publicacion_id = request.POST.get('publicacion_id')
+        publicacion = get_object_or_404(Publicacion, pk=publicacion_id)
+
+        if request.user == publicacion.autor:
+            publicacion.delete()
+            return redirect('mis_publicaciones')
+        else:
+            return redirect('mis_publicaciones')
+
     publicaciones = Publicacion.objects.filter(autor=request.user)
     if len(publicaciones) == 0:
         error = 'No hay publicaciones cargadas.'
-    return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario','mis_publicaciones.html'), {'publicaciones': publicaciones, 'error' : error})
+        return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario','mis_publicaciones.html'), {'publicaciones': publicaciones, 'error' : error})
+    else:
+        return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario','mis_publicaciones.html'), {'publicaciones': publicaciones})
 
 @login_required
 @normal_required
@@ -165,22 +177,7 @@ def editar_publicacion(request, pk):
         'publicacion': publicacion,
         'sucursales': Sucursal.objects.all()
     })
-
-@login_required
-@normal_required
-def eliminar_publicacion(request, publicacion_id):
-    publicacion = get_object_or_404(Publicacion, pk=publicacion_id)
     
-    if request.method == 'POST':
-        # Verifica si el usuario tiene permiso para eliminar la publicación
-        if request.user == publicacion.autor:  # Asume que la publicación tiene un campo 'autor' que indica quién la creó
-            # Si el usuario tiene permiso, elimina la publicación
-            publicacion.delete()
-            return redirect("mis_publicaciones")
-        else:
-            # Si el usuario no tiene permiso, devuelve un error de prohibido
-            return redirect("mis_publicaciones")
-        
 @login_required
 @normal_required
 def crear_oferta(request):
