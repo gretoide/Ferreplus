@@ -1,2 +1,60 @@
 <!DOCTYPE html>
-<p>HOLAAAA EMPLEADO </p>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Empleado</title>
+    <!-- Enlace a Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/inicio_administrador.css' %}">
+</head>
+<body>
+    <!-- Botón de cierre de sesión -->
+    <div class="cerrar-sesion">
+        <a href="{% url 'cerrar_sesion' %}" onclick="return confirmarCierreSesion()">
+            <button class="btn-cerrar-sesion">
+                <i class='bx bx-log-out' id="IconoCerrarSesion"></i>
+                <span id="CerrarSesionSpan">Cerrar sesión</span>
+            </button>
+        </a>
+    </div>
+    
+    <!-- Contenido principal -->
+    <div class="container">
+        <div class="row">
+            <!-- Columna de Empleados -->
+            <div class="col-md-4 text-center">
+                <div class="mb-4 text-center">
+                    <h2>Intercambios</h2>
+                    <div class="btn-column">
+                        <a href="{% url 'intercambios-pendientes' %}">
+                            
+                            <button class="btn btn-primary">
+                                <i class="bi bi-person-lines-fill"></i>
+                                <span class="link">Intercambios</span>
+                            </button>
+                    </div>
+                </div>
+            </div>
+           
+           
+        </div>
+    </div>
+
+
+    <!-- Enlace a Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Función para confirmar el cierre de sesión -->
+    <script>
+        function confirmarCierreSesion() {
+            return confirm('¿Estás seguro de que quieres cerrar sesión?');
+        }
+    </script>
+</body>
+</html>

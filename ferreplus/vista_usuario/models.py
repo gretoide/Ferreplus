@@ -58,24 +58,31 @@ class Imagen(models.Model):
 
 
 
+class Oferta(models.Model):
+    base = models.ForeignKey(Publicacion, on_delete=models.CASCADE, related_name='ofertas_como_base')
+    oferta = models.ForeignKey(Publicacion, on_delete=models.CASCADE, related_name='ofertas_como_oferta')
+    hora = models.TimeField() 
+    fecha_intercambio = models.DateField()
 
-class Intercambio(models.Manager):
+class Intercambio(models.Model):
     
     REALIZADO = 'realizado'
     CANCELADO = 'cancelado'
     CANCELADO_AUSENTE = 'cancelado_ausente'
+    PENDIENTE = 'pendiente'
 
     ESTADOS_CHOICES = [
         (REALIZADO, 'Intercambio Realizado'),
         (CANCELADO, 'Intercambio Cancelado'),
         (CANCELADO_AUSENTE, 'Cancelado por Ausencia'),
+        (PENDIENTE, 'Intercambio Pendiente')
     ]
 
 
-    publicacion_base = models.ForeignKey(Publicacion, on_delete=models.CASCADE, default= None)
+    base = models.ForeignKey(Publicacion, related_name='base_intercambios', on_delete=models.SET_NULL, null=True)
     hora = models.TimeField() 
     fecha_intercambio = models.DateField()
-    Sucursal = models.ForeignKey(Sucursal, on_delete = models.CASCADE)
-    publicacion_oferta = models.ForeignKey(Publicacion, on_delete = models.CASCADE)
-    estado = models.CharField(max_length=20, choices=ESTADOS_CHOICES)
-    usuario_ausente = models.ForeignKey(User, default=None, on_delete=models.SET_NULL)
+    sucursal = models.ForeignKey(Sucursal, on_delete=models.SET_NULL, null=True)
+    ofer = models.ForeignKey(Publicacion, related_name='oferta_intercambios', on_delete=models.SET_NULL, null=True)
+    estado = models.CharField(max_length=20, choices=ESTADOS_CHOICES, default=PENDIENTE)
+    usuario_ausente = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
