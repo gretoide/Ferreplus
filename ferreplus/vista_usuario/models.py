@@ -42,6 +42,8 @@ class Publicacion(models.Model):
     sucursal = models.CharField(max_length=100)  # Esto puede cambiarse a ForeignKey si tienes una tabla de sucursales
     descripcion = models.TextField()
     autor = models.ForeignKey(User, on_delete=models.CASCADE)
+    es_privada = models.BooleanField(default=False)
+    parte_oferta = models.BooleanField(default=False)
     imagenes = models.ManyToManyField(
         'Imagen',
         related_name='publicaciones',
@@ -53,3 +55,27 @@ class Imagen(models.Model):
 
     def __str__(self):
         return os.path.basename(self.imagen.name)
+
+
+
+
+class Intercambio(models.Manager):
+    
+    REALIZADO = 'realizado'
+    CANCELADO = 'cancelado'
+    CANCELADO_AUSENTE = 'cancelado_ausente'
+
+    ESTADOS_CHOICES = [
+        (REALIZADO, 'Intercambio Realizado'),
+        (CANCELADO, 'Intercambio Cancelado'),
+        (CANCELADO_AUSENTE, 'Cancelado por Ausencia'),
+    ]
+
+
+    publicacion_base = models.ForeignKey(Publicacion, on_delete=models.CASCADE, default= None)
+    hora = models.TimeField() 
+    fecha_intercambio = models.DateField()
+    Sucursal = models.ForeignKey(Sucursal, on_delete = models.CASCADE)
+    publicacion_oferta = models.ForeignKey(Publicacion, on_delete = models.CASCADE)
+    estado = models.CharField(max_length=20, choices=ESTADOS_CHOICES)
+    usuario_ausente = models.ForeignKey(User, default=None, on_delete=models.SET_NULL)
