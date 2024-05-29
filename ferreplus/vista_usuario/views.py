@@ -110,6 +110,18 @@ def mis_publicaciones(request):
     else:
         return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario','mis_publicaciones.html'), {'publicaciones': publicaciones})
 
+def detalle_publicacion(request, publicacion_id):
+    publicacion = get_object_or_404(Publicacion, id=publicacion_id)
+    imagenes = publicacion.imagenes.all()
+
+    contexto = {
+        'publicacion': publicacion,
+        'imagenes': imagenes,
+    }
+
+    return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario','detalle_publicacion.html'), contexto)
+
+
 @login_required
 @normal_required
 def editar_publicacion(request, pk):

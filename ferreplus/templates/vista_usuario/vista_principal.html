@@ -111,16 +111,17 @@
     </nav>
 
     <!-- Contenedor para las tarjetas de publicaciones -->
-    <div class="contenedor-publicaciones">
-        {% if publicaciones %}
-        {% for publicacion, imagenes in imagenes_por_publicacion.items %}
+<div class="contenedor-publicaciones">
+    {% if publicaciones %}
+    {% for publicacion, imagenes in imagenes_por_publicacion.items %}
+        <a href="{% url 'detalle_publicacion' publicacion.id %}">
             <div class="card">
                 <!-- Carousel para mostrar las imágenes -->
                 <div id="carousel{{ publicacion.id }}" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner">
                         {% for imagen in imagenes %}
                         <div class="carousel-item{% if forloop.first %} active{% endif %}">
-                            <img src="{{  imagen.imagen.url  }}" class="d-block w-100" alt="Imagen de la publicación">
+                            <img src="{{ imagen.imagen.url }}" class="d-block w-100" alt="Imagen de la publicación">
                         </div>
                         {% endfor %}
                     </div>
@@ -137,18 +138,19 @@
                     <h5 class="card-title">{{ publicacion.titulo }}</h5>
                     <p class="card-text">{{ publicacion.descripcion }}</p>
                     <div class="row">
-                        <span class="badge badge-secondary">{{ publicacion.categoria}}</span>
-                        <span class="badge badge-secondary">{{ publicacion.estado}}</span>
+                        <span class="badge badge-secondary">{{ publicacion.categoria }}</span>
+                        <span class="badge badge-secondary">{{ publicacion.estado }}</span>
                     </div>
                 </div>
             </div>
-        {% endfor %}
-        {% else %}
-            <div class="alert alert-secondary" role="alert">
-                No hay publicaciones disponibles.
-            </div>
-        {% endif %}
-    </div>
+        </a>
+    {% endfor %}
+    {% else %}
+        <div class="alert alert-secondary" role="alert">
+            No hay publicaciones disponibles.
+        </div>
+    {% endif %}
+</div>
     
 
     <section class="overlay"></section>
