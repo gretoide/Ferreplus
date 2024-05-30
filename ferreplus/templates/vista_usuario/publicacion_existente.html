@@ -23,17 +23,23 @@
         <div class="mb-3 text-center">
             <h1>Seleccionar publicación</h1>
         </div>
-        <div class="list-group">
-            {% for pub in publicaciones_usuario %}
-            <a href="#" class="list-group-item list-group-item-action">{{ pub.titulo }}</a>
-            {% empty %}
-            <div class="mb-3 text-center">
-                <div class="alert alert-dark" role="alert">
-                    This is a dark alert—check it out!
+        <form>
+            <div class="list-group">
+                {% for pub in publicaciones_usuario %}
+                <div class="list-group-item">
+                    <input type="radio" id="pub-{{ pub.id }}" name="publicacion" value="{{ pub.id }}">
+                    <label for="pub-{{ pub.id }}">{{ pub.titulo }}</label>
                 </div>
+                {% empty %}
+                <div class="mb-3 text-center">
+                    <div class="alert alert-dark" role="alert">
+                        This is a dark alert—check it out!
+                    </div>
+                </div>
+                {% endfor %}
             </div>
-            {% endfor %}
-        </div>
+            <button type="submit" class="btn btn-primary">Enviar oferta</button>
+        </form>
     </div>
 </body>
 </html>
