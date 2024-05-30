@@ -121,17 +121,22 @@ def detalle_publicacion(request, publicacion_id):
 @login_required
 @normal_required
 def publicacion_existente(request, publicacion_id):
-    publicacion = get_object_or_404(Publicacion, id=publicacion_id)
+    # Me quedo con la publicación del usuario
+    publicacion_a_ofertar = get_object_or_404(Publicacion, id=publicacion_id)
+    publicaciones_usuario = Publicacion.objects.filter(autor=request.user)
     
-    return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario','publicacion_existente.html'), {'publicacion': publicacion})
-
+    contexto = {
+        'publicacion_a_ofertar': publicacion_a_ofertar,
+        'publicaciones_usuario': publicaciones_usuario,
+    }
+    return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario','publicacion_existente.html'), contexto)
 
 @login_required
 @normal_required
 def oferta_privada(request, publicacion_id):
     publicacion = get_object_or_404(Publicacion, id=publicacion_id)
     
-    return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario','oferta_privada.html'), {'publicacion': publicacion})
+    return render(request,'vista_usuario/publicacion_existente.html', {'publicacion': publicacion})
 
 
 @login_required

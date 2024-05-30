@@ -12,7 +12,7 @@
     {% csrf_token %}
     <div class="custom-container">
         <button id="BotonVolver" class="btn btn-secondary">
-          <a href="{% url 'detalle_publicacion' publicacion.id %}">
+          <a href="{% url 'detalle_publicacion' publicacion_a_ofertar.id %}">
             <i class='bx bx-chevron-left'>
               <span>Volver</span>
             </i>
@@ -27,7 +27,11 @@
             {% for pub in publicaciones_usuario %}
             <a href="#" class="list-group-item list-group-item-action">{{ pub.titulo }}</a>
             {% empty %}
-            <p>No tienes publicaciones disponibles.</p>
+            <div class="mb-3 text-center">
+                <div class="alert alert-dark" role="alert">
+                    This is a dark alert—check it out!
+                </div>
+            </div>
             {% endfor %}
         </div>
     </div>
