@@ -165,6 +165,12 @@ body {
     color: #000000; /* Cambio de color del texto al pasar el cursor */
 }
 
+.btn-primary a {
+    color: inherit; /* Hereda el color del texto del contenedor */
+    text-decoration: none; /* Sin subrayado */
+}
+
+
 /*Modal*/
 
 .modal-header {
@@ -188,6 +194,7 @@ body {
 .modal-header .hr{
     color: #ffffff; /* Cambia el color a rojo */
   }
+
 
 
 

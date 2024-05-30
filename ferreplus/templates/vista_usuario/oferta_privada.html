@@ -3,9 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seleccionar publicación</title>
+    <title>Oferta privada</title>
 </head>
 <body>
+    {% csrf_token %}
+    <div class="custom-container">
+        <button id="BotonVolver" class="btn btn-secondary">
+          <a href="{% url 'detalle_publicacion' publicacion.id %}">
+            <i class='bx bx-chevron-left'>
+              <span>Volver</span>
+            </i>
+          </a>
+        </button>
+      </div>
     <div class="container">
         <div class="mb-3 text-center">
             <h1>Oferta privada</h1>
