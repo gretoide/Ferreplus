@@ -71,20 +71,20 @@ def subir_publicacion(request):
         # Verificar campos y obtener las imágenes
         imagenes = request.FILES.getlist('imagen')
         if len(imagenes) > 5 or len(imagenes) <= 0:
-            return render(request, 'vista_usuario/subir_publicacion.html', {'error': 'El máximo de imágenes es 5 y el mínimo 1.'})
+            return render(request, 'vista_usuario/subir_publicacion.html', {'error': 'El máximo de imágenes es 5 y el mínimo 1.', "sucursales": Sucursal.objects.all()})
         
         # Verificar campos
         exito, mensaje_error = modulos_publicacion.verificar_campos(datos_publicacion)
         if len(imagenes) > 5 or len(imagenes) <= 0:
-            return render(request, 'vista_usuario/subir_publicacion.html', {'error': 'El máximo de imágenes es 5 y el mínimo 1.'})
+            return render(request, 'vista_usuario/subir_publicacion.html', {'error': 'El máximo de imágenes es 5 y el mínimo 1.', "sucursales": Sucursal.objects.all()})
         if not exito:
-            return render(request, 'vista_usuario/subir_publicacion.html', {'error': mensaje_error})
+            return render(request, 'vista_usuario/subir_publicacion.html', {'error': mensaje_error, "sucursales": Sucursal.objects.all()})
         else:
             # Crear publicación
             modulos_publicacion.crear_publicacion(datos_publicacion,usuario,imagenes)
             
             # Mostrar mensaje de éxito
-            return render(request, 'vista_usuario/subir_publicacion.html', {'aviso': "La publicación se ha creado con éxito."})
+            return render(request, 'vista_usuario/subir_publicacion.html', {'aviso': "La publicación se ha creado con éxito.", "sucursales": Sucursal.objects.all()})
     else:
         # Si es una solicitud GET, simplemente renderizar la página principal
         return render(request, 'vista_usuario/subir_publicacion.html',{"sucursales": Sucursal.objects.all()})
