@@ -110,11 +110,28 @@ def mis_publicaciones(request):
     else:
         return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario','mis_publicaciones.html'), {'publicaciones': publicaciones})
 
+@login_required
+@normal_required
 def detalle_publicacion(request, publicacion_id):
     publicacion = get_object_or_404(Publicacion, id=publicacion_id)
     imagenes = publicacion.imagenes.all()
 
     return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario','detalle_publicacion.html'), {'publicacion': publicacion, 'imagenes': imagenes})
+
+@login_required
+@normal_required
+def publicacion_existente(request, publicacion_id):
+    publicacion = get_object_or_404(Publicacion, id=publicacion_id)
+    
+    return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario','publicacion_existente.html'), {'publicacion': publicacion})
+
+
+@login_required
+@normal_required
+def oferta_privada(request, publicacion_id):
+    publicacion = get_object_or_404(Publicacion, id=publicacion_id)
+    
+    return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario','oferta_privada.html'), {'publicacion': publicacion})
 
 
 @login_required
