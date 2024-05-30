@@ -23,28 +23,56 @@
     </div>
     <div class="container">
         <div class="mb-3 text-center">
-            <h1>Seleccionar publicación</h1>
+            <h1>Solicitud de intercambio</h1>
         </div>
-        <div class="mb-3" id="ContainerForm">
-            <form>
-                <div class="list-group">
-                    {% for pub in publicaciones_usuario %}
-                    <div class="list-group-item">
-                        <label for="pub-{{ pub.id }}">{{ pub.titulo }}</label>
-                        <input type="checkbox" id="pub-{{ pub.id }}" name="publicacion" value="{{ pub.id }}">
+        <div class="row align-items-center">
+            <div class="col-md-6 p-o mb-3">
+                <div class="mb-3" id="ContainerForm">
+                    <div class="mb-3">
+                        <h4>Mis publicaciones</h4>
                     </div>
-                    {% empty %}
-                    <div class="mb-3 text-center">
-                        <div class="alert alert-dark" role="alert">
-                            This is a dark alert—check it out!
+                    <form>
+                        <div class="list-group">
+                            {% for pub in publicaciones_usuario %}
+                            <div class="list-group-item">
+                                <label for="pub-{{ pub.id }}">{{ pub.titulo }}</label>
+                                <input type="checkbox" id="pub-{{ pub.id }}" name="publicacion" value="{{ pub.id }}">
+                            </div>
+                            {% empty %}
+                            <div class="mb-3 text-center">
+                                <div class="alert alert-dark" role="alert">
+                                    No posee publicaciones para solicitar un intercambio.
+                                    <a href="{% url 'subir_publicacion' %}" class="btn btn-secondary btn-sm mt-2">
+                                        <i class="bi bi-plus-circle"></i> Agregar publicación
+                                    </a>
+                                </div>
+                            </div>
+                            {% endfor %}
                         </div>
-                    </div>
-                    {% endfor %}
+                    </form>
                 </div>
-                <div class="mb-3 text-center">
-                    <button type="submit" class="btn btn-primary">Enviar oferta</button>
+            </div>
+            <div class="col-md-6 p-o mb-3">
+                <div class="mb-3">
+                    <h4>Datos para el encuentro</h4>
                 </div>
-            </form>
+                <div class="mb-3">
+                    <label for="meeting-date">Fecha</label>
+                    <input type="date" class="form-control" id="meeting-date" name="fecha_encuentro" required>
+                </div>
+                <div class="mb-3">
+                    <label for="meeting-time">Hora</label>
+                    <div class="input-group">
+                        <input type="time" class="form-control" id="meeting-time" name="hora_encuentro" required>
+                        <div class="input-group-append">
+                            <span class="input-group-text"><i class='bx bxs-time-five'></i></span>
+                        </div>
+                    </div>          
+                </div>
+            </div>
+        </div>
+        <div class="mb-3 text-center">
+            <button type="submit" class="btn btn-primary">Enviar oferta</button>
         </div>
     </div>
 </body>
