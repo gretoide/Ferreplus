@@ -31,7 +31,7 @@
                     {% for pub in publicaciones_usuario %}
                     <div class="list-group-item">
                         <label for="pub-{{ pub.id }}">{{ pub.titulo }}</label>
-                        <input type="radio" id="pub-{{ pub.id }}" name="publicacion" value="{{ pub.id }}">
+                        <input type="checkbox" id="pub-{{ pub.id }}" name="publicacion" value="{{ pub.id }}">
                     </div>
                     {% empty %}
                     <div class="mb-3 text-center">
