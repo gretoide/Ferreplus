@@ -201,14 +201,12 @@ body {
 /*--------------Selector de publicaciones existentes-------------------*/
 
 #ContainerForm {
-    padding: 40px;
-    width: 600px;
     margin: 0 auto;
 }
 
 .list-group-item {
-    background-color: #303030;
-    border-color: 1px #808080;
+    background-color: #505050;
+    border-color: #707070;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -216,7 +214,7 @@ body {
 
 
 .list-group-item:hover {
-    background-color: #505050;
+    background-color: #606060;
     border-color: 1px #808080;
 }
 
@@ -259,4 +257,41 @@ input[type="checkbox"]:checked:after {
 input[type="checkbox"] + label {
     cursor: pointer;
     color: #ccc; /* Cambiado el color del texto de la etiqueta a gris claro */
+}
+
+
+/*-----------------placeholders de data-----------------*/
+
+.form-control {
+    background-color: #505050;
+    border-color: #707070;
+    color: #d7d7d7;
+    width: 100%;
+}
+
+/* Estilos para el input cuando está enfocado */
+.form-control:focus {
+    border-color: none; /* Cambia el color del borde al seleccionar */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Agrega una sombra alrededor del input */
+    background-color: #707070;
+    color: white;
+
+}
+
+.input-group-text {
+    background-color: #505050;
+    color: #d7d7d7;
+    border-color: #707070;
+}
+
+.input-group-text i {
+    color: #a8a8a8;
+}
+
+.row {
+    padding: 20px;
+}
+
+.col-md-6 {
+    min-height: 400px; /* Ajusta esta altura según tus necesidades */
 }
