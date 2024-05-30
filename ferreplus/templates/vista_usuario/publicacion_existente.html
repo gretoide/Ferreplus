@@ -6,6 +6,8 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/detalles_publicacion.css' %}">
     <title>Seleccionar publicación</title>
 </head>
 <body>
@@ -23,23 +25,27 @@
         <div class="mb-3 text-center">
             <h1>Seleccionar publicación</h1>
         </div>
-        <form>
-            <div class="list-group">
-                {% for pub in publicaciones_usuario %}
-                <div class="list-group-item">
-                    <input type="radio" id="pub-{{ pub.id }}" name="publicacion" value="{{ pub.id }}">
-                    <label for="pub-{{ pub.id }}">{{ pub.titulo }}</label>
-                </div>
-                {% empty %}
-                <div class="mb-3 text-center">
-                    <div class="alert alert-dark" role="alert">
-                        This is a dark alert—check it out!
+        <div class="mb-3" id="ContainerForm">
+            <form>
+                <div class="list-group">
+                    {% for pub in publicaciones_usuario %}
+                    <div class="list-group-item">
+                        <label for="pub-{{ pub.id }}">{{ pub.titulo }}</label>
+                        <input type="radio" id="pub-{{ pub.id }}" name="publicacion" value="{{ pub.id }}">
                     </div>
+                    {% empty %}
+                    <div class="mb-3 text-center">
+                        <div class="alert alert-dark" role="alert">
+                            This is a dark alert—check it out!
+                        </div>
+                    </div>
+                    {% endfor %}
                 </div>
-                {% endfor %}
-            </div>
-            <button type="submit" class="btn btn-primary">Enviar oferta</button>
-        </form>
+                <div class="mb-3 text-center">
+                    <button type="submit" class="btn btn-primary">Enviar oferta</button>
+                </div>
+            </form>
+        </div>
     </div>
 </body>
 </html>

@@ -156,7 +156,7 @@ body {
     color: #ffffff; /* Color del texto */
     transition: background-color 0.3s ease; /* Transición de color */
     width: 200px;
-    margin: 10px;
+    margin: 15px;
 }
 
 .btn-primary:hover {
@@ -198,3 +198,28 @@ body {
 
 
 
+/*--------------Selector de publicaciones existentes-------------------*/
+
+#ContainerForm {
+    padding: 40px;
+    width: 600px;
+    margin: 0 auto;
+}
+
+.list-group-item {
+    background-color: #303030;
+    border-color: 1px #808080;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.list-group-item:hover {
+    background-color: #505050;
+    border-color: 1px #808080;
+}
+
+.list-group-item span {
+    color: #666;
+}
