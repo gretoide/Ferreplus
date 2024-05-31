@@ -118,41 +118,32 @@ def detalle_publicacion(request, publicacion_id):
 
     return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario','detalle_publicacion.html'), {'publicacion': publicacion, 'imagenes': imagenes})
 
-@login_required
-@normal_required
-@login_required
-@normal_required
 def publicacion_existente(request, publicacion_id):
-    # Me quedo con la publicación del usuario
-    publicacion_a_ofertar = get_object_or_404(Publicacion, id=publicacion_id)
+    publicacion_base = get_object_or_404(Publicacion, id=publicacion_id)
     publicaciones_usuario = Publicacion.objects.filter(autor=request.user)
     
     if request.method == "POST":
-        publicacion_id = request.POST.get('publicacion')
-        fecha_encuentro = request.POST.get('fecha_encuentro')
-        hora_encuentro = request.POST.get('hora_encuentro')
+        form_data = request.POST
+        publicacion_id = form_data.get('publicacion')
+        fecha_encuentro = form_data.get('fecha_encuentro')
+        hora_encuentro = form_data.get('hora_encuentro')
         
-        # Obtén la publicación seleccionada
-        publicacion_seleccionada = get_object_or_404(Publicacion, id=publicacion_id)
+        if all([publicacion_id, fecha_encuentro, hora_encuentro]):
+            publicacion_oferta = get_object_or_404(Publicacion, id=publicacion_id)
+            Oferta.objects.create(
+                base=publicacion_base,
+                oferta=publicacion_oferta,
+                fecha_intercambio=fecha_encuentro,
+                hora=hora_encuentro
+            )
+            mensaje = 'Oferta creada con éxito.'
+        else:
+            mensaje = 'Debe seleccionar una publicación para el intercambio.'
         
-        # Crea una nueva oferta
-        nueva_oferta = Oferta.objects.create(
-            base=publicacion_a_ofertar,
-            oferta=publicacion_seleccionada,
-            fecha_intercambio=fecha_encuentro,
-            hora=hora_encuentro
-        )
-        
-        # Agrega un mensaje de éxito
-        messages.success(request, 'La oferta de intercambio se ha creado correctamente.')
-        
-        # Redirige a la vista de detalles de la publicación o a una página de confirmación
-        return redirect('detalle_publicacion', publicacion_id=publicacion_a_ofertar.id)
-    
-    contexto = {
-        'publicacion_a_ofertar': publicacion_a_ofertar,
-        'publicaciones_usuario': publicaciones_usuario,
-    }
+        contexto = {'aviso': mensaje, 'publicacion_a_ofertar': publicacion_base, 'publicaciones_usuario': publicaciones_usuario}
+        return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario', 'publicacion_existente.html'), contexto)
+
+    contexto = {'publicacion_a_ofertar': publicacion_base, 'publicaciones_usuario': publicaciones_usuario}
     return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario', 'publicacion_existente.html'), contexto)
 
 @login_required

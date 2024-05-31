@@ -295,3 +295,10 @@ input[type="radio"] + label {
 .col-md-6 {
     min-height: 400px; /* Ajusta esta altura según tus necesidades */
 }
+
+/*-----------------------------alerta---------------------------*/
+
+.alert {
+    width: 300px;
+    margin: 0 auto;
+}
