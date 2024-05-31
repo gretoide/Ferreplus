@@ -66,16 +66,16 @@ class Oferta(models.Model):
 
 class Intercambio(models.Model):
     
-    REALIZADO = 'realizado'
-    CANCELADO = 'cancelado'
-    CANCELADO_AUSENTE = 'cancelado_ausente'
-    PENDIENTE = 'pendiente'
+    REALIZADO = 'REALIZADO'
+    CANCELADO = 'CANCELADO'
+    CANCELADO_AUSENTE = 'CANCELADO_AUSENTE'
+    PENDIENTE = 'PENDIENTE'
 
     ESTADOS_CHOICES = [
-        (REALIZADO, 'Intercambio Realizado'),
-        (CANCELADO, 'Intercambio Cancelado'),
-        (CANCELADO_AUSENTE, 'Cancelado por Ausencia'),
-        (PENDIENTE, 'Intercambio Pendiente')
+        (REALIZADO, 'REALIZADO'),
+        (CANCELADO, 'CANCELADO'),
+        (CANCELADO_AUSENTE, 'CANCELADO_AUSENTE'),
+        (PENDIENTE, 'PENDIENTE')
     ]
 
 
