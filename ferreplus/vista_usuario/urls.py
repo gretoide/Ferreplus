@@ -14,6 +14,8 @@ urlpatterns = [
     path('mi-cuenta', user_views.mostrarPerfilCliente, name="mi_cuenta"),
     path('editar-perfil-cliente', user_views.editarPerfilCliente, name="editar_perfil_cliente"),
     path('mis-publicaciones', user_views.mis_publicaciones, name="mis_publicaciones"),
-    #path('editar-publicacion/<int:publicacion_id>/', user_views.editar_publicacion, name="editar_publicacion"),
     path('publicacion/<int:pk>/editar/', user_views.editar_publicacion, name='editar_publicacion'),
+    path('publicacion/<int:publicacion_id>/', user_views.detalle_publicacion, name='detalle_publicacion'),
+    path('publicacion/<int:publicacion_id>/publicacion-existente', user_views.publicacion_existente, name='publicacion_existente'),
+    path('publicacion/<int:publicacion_id>/oferta-privada', user_views.oferta_privada, name='oferta_privada'),
 ]

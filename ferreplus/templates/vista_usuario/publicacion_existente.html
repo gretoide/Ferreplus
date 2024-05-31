@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/detalles_publicacion.css' %}">
+    <title>Seleccionar publicación</title>
+</head>
+<body>
+    {% csrf_token %}
+    <div class="custom-container">
+        <button id="BotonVolver" class="btn btn-secondary">
+          <a href="{% url 'detalle_publicacion' publicacion_a_ofertar.id %}">
+            <i class='bx bx-chevron-left'>
+              <span>Volver</span>
+            </i>
+          </a>
+        </button>
+    </div>
+    <div class="container">
+        <div class="mb-3 text-center">
+            <h1>Solicitud de intercambio</h1>
+        </div>
+        <div class="row align-items-center">
+            <div class="col-md-6 p-o mb-3">
+                <div class="mb-3" id="ContainerForm">
+                    <div class="mb-3">
+                        <h4>Mis publicaciones</h4>
+                    </div>
+                    <form>
+                        <div class="list-group">
+                            {% for pub in publicaciones_usuario %}
+                            <div class="list-group-item">
+                                <label for="pub-{{ pub.id }}">{{ pub.titulo }}</label>
+                                <input type="checkbox" id="pub-{{ pub.id }}" name="publicacion" value="{{ pub.id }}">
+                            </div>
+                            {% empty %}
+                            <div class="mb-3 text-center">
+                                <div class="alert alert-dark" role="alert">
+                                    No posee publicaciones para solicitar un intercambio.
+                                    <a href="{% url 'subir_publicacion' %}" class="btn btn-secondary btn-sm mt-2">
+                                        <i class="bi bi-plus-circle"></i> Agregar publicación
+                                    </a>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-6 p-o mb-3">
+                <div class="mb-3">
+                    <h4>Datos para el encuentro</h4>
+                </div>
+                <div class="mb-3">
+                    <label for="meeting-date">Fecha</label>
+                    <input type="date" class="form-control" id="meeting-date" name="fecha_encuentro" required>
+                </div>
+                <div class="mb-3">
+                    <label for="meeting-time">Hora</label>
+                    <div class="input-group">
+                        <input type="time" class="form-control" id="meeting-time" name="hora_encuentro" required>
+                        <div class="input-group-append">
+                            <span class="input-group-text"><i class='bx bxs-time-five'></i></span>
+                        </div>
+                    </div>          
+                </div>
+            </div>
+        </div>
+        <div class="mb-3 text-center">
+            <button type="submit" class="btn btn-primary">Enviar oferta</button>
+        </div>
+    </div>
+</body>
+</html>

@@ -71,20 +71,20 @@ def subir_publicacion(request):
         # Verificar campos y obtener las imágenes
         imagenes = request.FILES.getlist('imagen')
         if len(imagenes) > 5 or len(imagenes) <= 0:
-            return render(request, 'vista_usuario/subir_publicacion.html', {'error': 'El máximo de imágenes es 5 y el mínimo 1.'})
+            return render(request, 'vista_usuario/subir_publicacion.html', {'error': 'El máximo de imágenes es 5 y el mínimo 1.', "sucursales": Sucursal.objects.all()})
         
         # Verificar campos
         exito, mensaje_error = modulos_publicacion.verificar_campos(datos_publicacion)
         if len(imagenes) > 5 or len(imagenes) <= 0:
-            return render(request, 'vista_usuario/subir_publicacion.html', {'error': 'El máximo de imágenes es 5 y el mínimo 1.'})
+            return render(request, 'vista_usuario/subir_publicacion.html', {'error': 'El máximo de imágenes es 5 y el mínimo 1.', "sucursales": Sucursal.objects.all()})
         if not exito:
-            return render(request, 'vista_usuario/subir_publicacion.html', {'error': mensaje_error})
+            return render(request, 'vista_usuario/subir_publicacion.html', {'error': mensaje_error, "sucursales": Sucursal.objects.all()})
         else:
             # Crear publicación
             modulos_publicacion.crear_publicacion(datos_publicacion,usuario,imagenes)
             
             # Mostrar mensaje de éxito
-            return render(request, 'vista_usuario/subir_publicacion.html', {'aviso': "La publicación se ha creado con éxito."})
+            return render(request, 'vista_usuario/subir_publicacion.html', {'aviso': "La publicación se ha creado con éxito.", "sucursales": Sucursal.objects.all()})
     else:
         # Si es una solicitud GET, simplemente renderizar la página principal
         return render(request, 'vista_usuario/subir_publicacion.html',{"sucursales": Sucursal.objects.all()})
@@ -109,6 +109,35 @@ def mis_publicaciones(request):
         return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario','mis_publicaciones.html'), {'publicaciones': publicaciones, 'error' : error})
     else:
         return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario','mis_publicaciones.html'), {'publicaciones': publicaciones})
+
+@login_required
+@normal_required
+def detalle_publicacion(request, publicacion_id):
+    publicacion = get_object_or_404(Publicacion, id=publicacion_id)
+    imagenes = publicacion.imagenes.all()
+
+    return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario','detalle_publicacion.html'), {'publicacion': publicacion, 'imagenes': imagenes})
+
+@login_required
+@normal_required
+def publicacion_existente(request, publicacion_id):
+    # Me quedo con la publicación del usuario
+    publicacion_a_ofertar = get_object_or_404(Publicacion, id=publicacion_id)
+    publicaciones_usuario = Publicacion.objects.filter(autor=request.user)
+    
+    contexto = {
+        'publicacion_a_ofertar': publicacion_a_ofertar,
+        'publicaciones_usuario': publicaciones_usuario,
+    }
+    return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario','publicacion_existente.html'), contexto)
+
+@login_required
+@normal_required
+def oferta_privada(request, publicacion_id):
+    publicacion = get_object_or_404(Publicacion, id=publicacion_id)
+    
+    return render(request,'vista_usuario/publicacion_existente.html', {'publicacion': publicacion})
+
 
 @login_required
 @normal_required

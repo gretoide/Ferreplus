@@ -1,0 +1,297 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    box-sizing: border-box;
+  }
+
+body {
+    color: white;
+    min-height: 100%;
+    background-color: #202020;
+}
+
+.container{
+    color: white;
+    margin: 0 auto;
+    justify-content: center;
+}
+
+.carousel-container {
+    height: 100vh;
+    margin: 0 auto;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.carousel-inner {
+    margin: 0 auto;
+    max-height: 400px;
+    max-width: 400px;
+}
+
+
+.carousel-item img {
+    height: 100%;
+    object-fit: cover;
+    border: none; /* Borde sólido con color deseado */
+    border-radius: 10px; /* Bordes redondeados */
+}
+
+.details-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.details-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.details-header h5 {
+    margin-bottom: 0;
+}
+
+.badges span {
+    margin-left: 0.5rem;
+}
+
+.details-body h6 {
+    color: #ffd100;
+    margin-bottom: 0.5rem;
+}
+
+.details-footer {
+    padding: 50px;
+    margin: 0 auto;
+}
+
+.custom-hr {
+    background: #505050;
+    margin: 20px 0;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    width: 10%; /* Ancho de los controles de navegación */
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: rgba(0, 0, 0, 0.5); /* Color de fondo de los íconos de navegación */
+    border-radius: 50%; /* Forma de los íconos de navegación */
+}
+
+/* Estilo para ocultar el texto de accesibilidad de los controles de navegación */
+.carousel-control-prev .sr-only,
+.carousel-control-next .sr-only {
+    display: none;
+}
+
+/*Badges*/
+
+.badge {
+    background-color: #606060;
+    padding: 10px;
+    border-radius: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+/*--------------------Voton volver------------------*/
+
+/* Estilos para el contenedor personalizado */
+.custom-container {
+    margin-top: 10px;
+    margin-left: 20px;
+}
+
+/* Estilos para el botón personalizado */
+.custom-container button {
+    background-color: transparent; /* Color de fondo */
+    color: #ffffff; /* Color del texto */
+    border: none; /* Sin borde */
+    padding: 10px; /* Relleno */
+    border-radius: 8px; /* Borde redondeado */
+    cursor: pointer; /* Cambio de cursor al pasar el ratón */
+    text-decoration: none; /* Sin subrayado */
+}
+
+/* Estilos para el botón al pasar el cursor */
+.custom-container button:hover {
+    background-color: #505050; /* Cambio de color de fondo al pasar el cursor */
+}
+
+/* Estilos para el enlace dentro del botón */
+.custom-container button a {
+    color: inherit; /* Hereda el color del texto del contenedor */
+    text-decoration: none; /* Sin subrayado */
+}
+
+/* Estilos para el icono dentro del botón */
+.custom-container button i {
+    vertical-align: middle; /* Alinear verticalmente con el texto */
+    margin-right: 5px; /* Espacio a la derecha del icono */
+}
+
+/* Estilos para el texto dentro del botón */
+.custom-container button span {
+    vertical-align: top; /* Alinear verticalmente con el icono */
+}
+
+
+/*---------- Botón de solicitar intercambio-----------------*/
+
+.btn-primary {
+    font-size: medium;
+    background-color: #3d3d3d; /* Color de fondo */
+    border-color: #3d3d3d; /* Color del borde */
+    color: #ffffff; /* Color del texto */
+    transition: background-color 0.3s ease; /* Transición de color */
+    width: 200px;
+    margin: 15px;
+}
+
+.btn-primary:hover {
+    background-color: #ffc107; /* Cambio de color al pasar el cursor */
+    border-color: #303030;
+    color: #000000; /* Cambio de color del texto al pasar el cursor */
+}
+
+.btn-primary a {
+    color: inherit; /* Hereda el color del texto del contenedor */
+    text-decoration: none; /* Sin subrayado */
+}
+
+
+/*Modal*/
+
+.modal-header {
+    background-color: #202020;
+    color: #ffffff;
+    border-color: #505050;
+}
+
+.modal-body {
+    background-color: #202020;
+    color: #ffffff;
+    border-color: #505050;
+}
+
+/* Cambiar el color de la "X" */
+.modal-header .close {
+    color: #ffffff; /* Cambia el color a rojo */
+  }
+
+/* Cambiar el color de la "X" */
+.modal-header .hr{
+    color: #ffffff; /* Cambia el color a rojo */
+  }
+
+
+
+
+/*--------------Selector de publicaciones existentes-------------------*/
+
+#ContainerForm {
+    margin: 0 auto;
+}
+
+.list-group-item {
+    background-color: #505050;
+    border-color: #707070;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.list-group-item:hover {
+    background-color: #606060;
+    border-color: 1px #808080;
+}
+
+.list-group-item span {
+    color: #666;
+}
+
+/*------------------------checkbox--------------------------*/
+
+input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #555; /* Cambiado el color del borde a gris oscuro */
+    border-radius: 4px; /* Forma cuadrada para los checkboxes */
+    vertical-align: middle;
+    margin-right: 8px;
+    background-color: #333; /* Fondo gris oscuro para el checkbox sin seleccionar */
+    cursor: pointer;
+}
+
+input[type="checkbox"]:checked {
+    background-color: #ffd100; /* Puedes cambiar el color del checkbox seleccionado */
+    border-color: #ffd100; /* Puedes cambiar el color del borde del checkbox seleccionado */
+}
+
+input[type="checkbox"]:checked:after {
+    content: "";
+    display: block;
+    width: 6px;
+    height: 10px;
+    border: solid #000000; /* Color blanco para la marca de verificación */
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    margin: 2px 0 0 4px;
+}
+
+input[type="checkbox"] + label {
+    cursor: pointer;
+    color: #ccc; /* Cambiado el color del texto de la etiqueta a gris claro */
+}
+
+
+/*-----------------placeholders de data-----------------*/
+
+.form-control {
+    background-color: #505050;
+    border-color: #707070;
+    color: #d7d7d7;
+    width: 100%;
+}
+
+/* Estilos para el input cuando está enfocado */
+.form-control:focus {
+    border-color: none; /* Cambia el color del borde al seleccionar */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Agrega una sombra alrededor del input */
+    background-color: #707070;
+    color: white;
+
+}
+
+.input-group-text {
+    background-color: #505050;
+    color: #d7d7d7;
+    border-color: #707070;
+}
+
+.input-group-text i {
+    color: #a8a8a8;
+}
+
+.row {
+    padding: 20px;
+}
+
+.col-md-6 {
+    min-height: 400px; /* Ajusta esta altura según tus necesidades */
+}
