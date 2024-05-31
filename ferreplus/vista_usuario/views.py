@@ -134,7 +134,9 @@ def publicacion_existente(request, publicacion_id):
                 base=publicacion_base,
                 oferta=publicacion_oferta,
                 fecha_intercambio=fecha_encuentro,
-                hora=hora_encuentro
+                hora=hora_encuentro,
+                usuario_ofertante=publicacion_oferta.autor,
+                usuario_recibe=publicacion_base.autor,
             )
             mensaje = 'Oferta creada con éxito.'
         else:

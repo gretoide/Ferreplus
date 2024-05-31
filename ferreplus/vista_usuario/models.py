@@ -61,8 +61,13 @@ class Imagen(models.Model):
 class Oferta(models.Model):
     base = models.ForeignKey(Publicacion, on_delete=models.CASCADE, related_name='ofertas_como_base')
     oferta = models.ForeignKey(Publicacion, on_delete=models.CASCADE, related_name='ofertas_como_oferta')
-    hora = models.TimeField() 
+    usuario_ofertante = models.ForeignKey(User, on_delete=models.CASCADE, related_name='ofertas_hechas')
+    usuario_recibe = models.ForeignKey(User, on_delete=models.CASCADE, related_name='ofertas_recibidas')
+    hora = models.TimeField()
     fecha_intercambio = models.DateField()
+
+    def __str__(self):
+        return f'Oferta de {self.usuario_ofertante} para {self.usuario_recibe} el {self.fecha_intercambio}'
 
 class Intercambio(models.Model):
     
