@@ -61,7 +61,10 @@ def pagina_principal(request):
 @normal_required
 def subir_publicacion(request):
     
+    sucursales = Sucursal.objects.all()
+
     if request.method == "POST":
+        
         # Obtener datos de la publicación y las imágenes del formulario
         datos_publicacion = request.POST.dict()
         usuario = request.user
@@ -76,7 +79,7 @@ def subir_publicacion(request):
         if len(imagenes) > 5 or len(imagenes) <= 0:
             return render(request, 'vista_usuario/subir_publicacion.html', {'error': 'El máximo de imágenes es 5 y el mínimo 1.', "sucursales": Sucursal.objects.all()})
         if not exito:
-            return render(request, 'vista_usuario/subir_publicacion.html', {'error': mensaje_error, "sucursales": Sucursal.objects.all()})
+            return render(request, 'vista_usuario/subir_publicacion.html', {'error': mensaje_error, "sucursales": sucursales})
         else:
             # Crear publicación
             modulos_publicacion.crear_publicacion(datos_publicacion,usuario,imagenes)
@@ -85,7 +88,7 @@ def subir_publicacion(request):
             return render(request, 'vista_usuario/subir_publicacion.html', {'aviso': "La publicación se ha creado con éxito.", "sucursales": Sucursal.objects.all()})
     else:
         # Si es una solicitud GET, simplemente renderizar la página principal
-        return render(request, 'vista_usuario/subir_publicacion.html',{"sucursales": Sucursal.objects.all()})
+        return render(request, 'vista_usuario/subir_publicacion.html',{"sucursales": sucursales})
 
 # Apartado de 'Mis publicaciones'
 @login_required

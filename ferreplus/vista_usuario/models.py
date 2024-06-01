@@ -39,7 +39,7 @@ class Publicacion(models.Model):
     titulo = models.CharField(max_length=100)
     estado = models.CharField(max_length=10, choices=ESTADOS_CHOICES, default=NUEVO)
     categoria = models.CharField(max_length=50, choices=CATEGORIA_CHOICES)
-    sucursal = models.CharField(max_length=100)  # Esto puede cambiarse a ForeignKey si tienes una tabla de sucursales
+    sucursal = models.ForeignKey(Sucursal, on_delete=models.SET_NULL, null=True)
     descripcion = models.TextField()
     autor = models.ForeignKey(User, on_delete=models.CASCADE)
     es_privada = models.BooleanField(default=False)
