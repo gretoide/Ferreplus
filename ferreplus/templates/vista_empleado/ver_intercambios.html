@@ -83,31 +83,7 @@
     </div>
     {% endblock %}
 
-    <!-- Modal de Selección de Usuario -->
-    <div class="modal fade" id="ausenteModal" tabindex="-1" aria-labelledby="ausenteModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="ausenteModalLabel">Seleccionar Usuario</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form id="ausenteForm" method="post" action="">
-                        {% csrf_token %}
-                        <div class="form-group">
-                            <label for="usuarioSelect">Seleccionar Usuario</label>
-                            <select class="form-control" id="usuarioSelect" name="usuario_id">
-                                <!-- Opciones serán llenadas dinámicamente -->
-                            </select>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Confirmar</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+    
     
 <script>
     function cancelado(intercambioID) {
@@ -119,26 +95,7 @@
     }
 
     function ausente(intercambioID) {
-        // Realiza una solicitud AJAX para obtener los usuarios relacionados con las publicaciones
-        fetch(`/obtener-usuarios/${intercambioID}/`)
-            .then(response => response.json())
-            .then(data => {
-                const usuarioSelect = document.getElementById('usuarioSelect');
-                usuarioSelect.innerHTML = '';
-
-                data.usuarios.forEach(usuario => {
-                    const option = document.createElement('option');
-                    option.value = usuario.id;
-                    option.text = usuario.nombre;
-                    usuarioSelect.appendChild(option);
-                });
-
-                // Establece la acción del formulario para enviar el intercambioID seleccionado
-                document.getElementById('ausenteForm').action = '/intercambio-ausente/' + intercambioID + '/';
-
-                // Muestra el modal
-                $('#ausenteModal').modal('show');
-            });
+        window.location.href = '/intercambio-ausente/' + intercambioID + '/';
     }
 </script>
     <!-- Enlace a Bootstrap JS -->

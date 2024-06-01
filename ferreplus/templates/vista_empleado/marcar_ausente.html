@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Marcar Ausente</title>
+</head>
+<body>
+    <h1>Marcar Ausente</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="usuario_ausente">Seleccione el usuario ausente:</label>
+        <select name="usuario_ausente" id="usuario_ausente">
+            <option value="{{ usuario_uno.id }}">{{ usuario_uno.username }}</option>
+            <option value="{{ usuario_dos.id }}">{{ usuario_dos.username }}</option>
+        </select>
+        <button type="submit">Marcar como Ausente</button>
+    </form>
+</body>
+</html>

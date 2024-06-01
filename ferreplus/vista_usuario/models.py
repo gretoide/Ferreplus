@@ -86,7 +86,7 @@ class Intercambio(models.Model):
 
     base = models.ForeignKey(Publicacion, related_name='base_intercambios', on_delete=models.SET_NULL, null=True)
     hora = models.TimeField() 
-    fecha_intercambio = models.DateField()
+    fecha_intercambio = models.DateField(null=True)
     sucursal = models.ForeignKey(Sucursal, on_delete=models.SET_NULL, null=True)
     ofer = models.ForeignKey(Publicacion, related_name='oferta_intercambios', on_delete=models.SET_NULL, null=True)
     estado = models.CharField(max_length=20, choices=ESTADOS_CHOICES, default=PENDIENTE)
