@@ -233,16 +233,16 @@ def mis_ofertas(request):
         if request.user == oferta.usuario_recibe:
             mensaje, exito = modulos_intercambio.procesar_intercambio(oferta)
             if exito:
-                return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario','mis_ofertas.html'), {'message': mensaje})
+                return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario','mis_ofertas.html'), {'aviso': mensaje})
             else:
-                return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario','mis_ofertas.html'), {'error': mensaje})
+                return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario','mis_ofertas.html'), {'aviso': mensaje})
         else:
-            return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario','mis_ofertas.html'), {'error': 'No tienes permisos para realizar esta acción.'})
+            return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario','mis_ofertas.html'), {'aviso': 'No tienes permisos para realizar esta acción.'})
 
     ofertas = Oferta.objects.filter(usuario_recibe=request.user)
     if len(ofertas) == 0:
         error = 'Usted aún no ha recibido solicitudes de intercambio.'
-        return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario','mis_ofertas.html'), {'ofertas': ofertas, 'error' : error})
+        return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario','mis_ofertas.html'), {'ofertas': ofertas, 'aviso' : error})
     else:
         return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario','mis_ofertas.html'), {'ofertas' : ofertas})
 # APARTADO DE USUARIO
