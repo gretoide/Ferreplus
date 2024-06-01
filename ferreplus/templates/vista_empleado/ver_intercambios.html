@@ -49,10 +49,13 @@
                 <tbody>
                     {% for intercambio in intercambios %}
                         <tr>
-                            <td>{{ intercambio.publicacion_base }}</td>
-                            <td>{{ intercambio.publicacion_oferta }}</td>
+                            <td>{{ intercambio.base.titulo }}</td>
+                            <td class="icon-cell"><i class='bx bx-transfer'></i></td>
+                            <td>{{ intercambio.base.titulo }}</td>
                             <td>{{ intercambio.fecha_intercambio }}</td>
                             <td>{{ intercambio.hora }}</td>
+                            <td>{{ intercambio.estado }}</td>
+                            <td>{{ intercambio.base.sucursal.nombre }}</td>
                             <td>
                                 <button id="{{intercambio.id}}" class="btn btn-danger" onclick="realizado('{{ intercambio.id }}')">
                                     <i class="bx bx-trash"></i>
