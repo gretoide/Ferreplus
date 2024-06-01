@@ -13,10 +13,11 @@
 <body>
     <div class="custom-container">
         <button id="BotonVolver" class="btn btn-secondary">
-            <a href="{% url 'pagina_principal' %}" class="text-white">
-                <i class='bx bx-chevron-left'></i>
-                <span>Volver</span>
-            </a>
+          <a href="{% url 'pagina_principal' %}">
+            <i class='bx bx-chevron-left'>
+              <span>Volver</span>
+            </i>
+          </a>
         </button>
     </div>
     <div class="container">
@@ -49,7 +50,7 @@
                         <td>{{ oferta.oferta.titulo }}</td>
                         <td>{{ oferta.fecha_intercambio }}</td>
                         <td>{{ oferta.hora }}</td>
-                        <td>{{ oferta.base.sucursal }}</td>
+                        <td>{{ oferta.base.sucursal.nombre }}</td>
                         <td class="action-btn">
                             <form method="post" action="{% url 'mis_ofertas' %}">
                                 {% csrf_token %}
