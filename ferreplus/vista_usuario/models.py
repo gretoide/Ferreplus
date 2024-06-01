@@ -71,22 +71,22 @@ class Oferta(models.Model):
 
 class Intercambio(models.Model):
     
-    REALIZADO = 'realizado'
-    CANCELADO = 'cancelado'
-    CANCELADO_AUSENTE = 'cancelado_ausente'
-    PENDIENTE = 'pendiente'
+    REALIZADO = 'REALIZADO'
+    CANCELADO = 'CANCELADO'
+    CANCELADO_AUSENTE = 'CANCELADO_AUSENTE'
+    PENDIENTE = 'PENDIENTE'
 
     ESTADOS_CHOICES = [
-        (REALIZADO, 'Intercambio Realizado'),
-        (CANCELADO, 'Intercambio Cancelado'),
-        (CANCELADO_AUSENTE, 'Cancelado por Ausencia'),
-        (PENDIENTE, 'Intercambio Pendiente')
+        (REALIZADO, 'REALIZADO'),
+        (CANCELADO, 'CANCELADO'),
+        (CANCELADO_AUSENTE, 'CANCELADO_AUSENTE'),
+        (PENDIENTE, 'PENDIENTE')
     ]
 
 
     base = models.ForeignKey(Publicacion, related_name='base_intercambios', on_delete=models.SET_NULL, null=True)
     hora = models.TimeField() 
-    fecha_intercambio = models.DateField()
+    fecha_intercambio = models.DateField(null=True)
     sucursal = models.ForeignKey(Sucursal, on_delete=models.SET_NULL, null=True)
     ofer = models.ForeignKey(Publicacion, related_name='oferta_intercambios', on_delete=models.SET_NULL, null=True)
     estado = models.CharField(max_length=20, choices=ESTADOS_CHOICES, default=PENDIENTE)
