@@ -55,7 +55,7 @@
                 <span>Sucursal</span>
                 <label for="sucursal" class="form-label"></label>
                 <select class="form-select" id="select" name="sucursal" required>
-                    <option>{{ publicacion.sucursal }}</option>
+                    <option>{{ publicacion.sucursal.nombre }}</option>
                     {% for sucursal in sucursales %}
                         <option value="{{ sucursal.id }}">{{ sucursal.nombre }}</option>
                     {% endfor %}

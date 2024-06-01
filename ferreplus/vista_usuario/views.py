@@ -5,9 +5,9 @@ from django.core.mail import send_mail
 from django.conf import settings
 from pathlib import Path
 from vista_administrador.models import Sucursal
-from .models import User, Publicacion, Imagen
+from .models import User, Publicacion, Imagen, Oferta
 from ferreplus.modulos import modulos_registro
-from .modulos import modulos_publicacion
+from .modulos import modulos_publicacion, modulos_oferta, modulos_intercambio
 from .forms import PublicacionForm
 from django.contrib.auth.decorators import login_required
 from ferreplus.modulos.modulos_inicio_sesion import normal_required
@@ -57,13 +57,14 @@ def pagina_principal(request):
     print('-'*100,imagenes_por_publicacion)
     return render(request, 'vista_usuario/vista_principal.html', {'publicaciones': publicaciones, 'imagenes_por_publicacion': imagenes_por_publicacion})
 
-
-    
 @login_required
 @normal_required
 def subir_publicacion(request):
     
+    sucursales = Sucursal.objects.all()
+
     if request.method == "POST":
+        
         # Obtener datos de la publicación y las imágenes del formulario
         datos_publicacion = request.POST.dict()
         usuario = request.user
@@ -78,7 +79,7 @@ def subir_publicacion(request):
         if len(imagenes) > 5 or len(imagenes) <= 0:
             return render(request, 'vista_usuario/subir_publicacion.html', {'error': 'El máximo de imágenes es 5 y el mínimo 1.', "sucursales": Sucursal.objects.all()})
         if not exito:
-            return render(request, 'vista_usuario/subir_publicacion.html', {'error': mensaje_error, "sucursales": Sucursal.objects.all()})
+            return render(request, 'vista_usuario/subir_publicacion.html', {'error': mensaje_error, "sucursales": sucursales})
         else:
             # Crear publicación
             modulos_publicacion.crear_publicacion(datos_publicacion,usuario,imagenes)
@@ -87,58 +88,8 @@ def subir_publicacion(request):
             return render(request, 'vista_usuario/subir_publicacion.html', {'aviso': "La publicación se ha creado con éxito.", "sucursales": Sucursal.objects.all()})
     else:
         # Si es una solicitud GET, simplemente renderizar la página principal
-        return render(request, 'vista_usuario/subir_publicacion.html',{"sucursales": Sucursal.objects.all()})
-
-# Apartado de 'Mis publicaciones'
-@login_required
-@normal_required
-def mis_publicaciones(request):
-    if request.method == 'POST':
-        publicacion_id = request.POST.get('publicacion_id')
-        publicacion = get_object_or_404(Publicacion, pk=publicacion_id)
-
-        if request.user == publicacion.autor:
-            publicacion.delete()
-            return redirect('mis_publicaciones')
-        else:
-            return redirect('mis_publicaciones')
-
-    publicaciones = Publicacion.objects.filter(autor=request.user)
-    if len(publicaciones) == 0:
-        error = 'No hay publicaciones cargadas.'
-        return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario','mis_publicaciones.html'), {'publicaciones': publicaciones, 'error' : error})
-    else:
-        return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario','mis_publicaciones.html'), {'publicaciones': publicaciones})
-
-@login_required
-@normal_required
-def detalle_publicacion(request, publicacion_id):
-    publicacion = get_object_or_404(Publicacion, id=publicacion_id)
-    imagenes = publicacion.imagenes.all()
-
-    return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario','detalle_publicacion.html'), {'publicacion': publicacion, 'imagenes': imagenes})
-
-@login_required
-@normal_required
-def publicacion_existente(request, publicacion_id):
-    # Me quedo con la publicación del usuario
-    publicacion_a_ofertar = get_object_or_404(Publicacion, id=publicacion_id)
-    publicaciones_usuario = Publicacion.objects.filter(autor=request.user)
+        return render(request, 'vista_usuario/subir_publicacion.html',{"sucursales": sucursales})
     
-    contexto = {
-        'publicacion_a_ofertar': publicacion_a_ofertar,
-        'publicaciones_usuario': publicaciones_usuario,
-    }
-    return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario','publicacion_existente.html'), contexto)
-
-@login_required
-@normal_required
-def oferta_privada(request, publicacion_id):
-    publicacion = get_object_or_404(Publicacion, id=publicacion_id)
-    
-    return render(request,'vista_usuario/publicacion_existente.html', {'publicacion': publicacion})
-
-
 @login_required
 @normal_required
 def editar_publicacion(request, pk):
@@ -206,6 +157,35 @@ def editar_publicacion(request, pk):
         'publicacion': publicacion,
         'sucursales': Sucursal.objects.all()
     })
+
+# Apartado de 'Mis publicaciones'
+@login_required
+@normal_required
+def mis_publicaciones(request):
+    if request.method == 'POST':
+        publicacion_id = request.POST.get('publicacion_id')
+        publicacion = get_object_or_404(Publicacion, pk=publicacion_id)
+
+        if request.user == publicacion.autor:
+            publicacion.delete()
+            return redirect('mis_publicaciones')
+        else:
+            return redirect('mis_publicaciones')
+
+    publicaciones = Publicacion.objects.filter(autor=request.user)
+    if len(publicaciones) == 0:
+        error = 'No hay publicaciones cargadas.'
+        return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario','mis_publicaciones.html'), {'publicaciones': publicaciones, 'error' : error})
+    else:
+        return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario','mis_publicaciones.html'), {'publicaciones': publicaciones})
+
+@login_required
+@normal_required
+def detalle_publicacion(request, publicacion_id):
+    publicacion = get_object_or_404(Publicacion, id=publicacion_id)
+    imagenes = publicacion.imagenes.all()
+
+    return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario','detalle_publicacion.html'), {'publicacion': publicacion, 'imagenes': imagenes})
     
 @login_required
 @normal_required
@@ -213,7 +193,65 @@ def crear_oferta(request):
     return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario','crear_oferta.html'))
 
 
+# APARTADO DE OFERTAS E INTERCAMBIOS
+@login_required
+@normal_required
+def publicacion_existente(request, publicacion_id):
+    publicacion_base = get_object_or_404(Publicacion, id=publicacion_id)
+    publicaciones_usuario = Publicacion.objects.filter(autor=request.user)
 
+    mensaje = ''
+
+    if request.method == "POST":
+        publicacion_id = request.POST.get('publicacion')
+        fecha_encuentro = request.POST.get('fecha_encuentro')
+        hora_encuentro = request.POST.get('hora_encuentro')
+
+        mensaje, success = modulos_oferta.procesar_oferta(publicacion_base, request.user, publicacion_id, fecha_encuentro, hora_encuentro)
+        
+        if success:
+            mensaje = 'Oferta creada con éxito.'
+    
+    contexto = {
+        'aviso': mensaje,
+        'publicacion_a_ofertar': publicacion_base,
+        'publicaciones_usuario': publicaciones_usuario
+    }
+    return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario', 'publicacion_existente.html'), contexto)
+
+@login_required
+@normal_required
+def oferta_privada(request, publicacion_id):
+    publicacion = get_object_or_404(Publicacion, id=publicacion_id)
+    
+    return render(request,'vista_usuario/publicacion_existente.html', {'publicacion': publicacion})
+
+@login_required
+@normal_required
+def mis_ofertas(request):
+    if request.method == 'POST':
+        oferta_id = request.POST.get('oferta_id')
+        oferta = get_object_or_404(Oferta, pk=oferta_id)
+
+        if request.user == oferta.usuario_recibe:
+            mensaje, exito = modulos_intercambio.procesar_intercambio(oferta)
+            if exito:
+                return redirect('mis_ofertas')  # Redirecciona para actualizar la página
+            else:
+                return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario', 'mis_ofertas.html'), {'aviso': mensaje})
+        else:
+            return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario', 'mis_ofertas.html'), {'aviso': 'No tienes permisos para realizar esta acción.'})
+
+    else:
+        ofertas = Oferta.objects.filter(usuario_recibe=request.user)
+
+        if len(ofertas) == 0:
+            error = 'Usted aún no ha recibido solicitudes de intercambio.'
+            return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario', 'mis_ofertas.html'), {'ofertas': ofertas, 'aviso': error})
+        else:
+            return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario', 'mis_ofertas.html'), {'ofertas': ofertas})
+        
+# APARTADO DE USUARIO
 
 def registro(request):
     
@@ -245,11 +283,7 @@ def registro(request):
 
     else:
         return render(request, "vista_usuario/registro_usuario.html")
-    
-
-
-    
-
+       
 def restablecerContraseña(request):
     if request.method == "GET":
         return render(request, os.path.join(TEMPLATE_DIR,'vista_usuario','reestablecer_contraseña.html'), {

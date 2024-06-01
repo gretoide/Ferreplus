@@ -1,4 +1,5 @@
-from vista_usuario.models import Publicacion, Imagen, User
+from vista_usuario.models import Publicacion, Imagen, User, Sucursal
+from django.shortcuts import get_object_or_404
 
 def verificar_campos(datos_publicacion):
     """
@@ -15,12 +16,15 @@ def verificar_campos(datos_publicacion):
 
 
 def crear_publicacion(datos_publicacion, user, imagenes):
+
+    sucursal_id = datos_publicacion.get('sucursal')
+
     # Crear la nueva publicación
     nueva_publicacion = Publicacion.objects.create(
         titulo=datos_publicacion.get('titulo'),
         estado=datos_publicacion.get('estado'),
         categoria=datos_publicacion.get('categoria'),
-        sucursal=datos_publicacion.get('sucursal'),
+        sucursal = get_object_or_404(Sucursal, id=sucursal_id),
         descripcion=datos_publicacion.get('descripcion'),
         autor=user
     )

@@ -139,7 +139,7 @@
                         <select class="form-select" id="select" name="sucursal" required>
                             <option disabled selected>Seleccionar</option>
                             {% for sucursal in sucursales %}
-                            <option value="{{ sucursal.nombre }}">{{ sucursal.nombre }}</option>
+                            <option value="{{ sucursal.id }}">{{ sucursal.nombre }}</option>
                         {% endfor %}
                         </select>
                     </label>

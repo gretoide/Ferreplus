@@ -39,35 +39,41 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th scope="col">Id Publicación Base</th>
-                        <th scope="col">Id Publicación Oferta</th>
-                        <th scope="col">Fecha Acordada</th>
-                        <th scope="col">Hora Acordada</th>
-                        
+                        <th scope="col" class="text-center">Publicación Base</th>
+                        <th class="text-center"></th>
+                        <th scope="col" class="text-center">Publicación Ofrecida</th>
+                        <th scope="col" class="text-center">Fecha Acordada</th>
+                        <th scope="col" class="text-center">Hora Acordada</th>
+                        <th scope="col" class="text-center">Estado</th>
+                        <th scope="col" class="text-center">Registro</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for intercambio in intercambios %}
                         <tr>
-                            <td>{{ intercambio.publicacion_base }}</td>
-                            <td>{{ intercambio.publicacion_oferta }}</td>
-                            <td>{{ intercambio.fecha_intercambio }}</td>
-                            <td>{{ intercambio.hora }}</td>
-                            <td>
-                                <button id="{{intercambio.id}}" class="btn btn-danger" onclick="realizado('{{ intercambio.id }}')">
-                                    <i class="bx bx-trash"></i>
-                                    <span>Realizado</span>
-                                </button>
-
-                                <button id="{{intercambio.id}}" class="btn btn-danger" onclick="cancelado('{{ intercambio.id }}')">
-                                    <i class="bx bx-trash"></i>
-                                    <span>Cancelado</span>
-                                </button>
-
-                                <button id="{{intercambio.id}}" class="btn btn-danger" onclick="ausente('{{ intercambio.id }}')">
-                                    <i class="bx bx-trash"></i>
-                                    <span>Ausente</span>
-                                </button>
+                            <td class="text-center">{{ intercambio.base.titulo }}</td>
+                            <td class="text-center icon-cell"><i class='bx bx-transfer'></i></td>
+                            <td class="text-center">{{ intercambio.ofer.titulo }}</td>
+                            <td class="text-center">{{ intercambio.fecha_intercambio }}</td>
+                            <td class="text-center">{{ intercambio.hora }}</td>
+                            <td class="text-center">{{ intercambio.estado }}</td>
+                            <td class="text-center">
+                                <div class="d-flex">
+                                    <div class="btn-group-vertical">
+                                        <button id="{{intercambio.id}}" class="btn btn-danger mb-1" onclick="realizado('{{ intercambio.id }}')">
+                                            <i class='bx bx-check'></i>
+                                            <span>Realizado</span>
+                                        </button>
+                                        <button id="{{intercambio.id}}" class="btn btn-danger mb-1" onclick="cancelado('{{ intercambio.id }}')">
+                                            <i class='bx bx-x'></i>
+                                            <span>Cancelado</span>
+                                        </button>
+                                        <button id="{{intercambio.id}}" class="btn btn-danger" onclick="ausente('{{ intercambio.id }}')">
+                                            <i class='bx bx-run'></i>
+                                            <span>Ausente</span>
+                                        </button>
+                                    </div>
+                                </div>
                             </td>
                         </tr>
                     {% endfor %}

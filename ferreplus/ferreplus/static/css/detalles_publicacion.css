@@ -224,7 +224,7 @@ body {
 
 /*------------------------checkbox--------------------------*/
 
-input[type="checkbox"] {
+input[type="radio"] {
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -238,12 +238,12 @@ input[type="checkbox"] {
     cursor: pointer;
 }
 
-input[type="checkbox"]:checked {
+input[type="radio"]:checked {
     background-color: #ffd100; /* Puedes cambiar el color del checkbox seleccionado */
     border-color: #ffd100; /* Puedes cambiar el color del borde del checkbox seleccionado */
 }
 
-input[type="checkbox"]:checked:after {
+input[type="radio"]:checked:after {
     content: "";
     display: block;
     width: 6px;
@@ -254,7 +254,7 @@ input[type="checkbox"]:checked:after {
     margin: 2px 0 0 4px;
 }
 
-input[type="checkbox"] + label {
+input[type="radio"] + label {
     cursor: pointer;
     color: #ccc; /* Cambiado el color del texto de la etiqueta a gris claro */
 }
@@ -294,4 +294,11 @@ input[type="checkbox"] + label {
 
 .col-md-6 {
     min-height: 400px; /* Ajusta esta altura según tus necesidades */
+}
+
+/*-----------------------------alerta---------------------------*/
+
+.alert {
+    width: 300px;
+    margin: 0 auto;
 }

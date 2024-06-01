@@ -39,7 +39,7 @@ class Publicacion(models.Model):
     titulo = models.CharField(max_length=100)
     estado = models.CharField(max_length=10, choices=ESTADOS_CHOICES, default=NUEVO)
     categoria = models.CharField(max_length=50, choices=CATEGORIA_CHOICES)
-    sucursal = models.CharField(max_length=100)  # Esto puede cambiarse a ForeignKey si tienes una tabla de sucursales
+    sucursal = models.ForeignKey(Sucursal, on_delete=models.SET_NULL, null=True)
     descripcion = models.TextField()
     autor = models.ForeignKey(User, on_delete=models.CASCADE)
     es_privada = models.BooleanField(default=False)
@@ -61,8 +61,13 @@ class Imagen(models.Model):
 class Oferta(models.Model):
     base = models.ForeignKey(Publicacion, on_delete=models.CASCADE, related_name='ofertas_como_base')
     oferta = models.ForeignKey(Publicacion, on_delete=models.CASCADE, related_name='ofertas_como_oferta')
-    hora = models.TimeField() 
+    usuario_ofertante = models.ForeignKey(User, on_delete=models.CASCADE, related_name='ofertas_hechas', default=1)  # Asignar un usuario por defecto
+    usuario_recibe = models.ForeignKey(User, on_delete=models.CASCADE, related_name='ofertas_recibidas', default=1)  # Asignar un usuario por defecto
+    hora = models.TimeField()
     fecha_intercambio = models.DateField()
+
+    def __str__(self):
+        return f'Oferta de {self.usuario_ofertante} para {self.usuario_recibe} el {self.fecha_intercambio}'
 
 class Intercambio(models.Model):
     
