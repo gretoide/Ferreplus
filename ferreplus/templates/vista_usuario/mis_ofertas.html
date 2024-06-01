@@ -9,25 +9,6 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/mis_publicaciones.css' %}">
-    <style>
-        .table th, .table td {
-            vertical-align: middle;
-            text-align: center;
-        }
-        .table td {
-            white-space: nowrap;
-        }
-        .icon-cell {
-            font-size: 1.5rem;
-        }
-        .action-btn {
-            display: flex;
-            justify-content: space-around;
-        }
-        .custom-container {
-            margin-top: 20px;
-        }
-    </style>
 </head>
 <body>
     <div class="custom-container">
@@ -70,11 +51,15 @@
                         <td>{{ oferta.hora }}</td>
                         <td>{{ oferta.base.sucursal }}</td>
                         <td class="action-btn">
-                            <a href="#" class="btn btn-primary">
-                                <i class='bx bx-check'></i>
-                                <span>Aceptar</span>
-                            </a>
-                            <a href="#" class="btn btn-primary" id="rechazarOferta">
+                            <form method="post" action="{% url 'mis_ofertas' %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="oferta_id" value="{{ oferta.id }}">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class='bx bx-check'></i>
+                                    <span>Aceptar</span>
+                                </button>
+                            </form>
+                            <a href="#" class="btn btn-danger">
                                 <i class='bx bx-x'></i>
                                 <span>Rechazar</span>
                             </a>

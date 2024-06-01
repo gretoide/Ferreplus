@@ -7,7 +7,7 @@ from pathlib import Path
 from vista_administrador.models import Sucursal
 from .models import User, Publicacion, Imagen, Oferta
 from ferreplus.modulos import modulos_registro
-from .modulos import modulos_publicacion, modulos_oferta
+from .modulos import modulos_publicacion, modulos_oferta, modulos_intercambio
 from .forms import PublicacionForm
 from django.contrib.auth.decorators import login_required
 from ferreplus.modulos.modulos_inicio_sesion import normal_required
@@ -226,15 +226,18 @@ def oferta_privada(request, publicacion_id):
 @login_required
 @normal_required
 def mis_ofertas(request):
-    """if request.method == 'POST':
-        publicacion_id = request.POST.get('publicacion_id')
-        publicacion = get_object_or_404(Publicacion, pk=publicacion_id)
+    if request.method == 'POST':
+        oferta_id = request.POST.get('oferta_id')
+        oferta = get_object_or_404(Oferta, pk=oferta_id)
 
-        if request.user == publicacion.autor:
-            publicacion.delete()
-            return redirect('mis_publicaciones')
+        if request.user == oferta.usuario_recibe:
+            mensaje, exito = modulos_intercambio.procesar_intercambio(oferta)
+            if exito:
+                return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario','mis_ofertas.html'), {'message': mensaje})
+            else:
+                return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario','mis_ofertas.html'), {'error': mensaje})
         else:
-            return redirect('mis_publicaciones')"""
+            return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario','mis_ofertas.html'), {'error': 'No tienes permisos para realizar esta acción.'})
 
     ofertas = Oferta.objects.filter(usuario_recibe=request.user)
     if len(ofertas) == 0:
@@ -242,7 +245,6 @@ def mis_ofertas(request):
         return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario','mis_ofertas.html'), {'ofertas': ofertas, 'error' : error})
     else:
         return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario','mis_ofertas.html'), {'ofertas' : ofertas})
-
 # APARTADO DE USUARIO
 
 def registro(request):
