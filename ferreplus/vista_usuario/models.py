@@ -61,8 +61,8 @@ class Imagen(models.Model):
 class Oferta(models.Model):
     base = models.ForeignKey(Publicacion, on_delete=models.CASCADE, related_name='ofertas_como_base')
     oferta = models.ForeignKey(Publicacion, on_delete=models.CASCADE, related_name='ofertas_como_oferta')
-    usuario_ofertante = models.ForeignKey(User, on_delete=models.CASCADE, related_name='ofertas_hechas')
-    usuario_recibe = models.ForeignKey(User, on_delete=models.CASCADE, related_name='ofertas_recibidas')
+    usuario_ofertante = models.ForeignKey(User, on_delete=models.CASCADE, related_name='ofertas_hechas', default=1)  # Asignar un usuario por defecto
+    usuario_recibe = models.ForeignKey(User, on_delete=models.CASCADE, related_name='ofertas_recibidas', default=1)  # Asignar un usuario por defecto
     hora = models.TimeField()
     fecha_intercambio = models.DateField()
 
