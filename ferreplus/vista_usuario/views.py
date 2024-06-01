@@ -57,8 +57,6 @@ def pagina_principal(request):
     print('-'*100,imagenes_por_publicacion)
     return render(request, 'vista_usuario/vista_principal.html', {'publicaciones': publicaciones, 'imagenes_por_publicacion': imagenes_por_publicacion})
 
-
-    
 @login_required
 @normal_required
 def subir_publicacion(request):
@@ -117,41 +115,6 @@ def detalle_publicacion(request, publicacion_id):
     imagenes = publicacion.imagenes.all()
 
     return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario','detalle_publicacion.html'), {'publicacion': publicacion, 'imagenes': imagenes})
-
-
-@login_required
-@normal_required
-
-def publicacion_existente(request, publicacion_id):
-    publicacion_base = get_object_or_404(Publicacion, id=publicacion_id)
-    publicaciones_usuario = Publicacion.objects.filter(autor=request.user)
-
-    mensaje = ''
-
-    if request.method == "POST":
-        publicacion_id = request.POST.get('publicacion')
-        fecha_encuentro = request.POST.get('fecha_encuentro')
-        hora_encuentro = request.POST.get('hora_encuentro')
-
-        mensaje, success = modulos_oferta.procesar_oferta(publicacion_base, request.user, publicacion_id, fecha_encuentro, hora_encuentro)
-        
-        if success:
-            mensaje = 'Oferta creada con éxito.'
-
-    contexto = {
-        'aviso': mensaje,
-        'publicacion_a_ofertar': publicacion_base,
-        'publicaciones_usuario': publicaciones_usuario
-    }
-    return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario', 'publicacion_existente.html'), contexto)
-
-@login_required
-@normal_required
-def oferta_privada(request, publicacion_id):
-    publicacion = get_object_or_404(Publicacion, id=publicacion_id)
-    
-    return render(request,'vista_usuario/publicacion_existente.html', {'publicacion': publicacion})
-
 
 @login_required
 @normal_required
@@ -227,7 +190,60 @@ def crear_oferta(request):
     return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario','crear_oferta.html'))
 
 
+# APARTADO DE OFERTAS E INTERCAMBIOS
+@login_required
+@normal_required
+def publicacion_existente(request, publicacion_id):
+    publicacion_base = get_object_or_404(Publicacion, id=publicacion_id)
+    publicaciones_usuario = Publicacion.objects.filter(autor=request.user)
 
+    mensaje = ''
+
+    if request.method == "POST":
+        publicacion_id = request.POST.get('publicacion')
+        fecha_encuentro = request.POST.get('fecha_encuentro')
+        hora_encuentro = request.POST.get('hora_encuentro')
+
+        mensaje, success = modulos_oferta.procesar_oferta(publicacion_base, request.user, publicacion_id, fecha_encuentro, hora_encuentro)
+        
+        if success:
+            mensaje = 'Oferta creada con éxito.'
+
+    contexto = {
+        'aviso': mensaje,
+        'publicacion_a_ofertar': publicacion_base,
+        'publicaciones_usuario': publicaciones_usuario
+    }
+    return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario', 'publicacion_existente.html'), contexto)
+
+@login_required
+@normal_required
+def oferta_privada(request, publicacion_id):
+    publicacion = get_object_or_404(Publicacion, id=publicacion_id)
+    
+    return render(request,'vista_usuario/publicacion_existente.html', {'publicacion': publicacion})
+
+@login_required
+@normal_required
+def mis_ofertas(request):
+    """if request.method == 'POST':
+        publicacion_id = request.POST.get('publicacion_id')
+        publicacion = get_object_or_404(Publicacion, pk=publicacion_id)
+
+        if request.user == publicacion.autor:
+            publicacion.delete()
+            return redirect('mis_publicaciones')
+        else:
+            return redirect('mis_publicaciones')"""
+
+    ofertas = Oferta.objects.filter(usuario_recibe=request.user)
+    if len(ofertas) == 0:
+        error = 'Usted aún no ha recibido solicitudes de intercambio.'
+        return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario','mis_ofertas.html'), {'ofertas': ofertas, 'error' : error})
+    else:
+        return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario','mis_ofertas.html'), {'ofertas' : ofertas})
+
+# APARTADO DE USUARIO
 
 def registro(request):
     
@@ -259,11 +275,7 @@ def registro(request):
 
     else:
         return render(request, "vista_usuario/registro_usuario.html")
-    
-
-
-    
-
+       
 def restablecerContraseña(request):
     if request.method == "GET":
         return render(request, os.path.join(TEMPLATE_DIR,'vista_usuario','reestablecer_contraseña.html'), {
