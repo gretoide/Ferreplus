@@ -7,7 +7,7 @@ from pathlib import Path
 from vista_administrador.models import Sucursal
 from .models import User, Publicacion, Imagen, Oferta
 from ferreplus.modulos import modulos_registro
-from .modulos import modulos_publicacion
+from .modulos import modulos_publicacion, modulos_oferta
 from .forms import PublicacionForm
 from django.contrib.auth.decorators import login_required
 from ferreplus.modulos.modulos_inicio_sesion import normal_required
@@ -118,34 +118,31 @@ def detalle_publicacion(request, publicacion_id):
 
     return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario','detalle_publicacion.html'), {'publicacion': publicacion, 'imagenes': imagenes})
 
+
+@login_required
+@normal_required
+
 def publicacion_existente(request, publicacion_id):
     publicacion_base = get_object_or_404(Publicacion, id=publicacion_id)
     publicaciones_usuario = Publicacion.objects.filter(autor=request.user)
-    
-    if request.method == "POST":
-        form_data = request.POST
-        publicacion_id = form_data.get('publicacion')
-        fecha_encuentro = form_data.get('fecha_encuentro')
-        hora_encuentro = form_data.get('hora_encuentro')
-        
-        if all([publicacion_id, fecha_encuentro, hora_encuentro]):
-            publicacion_oferta = get_object_or_404(Publicacion, id=publicacion_id)
-            Oferta.objects.create(
-                base=publicacion_base,
-                oferta=publicacion_oferta,
-                fecha_intercambio=fecha_encuentro,
-                hora=hora_encuentro,
-                usuario_ofertante=publicacion_oferta.autor,
-                usuario_recibe=publicacion_base.autor,
-            )
-            mensaje = 'Oferta creada con éxito.'
-        else:
-            mensaje = 'Debe seleccionar una publicación para el intercambio.'
-        
-        contexto = {'aviso': mensaje, 'publicacion_a_ofertar': publicacion_base, 'publicaciones_usuario': publicaciones_usuario}
-        return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario', 'publicacion_existente.html'), contexto)
 
-    contexto = {'publicacion_a_ofertar': publicacion_base, 'publicaciones_usuario': publicaciones_usuario}
+    mensaje = ''
+
+    if request.method == "POST":
+        publicacion_id = request.POST.get('publicacion')
+        fecha_encuentro = request.POST.get('fecha_encuentro')
+        hora_encuentro = request.POST.get('hora_encuentro')
+
+        mensaje, success = modulos_oferta.procesar_oferta(publicacion_base, request.user, publicacion_id, fecha_encuentro, hora_encuentro)
+        
+        if success:
+            mensaje = 'Oferta creada con éxito.'
+
+    contexto = {
+        'aviso': mensaje,
+        'publicacion_a_ofertar': publicacion_base,
+        'publicaciones_usuario': publicaciones_usuario
+    }
     return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario', 'publicacion_existente.html'), contexto)
 
 @login_required
