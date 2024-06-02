@@ -14,6 +14,8 @@ def procesar_intercambio(oferta):
         sucursal=get_object_or_404(Sucursal, id=sucursal_id),
         ofer=oferta.oferta,
         estado=Intercambio.PENDIENTE,
+        user_ofrece=oferta.usuario_ofertante,
+        user_recibe=oferta.usuario_recibe,
         usuario_ausente=None
     )
 

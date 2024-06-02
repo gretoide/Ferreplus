@@ -52,13 +52,13 @@
                     {% for intercambio in intercambios %}
                         <tr>
                             {% if intercambio.base.usuario == user %}
-                                <td class="text-center">{{ intercambio.ofer.titulo }}</td>
-                                <td class="text-center icon-cell"><i class='bx bx-transfer'></i></td>
-                                <td class="text-center">{{ intercambio.ofer.titulo }}</td>
-                            {% else %}
                                 <td class="text-center">{{ intercambio.base.titulo }}</td>
                                 <td class="text-center icon-cell"><i class='bx bx-transfer'></i></td>
                                 <td class="text-center">{{ intercambio.ofer.titulo }}</td>
+                            {% else %}
+                                <td class="text-center">{{ intercambio.ofer.titulo }}</td>
+                                <td class="text-center icon-cell"><i class='bx bx-transfer'></i></td>
+                                <td class="text-center">{{ intercambio.base.titulo }}</td>
                             {% endif %}
                             <td class="text-center">{{ intercambio.fecha_intercambio }}</td>
                             <td class="text-center">{{ intercambio.hora }}</td>

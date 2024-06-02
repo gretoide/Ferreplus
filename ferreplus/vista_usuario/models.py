@@ -47,7 +47,6 @@ class Publicacion(models.Model):
     imagenes = models.ManyToManyField(
         'Imagen',
         related_name='publicaciones',
-        validators=[MaxValueValidator(5, 'Solo se permiten hasta 5 imágenes.')]
     )  # Relación ManyToMany con Imagen
 
 class Imagen(models.Model):
@@ -62,7 +61,7 @@ class Oferta(models.Model):
     base = models.ForeignKey(Publicacion, on_delete=models.CASCADE, related_name='ofertas_como_base')
     oferta = models.ForeignKey(Publicacion, on_delete=models.CASCADE, related_name='ofertas_como_oferta')
     usuario_ofertante = models.ForeignKey(User, on_delete=models.CASCADE, related_name='ofertas_hechas', default=1)  # Asignar un usuario por defecto
-    usuario_recibe = models.ForeignKey(User, on_delete=models.CASCADE, related_name='ofertas_recibidas', default=1)  # Asignar un usuario por defecto
+    usuario_recibe = models.ForeignKey(User, on_delete=models.CASCADE, related_name='ofertas_recibidas_oferta', default=1)  # Asignar un usuario por defecto
     hora = models.TimeField()
     fecha_intercambio = models.DateField()
 
@@ -90,4 +89,6 @@ class Intercambio(models.Model):
     sucursal = models.ForeignKey(Sucursal, on_delete=models.SET_NULL, null=True)
     ofer = models.ForeignKey(Publicacion, related_name='oferta_intercambios', on_delete=models.SET_NULL, null=True)
     estado = models.CharField(max_length=20, choices=ESTADOS_CHOICES, default=PENDIENTE)
+    user_ofrece = models.ForeignKey(User, on_delete=models.CASCADE, related_name='ofertas_ofrecidas', default=1)
+    user_recibe = models.ForeignKey(User, on_delete=models.CASCADE, related_name='ofertas_recibidas', default=1)
     usuario_ausente = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
