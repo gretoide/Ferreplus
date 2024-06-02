@@ -48,7 +48,7 @@
                 <tbody>
                     {% for intercambio in intercambios %}
                         <tr>
-                            {% if intercambio.base.usuario == user %}
+                            {% if intercambio.base.autor == user %}
                                 <td class="text-center">{{ intercambio.base.titulo }}</td>
                                 <td class="text-center icon-cell"><i class='bx bx-transfer'></i></td>
                                 <td class="text-center">{{ intercambio.ofer.titulo }}</td>
