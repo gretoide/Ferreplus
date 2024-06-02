@@ -59,18 +59,29 @@ def intercambio_ausente(request, intercambio_id):
     intercambio = get_object_or_404(Intercambio, id=intercambio_id)
     usuario_uno = intercambio.base.autor
     usuario_dos = intercambio.ofer.autor
+    usuarios = [usuario_uno,usuario_dos]
 
-    if request.method == 'POST':
+    context = {
+        'usuarios': usuarios,
+        'intercambio': intercambio
+    }
+    return render(request, 'vista_empleado/marcar_ausente.html', context)
+
+    """if request.method == 'POST':
         usuario_ausente_id = request.POST.get('usuario_ausente')
         usuario_ausente = get_object_or_404(User, id=usuario_ausente_id)
         intercambio.estado = Intercambio.CANCELADO_AUSENTE
         intercambio.usuario_ausente = usuario_ausente
         intercambio.save()
         return redirect(listar_intercambios_pendientes)  # Update this to your actual main view name
+    """
 
-    context = {
-        'usuario_uno': usuario_uno,
-        'usuario_dos': usuario_dos,
-        'intercambio': intercambio
-    }
-    return render(request, 'vista_empleado/marcar_ausente.html', context)
+def marcado_ausente(request,intercambio_id,usuario_id):
+    
+    usuario_ausente = get_object_or_404(User, id=usuario_id)
+    intercambio = get_object_or_404(Intercambio, id=intercambio_id)
+
+    intercambio.estado = Intercambio.CANCELADO_AUSENTE
+    intercambio.usuario_ausente = usuario_ausente
+    intercambio.save()
+    return redirect(listar_intercambios_pendientes)  
