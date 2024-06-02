@@ -60,8 +60,16 @@
                             <td class="text-center">{{ intercambio.fecha_intercambio }}</td>
                             <td class="text-center">{{ intercambio.hora }}</td>
                             <td class="text-center">{{ intercambio.sucursal.nombre }}</td>
-                            <td class="text-center">
-                                <span class="badge badge-dark">{{ intercambio.estado }}</span>
+                            <td>
+                                {% if intercambio.estado == 'REALIZADO' %}
+                                <span class="badge badge-success">{{ intercambio.estado }}</span>
+                            {% elif intercambio.estado == 'CANCELADO' %}
+                                <span class="badge badge-danger">{{ intercambio.estado }}</span>
+                            {% elif intercambio.estado == 'CANCELADO_AUSENTE' %}
+                                <span class="badge badge-warning">{{ intercambio.estado }}</span>
+                            {% else %}
+                                <span class="badge badge-primary">{{ intercambio.estado }}</span>
+                            {% endif %}
                             </td>
                         </tr>
                     {% endfor %}

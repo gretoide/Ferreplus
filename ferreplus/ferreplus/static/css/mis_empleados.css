@@ -171,3 +171,10 @@ button {
 .custom-container button span {
     vertical-align: top; /* Alinear verticalmente con el icono */
 }
+
+
+/* badges*/
+
+.badge {
+    padding: 10px;
+}
