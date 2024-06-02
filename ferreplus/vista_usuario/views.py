@@ -203,7 +203,7 @@ def mis_ofertas(request):
         ofertas = Oferta.objects.filter(usuario_recibe=request.user)
 
         if len(ofertas) == 0:
-            error = 'Usted aún no ha recibido solicitudes de intercambio.'
+            error = 'Usted no ha recibido nuevas solicitudes de intercambio.'
             return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario', 'mis_ofertas.html'), {'ofertas': ofertas, 'aviso': error})
         else:
             return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario', 'mis_ofertas.html'), {'ofertas': ofertas})
@@ -220,7 +220,7 @@ def mis_intercambios(request):
     intercambios = intercambios_base | intercambios_oferta
 
     if not intercambios.exists():
-        error = 'Usted aún no posee intercambios.'
+        error = 'Usted no posee nuevos intercambios.'
         return render(request, 'vista_usuario/mis_intercambios.html', {'intercambios': intercambios, 'aviso': error})
     else:
         return render(request, 'vista_usuario/mis_intercambios.html', {'intercambios': intercambios})
