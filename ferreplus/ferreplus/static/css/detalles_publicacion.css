@@ -302,3 +302,9 @@ input[type="radio"] + label {
     width: 300px;
     margin: 0 auto;
 }
+
+/*-----------------------------span del horario-----------------------*/
+
+#SpanHorario {
+    color: #808080;
+}

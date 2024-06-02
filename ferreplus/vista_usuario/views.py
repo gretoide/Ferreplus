@@ -36,6 +36,12 @@ def pagina_principal(request):
     # Obtener el usuario actual
     usuario_actual = request.user
 
+    # Sucursales para filtrar
+    sucursales = Sucursal.objects.all()
+
+    # Chequeamos que tiene solicitudes pendientes para la notificacion
+    solicitudes_pendientes = Oferta.objects.filter(usuario_recibe_id=usuario_actual).count()
+    
     # Obtener todas las publicaciones excepto las del usuario actual
     publicaciones = Publicacion.objects.exclude(autor=usuario_actual)
 
@@ -49,7 +55,12 @@ def pagina_principal(request):
         
         # Almacenar las imágenes en el diccionario con la clave como la publicación misma
         imagenes_por_publicacion[publicacion] = imagenes_publicacion
-    return render(request, 'vista_usuario/vista_principal.html', {'publicaciones': publicaciones, 'imagenes_por_publicacion': imagenes_por_publicacion})
+    return render(request, 'vista_usuario/vista_principal.html', {
+        'publicaciones': publicaciones,
+        'imagenes_por_publicacion': imagenes_por_publicacion,
+        'tiene_solicitudes_pendientes': solicitudes_pendientes > 0,
+        'sucursales': sucursales
+        })
 
 @login_required
 @normal_required

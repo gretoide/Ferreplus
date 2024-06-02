@@ -21,14 +21,15 @@
              <!-- Logo de la empresa -->
             <img src="{% static 'LogoPNG.png' %}"  alt="Logo de FerrePlus" class="logo" width="45" height="45">
             <span class="logo-name">FerrePlus</span>
-
         </div>
+
         <div class="input-group rounded">
             <input type="search" class="form-control rounded" placeholder="Buscar" aria-label="Search" aria-describedby="search-addon" />
             <span class="input-group-text border-0" id="search-addon">
               <i class="bx bx-search-alt"></i>
             </span>
-          </div>
+        </div>
+
         <div class="sidebar">
             <!-- Logo del menu-->
             <div class="logo">
@@ -50,12 +51,15 @@
                         <a href="{% url 'mis_ofertas' %}" class="nav-link">
                             <i class="bx bx-bell icon"></i>
                             <span class="link">Solicitud de intercambios</span>
+                            {% if tiene_solicitudes_pendientes %}
+                            <span><i class='bx bxs-circle bx-tada' style='color:#ff0000' ></i></span>
+                            {% endif %}
                         </a>
                     </li>
                     <li>
                         <a href="#" class="nav-link">
                             <i class="bx bx-repost icon"></i>
-                            <span class="link">Historial de intercambios</span>
+                            <span class="link">Mis intercambios</span>
                         </a>
                     </li>
                     <li>
@@ -77,24 +81,24 @@
                         <div class="mb-3">
                             <span>Estado del producto</span>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                                <input class="form-check-input" type="radio" id="inlineCheckbox1" value="option1">
                                 <label class="form-check-label" for="inlineCheckbox1">Nuevo</label>
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                                <input class="form-check-input" type="radio" id="inlineCheckbox1" value="option1">
                                 <label class="form-check-label" for="inlineCheckbox1">Usado</label>
+                            </div>
                       </div>
                     <li>
                     <li>
                         <div class="mb-3">
                             <!-- Filtrar por sucursal -->
                             <span>Sucursal de preferencia</span>
-                                <select class="form-select" required>
-                                    <option value="" disabled selected>Seleccionar</option>
-                                    <option value="#">One</option>
-                                    <option value="#">Two</option>
-                                    <!-- Agrega más opciones aquí -->
-                                </select>
+                            <select class="form-select" required>
+                                <option disabled selected>Seleccionar</option>
+                                {% for sucursal in sucursales %}
+                                    <option value="{{ sucursal.id }}">{{ sucursal.nombre }}</option>
+                                {% endfor %}
+                            </select>
                         </div>
-                        
                     </li>
                     <div class="custom-container">
                         <button id="BotonVolver" class="btn btn-secondary">
@@ -104,7 +108,6 @@
                             </i>
                           </a>
                         </button>
-                      </div>
                 </ul>
             </div>
         </div>

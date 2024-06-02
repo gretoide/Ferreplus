@@ -33,37 +33,39 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Tu Publicación</th>
-                        <th></th>
-                        <th>Publicación Ofrecida</th>
-                        <th>Fecha</th>
-                        <th>Hora</th>
-                        <th>Sucursal</th>
-                        <th>Acciones</th>
+                        <th scope="col" class="text-center">Tu Publicación</th>
+                        <th class="text-center"></th>
+                        <th scope="col" class="text-center">Publicación Ofrecida</th>
+                        <th scope="col" class="text-center">Fecha</th>
+                        <th scope="col" class="text-center">Hora</th>
+                        <th scope="col" class="text-center">Sucursal</th>
+                        <th scope="col" class="text-center">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for oferta in ofertas %}
                     <tr>
-                        <td>{{ oferta.base.titulo }}</td>
-                        <td class="icon-cell"><i class='bx bx-transfer'></i></td>
-                        <td>{{ oferta.oferta.titulo }}</td>
-                        <td>{{ oferta.fecha_intercambio }}</td>
-                        <td>{{ oferta.hora }}</td>
-                        <td>{{ oferta.base.sucursal.nombre }}</td>
-                        <td class="action-btn">
-                            <form method="post" action="{% url 'mis_ofertas' %}">
-                                {% csrf_token %}
-                                <input type="hidden" name="oferta_id" value="{{ oferta.id }}">
-                                <button type="submit" class="btn btn-primary">
-                                    <i class='bx bx-check'></i>
-                                    <span>Aceptar</span>
-                                </button>
-                            </form>
-                            <a href="#" class="btn btn-danger">
-                                <i class='bx bx-x'></i>
-                                <span>Rechazar</span>
-                            </a>
+                        <td class="text-center">{{ oferta.base.titulo }}</td>
+                        <td class="text-center icon-cell"><i class='bx bx-transfer'></i></td>
+                        <td class="text-center">{{ oferta.oferta.titulo }}</td>
+                        <td class="text-center">{{ oferta.fecha_intercambio }}</td>
+                        <td class="text-center">{{ oferta.hora }}</td>
+                        <td class="text-center">{{ oferta.base.sucursal.nombre }}</td>
+                        <td class="text-center">
+                            <div class="d-flex">
+                                <form method="post" action="{% url 'mis_ofertas' %}">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="oferta_id" value="{{ oferta.id }}">
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class='bx bx-check'></i>
+                                        <span>Aceptar</span>
+                                    </button>
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class='bx bx-x'></i>
+                                        <span>Rechazar</span>
+                                    </button>
+                                </form>
+                            </div>
                         </td>
                     </tr>
                     {% endfor %}

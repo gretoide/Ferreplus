@@ -228,10 +228,42 @@ h6 {
     margin-right: 15px; /* Margen derecho entre las etiquetas */
 }
 
-input[type="checkbox"] {
-    accent-color: #ffd100;
-    background-color: #404040;
-  }
+/*------------------------checkbox--------------------------*/
+
+input[type="radio"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #555; /* Cambiado el color del borde a gris oscuro */
+    border-radius: 4px; /* Forma cuadrada para los checkboxes */
+    vertical-align: middle;
+    margin-right: 8px;
+    background-color: #333; /* Fondo gris oscuro para el checkbox sin seleccionar */
+    cursor: pointer;
+}
+
+input[type="radio"]:checked {
+    background-color: #ffd100; /* Puedes cambiar el color del checkbox seleccionado */
+    border-color: #ffd100; /* Puedes cambiar el color del borde del checkbox seleccionado */
+}
+
+input[type="radio"]:checked:after {
+    content: "";
+    display: block;
+    width: 6px;
+    height: 10px;
+    border: solid #000000; /* Color blanco para la marca de verificación */
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    margin: 2px 0 0 4px;
+}
+
+input[type="radio"] + label {
+    cursor: pointer;
+    color: #ccc; /* Cambiado el color del texto de la etiqueta a gris claro */
+}
 
 /*Apartado de filtros*/
 
@@ -400,4 +432,12 @@ p {
     vertical-align: top; /* Alinear verticalmente con el icono */
 }
 
-/*Probando*/
+/*----------------------Notificaciones de intercambios-----------------------*/
+
+.notification-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background-color: red;
+    border-radius: 50%;
+}
