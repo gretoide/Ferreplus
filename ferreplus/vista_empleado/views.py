@@ -23,12 +23,18 @@ TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 def pagina_empleado(request):
     return render(request,os.path.join(TEMPLATE_DIR,'vista_empleado','inicio_empleado.html')) 
 
+@never_cache
+@login_required
+@staff_required
 def listar_intercambios_pendientes(request):
     usuario = request.user
     sucursal = usuario.sucursal  # Asumiendo que el modelo User tiene una relación con Sucursal
     intercambios = Intercambio.objects.filter(sucursal=sucursal, estado=Intercambio.PENDIENTE)
     return render(request, os.path.join(TEMPLATE_DIR,'vista_empleado','ver_intercambios.html'), {'intercambios': intercambios})
 
+@never_cache
+@login_required
+@staff_required
 def aceptarIntercambio(request,intercambio_id):
     try:
         intercambio = Intercambio.objects.get(id=intercambio_id)
@@ -41,6 +47,9 @@ def aceptarIntercambio(request,intercambio_id):
         request, "El intercambio ha sido marcado como exitoso.")
     return redirect(listar_intercambios_pendientes)
 
+@never_cache
+@login_required
+@staff_required
 def cancelarIntercambio(request,intercambio_id):
     try:
         intercambio = Intercambio.objects.get(id=intercambio_id)
@@ -53,8 +62,9 @@ def cancelarIntercambio(request,intercambio_id):
         request, "El intercambio ha sido marcado como cancelado.")
     return redirect(listar_intercambios_pendientes)
     
-    
-
+@never_cache
+@login_required
+@staff_required
 def intercambio_ausente(request, intercambio_id):
     intercambio = get_object_or_404(Intercambio, id=intercambio_id)
     usuario_uno = intercambio.base.autor
@@ -67,15 +77,9 @@ def intercambio_ausente(request, intercambio_id):
     }
     return render(request, 'vista_empleado/marcar_ausente.html', context)
 
-    """if request.method == 'POST':
-        usuario_ausente_id = request.POST.get('usuario_ausente')
-        usuario_ausente = get_object_or_404(User, id=usuario_ausente_id)
-        intercambio.estado = Intercambio.CANCELADO_AUSENTE
-        intercambio.usuario_ausente = usuario_ausente
-        intercambio.save()
-        return redirect(listar_intercambios_pendientes)  # Update this to your actual main view name
-    """
-
+@never_cache
+@login_required
+@staff_required
 def marcado_ausente(request,intercambio_id,usuario_id):
     
     usuario_ausente = get_object_or_404(User, id=usuario_id)
