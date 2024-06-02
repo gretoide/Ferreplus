@@ -5,7 +5,7 @@ from django.core.mail import send_mail
 from django.conf import settings
 from pathlib import Path
 from vista_administrador.models import Sucursal
-from .models import User, Publicacion, Imagen, Oferta
+from .models import User, Publicacion, Oferta
 from ferreplus.modulos import modulos_registro
 from .modulos import modulos_publicacion, modulos_oferta, modulos_intercambio
 from .forms import PublicacionForm
@@ -13,9 +13,6 @@ from django.contrib.auth.decorators import login_required
 from ferreplus.modulos.modulos_inicio_sesion import normal_required
 from django.views.decorators.cache import never_cache
 from django.contrib.auth import logout
-from django.contrib import messages
-from django.http import HttpResponseForbidden
-from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.views.decorators.csrf import csrf_protect
 from django.core.signing import Signer
 signer = Signer()
@@ -52,9 +49,6 @@ def pagina_principal(request):
         
         # Almacenar las imágenes en el diccionario con la clave como la publicación misma
         imagenes_por_publicacion[publicacion] = imagenes_publicacion
-
-    # Renderizar la plantilla con las publicaciones y las imágenes asociadas
-    print('-'*100,imagenes_por_publicacion)
     return render(request, 'vista_usuario/vista_principal.html', {'publicaciones': publicaciones, 'imagenes_por_publicacion': imagenes_por_publicacion})
 
 @login_required
@@ -97,66 +91,19 @@ def editar_publicacion(request, pk):
 
     if request.method == 'POST':
         form_publicacion = PublicacionForm(request.POST, instance=publicacion)
-
         if form_publicacion.is_valid():
-            try:
-                # Manejar la eliminación de imágenes
-                imagenes_a_eliminar = request.POST.getlist('eliminar_imagenes')
-                nuevas_imagenes = request.FILES.getlist('nuevas_imagenes')
-                
-                # Número total de imágenes después de las eliminaciones y adiciones
-                imagenes_actuales = publicacion.imagenes.count()
-                nuevas_imagenes_count = len(nuevas_imagenes)
-                imagenes_a_eliminar_count = len(imagenes_a_eliminar)
-                imagenes_finales_count = imagenes_actuales - imagenes_a_eliminar_count + nuevas_imagenes_count
-                
-                if imagenes_finales_count < 1:
-                    error = 'Debe haber al menos una imagen asociada a la publicación.'
-                    return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario', 'editar_publicacion.html'), {
-                        'form_publicacion': form_publicacion,
-                        'publicacion': publicacion,
-                        'sucursales': Sucursal.objects.all(),
-                        'error': error
-                    })
-                
-                if imagenes_finales_count > 5:
-                    error = 'Solo se permiten hasta 5 imágenes.'
-                    return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario', 'editar_publicacion.html'), {
-                        'form_publicacion': form_publicacion,
-                        'publicacion': publicacion,
-                        'sucursales': Sucursal.objects.all(),
-                        'error': error
-                    })
-                
-                # Guardar la publicación
-                publicacion = form_publicacion.save()
+            imagenes_a_eliminar = request.POST.getlist('eliminar_imagenes')
+            nuevas_imagenes = request.FILES.getlist('nuevas_imagenes')
 
-                # Eliminar las imágenes especificadas
-                for imagen_id in imagenes_a_eliminar:
-                    imagen = publicacion.imagenes.get(pk=imagen_id)
-                    imagen.delete()
+            if not modulos_publicacion.validar_cantidad_imagenes(publicacion, nuevas_imagenes, imagenes_a_eliminar):
+                return modulos_publicacion.render_con_error(request, form_publicacion, publicacion, 'Debe haber entre 1 y 5 imágenes asociadas a la publicación.')
 
-                # Agregar las nuevas imágenes
-                for imagen in nuevas_imagenes:
-                    publicacion.imagenes.add(Imagen.objects.create(imagen=imagen))
-
-                return redirect('mis_publicaciones')
-            except ValidationError as e:
-                error = '; '.join(str(v[0]) for v in e.message_dict.values())
-                return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario', 'editar_publicacion.html'), {
-                    'form_publicacion': form_publicacion,
-                    'publicacion': publicacion,
-                    'sucursales': Sucursal.objects.all(),
-                    'error': error
-                })
+            publicacion = modulos_publicacion.guardar_publicacion(form_publicacion, imagenes_a_eliminar, nuevas_imagenes)
+            return redirect('mis_publicaciones')
     else:
         form_publicacion = PublicacionForm(instance=publicacion)
 
-    return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario', 'editar_publicacion.html'), {
-        'form_publicacion': form_publicacion,
-        'publicacion': publicacion,
-        'sucursales': Sucursal.objects.all()
-    })
+    return modulos_publicacion.render_editar_publicacion(request, form_publicacion, publicacion)
 
 # Apartado de 'Mis publicaciones'
 @login_required

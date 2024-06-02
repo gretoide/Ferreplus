@@ -32,9 +32,14 @@
                     {{ aviso }} <a class="link-warning link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="{% url 'mis_publicaciones' %}">Ver aquí.</a>
                 </div>
             {% endif %}
+            {% if form_publicacion.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ form_publicacion.errors }}
+                </div>
+            {% endif %}
         </div>
 
-        <form method="post" enctype="multipart/form-data" class="text-left">
+        <form method="POST" enctype="multipart/form-data" class="text-left">
             {% csrf_token %}
             <div class="form-group">
                 <span>Título</span>
@@ -55,11 +60,12 @@
                 <span>Sucursal</span>
                 <label for="sucursal" class="form-label"></label>
                 <select class="form-select" id="select" name="sucursal" required>
-                    <option>{{ publicacion.sucursal.nombre }}</option>
+                    <option value="{{ publicacion.sucursal.id }}" selected>{{ publicacion.sucursal.nombre }}</option>
                     {% for sucursal in sucursales %}
                         <option value="{{ sucursal.id }}">{{ sucursal.nombre }}</option>
                     {% endfor %}
                 </select>
+                
             </div>
             <div class="form-group">
                 <span>Descripción</span>

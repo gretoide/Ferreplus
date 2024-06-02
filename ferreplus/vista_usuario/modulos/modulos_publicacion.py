@@ -1,5 +1,6 @@
 from vista_usuario.models import Publicacion, Imagen, User, Sucursal
 from django.shortcuts import get_object_or_404
+from django.shortcuts import render, redirect
 
 def verificar_campos(datos_publicacion):
     """
@@ -40,6 +41,8 @@ def crear_publicacion(datos_publicacion, user, imagenes):
     # Guardar la asociación en la base de datos
     nueva_publicacion.save()
 
+# ---------------------------------------- Editar publicación ---------------------------------------------
+
 def editar_publicacion_modulo(publicacion, datos_publicacion, nuevas_imagenes, imagenes_existentes):
     # Eliminar las imágenes existentes que no se desean
     imagenes_a_eliminar = imagenes_existentes.exclude(imagen__in=nuevas_imagenes)
@@ -62,3 +65,45 @@ def editar_publicacion_modulo(publicacion, datos_publicacion, nuevas_imagenes, i
 
     publicacion.save()
     return True, "La publicación se ha editado correctamente."
+
+def validar_cantidad_imagenes(publicacion, nuevas_imagenes, imagenes_a_eliminar):
+
+    imagenes_actuales = publicacion.imagenes.count()
+    nuevas_imagenes_count = len(nuevas_imagenes)
+    imagenes_a_eliminar_count = len(imagenes_a_eliminar)
+    imagenes_finales_count = imagenes_actuales - imagenes_a_eliminar_count + nuevas_imagenes_count
+
+    return 1 <= imagenes_finales_count <= 5
+
+def guardar_publicacion(form_publicacion, imagenes_a_eliminar, nuevas_imagenes):
+    try:
+        publicacion = form_publicacion.save()
+        eliminar_imagenes(publicacion, imagenes_a_eliminar)
+        agregar_nuevas_imagenes(publicacion, nuevas_imagenes)
+        return publicacion
+    except ValidationError as e: # type: ignore
+        error = '; '.join(str(v[0]) for v in e.message_dict.values())
+        raise ValueError(error)
+
+def eliminar_imagenes(publicacion, imagenes_a_eliminar):
+    publicacion.imagenes.filter(pk__in=imagenes_a_eliminar).delete()
+
+def agregar_nuevas_imagenes(publicacion, nuevas_imagenes):
+    nuevas_instancias_imagen = [Imagen(imagen=imagen) for imagen in nuevas_imagenes]
+    Imagen.objects.bulk_create(nuevas_instancias_imagen)
+    publicacion.imagenes.add(*nuevas_instancias_imagen)
+
+def render_editar_publicacion(request, form_publicacion, publicacion):
+    return render(request, 'vista_usuario/editar_publicacion.html', {
+        'form_publicacion': form_publicacion,
+        'publicacion': publicacion,
+        'sucursales': Sucursal.objects.all()
+    })
+
+def render_con_error(request, form_publicacion, publicacion, error):
+    return render(request, 'vista_usuario/editar_publicacion.html', {
+        'form_publicacion': form_publicacion,
+        'publicacion': publicacion,
+        'sucursales': Sucursal.objects.all(),
+        'error': error
+    })
