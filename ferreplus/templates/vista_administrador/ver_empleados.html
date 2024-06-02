@@ -39,21 +39,21 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th scope="col">Número</th>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Apellido</th>
-                        <th scope='col'>CUIL</th>
-                        <th scope="col">Acciones</th>
+                        <th class="text-center" scope="col">Número</th>
+                        <th class="text-center" scope="col">Nombre</th>
+                        <th class="text-center" scope="col">Apellido</th>
+                        <th class="text-center" scope='col'>CUIL</th>
+                        <th class="text-center" scope="col">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for empleado in empleados %}
                         <tr>
-                            <td>{{ empleado.id}}</td>
-                            <td>{{ empleado.first_name }}</td>
-                            <td>{{ empleado.last_name }}</td>
-                            <td>{{ empleado.cuil }}</td>
-                            <td>
+                            <td class="text-center">{{ empleado.id}}</td>
+                            <td class="text-center">{{ empleado.first_name }}</td>
+                            <td class="text-center">{{ empleado.last_name }}</td>
+                            <td class="text-center">{{ empleado.cuil }}</td>
+                            <td class="text-center">
                                 <button id="{{empleado.id}}" type="submit" class="btn btn-danger" onclick="confirmarEliminacion('{{ empleado.id }}')"><i class="bx bx-trash"></i>
                                     <span>Eliminar</span>
                                 </button>

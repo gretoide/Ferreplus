@@ -39,29 +39,29 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th scope="col">Número</th>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Dirección</th>
-                        <th scope="col">Acciones</th>
+                        <th class="text-center" scope="col">Número</th>
+                        <th  class="text-center" scope="col">Nombre</th>
+                        <th class="text-center" scope="col">Dirección</th>
+                        <th class="text-center" scope="col">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for sucursal in sucursales %}
                         <tr>
-                            <td>{{ sucursal.id }}</td>
-                            <td>{{ sucursal.nombre }}</td>
-                            <td>{{ sucursal.direccion }}</td>
-                            <td>
-                                <a href="{% url 'detalle-sucursal' sucursal.id %}">
-                                    <button class="btn btn-primary">
+                            <td class="text-center"> {{ sucursal.id }}</td>
+                            <td class="text-center">{{ sucursal.nombre }}</td>
+                            <td class="text-center" >{{ sucursal.direccion }}</td>
+                            <td class="text-center">
+                                <div class="d-flex flex-column align-items-center">
+                                    <a href="{% url 'detalle-sucursal' sucursal.id %}" class="btn btn-primary mb-2">
                                         <i class="bi bi-search"></i>
                                         <span>Ver detalle</span>
+                                    </a>
+                                    <button id="{{sucursal.id}}" class="btn btn-danger" onclick="confirmarEliminacion('{{ sucursal.id }}')">
+                                        <i class="bx bx-trash"></i>
+                                        <span>Eliminar</span>
                                     </button>
-                                </a>
-                                <button id="{{sucursal.id}}" class="btn btn-danger" onclick="confirmarEliminacion('{{ sucursal.id }}')">
-                                    <i class="bx bx-trash"></i>
-                                    <span>Eliminar</span>
-                                </button>
+                                </div>
                             </td>
                         </tr>
                     {% endfor %}
