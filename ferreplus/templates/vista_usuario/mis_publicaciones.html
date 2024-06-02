@@ -44,7 +44,9 @@
                 {% for publicacion in publicaciones %}
                 <tr>
                     <td class="text-center">{{ publicacion.titulo }}</td>
-                    <td class="text-center">{{ publicacion.estado }}</td>
+                    <td class="text-center">
+                        <span class="badge badge-secondary">{{ publicacion.estado|upper }}</span>
+                    </td>
                     <td class="text-center">{{ publicacion.categoria }}</td>
                     <td class="text-center">{{ publicacion.sucursal.nombre }}</td>
                     <td class="text-center">{{ publicacion.descripcion }}</td>
@@ -113,7 +115,7 @@
                 </div>
                 <div class="mb-3">
                     <h6>Estado</h6>
-                    <span>{{ publicacion.estado }}</span>
+                    <span class="badge badge-secondary">{{ publicacion.estado|upper }}</span>
                 </div>
                 <div class="mb-3">
                     <h6>Categoría</h6>
