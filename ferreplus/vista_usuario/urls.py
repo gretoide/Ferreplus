@@ -19,4 +19,5 @@ urlpatterns = [
     path('publicacion/<int:publicacion_id>/publicacion-existente', user_views.publicacion_existente, name='publicacion_existente'),
     path('publicacion/<int:publicacion_id>/oferta-privada', user_views.oferta_privada, name='oferta_privada'),
     path('solicitudes-de-intercambios/', user_views.mis_ofertas, name='mis_ofertas'),
+    path('mis-intercambios/', user_views.mis_intercambios, name='mis_intercambios'),
 ]

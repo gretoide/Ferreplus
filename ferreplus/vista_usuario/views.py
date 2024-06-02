@@ -1,26 +1,25 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse, Http404
+from django.http import Http404
 from django.shortcuts import render, redirect
 from django.core.mail import send_mail
 from django.conf import settings
-from pathlib import Path
-from vista_administrador.models import Sucursal
-from .models import User, Publicacion, Oferta
-from ferreplus.modulos import modulos_registro
-from .modulos import modulos_publicacion, modulos_oferta, modulos_intercambio
-from .forms import PublicacionForm
-from django.contrib.auth.decorators import login_required
-from ferreplus.modulos.modulos_inicio_sesion import normal_required
 from django.views.decorators.cache import never_cache
 from django.contrib.auth import logout
 from django.views.decorators.csrf import csrf_protect
 from django.core.signing import Signer
-signer = Signer()
-
+from django.contrib.auth.decorators import login_required
+from django.db.models import Q
+from pathlib import Path
 import os
 import secrets
+from vista_administrador.models import Sucursal
+from .models import User, Publicacion, Oferta, Intercambio
+from ferreplus.modulos import modulos_registro
+from .modulos import modulos_publicacion, modulos_oferta, modulos_intercambio
+from .forms import PublicacionForm
+from ferreplus.modulos.modulos_inicio_sesion import normal_required
 
-
+signer = Signer()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -208,7 +207,26 @@ def mis_ofertas(request):
             return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario', 'mis_ofertas.html'), {'ofertas': ofertas, 'aviso': error})
         else:
             return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario', 'mis_ofertas.html'), {'ofertas': ofertas})
-        
+
+
+@login_required
+@normal_required
+def mis_intercambios(request):
+
+
+    user = request.user
+    # Filtrar los intercambios donde el usuario es autor de la base o de la oferta
+    
+    intercambios = Intercambio.objects.filter(
+        Q(base__autor=user) | Q(ofer__autor=user)
+    )
+
+    if not intercambios.exists():
+        error = 'Usted aún no posee intercambios.'
+        return render(request, 'vista_usuario/mis_intercambios.html', {'intercambios': intercambios, 'aviso': error})
+
+    return render(request, 'vista_usuario/mis_intercambios.html', {'intercambios': intercambios})
+
 # APARTADO DE USUARIO
 
 def registro(request):
