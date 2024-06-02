@@ -60,10 +60,10 @@ class Imagen(models.Model):
 class Oferta(models.Model):
     base = models.ForeignKey(Publicacion, on_delete=models.CASCADE, related_name='ofertas_como_base')
     oferta = models.ForeignKey(Publicacion, on_delete=models.CASCADE, related_name='ofertas_como_oferta')
-    usuario_ofertante = models.ForeignKey(User, on_delete=models.CASCADE, related_name='ofertas_hechas', default=1)  # Asignar un usuario por defecto
-    usuario_recibe = models.ForeignKey(User, on_delete=models.CASCADE, related_name='ofertas_recibidas_oferta', default=1)  # Asignar un usuario por defecto
     hora = models.TimeField()
     fecha_intercambio = models.DateField()
+    usuario_ofertante = models.ForeignKey(User, on_delete=models.CASCADE, related_name='ofertas_hechas', default=1)  # Asignar un usuario por defecto
+    usuario_recibe = models.ForeignKey(User, on_delete=models.CASCADE, related_name='ofertas_recibidas_oferta', default=1)  # Asignar un usuario por defecto
 
     def __str__(self):
         return f'Oferta de {self.usuario_ofertante} para {self.usuario_recibe} el {self.fecha_intercambio}'
@@ -82,13 +82,10 @@ class Intercambio(models.Model):
         (PENDIENTE, 'PENDIENTE')
     ]
 
-
     base = models.ForeignKey(Publicacion, related_name='base_intercambios', on_delete=models.SET_NULL, null=True)
-    hora = models.TimeField() 
+    ofer = models.ForeignKey(Publicacion, related_name='oferta_intercambios', on_delete=models.SET_NULL, null=True)
+    hora = models.TimeField()
     fecha_intercambio = models.DateField(null=True)
     sucursal = models.ForeignKey(Sucursal, on_delete=models.SET_NULL, null=True)
-    ofer = models.ForeignKey(Publicacion, related_name='oferta_intercambios', on_delete=models.SET_NULL, null=True)
     estado = models.CharField(max_length=20, choices=ESTADOS_CHOICES, default=PENDIENTE)
-    user_ofrece = models.ForeignKey(User, on_delete=models.CASCADE, related_name='ofertas_ofrecidas', default=1)
-    user_recibe = models.ForeignKey(User, on_delete=models.CASCADE, related_name='ofertas_recibidas', default=1)
     usuario_ausente = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)

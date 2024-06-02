@@ -212,20 +212,18 @@ def mis_ofertas(request):
 @login_required
 @normal_required
 def mis_intercambios(request):
-
-
     user = request.user
-    # Filtrar los intercambios donde el usuario es autor de la base o de la oferta
-    
-    intercambios = Intercambio.objects.filter(
-        Q(base__autor=user) | Q(ofer__autor=user)
-    )
+
+    intercambios_base = Intercambio.objects.filter(base__autor=user)
+    intercambios_oferta = Intercambio.objects.filter(ofer__autor=user)
+
+    intercambios = intercambios_base | intercambios_oferta
 
     if not intercambios.exists():
         error = 'Usted aún no posee intercambios.'
         return render(request, 'vista_usuario/mis_intercambios.html', {'intercambios': intercambios, 'aviso': error})
-
-    return render(request, 'vista_usuario/mis_intercambios.html', {'intercambios': intercambios})
+    else:
+        return render(request, 'vista_usuario/mis_intercambios.html', {'intercambios': intercambios})
 
 # APARTADO DE USUARIO
 
