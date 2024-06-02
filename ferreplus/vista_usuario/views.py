@@ -178,10 +178,36 @@ def publicacion_existente(request, publicacion_id):
 
 @login_required
 @normal_required
-def oferta_privada(request, publicacion_id):
-    publicacion = get_object_or_404(Publicacion, id=publicacion_id)
-    
-    return render(request,'vista_usuario/publicacion_existente.html', {'publicacion': publicacion})
+def publicacion_privada(request, publicacion_id):
+
+    publicacion_oferta = get_object_or_404(Publicacion, id=publicacion_id)
+
+    if request.method == "POST":
+        
+        # Obtener datos de la publicación y las imágenes del formulario
+        datos_publicacion = request.POST.dict()
+        usuario = request.user
+
+        # Verificar campos y obtener las imágenes
+        imagenes = request.FILES.getlist('imagen')
+        if len(imagenes) > 5 or len(imagenes) <= 0:
+            return render(request, 'vista_usuario/publicacion_privada.html', {'publicacion_a_ofertar': publicacion_oferta,'error': 'El máximo de imágenes es 5 y el mínimo 1.'})
+        
+        # Verificar campos
+        exito, mensaje_error = modulos_publicacion.verificar_campos_privada(datos_publicacion)
+        if len(imagenes) > 5 or len(imagenes) <= 0:
+            return render(request, 'vista_usuario/publicacion_privada.html', {'publicacion_a_ofertar': publicacion_oferta,'error': 'El máximo de imágenes es 5 y el mínimo 1.'})
+        if not exito:
+            return render(request, 'vista_usuario/publicacion_privada.html', {'publicacion_a_ofertar': publicacion_oferta,'error': mensaje_error})
+        else:
+            # Crear publicación (el 1 al final es para privada)
+            modulos_publicacion.crear_publicacion_privada(datos_publicacion,usuario,imagenes,publicacion_oferta.sucursal.id)
+        
+            # Mostrar mensaje de éxito
+            return render(request, 'vista_usuario/publicacion_privada.html', {'aviso': "La publicación se ha creado con éxito.", 'publicacion_a_ofertar': publicacion_oferta})
+    else:
+        # Si es una solicitud GET, simplemente renderizar la página principal
+        return render(request, 'vista_usuario/publicacion_privada.html', {'publicacion_a_ofertar': publicacion_oferta})
 
 @login_required
 @normal_required

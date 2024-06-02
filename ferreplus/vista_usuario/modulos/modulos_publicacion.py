@@ -15,6 +15,19 @@ def verificar_campos(datos_publicacion):
             return False, "Debe completar todos los campos."
     return True, None
 
+def verificar_campos_privada(datos_publicacion):
+    """
+    Verifica si todos los campos necesarios están presentes en los datos de la publicación.
+    Retorna un booleano que indica si la verificación fue exitosa y un mensaje de error en caso contrario.
+    """
+    campos_requeridos = ["titulo", "estado", "categoria", "descripcion"]
+    
+    for campo in campos_requeridos:
+        valor_campo = datos_publicacion.get(campo)
+        if not valor_campo or valor_campo.strip().lower() == "seleccionar":
+            return False, "Debe completar todos los campos."
+    return True, None
+
 
 def crear_publicacion(datos_publicacion, user, imagenes):
 
@@ -27,6 +40,33 @@ def crear_publicacion(datos_publicacion, user, imagenes):
         categoria=datos_publicacion.get('categoria'),
         sucursal = get_object_or_404(Sucursal, id=sucursal_id),
         descripcion=datos_publicacion.get('descripcion'),
+        autor=user
+    )
+
+    # Guardar la nueva publicación en la base de datos
+    nueva_publicacion.save()
+
+    # Asociar las imágenes con la publicación
+    for imagen in imagenes:
+        imagen_obj = Imagen.objects.create(imagen=imagen)
+        nueva_publicacion.imagenes.add(imagen_obj)
+
+    # Guardar la asociación en la base de datos
+    nueva_publicacion.save()
+
+def crear_publicacion_privada(datos_publicacion, user, imagenes, sucursal_base):
+    # Obtenemos la sucursal base
+    sucursal_base_obj = get_object_or_404(Sucursal, id=sucursal_base)
+
+    # Crear la nueva publicación con la sucursal base
+    nueva_publicacion = Publicacion.objects.create(
+        titulo=datos_publicacion.get('titulo'),
+        estado=datos_publicacion.get('estado'),
+        categoria=datos_publicacion.get('categoria'),
+        sucursal=sucursal_base_obj,  # Asignamos la sucursal base
+        descripcion=datos_publicacion.get('descripcion'),
+        es_privada=True,
+        parte_oferta=True,
         autor=user
     )
 
