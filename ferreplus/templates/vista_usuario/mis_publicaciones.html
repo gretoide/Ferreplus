@@ -39,6 +39,8 @@
                     <th class="text-center">Categoría</th>
                     <th class="text-center">Sucursal</th>
                     <th class="text-center">Descripción</th>
+                    <th class="text-center">Visibilidad</th>
+                    <th class="text-center">Proceso</th>
                     <th class="text-center">Acciones</th> <!-- Nueva columna para botones de acción -->
                 </thead>
                 {% for publicacion in publicaciones %}
@@ -51,8 +53,21 @@
                     <td class="text-center">{{ publicacion.sucursal.nombre }}</td>
                     <td class="text-center">{{ publicacion.descripcion }}</td>
                     <td class="text-center">
+                        {% if publicacion.es_privada %}
+                        <i class="bi bi-eye-slash"></i> Privada
+                        {% else %}
+                        <i class="bi bi-eye"></i> Pública
+                        {% endif %}
+                    </td>
+                    <td class="text-center">
+                        {% if publicacion.parte_oferta %}
+                            Ofrecida en trueque
+                        {% else %}
+                            Disponible para trueque
+                        {% endif %}
+                    <td class="text-center">
                         <div class="d-flex">
-                            <div class="btn-group-vertical">
+                            <div class="mb-3 text-center">
                                 <button class="btn btn-primary" data-toggle="modal" data-target="#detallesPublicacionModal{{ publicacion.id }}">
                                     <i class='bx bx-detail'></i>
                                     <span>Ver detalles</span>
@@ -128,6 +143,14 @@
                 <div class="mb-3">
                     <h6>Descripción</h6>
                     <span>{{ publicacion.descripcion }}</span>
+                </div>
+                <div class="mb-3">
+                    <h6>Visibilidad</h6>
+                    {% if publicacion.es_privada %}
+                    <i class="bi bi-eye-slash"></i> Privada
+                    {% else %}
+                    <i class="bi bi-eye"></i> Pública
+                    {% endif %}
                 </div>           
                 <!-- Agrega más detalles aquí -->
             </div>
