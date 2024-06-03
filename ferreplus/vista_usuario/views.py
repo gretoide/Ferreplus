@@ -204,7 +204,7 @@ def publicacion_privada(request, publicacion_id):
             modulos_publicacion.crear_publicacion_privada(datos_publicacion,usuario,imagenes,publicacion_oferta.sucursal.id)
         
             # Mostrar mensaje de éxito
-            return render(request, 'vista_usuario/publicacion_privada.html', {'aviso': "La publicación se ha creado con éxito.", 'publicacion_a_ofertar': publicacion_oferta})
+            return render(request, 'vista_usuario/oferta_privada.html', {'aviso': "La publicación se ha creado con éxito.", 'publicacion_a_ofertar': publicacion_oferta})
     else:
         # Si es una solicitud GET, simplemente renderizar la página principal
         return render(request, 'vista_usuario/publicacion_privada.html', {'publicacion_a_ofertar': publicacion_oferta})

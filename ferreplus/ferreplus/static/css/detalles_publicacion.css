@@ -308,3 +308,23 @@ input[type="radio"] + label {
 #SpanHorario {
     color: #808080;
 }
+
+#tituloEncuentro {
+    padding: 40px;
+}
+
+#enviarOferta {
+        font-size: medium;
+        background-color: #3d3d3d; /* Color de fondo */
+        border-color: #3d3d3d; /* Color del borde */
+        color: #ffffff; /* Color del texto */
+        transition: background-color 0.3s ease; /* Transición de color */
+        width: 200px;
+        margin: 15px;
+}
+
+#enviarOferta:hover {
+    background-color: #ffc107; /* Cambio de color al pasar el cursor */
+    border-color: #303030;
+    color: #000000; /* Cambio de color del texto al pasar el cursor */
+}
