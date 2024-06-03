@@ -40,9 +40,10 @@ def pagina_principal(request):
 
     # Chequeamos que tiene solicitudes pendientes para la notificacion
     solicitudes_pendientes = Oferta.objects.filter(usuario_recibe_id=usuario_actual).count()
+
+    # Obtener todas las publicaciones excepto las del usuario actual o las que son privadas
+    publicaciones = Publicacion.objects.exclude(es_privada=True).exclude(parte_oferta=True).exclude(autor=usuario_actual)
     
-    # Obtener todas las publicaciones excepto las del usuario actual
-    publicaciones = Publicacion.objects.exclude(autor=usuario_actual)
 
     # Crear un diccionario para almacenar las imágenes asociadas a cada publicación
     imagenes_por_publicacion = {}
