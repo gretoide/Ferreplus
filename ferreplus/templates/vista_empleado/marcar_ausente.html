@@ -1,18 +1,72 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Marcar Ausente</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/mis_empleados.css' %}">
 </head>
 <body>
     <h1>Marcar Ausente</h1>
-    <form method="post">
-        {% csrf_token %}
-        <label for="usuario_ausente">Seleccione el usuario ausente:</label>
-        <select name="usuario_ausente" id="usuario_ausente">
-            <option value="{{ usuario_uno.id }}">{{ usuario_uno.username }}</option>
-            <option value="{{ usuario_dos.id }}">{{ usuario_dos.username }}</option>
-        </select>
-        <button type="submit">Marcar como Ausente</button>
-    </form>
+    <div class="custom-container">
+        <button id="BotonVolver" class="btn btn-secondary">
+             <a href="{% url 'inicio_emp' %}">
+                <i class='bx bx-chevron-left'>
+                    <span>Volver</span>
+                </i>
+            </a>
+        </button>
+    </div>
+
+    <div class="mb-3">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col" class="text-center">Usuarios</th>
+                    <th class="text-center"></th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                {% for usuario in usuarios %}
+                    <tr>
+                        <td class="text-center">{{ usuario.username }}</td>
+                        
+            
+                        <td class="text-center">
+                                    <div class="d-flex">
+                                        <div class="btn-group-vertical">
+                                            <button id="{{usuario.id}}" class="btn btn-danger mb-1" onclick="ausente('{{ usuario.id }}', '{{ intercambio.id }}')">
+                                                <i class='bx bx-check'></i>
+                                                <span>Ausente</span>
+                                            </button>
+                                            
+                                        </div>
+                                    </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+               
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+       
+    
+        function ausente(usuarioID,intercambioID) {
+            window.location.href = '/marcado-ausente/' + usuarioID + '/' + intercambioID + '/';
+        }
+    </script>
+        <!-- Enlace a Bootstrap JS -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> 
 </body>
 </html>

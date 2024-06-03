@@ -6,7 +6,8 @@ urlpatterns = [
     path('intercambios-pendientes/', empleado_views.listar_intercambios_pendientes, name='intercambios-pendientes'),
     path('intercambio-realizado/<str:intercambio_id>/',empleado_views.aceptarIntercambio,name='aceptar-intercambio'),
     path('intercambio-cancelado/<str:intercambio_id>/',empleado_views.cancelarIntercambio,name='cancelar-intercambio'),
-    path('intercambio-ausente/<int:intercambio_id>/', empleado_views.intercambio_ausente, name='ausentar-intercambio'),
+    path('intercambio-ausente/<str:intercambio_id>/', empleado_views.intercambio_ausente, name='ausentar-intercambio'),
+    path('marcado-ausente/<str:usuario_id>/<str:intercambio_id>/',empleado_views.marcado_ausente, name ='marcar-ausente'),
 ]
 
 
