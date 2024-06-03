@@ -201,10 +201,10 @@ def publicacion_privada(request, publicacion_id):
             return render(request, 'vista_usuario/publicacion_privada.html', {'publicacion_a_ofertar': publicacion_oferta,'error': mensaje_error})
         else:
             # Crear publicación (el 1 al final es para privada)
-            modulos_publicacion.crear_publicacion_privada(datos_publicacion,usuario,imagenes,publicacion_oferta.sucursal.id)
+            nueva_publicacion = modulos_publicacion.crear_publicacion_privada(datos_publicacion,usuario,imagenes,publicacion_oferta.sucursal.id)
         
             # Mostrar mensaje de éxito
-            return render(request, 'vista_usuario/oferta_privada.html', {'aviso': "La publicación se ha creado con éxito.", 'publicacion_a_ofertar': publicacion_oferta})
+            return redirect('oferta_privada', publicacion_id=publicacion_oferta.id, publicacion_nueva_id=nueva_publicacion.id)
     else:
         # Si es una solicitud GET, simplemente renderizar la página principal
         return render(request, 'vista_usuario/publicacion_privada.html', {'publicacion_a_ofertar': publicacion_oferta})
@@ -233,6 +233,34 @@ def mis_ofertas(request):
             return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario', 'mis_ofertas.html'), {'ofertas': ofertas, 'aviso': error})
         else:
             return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario', 'mis_ofertas.html'), {'ofertas': ofertas})
+
+@login_required
+@normal_required
+def oferta_privada(request, publicacion_id, publicacion_nueva_id):
+    publicacion_original = get_object_or_404(Publicacion, id=publicacion_id)
+    publicacion_nueva = get_object_or_404(Publicacion, id=publicacion_nueva_id)
+
+    if request.method == 'POST':
+        # Obtener datos del formulario (fecha, hora, etc.)
+        fecha_encuentro = request.POST.get('fecha_encuentro')
+        hora_encuentro = request.POST.get('hora_encuentro')
+
+        # Validar y crear la oferta privada
+        mensaje, exito = modulos_oferta.procesar_oferta_privada(publicacion_original, publicacion_nueva, fecha_encuentro, hora_encuentro)
+
+        if exito:
+            # Mostrar mensaje de éxito
+            return render(request, 'vista_usuario/oferta_privada.html', {'aviso': "La oferta se ha creado con éxito."})
+        else:
+            # Mostrar mensaje de error
+            return render(request, 'vista_usuario/oferta_privada.html', {'error': mensaje})
+
+    # Renderizar el template 'oferta_privada.html' y pasar los datos necesarios
+    return render(request, 'vista_usuario/oferta_privada.html', {
+        'publicacion_original': publicacion_original,
+        'publicacion_nueva': publicacion_nueva,
+        'form_action': request.build_absolute_uri()
+    })
 
 
 @login_required

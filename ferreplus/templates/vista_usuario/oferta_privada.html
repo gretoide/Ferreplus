@@ -9,39 +9,41 @@
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/detalles_publicacion.css' %}">
     <style>
-        /* Define el estilo para el contenedor personalizado */
         .custom-container {
-            max-width: 400px; /* Ajusta este valor según tu preferencia */
-            margin: 0 auto; /* Centra el contenedor en la página */
+            max-width: 400px;
+            margin: 0 auto;
         }
     </style>
     <title>Oferta privada</title>
 </head>
 <body>
     {% csrf_token %}
-    <div class="container custom-container"> <!-- Agrega la clase personalizada al contenedor -->
-        <div class="mb-3 text-center">
-          <h1 id="tituloEncuentro">Datos para el encuentro</h1>
-      </div>
-      <div class="mb-3">
-          <label for="meeting-date">Fecha</label>
-          <input type="date" class="form-control" id="meeting-date" name="fecha_encuentro" required>
-      </div>
-      <div class="mb-3">
-          <label for="meeting-time">Hora</label>
-          <div class="mb-3">
-            <span id="SpanHorario">El horario de atención de las ferreterías es de 8 a.m. hasta 6 p.m.</span>
-          </div>
-          <div class="input-group">
-              <input type="time" class="form-control" id="meeting-time" name="hora_encuentro" required>
-              <div class="input-group-append">
-                  <span class="input-group-text"><i class='bx bxs-time-five'></i></span>
-              </div>
-          </div>
-      </div>
-      <div class="mb-3 text-center">
-        <button class="btn btn-primary" type="submit" id="enviarOferta">Enviar oferta</button>
-    </div>
+    <div class="container custom-container">
+        <form method="post" action="{{ form_action }}">
+            {% csrf_token %}
+            <div class="mb-3 text-center">
+                <h1 id="tituloEncuentro">Datos para el encuentro</h1>
+            </div>
+            <div class="mb-3">
+                <label for="meeting-date">Fecha</label>
+                <input type="date" class="form-control" id="meeting-date" name="fecha_encuentro" required>
+            </div>
+            <div class="mb-3">
+                <label for="meeting-time">Hora</label>
+                <div class="mb-3">
+                    <span id="SpanHorario">El horario de atención de las ferreterías es de 8 a.m. hasta 6 p.m.</span>
+                </div>
+                <div class="input-group">
+                    <input type="time" class="form-control" id="meeting-time" name="hora_encuentro" required>
+                    <div class="input-group-append">
+                        <span class="input-group-text"><i class='bx bxs-time-five'></i></span>
+                    </div>
+                </div>
+            </div>
+            <div class="mb-3 text-center">
+                <button class="btn btn-primary" type="submit" id="enviarOferta">Enviar oferta</button>
+            </div>
+        </form>
     </div>
 </body>
 </html>

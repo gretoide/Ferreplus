@@ -81,6 +81,7 @@ def crear_publicacion_privada(datos_publicacion, user, imagenes, sucursal_base):
     # Guardar la asociación en la base de datos
     nueva_publicacion.save()
 
+    return nueva_publicacion
 # ---------------------------------------- Editar publicación ---------------------------------------------
 
 def editar_publicacion_modulo(publicacion, datos_publicacion, nuevas_imagenes, imagenes_existentes):
