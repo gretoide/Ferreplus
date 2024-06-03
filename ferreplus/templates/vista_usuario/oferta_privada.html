@@ -25,7 +25,12 @@
                 <h1 id="tituloEncuentro">Datos para el encuentro</h1>
                 <div class="mb-3 text-center">
                     {% if aviso %}
-                        <div class="alert alert-dark" role="alert">{{ aviso }}</div>
+                        <div class="alert alert-dark" role="alert"></div>
+                    {% endif %}
+                    {% if exito %}
+                    <div class="alert alert-success" id="mensaje-exito">
+                        {{ exito }} <a class="link-warning link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="{% url 'pagina_principal' %}">Volver al incio.</a>
+                    </div>
                     {% endif %}
                 </div>
             </div>

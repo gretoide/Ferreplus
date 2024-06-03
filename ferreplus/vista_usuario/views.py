@@ -250,7 +250,7 @@ def oferta_privada(request, publicacion_id, publicacion_nueva_id):
 
         if exito:
             # Mostrar mensaje de éxito
-            return render(request, 'vista_usuario/oferta_privada.html', {'aviso': "La oferta se ha creado con éxito."})
+            return render(request, 'vista_usuario/oferta_privada.html', {'exito': "La oferta se ha creado con éxito."})
         else:
             # Mostrar mensaje de error
             return render(request, 'vista_usuario/oferta_privada.html', {'aviso': mensaje})
