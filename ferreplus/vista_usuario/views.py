@@ -229,11 +229,18 @@ def mis_ofertas(request):
         oferta = get_object_or_404(Oferta, pk=oferta_id)
 
         if request.user == oferta.usuario_recibe:
-            mensaje, exito = modulos_intercambio.procesar_intercambio(oferta)
-            if exito:
-                return redirect('mis_ofertas')  # Redirecciona para actualizar la página
-            else:
-                return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario', 'mis_ofertas.html'), {'aviso': mensaje})
+            if 'aceptar' in request.POST:  # Verifica si se presionó el botón de aceptar
+                mensaje, exito = modulos_intercambio.procesar_intercambio(oferta)
+                if exito:
+                    return redirect('mis_ofertas')  # Redirecciona para actualizar la página
+                else:
+                    return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario', 'mis_ofertas.html'), {'aviso': mensaje})
+            elif 'rechazar' in request.POST:  # Verifica si se presionó el botón de rechazar
+                mensaje, exito = modulos_intercambio.procesar_intercambio_rechazado(oferta)
+                if exito:
+                    return redirect('mis_ofertas')  # Redirecciona para actualizar la página
+                else:
+                    return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario', 'mis_ofertas.html'), {'aviso': mensaje})
         else:
             return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario', 'mis_ofertas.html'), {'aviso': 'No tienes permisos para realizar esta acción.'})
 

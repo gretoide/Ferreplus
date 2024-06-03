@@ -56,15 +56,15 @@
                                 <form method="post" action="{% url 'mis_ofertas' %}">
                                     {% csrf_token %}
                                     <input type="hidden" name="oferta_id" value="{{ oferta.id }}">
-                                    <button type="submit" class="btn btn-primary">
+                                    <button type="submit" class="btn btn-primary" name="aceptar">
                                         <i class='bx bx-check'></i>
                                         <span>Aceptar</span>
                                     </button>
-                                    <button type="submit" class="btn btn-primary">
+                                    <button type="submit" class="btn btn-primary" name="rechazar">
                                         <i class='bx bx-x'></i>
                                         <span>Rechazar</span>
                                     </button>
-                                </form>
+                                </form>                                
                             </div>
                         </td>
                     </tr>
