@@ -156,22 +156,33 @@ def crear_oferta(request):
 @normal_required
 def publicacion_existente(request, publicacion_id):
     publicacion_base = get_object_or_404(Publicacion, id=publicacion_id)
-    publicaciones_usuario = Publicacion.objects.filter(autor=request.user)
+
+    # Obtener las publicaciones del usuario que no son privadas y no forman parte de una oferta
+    publicaciones_usuario = Publicacion.objects.filter(autor=request.user).exclude(es_privada=True).exclude(parte_oferta=True)
 
     mensaje = ''
+    exito = ''
 
     if request.method == "POST":
-        publicacion_id = request.POST.get('publicacion')
+        publicacion_ofertada_id = request.POST.get('publicacion')
         fecha_encuentro = request.POST.get('fecha_encuentro')
         hora_encuentro = request.POST.get('hora_encuentro')
 
-        mensaje, success = modulos_oferta.procesar_oferta(publicacion_base, request.user, publicacion_id, fecha_encuentro, hora_encuentro)
+        # Obtener la publicación que el usuario seleccionó para hacer la oferta
+        publicacion_ofertada = get_object_or_404(Publicacion, id=publicacion_ofertada_id)
+
+        mensaje, success = modulos_oferta.procesar_oferta(publicacion_base, request.user, publicacion_ofertada_id, fecha_encuentro, hora_encuentro)
         
         if success:
-            mensaje = 'Oferta creada con éxito.'
+            # Actualizar el campo parte_oferta de la publicación seleccionada a True
+            publicacion_ofertada.parte_oferta = True
+            publicacion_ofertada.save()
+
+            exito = 'Oferta creada con éxito.'
     
     contexto = {
         'aviso': mensaje,
+        'exito': exito,
         'publicacion_a_ofertar': publicacion_base,
         'publicaciones_usuario': publicaciones_usuario
     }
