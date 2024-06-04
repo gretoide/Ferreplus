@@ -29,9 +29,15 @@ def pagina_empleado(request):
 def listar_intercambios_pendientes(request):
     usuario = request.user
     sucursal = usuario.sucursal  # Asumiendo que el modelo User tiene una relación con Sucursal
-    intercambios = Intercambio.objects.filter(sucursal=sucursal, estado=Intercambio.PENDIENTE)
-    return render(request, os.path.join(TEMPLATE_DIR,'vista_empleado','ver_intercambios.html'), {'intercambios': intercambios})
-
+    if sucursal:
+        intercambios = Intercambio.objects.filter(sucursal=sucursal, estado=Intercambio.PENDIENTE)
+        if not intercambios:
+            messages.error(request, "No hay intercambios pendientes")
+            return render(request, os.path.join(TEMPLATE_DIR,'vista_empleado','ver_intercambios.html'), {'intercambios': intercambios})
+    else:
+        messages.error(request, "Usted no está asignado a ninguna sucursal")
+        
+    return render(request, os.path.join(TEMPLATE_DIR,'vista_empleado','ver_intercambios.html'))
 @never_cache
 @login_required
 @staff_required
