@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar producto</title>
+    <!-- Enlace a Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/subir_publicacion.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/inicio_administrador.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/ver_intercambios_empleado.css' %}">
+</head>
+<body>
+    {% csrf_token %}
+    <div class="custom-container">
+        <button id="BotonVolver" class="btn btn-secondary">
+          <a href="{% url 'menu_productos' %}">
+            <i class='bx bx-chevron-left'>
+              <span>Volver</span>
+            </i>
+          </a>
+        </button>
+      </div>
+
+      <div class="container text-center" style="max-width: 600px; margin-top: 20px;">
+        <h1 class="text-center mb-4">Agregar producto</h1>
+        <div>
+            <form method="post"> <!-- Agregamos el método POST al formulario -->
+            {% csrf_token %}
+            <div class="mb-3">
+                <span style="margin-bottom: 10px;">Nombre</span>
+                <input type="text" class="form-control" placeholder="Nombre" name="nombre" required>
+            </div>
+
+            <div class="mb-3">
+                <span style="margin-bottom: 10px;">Codigo</span>
+                <input type="number" class="form-control" placeholder="Codigo" name="codigo" required>
+            </div>
+
+            <div class="mb-3"> <!-- Agregado: Div para agrupar el segundo select -->
+                <span style="margin-bottom: 10px;">Sucursal</span>
+                <select class="form-select" id="select" name="sucursal" style="width: 570px; padding-right: 12px;margin-left: 10px; margin-right: 10px; margin-bottom: 20px;" required>
+                    <option disabled selected name="sucursal">Seleccionar</option>
+                    {% for sucursal in sucursales %}
+                    <option value="{{sucursal.id}}" name="sucursal_id">{{ sucursal.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <span style="margin-bottom: 10px;">Stock</span>
+                <input type="number" class="form-control" placeholder="Stock" name="stock" required>
+            </div>
+
+            <p style="color: red;">{{error}}</p>
+            <p style="color: greenyellow;">{{exito}}</p>
+
+            <button type="submit" class="btn btn-outline-primary btn-lg btn-block">Agregar</button>
+            </form>
+        </div>
+      </div>
+
+<!-- Enlace a Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+</html>

@@ -10,6 +10,8 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache
 from django.utils import timezone
 from vista_usuario.models import Intercambio, User
+from vista_administrador.models import Sucursal
+from vista_empleado.models import Producto, Pedido
 # Create your views here.
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -95,3 +97,56 @@ def marcado_ausente(request,intercambio_id,usuario_id):
     intercambio.usuario_ausente = usuario_ausente
     intercambio.save()
     return redirect(listar_intercambios_pendientes)  
+
+@never_cache
+@login_required
+@staff_required
+def mostrarMenuPedidos(request):
+    if request.method == "GET":
+        return render(request, os.path.join(TEMPLATE_DIR,'vista_empleado','menu_pedidos.html'))
+    else:
+        return render(request, os.path.join(TEMPLATE_DIR,'vista_empleado','menu_pedidos.html'))
+    
+@never_cache
+@login_required
+@staff_required
+def mostrarMenuProductos(request):
+    if request.method == "GET":
+        return render(request, os.path.join(TEMPLATE_DIR,'vista_empleado','menu_productos.html'))
+    else:
+        return render(request, os.path.join(TEMPLATE_DIR,'vista_empleado','menu_productos.html'))
+    
+@never_cache
+@login_required
+@staff_required
+def agregarProducto(request):
+    if request.method == "GET":
+        return render(request, os.path.join(TEMPLATE_DIR,'vista_empleado','agregar_producto.html'),{
+            "sucursales": Sucursal.objects.all(),
+            "error": "",
+            "exito": ""
+        })
+    else:
+        if request.method == "POST":
+            try: 
+                Producto.objects.get(sucursal=request.POST["sucursal"], codigo=request.POST["codigo"])
+                return render(request, os.path.join(TEMPLATE_DIR,'vista_empleado','agregar_producto.html'),{
+                    "sucursales": Sucursal.objects.all(),
+                    "error": "El producto ya se encuentra registrado",
+                    "exito": ""
+                })
+            except Producto.DoesNotExist:
+                producto = Producto.objects.create(
+                    nombre=request.POST["nombre"],
+                    codigo=request.POST["codigo"],
+                    sucursal=get_object_or_404(Sucursal, id=request.POST["sucursal"]),
+                    stock=request.POST["stock"]
+                )
+
+                return render(request, os.path.join(TEMPLATE_DIR,'vista_empleado','agregar_producto.html'),{
+                    "sucursales": Sucursal.objects.all(),
+                    "error": "",
+                    "exito": "Producto agregado correctamente"
+                })
+            
+    
