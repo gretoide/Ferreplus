@@ -14,11 +14,9 @@
     {% csrf_token %}
     <div class="custom-container">
         <button id="BotonVolver" class="btn btn-secondary">
-          <a href="{% url 'detalle_publicacion' publicacion_a_ofertar.id %}">
-            <i class='bx bx-chevron-left'>
-              <span>Volver</span>
-            </i>
-          </a>
+            <a href="{% url 'detalle_publicacion' publicacion_a_ofertar.id %}">
+                <i class='bx bx-chevron-left'><span>Volver</span></i>
+            </a>
         </button>
     </div>
     <div class="container">
@@ -29,7 +27,7 @@
                     <div class="alert alert-dark" role="alert">{{ aviso }}</div>
                 {% endif %}
                 {% if exito %}
-                    <div class="alert alert-success" role="alert">{{ exito }} <a class="link-warning link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="{% url 'pagina_principal' %}">Volver al incio.</a></div>
+                    <div class="alert alert-success" role="alert">{{ exito }} <a class="link-warning link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="{% url 'pagina_principal' %}">Volver al inicio.</a></div>
                 {% endif %}
             </div>
         </div>
@@ -43,19 +41,19 @@
                         </div>
                         <div class="list-group">
                             {% for pub in publicaciones_usuario %}
-                            <div class="list-group-item">
-                                <label for="pub-{{ pub.id }}">{{ pub.titulo }}</label>
-                                <input type="radio" id="pub-{{ pub.id }}" name="publicacion" value="{{ pub.id }}">
-                            </div>
-                            {% empty %}
-                            <div class="mb-3 text-center">
-                                <div class="alert alert-dark" role="alert">
-                                    No posee publicaciones para solicitar un intercambio.
-                                    <a href="{% url 'subir_publicacion' %}" class="btn btn-secondary btn-sm mt-2">
-                                        <i class="bi bi-plus-circle"></i> Agregar publicación
-                                    </a>
+                                <div class="list-group-item">
+                                    <label for="pub-{{ pub.id }}">{{ pub.titulo }}</label>
+                                    <input type="radio" id="pub-{{ pub.id }}" name="publicacion" value="{{ pub.id }}">
                                 </div>
-                            </div>
+                            {% empty %}
+                                <div class="mb-3 text-center">
+                                    <div class="alert alert-dark" role="alert">
+                                        No posee publicaciones para solicitar un intercambio.
+                                        <a href="{% url 'subir_publicacion' %}" class="btn btn-secondary btn-sm mt-2">
+                                            <i class="bi bi-plus-circle"></i> Agregar publicación
+                                        </a>
+                                    </div>
+                                </div>
                             {% endfor %}
                         </div>
                     </div>
