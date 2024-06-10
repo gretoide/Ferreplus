@@ -9,6 +9,7 @@ from django.views.decorators.csrf import csrf_protect
 from django.core.signing import Signer
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
+from django.urls import reverse 
 from pathlib import Path
 import os
 import secrets
@@ -168,17 +169,20 @@ def publicacion_existente(request, publicacion_id):
         fecha_encuentro = request.POST.get('fecha_encuentro')
         hora_encuentro = request.POST.get('hora_encuentro')
 
-        # Obtener la publicación que el usuario seleccionó para hacer la oferta
-        publicacion_ofertada = get_object_or_404(Publicacion, id=publicacion_ofertada_id)
+        # Verificar si se seleccionó una publicación
+        if not publicacion_ofertada_id:
+            mensaje = 'Debe seleccionar una publicación para el intercambio.'
+        else:
+            # Obtener la publicación que el usuario seleccionó para hacer la oferta
+            publicacion_ofertada = get_object_or_404(Publicacion, id=publicacion_ofertada_id)
 
-        mensaje, success = modulos_oferta.procesar_oferta(publicacion_base, request.user, publicacion_ofertada_id, fecha_encuentro, hora_encuentro)
-        
-        if success:
-            # Actualizar el campo parte_oferta de la publicación seleccionada a True
-            publicacion_ofertada.parte_oferta = True
-            publicacion_ofertada.save()
-
-            exito = 'Oferta creada con éxito.'
+            mensaje, success = modulos_oferta.procesar_oferta(publicacion_base, request.user, publicacion_ofertada_id, fecha_encuentro, hora_encuentro)
+            
+            if success:
+                # Actualizar el campo parte_oferta de la publicación seleccionada a True
+                publicacion_ofertada.parte_oferta = True
+                publicacion_ofertada.save()
+                exito = 'Oferta creada con éxito.'
     
     contexto = {
         'aviso': mensaje,
@@ -232,6 +236,8 @@ def mis_ofertas(request):
             if 'aceptar' in request.POST:  # Verifica si se presionó el botón de aceptar
                 mensaje, exito = modulos_intercambio.procesar_intercambio(oferta)
                 if exito:
+                    # Eliminar las ofertas relacionadas a la misma publicacion_base
+                    modulos_intercambio.eliminar_ofertas_relacionadas(oferta)
                     return redirect('mis_ofertas')  # Redirecciona para actualizar la página
                 else:
                     return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario', 'mis_ofertas.html'), {'aviso': mensaje})
@@ -260,21 +266,24 @@ def oferta_privada(request, publicacion_id, publicacion_nueva_id):
     publicacion_nueva = get_object_or_404(Publicacion, id=publicacion_nueva_id)
 
     if request.method == 'POST':
-        # Obtener datos del formulario (fecha, hora, etc.)
         fecha_encuentro = request.POST.get('fecha_encuentro')
         hora_encuentro = request.POST.get('hora_encuentro')
 
-        # Validar y crear la oferta privada
         mensaje, exito = modulos_oferta.procesar_oferta_privada(publicacion_original, publicacion_nueva, fecha_encuentro, hora_encuentro)
 
         if exito:
-            # Mostrar mensaje de éxito
-            return render(request, 'vista_usuario/oferta_privada.html', {'exito': "La oferta se ha creado con éxito."})
+            return render(request, 'vista_usuario/oferta_privada.html', {
+                'exito': "La oferta se ha creado con éxito.",
+                'link_inicio': reverse('pagina_principal') # type: ignore
+            })
         else:
-            # Mostrar mensaje de error
-            return render(request, 'vista_usuario/oferta_privada.html', {'aviso': mensaje})
+            return render(request, 'vista_usuario/oferta_privada.html', {
+                'aviso': mensaje,
+                'publicacion_original': publicacion_original,
+                'publicacion_nueva': publicacion_nueva,
+                'form_action': request.build_absolute_uri()
+            })
 
-    # Renderizar el template 'oferta_privada.html' y pasar los datos necesarios
     return render(request, 'vista_usuario/oferta_privada.html', {
         'publicacion_original': publicacion_original,
         'publicacion_nueva': publicacion_nueva,

@@ -71,3 +71,4 @@ def procesar_oferta_privada(publicacion_base, publicacion_nueva, fecha_encuentro
         return '', True
 
     return 'Debe seleccionar una publicación para el intercambio.', False
+

@@ -230,3 +230,7 @@ button {
 .carousel-control-next .sr-only {
     display: none;
 }
+
+#icono {
+    font-size: 40px;
+}

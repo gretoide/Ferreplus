@@ -34,7 +34,7 @@ span {
 }
 
 .container {
-    max-width: 400px; /* Ancho máximo del contenedor */
+    max-width: 500px; /* Ancho máximo del contenedor */
     margin: auto; /* Centrar el contenedor */
     padding-top: 50px; /* Espacio superior */
 }

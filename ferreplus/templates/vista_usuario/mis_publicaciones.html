@@ -24,7 +24,7 @@
     </div>
     <div class="container">
         <div id="Header">
-            <h1>Mis publicaciones</h1>
+            <h1><i class="bx bx-photo-album icon" id="icono"></i> Mis publicaciones</h1>
             <div class="mb-3 text-center">
                 {% if error %}
                     <div class="alert alert-dark" role="alert">{{ error }}</div>
@@ -36,8 +36,8 @@
                 <thead>
                     <th class="text-center">Titulo</th>
                     <th class="text-center">Estado</th>
-                    <th class="text-center">Categoría</th>
-                    <th class="text-center">Sucursal</th>
+                    <th class="text-center">Categoría <i class='bx bx-category' ></i></th>
+                    <th scope="col" class="text-center">Sucursal <i class='bx bx-home-alt-2'></i></th>
                     <th class="text-center">Descripción</th>
                     <th class="text-center">Visibilidad</th>
                     <th class="text-center">Proceso</th>
