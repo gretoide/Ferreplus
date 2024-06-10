@@ -26,8 +26,22 @@
         </button>
       </div>
 
-      <div class="container text-center" style="max-width: 600px; margin-top: 20px;">
-        <h1 class="text-center mb-4">Agregar producto</h1>
+      <div class="container" style="max-width: 600px; margin-top: 20px;">
+        <div class="mb-3 text-center">
+          <h1 class="text-center mb-4">Agregar producto</h1>
+          {% if error %}
+          <div class="alert alert-danger" role="alert">
+              {{ error }}
+          </div>
+          {% endif %}
+          {% if exito %}
+          <div class="alert alert-success" role="alert">
+              {{ exito }}
+          </div>
+          {% endif %}
+        </div>
+        
+
         <div>
             <form method="post"> <!-- Agregamos el método POST al formulario -->
             {% csrf_token %}
@@ -37,8 +51,8 @@
             </div>
 
             <div class="mb-3">
-                <span style="margin-bottom: 10px;">Codigo</span>
-                <input type="number" class="form-control" placeholder="Codigo" name="codigo" required>
+                <span style="margin-bottom: 10px;">Código</span>
+                <input type="number" class="form-control" placeholder="Código" name="codigo" required>
             </div>
 
             <div class="mb-3"> <!-- Agregado: Div para agrupar el segundo select -->
@@ -56,10 +70,9 @@
                 <input type="number" class="form-control" placeholder="Stock" name="stock" required>
             </div>
 
-            <p style="color: red;">{{error}}</p>
-            <p style="color: greenyellow;">{{exito}}</p>
-
-            <button type="submit" class="btn btn-outline-primary btn-lg btn-block">Agregar</button>
+            <div class="mb-3 text-center">
+              <button type="submit" class="btn btn-outline-primary btn-lg btn-block">Agregar</button>
+            </div>
             </form>
         </div>
       </div>
