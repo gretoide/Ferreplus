@@ -57,6 +57,9 @@
                                 <button id="{{empleado.id}}" type="submit" class="btn btn-danger" onclick="confirmarEliminacion('{{ empleado.id }}')"><i class="bx bx-trash"></i>
                                     <span>Eliminar</span>
                                 </button>
+                                <a id="{{empleado.id}}" class="btn btn-danger" href="{% url 'detalle-empleado' empleado.id %}"><i class="bx bx-trash"></i>
+                                    <span>Ver Detalle</span>
+                                </a>
                             </td>
                     {% endfor %}
                 </tbody>

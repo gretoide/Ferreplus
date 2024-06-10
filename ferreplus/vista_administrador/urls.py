@@ -10,5 +10,7 @@ urlpatterns = [
     path('eliminar-sucursal/<str:sucursal_id>/',admin_view.eliminar_sucursal,name='eliminar-sucursal'),
     path('ver-empleados/',admin_view.ver_empleados, name='ver-empleados'),
     path('eliminar-empleado/<str:empleado_id>/',admin_view.eliminar_empleado,name='eliminar-empleado'),
-    path('editar-sucursal/<str:sucursal_id>/',admin_view.editar_sucursal, name='editar-sucursal')
+    path('editar-sucursal/<str:sucursal_id>/',admin_view.editar_sucursal, name='editar-sucursal'),
+    path('detalle-empleado/<str:empleado_id>/',admin_view.detalle_empleado,name='detalle-empleado')
+
     ]

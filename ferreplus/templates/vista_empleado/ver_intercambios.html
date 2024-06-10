@@ -13,7 +13,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/mis_empleados.css' %}">
 </head>
 <body>
-
+    <div class="d-flex justify-content-center">
     <div class="custom-container">
         <button id="BotonVolver" class="btn btn-secondary">
              <a href="{% url 'inicio_emp' %}">
@@ -21,8 +21,33 @@
                     <span>Volver</span>
                 </i>
             </a>
-        </button>
+        </button>    
     </div>
+
+    <div class="custom-container">
+        <form method="POST">
+        {% csrf_token %}
+        <div class="barra-busqueda">
+                <input id="buscador" name="buscador" type="text" placeholder="Buscar">
+                <span>Fecha:</span>
+                <input type="date" name="fecha">
+                <a href"{% url 'intercambios-pendientes'%}"><button>Buscar</button></a>
+                <i class="fas fa-search"></i>
+              </div>
+        </form>
+    </div>
+    <div class="custom-container">
+        <form method="get" action="">
+            <label for="orden">Ordenar por:</label>
+            <select name="orden" id="sort" onchange="this.form.submit()">
+                <option value="">Seleccione</option>
+                <option value="ascendente" {% if request.GET.sort == 'ascendente' %}selected{% endif %}>Ascendente</option>
+                <option value="descendente" {% if request.GET.sort == 'descendente' %}selected{% endif %}>Descendente</option>
+            </select>
+        </form>
+    </div>
+    </div>
+    
     <div class="container">
         <div id="Header">
             <h1>Intercambios de Sucursal</h1>

@@ -102,6 +102,10 @@ def detalle_sucursal(request, sucursal_id):
         is_staff=1).filter(sucursal_id=sucursal_id)
     return render(request, os.path.join(TEMPLATE_DIR, 'detalle_sucursal.html'), {'sucursal': a_ver, 'empleados': empleados_de_sucursal})
 
+def detalle_empleado(request,empleado_id):
+    a_ver = User.objects.get(id=empleado_id)
+    return render(request,os.path.join(TEMPLATE_DIR,'detalle_empleado.html'),{'empleado' : a_ver})
+
 @login_required
 @admin_required
 def cargar_empleado(request):
