@@ -9,7 +9,7 @@ from ferreplus.modulos.modulos_inicio_sesion import staff_required
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache
 from django.utils import timezone
-from vista_usuario.models import Intercambio, User
+from vista_usuario.models import Intercambio, User, Publicacion
 from vista_administrador.models import Sucursal
 from vista_empleado.models import Producto, Pedido
 # Create your views here.
@@ -35,6 +35,7 @@ def listar_intercambios_pendientes(request):
         intercambios = Intercambio.objects.filter(sucursal=sucursal, estado=Intercambio.PENDIENTE)
         if not intercambios:
             messages.error(request, "No hay intercambios pendientes")
+        else:
             return render(request, os.path.join(TEMPLATE_DIR,'vista_empleado','ver_intercambios.html'), {'intercambios': intercambios})
     else:
         messages.error(request, "Usted no está asignado a ninguna sucursal")
@@ -65,6 +66,19 @@ def cancelarIntercambio(request,intercambio_id):
         messages.error(request, "El intercambio no existe")
         return redirect(listar_intercambios_pendientes)
     intercambio.estado = Intercambio.CANCELADO
+    
+    publicacion_base = intercambio.base
+    publicacion_ofer = intercambio.ofer
+
+    if not (publicacion_base.es_privada):
+        publicacion_base.parte_oferta = False
+        publicacion_base.save()
+
+    if not (publicacion_ofer.es_privada):
+        publicacion_ofer.parte_oferta = False
+        publicacion_ofer.save()
+
+
     intercambio.save()
     messages.success(
         request, "El intercambio ha sido marcado como cancelado.")
