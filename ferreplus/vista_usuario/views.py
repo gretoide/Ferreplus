@@ -232,6 +232,7 @@ def mis_ofertas(request):
             if 'aceptar' in request.POST:  # Verifica si se presionó el botón de aceptar
                 mensaje, exito = modulos_intercambio.procesar_intercambio(oferta)
                 if exito:
+                    modulos_intercambio.eliminar_ofertas_relacionadas(oferta)
                     return redirect('mis_ofertas')  # Redirecciona para actualizar la página
                 else:
                     return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario', 'mis_ofertas.html'), {'aviso': mensaje})
