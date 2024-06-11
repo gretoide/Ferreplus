@@ -47,8 +47,11 @@ def listar_intercambios_pendientes(request):
             intercambios_producto = intercambios.filter(Q(base__titulo__icontains=a_buscar) | Q(ofer__titulo__icontains=a_buscar))
             if a_buscar.isdigit():
                 intercambios = list(intercambios_dni.distinct()) + list(intercambios_producto.distinct()) + list(intercambios_nombre.distinct())
+                intercambios = set(intercambios)
             else:
                 intercambios = list(intercambios_nombre.distinct()) + list(intercambios_producto.distinct()) + list(intercambios_dni.distinct())
+                intercambios = set(intercambios)
+
         if busqueda["fecha"] != "":
             busqueda_fecha = datetime.strptime(busqueda["fecha"], '%Y-%m-%d').date()
             intercambios = filter(lambda i: i.fecha_intercambio == busqueda_fecha,intercambios)

@@ -41,9 +41,9 @@
                 <div class="input-group">
                     <input id="buscador" name="buscador" type="text" class="form-control" placeholder="Buscar" aria-label="Buscar" aria-describedby="buscar">
                     <div class="input-group-append">
-                            <a type="submit" class="btn btn-primary">
+                            <button type="submit" onclick="this.form.submit()" class="btn btn-primary">
                                 <i class='bx bx-search-alt-2'></i>
-                            </a>
+                            </button>
                     </div>
                 </div>
                 <div class="input-group mx-3">
@@ -52,9 +52,9 @@
                     </div>
                     <input type="date" name="fecha" class="form-control" aria-label="Fecha" aria-describedby="fecha">
                     <div class="input-group-append">
-                        <a href="{% url 'intercambios-pendientes' %}" class="btn btn-primary">
+                        <button onclick="this.form.submit()" type="submit" class="btn btn-primary">
                             <i class='bx bx-search-alt-2'></i>
-                        </a>
+                        </button>
                     </div>
                 </div>
             </form>
