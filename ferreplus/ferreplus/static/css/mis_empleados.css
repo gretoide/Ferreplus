@@ -188,44 +188,61 @@ button {
     background-color: #2c2c2c;
     padding: 10px;
     border-radius: 5px;
-  }
-  
-  .form-control,
-  .input-group-text {
+}
+
+.form-control,
+.input-group-text {
     background-color: #404040;
     color: #e0e0e0;
     border-color: #606060;
-  }
-  
-  .form-control:focus,
-  .input-group-text:focus {
+}
+
+.form-control:focus,
+.input-group-text:focus {
     background-color: #505050;
     color: #e0e0e0;
     border-color: #808080;
-  }
-  
-  .btn-primary {
+}
+
+.btn-primary {
     background-color: #606060;
     color: #e0e0e0;
     border-color: #606060;
-  }
-  
-  .btn-primary:hover {
+}
+
+.btn-primary:hover {
     background-color: #ffd100;
     border-color: #ffd100;
-  }
-  
-  .bx {
-    color: #e0e0e0;
-  }
+}
 
-  .btn-primary:hover .bx {
+.bx {
+    color: #e0e0e0;
+}
+
+.btn-primary:hover .bx {
     color: #202020;
 }
 
-  #ordenarPor {
+#ordenarPor {
     color: #d7d7d7;
     margin: 10px;
-  }
+}
 
-  
+.filtros .input-group {
+    margin: 0; /* Remove negative margin */
+}
+
+.form-inline .form-control {
+    width: auto;
+}
+.form-inline .input-group {
+    display: flex;
+    align-items: center;
+}
+
+.form-inline .input-group .form-control {
+    margin-right: 0;
+}
+.form-inline .input-group .btn {
+    margin-left: -1px; /* Ajuste adicional para reducir espacio entre el botón y el input */
+}
