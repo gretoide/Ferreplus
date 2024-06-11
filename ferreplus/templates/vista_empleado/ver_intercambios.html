@@ -13,7 +13,6 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/mis_empleados.css' %}">
 </head>
 <body>
-    <div class="d-flex justify-content-center">
     <div class="custom-container">
         <button id="BotonVolver" class="btn btn-secondary">
              <a href="{% url 'inicio_emp' %}">
@@ -23,31 +22,7 @@
             </a>
         </button>    
     </div>
-
-    <div class="custom-container">
-        <form method="POST">
-        {% csrf_token %}
-        <div class="barra-busqueda">
-                <input id="buscador" name="buscador" type="text" placeholder="Buscar">
-                <span>Fecha:</span>
-                <input type="date" name="fecha">
-                <a href"{% url 'intercambios-pendientes'%}"><button>Buscar</button></a>
-                <i class="fas fa-search"></i>
-              </div>
-        </form>
-    </div>
-    <div class="custom-container">
-        <form method="get" action="">
-            <label for="orden">Ordenar por:</label>
-            <select name="orden" id="sort" onchange="this.form.submit()">
-                <option value="">Seleccione</option>
-                <option value="ascendente" {% if request.GET.sort == 'ascendente' %}selected{% endif %}>Ascendente</option>
-                <option value="descendente" {% if request.GET.sort == 'descendente' %}selected{% endif %}>Descendente</option>
-            </select>
-        </form>
-    </div>
-    </div>
-    
+    <div class="d-flex justify-content-center">
     <div class="container">
         <div id="Header">
             <h1>Intercambios de Sucursal</h1>
@@ -59,6 +34,37 @@
                         <div class="alert alert-dark" role="alert">{{ message }}</div>
                     {% endfor %}
                 {% endif %}
+        </div>
+        <div class="filtros d-flex justify-content-between align-items-center mb-3">
+            <form method="POST" class="d-flex align-items-center">
+                {% csrf_token %}
+                <div class="input-group">
+                    <input id="buscador" name="buscador" type="text" class="form-control" placeholder="Buscar" aria-label="Buscar" aria-describedby="buscar">
+                    <div class="input-group-append">
+                            <a type="submit" class="btn btn-primary">
+                                <i class='bx bx-search-alt-2'></i>
+                            </a>
+                    </div>
+                </div>
+                <div class="input-group mx-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="fecha">Fecha:</span>
+                    </div>
+                    <input type="date" name="fecha" class="form-control" aria-label="Fecha" aria-describedby="fecha">
+                    <div class="input-group-append">
+                        <a href="{% url 'intercambios-pendientes' %}" class="btn btn-primary">
+                            <i class='bx bx-search-alt-2'></i>
+                        </a>
+                    </div>
+                </div>
+            </form>
+            <form method="get" action="" class="d-flex align-items-center">
+                <select name="orden" id="sort" class="form-control" onchange="this.form.submit()">
+                    <option value="">Ordenar por</option>
+                    <option value="ascendente" {% if request.GET.sort == 'ascendente' %}selected{% endif %}> <i class='bx bx-sort-a-z'></i> Ascendente  </option>
+                    <option value="descendente" {% if request.GET.sort == 'descendente' %}selected{% endif %}> <i class='bx bx-sort-z-a' ></i> Descendente </option>
+                </select>
+            </form>
         </div>
         <div class="mb-3">
             <table class="table">
