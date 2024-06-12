@@ -273,7 +273,7 @@ def oferta_privada(request, publicacion_id, publicacion_nueva_id):
             return render(request, 'vista_usuario/oferta_privada.html', {'exito': "La oferta se ha creado con éxito."})
         else:
             # Mostrar mensaje de error
-            return render(request, 'vista_usuario/oferta_privada.html', {'aviso': mensaje})
+            return render(request, 'vista_usuario/oferta_privada.html', {'aviso': 'Verifique el horario y la fecha.'})
 
     # Renderizar el template 'oferta_privada.html' y pasar los datos necesarios
     return render(request, 'vista_usuario/oferta_privada.html', {
