@@ -168,18 +168,21 @@ def publicacion_existente(request, publicacion_id):
         fecha_encuentro = request.POST.get('fecha_encuentro')
         hora_encuentro = request.POST.get('hora_encuentro')
 
-        # Obtener la publicación que el usuario seleccionó para hacer la oferta
-        publicacion_ofertada = get_object_or_404(Publicacion, id=publicacion_ofertada_id)
-
-        mensaje, success = modulos_oferta.procesar_oferta(publicacion_base, request.user, publicacion_ofertada_id, fecha_encuentro, hora_encuentro)
+        # Verificar si se seleccionó una publicación
+        if not publicacion_ofertada_id:
+            mensaje = 'Debe seleccionar una publicación para ofertar.'
+        else:
+            # Obtener la publicación que el usuario seleccionó para hacer la oferta
+            publicacion_ofertada = get_object_or_404(Publicacion, id=publicacion_ofertada_id)
+            mensaje, success = modulos_oferta.procesar_oferta(publicacion_base, request.user, publicacion_ofertada_id, fecha_encuentro, hora_encuentro)
         
-        if success:
-            # Actualizar el campo parte_oferta de la publicación seleccionada a True
-            publicacion_ofertada.parte_oferta = True
-            publicacion_ofertada.save()
+            if success:
+                # Actualizar el campo parte_oferta de la publicación seleccionada a True
+                publicacion_ofertada.parte_oferta = True
+                publicacion_ofertada.save()
+                exito = 'Oferta creada con éxito.'
+                mensaje = ''
 
-            exito = 'Oferta creada con éxito.'
-    
     contexto = {
         'aviso': mensaje,
         'exito': exito,
