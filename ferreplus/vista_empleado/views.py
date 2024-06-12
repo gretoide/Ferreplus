@@ -89,6 +89,18 @@ def cancelarIntercambio(request, intercambio_id):
         messages.error(request, "El intercambio no existe")
         return redirect(listar_intercambios_pendientes)
     intercambio.estado = Intercambio.CANCELADO
+
+    publicacion_base = intercambio.base
+    publicacion_ofer = intercambio.ofer
+
+    if publicacion_base and not publicacion_base.es_privada:
+        publicacion_base.parte_oferta = False
+        publicacion_base.save() 
+
+    if publicacion_ofer and not publicacion_ofer.es_privada:
+        publicacion_ofer.parte_oferta = False
+        publicacion_ofer.save()  
+
     intercambio.save()
     messages.success(
         request, "El intercambio ha sido marcado como cancelado.")
@@ -121,5 +133,17 @@ def marcado_ausente(request, intercambio_id, usuario_id):
 
     intercambio.estado = Intercambio.CANCELADO_AUSENTE
     intercambio.usuario_ausente = usuario_ausente
+
+    publicacion_base = intercambio.base
+    publicacion_ofer = intercambio.ofer
+
+    if publicacion_base and not publicacion_base.es_privada:
+        publicacion_base.parte_oferta = False
+        publicacion_base.save() 
+
+    if publicacion_ofer and not publicacion_ofer.es_privada:
+        publicacion_ofer.parte_oferta = False
+        publicacion_ofer.save()  
+
     intercambio.save()
     return redirect(listar_intercambios_pendientes)
