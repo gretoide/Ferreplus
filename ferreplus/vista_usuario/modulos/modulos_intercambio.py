@@ -55,12 +55,14 @@ def procesar_intercambio_rechazado(oferta):
 
 def eliminar_ofertas_relacionadas(oferta):
     # Filtra y obtiene todas las ofertas que tengan involucrada la publicación base
-    ofertas_relacionadas_base = Oferta.objects.filter(base=oferta.base)
+    ofertas_relacionadas_base = Oferta.objects.filter(base=oferta.base).exclude(id=oferta.id)
         
     # Recorre las publicaciones ofertadas en las ofertas relacionadas y cambia 'parte_oferta' a False
-    for publicacion_ofertada in ofertas_relacionadas_base:
-        publicacion_ofertada.oferta.parte_oferta = False
-        publicacion_ofertada.oferta.save()
+    for oferta_rel in ofertas_relacionadas_base:
+        oferta_rel.oferta.parte_oferta = False
+        oferta_rel.oferta.save()
+        oferta_rel.estado = Oferta.RECHAZADO
+        oferta_rel.save()
 
-    # Elimina todas las ofertas relacionadas con la publicación base
-    ofertas_relacionadas_base.estado = Oferta.RECHAZADO
+
+    
