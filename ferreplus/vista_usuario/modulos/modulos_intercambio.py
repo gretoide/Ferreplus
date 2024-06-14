@@ -27,11 +27,8 @@ def procesar_intercambio(oferta):
     )
 
     # Actualizar el estado de la oferta a 'aceptada' (si es necesario)
-    oferta.estado = 'aceptada'
+    oferta.estado = Oferta.ACEPTADO
     oferta.save()
-
-    # Eliminar la oferta después de aceptarla
-    oferta.delete()
 
     return "Intercambio creado exitosamente.", True
 
@@ -50,7 +47,8 @@ def procesar_intercambio_rechazado(oferta):
     publicacion_ofertada.save()
 
     # Eliminar la oferta después de aceptarla
-    oferta.delete()
+    oferta.estado  = Oferta.RECHAZADO
+    oferta.save()
 
     return "Se rechazó la oferta exitosamente.", True
 
@@ -65,4 +63,4 @@ def eliminar_ofertas_relacionadas(oferta):
         publicacion_ofertada.oferta.save()
 
         # Elimina todas las ofertas relacionadas con la publicación base
-        ofertas_relacionadas_base.delete()
+        ofertas_relacionadas_base.estado = Oferta.RECHAZADO

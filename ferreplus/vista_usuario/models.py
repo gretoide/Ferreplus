@@ -58,15 +58,29 @@ class Imagen(models.Model):
 
 
 class Oferta(models.Model):
+    PENDIENTE = 'Esperando respuesta'
+    RECHAZADO = 'Rechazado'
+    ACEPTADO = 'Aceptado'
+
+    ESTADOS_CHOICES = [
+        (PENDIENTE, 'Esperando respuesta'),
+        (RECHAZADO, 'Rechazado'),
+        (ACEPTADO, 'Aceptado'),
+    ]
+
     base = models.ForeignKey(Publicacion, on_delete=models.CASCADE, related_name='ofertas_como_base')
     oferta = models.ForeignKey(Publicacion, on_delete=models.CASCADE, related_name='ofertas_como_oferta')
     hora = models.TimeField()
     fecha_intercambio = models.DateField()
-    usuario_ofertante = models.ForeignKey(User, on_delete=models.CASCADE, related_name='ofertas_hechas', default=1)  # Asignar un usuario por defecto
-    usuario_recibe = models.ForeignKey(User, on_delete=models.CASCADE, related_name='ofertas_recibidas_oferta', default=1)  # Asignar un usuario por defecto
+    usuario_ofertante = models.ForeignKey(User, on_delete=models.CASCADE, related_name='ofertas_hechas')
+    usuario_recibe = models.ForeignKey(User, on_delete=models.CASCADE, related_name='ofertas_recibidas_oferta')
+    estado = models.CharField(max_length=20, choices=ESTADOS_CHOICES, default=PENDIENTE)
 
     def __str__(self):
-        return f'Oferta de {self.usuario_ofertante} para {self.usuario_recibe} el {self.fecha_intercambio}'
+        return f'Oferta de {self.usuario_ofertante} a {self.usuario_recibe} para {self.base}'
+
+    class Meta:
+        ordering = ['fecha_intercambio', 'hora']
 
 class Intercambio(models.Model):
     
