@@ -39,7 +39,7 @@ def pagina_principal(request):
     sucursales = Sucursal.objects.all()
 
     # Chequeamos que tiene solicitudes pendientes para la notificacion
-    solicitudes_pendientes = Oferta.objects.filter(usuario_recibe_id=usuario_actual).count()
+    solicitudes_pendientes = Oferta.objects.filter(usuario_recibe_id=usuario_actual, estado=Oferta.PENDIENTE).count()
 
     # Obtener todas las publicaciones excepto las del usuario actual o las que son privadas
     publicaciones = Publicacion.objects.exclude(es_privada=True).exclude(parte_oferta=True).exclude(autor=usuario_actual)
