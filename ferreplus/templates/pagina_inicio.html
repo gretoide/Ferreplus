@@ -37,7 +37,7 @@
                 {% csrf_token %}
                 {% if aviso %}
                 <div class="alert-container text-center">
-                    <div class="alert alert-dark mb-3" role="alert">{{ aviso }}</div>
+                    <div class="alert alert-primary mb-3" role="alert">{{ aviso }}</div>
                 </div>
                 {% endif %}
                 <input type="email" class="form-control mb-3" placeholder="Correo electrónico" name="correo_electronico" required>

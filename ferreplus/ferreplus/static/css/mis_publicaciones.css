@@ -231,6 +231,10 @@ button {
     display: none;
 }
 
+.nav-tabs .nav-link {
+    color: #909090;
+}
+
 /* barrita de las tablas */
 .nav-tabs .nav-link:hover {
     border-color: #FFD60A; /* Color de fondo al pasar el ratón */
@@ -247,5 +251,18 @@ button {
 }
 
 .badge {
-    padding: 10px;
+    padding: 5px;
+}
+
+/* Estilos para la celda que contiene los botones */
+#celdaBotones {
+    margin: 10px; /* Espacio entre los botones */
+    width: 100%; /* Ancho completo de la celda */
+    text-align: center; /* Alineación del contenido */
+}
+
+/* Estilos para los botones de acción */
+#celdaBotones .btn {
+    display: block; /* Hace que los botones ocupen toda la anchura disponible */
+    margin: 10px auto; /* Centra los botones horizontalmente y agrega espaciado */
 }

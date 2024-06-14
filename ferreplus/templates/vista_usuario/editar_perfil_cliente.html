@@ -27,6 +27,19 @@
 
       <div class="container text-center" style="max-width: 600px;">
         <h1 class="text-center mb-4">Editar cuenta</h1>
+        <div class="mb-3">
+          {% if exito %}
+            <div class="alert alert-success" role="alert">
+                {{ exito }}
+            </div>
+          {% endif %}
+
+          {% if error %}
+              <div class="alert alert-danger" role="alert">
+                  {{ error }}
+              </div>
+          {% endif %}
+        </div>
         <div>
             <form method="post"> <!-- Agregamos el método POST al formulario -->
             {% csrf_token %}
@@ -36,8 +49,6 @@
             <div class="mb-3">
                 <input type="text" class="form-control" value="{{apellido}}" placeholder="Apellido" name="apellido" required>
             </div>
-            <p style="color: #ffd100;">{{exito}}</p>
-            <p style="color: red;">{{error}}</p>
             <button type="submit" class="btn btn-outline-primary btn-lg btn-block">Guardar</button>
             </form>
         </div>

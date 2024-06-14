@@ -27,20 +27,18 @@
 
 
       <div class="container text-center" style="max-width: 600px;">
-        <h1 class="text-center mb-4">Cambiar contraseña</h1>
+        <div class="mb-3">
+          <h1 class="text-center mb-3">Cambiar contraseña</h1>
+        </div>
         <div class="mb-3 text-center">
-          <div class="aler alert-dark" role="alert" id="contenedorAlerta">
             {% if error %}
-                <div class="alert alert-dark" role="alert">{{error}}</div>
+              <div class="alert alert-danger" role="alert">{{error}}</div>
             {% endif %}
             {% if exito %}
-            <div class="alert alert-success" id="mensaje-exito">
-                {{ exito }} 
-            </div>
+              <div class="alert alert-success" id="mensaje-exito">{{ exito }}</div>
             {% endif %}
-          </div>
         </div>
-        <div>
+        <div class="mb-3">
             <form method="post"> <!-- Agregamos el método POST al formulario -->
             {% csrf_token %}
             <div class="mb-3">

@@ -131,11 +131,8 @@ def mis_publicaciones(request):
             return redirect('mis_publicaciones')
 
     publicaciones = Publicacion.objects.filter(autor=request.user)
-    if len(publicaciones) == 0:
-        error = 'No hay publicaciones cargadas.'
-        return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario','mis_publicaciones.html'), {'publicaciones': publicaciones, 'error' : error})
-    else:
-        return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario','mis_publicaciones.html'), {'publicaciones': publicaciones})
+    
+    return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario','mis_publicaciones.html'), {'publicaciones': publicaciones})
 
 @login_required
 @normal_required

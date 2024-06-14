@@ -26,13 +26,9 @@
     <div class="container">
         <div id="Header">
             <h1>Mis publicaciones</h1>
-            <div class="mb-3 text-center">
-                {% if error %}
-                    <div class="alert alert-dark" role="alert">{{ error }}</div>
-                {% endif %}
-            </div>
         </div>
         <div class="mb-3">
+            {% if publicaciones %}
             <table class="table">
                 <thead>
                     <th class="text-center">Titulo</th>
@@ -66,27 +62,36 @@
                         {% else %}
                             Disponible para trueque
                         {% endif %}
-                    <td class="text-center">
-                        <div class="d-flex">
-                            <div class="mb-3 text-center">
-                                <button class="btn btn-primary" data-toggle="modal" data-target="#detallesPublicacionModal{{ publicacion.id }}">
-                                    <i class='bx bx-detail'></i>
-                                    <span>Ver detalles</span>
-                                </button>
-                                <a href="{% url 'editar_publicacion' publicacion.id %}" class="btn btn-primary">
-                                    <i class='bx bx-edit'></i>
-                                    <span>Editar</span>
-                                </a>
-                                <button class="btn btn-danger">
-                                    <i class='bx bx-trash'></i>
+                        <td class="text-center" id="celdaBotones">
+                            <div class="d-flex">
+                                <div>
+                                    <button class="btn btn-primary" data-toggle="modal" data-target="#detallesPublicacionModal{{ publicacion.id }}">
+                                        <i class='bx bx-detail'></i>
+                                        <span>Ver detalles</span>
+                                    </button>
+                                </div>
+                                <div>
+                                    <a href="{% url 'editar_publicacion' publicacion.id %}" class="btn btn-primary">
+                                        <i class='bx bx-edit'></i>
+                                        <span>Editar</span>
+                                    </a>
+                                </div>
+                                <div>
+                                    <button class="btn btn-danger">
+                                        <i class='bx bx-trash'></i>
                                         <span>Eliminar</span>
-                                </button>                
+                                    </button>                
+                                </div>
                             </div>
-                        </div>
-                    </td>
+                        </td>
                 </tr>
                 {% endfor %}
             </table>
+            {% else %}
+            <div class="alert alert-primary text-center" role="alert">
+                No hay publicaciones cargadas.
+            </div>
+            {% endif %}
         </div>
     </div>
 </body>
