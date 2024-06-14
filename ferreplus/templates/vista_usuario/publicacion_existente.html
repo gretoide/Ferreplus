@@ -52,6 +52,15 @@
 
         <hr class="solid" style="border: 0; height: 1px; background-color: #808080; margin: 20px 0;">
 
+        <div class="mb-3 text-center">
+            {% if aviso %}
+                <div class="alert alert-primary" role="alert">{{ aviso }}</div>
+            {% endif %}
+            {% if exito %}
+                <div class="alert alert-success" role="alert">{{ exito }} <a class="link-warning link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="{% url 'pagina_principal' %}">Volver al incio.</a></div>
+            {% endif %}
+        </div>
+
         <form method="POST" action="{% url 'publicacion_existente' publicacion_a_ofertar.id %}">
             {% csrf_token %}
             <div class="row align-items-center">
