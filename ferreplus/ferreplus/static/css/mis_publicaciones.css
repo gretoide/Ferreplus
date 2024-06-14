@@ -20,11 +20,11 @@ body {
 
 a {
     text-decoration: none; /* Elimina el subrayado predeterminado del enlace */
-    color: #d7d7d7; /* Define el color del texto del enlace */
+    color: none; /* Define el color del texto del enlace */
 }
 
 a:hover {
-    color: #ffffff; /* Define el color del texto del enlace cuando se hace hover */
+    color: none; /* Define el color del texto del enlace cuando se hace hover */
     text-decoration: none;
 }
 
