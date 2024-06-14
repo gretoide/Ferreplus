@@ -24,29 +24,64 @@
     </div>
     <div class="container">
         <div class="mb-3 text-center">
-            <h1>Solicitud de intercambio</h1>
-            <div class="mb-3 text-center">
-                {% if aviso %}
-                    <div class="alert alert-dark" role="alert">{{ aviso }}</div>
-                {% endif %}
-                {% if exito %}
-                    <div class="alert alert-success" role="alert">{{ exito }} <a class="link-warning link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="{% url 'pagina_principal' %}">Volver al incio.</a></div>
-                {% endif %}
+            <h1>Solicitud de intercambio a</h1>
+        </div>
+
+        <!-- Nueva sección para mostrar detalles de la publicación a ofertar -->
+        <div class="row justify-content-center mb-4">
+            <div class="col-md-8">
+                <div class="card" id="cardPublicacion">
+                    <div class="card-body d-flex align-items-center">
+                        <!-- Imagen del producto -->
+                        <div class="img-container">
+                            {% if publicacion_a_ofertar.imagenes.all %}
+                                <img src="{{ publicacion_a_ofertar.imagenes.first.imagen.url }}" alt="Imagen del producto" class="img-thumbnail" style="width: 100px; height: 100px;">
+                            {% else %}
+                                <img src="{% static 'ruta/a/imagen/por/defecto.jpg' %}" alt="Imagen por defecto" class="img-thumbnail" style="width: 100px; height: 100px;">
+                            {% endif %}
+                        </div>
+                        <!-- Título y categoría -->
+                        <div class="ml-3">
+                            <h6>{{ publicacion_a_ofertar.titulo }}</h6>
+                            <span>Categoría <span class="badge badge-primary">{{ publicacion_a_ofertar.categoria }}</span></span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+
+        <hr class="solid" style="border: 0; height: 1px; background-color: #808080; margin: 20px 0;">
+
         <form method="POST" action="{% url 'publicacion_existente' publicacion_a_ofertar.id %}">
             {% csrf_token %}
             <div class="row align-items-center">
-                <div class="col-md-6 p-o mb-3">
+                <div class="col-md-6 mb-3">
                     <div class="mb-3" id="ContainerForm">
                         <div class="mb-3">
                             <h4>Mis publicaciones</h4>
+                            <span id="SpanHorario">Para enviar una solicitud de intercambio, ambas publicaciones deben ser de la misma <b>categoría</b>.</span>
                         </div>
                         <div class="list-group">
                             {% for pub in publicaciones_usuario %}
-                            <div class="list-group-item">
-                                <label for="pub-{{ pub.id }}">{{ pub.titulo }}</label>
-                                <input type="radio" id="pub-{{ pub.id }}" name="publicacion" value="{{ pub.id }}">
+                            <div class="list-group-item" id="cardPublicacion">
+                                <div class="card-body d-flex align-items-center">
+                                    <!-- Imagen del producto -->
+                                    <div class="img-container">
+                                        {% if pub.imagenes.all %}
+                                            <img src="{{ pub.imagenes.first.imagen.url }}" alt="Imagen del producto" class="img-thumbnail" style="width: 100px; height: 100px;">
+                                        {% else %}
+                                            <img src="{% static 'ruta/a/imagen/por/defecto.jpg' %}" alt="Imagen por defecto" class="img-thumbnail" style="width: 100px; height: 100px;">
+                                        {% endif %}
+                                    </div>
+                                    <!-- Título, categoría y radio -->
+                                    <div class="ml-3">
+                                        <h6>{{ pub.titulo }}</h6>
+                                        <span>Categoría <span class="badge badge-secondary">{{ pub.categoria }}</span></span>
+                                    </div>
+                                    <div class="ml-auto">
+                                        <input type="radio" id="pub-{{ pub.id }}" name="publicacion" value="{{ pub.id }}">
+                                    </div>
+                                </div>
                             </div>
                             {% empty %}
                             <div class="mb-3 text-center">
@@ -61,7 +96,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 p-o mb-3">
+                <div class="col-md-6 mb-3">
                     <div class="mb-3">
                         <h4>Datos para el encuentro</h4>
                     </div>
