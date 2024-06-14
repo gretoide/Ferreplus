@@ -265,7 +265,6 @@ def mis_ofertas(request):
             'ofertas_recibidas': ofertas_recibidas,
             'ofertas_enviadas': ofertas_enviadas,
             'ofertas_procesadas': ofertas_procesadas,
-            'aviso': 'Usted no ha recibido nuevas solicitudes de intercambio.' if len(ofertas_recibidas) == 0 else None
         })
 
 @login_required
@@ -307,11 +306,7 @@ def mis_intercambios(request):
 
     intercambios = intercambios_base | intercambios_oferta
 
-    if not intercambios.exists():
-        error = 'Usted no posee nuevos intercambios.'
-        return render(request, 'vista_usuario/mis_intercambios.html', {'intercambios': intercambios, 'aviso': error})
-    else:
-        return render(request, 'vista_usuario/mis_intercambios.html', {'intercambios': intercambios})
+    return render(request, 'vista_usuario/mis_intercambios.html', {'intercambios': intercambios})
 
 # APARTADO DE USUARIO
 

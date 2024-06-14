@@ -28,12 +28,8 @@
         <div id="Header">
             <h1>Mis intercambios</h1>
         </div>
-        <div class="mb-3 text-center">
-            {% if aviso %}
-                <div class="alert alert-dark" role="alert">{{ aviso }}</div>
-            {% endif %}
-        </div>
         <div class="mb-3">
+            {% if intercambios%}
             <table class="table">
                 <thead>
                     <tr>
@@ -47,42 +43,47 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for intercambio in intercambios %}
-                        <tr>
-                            {% if intercambio.base.autor == user %}
-                                <td class="text-center">{{ intercambio.base.titulo }}</td>
-                                <td class="text-center icon-cell"><i class='bx bx-transfer'></i></td>
-                                <td class="text-center">{{ intercambio.ofer.titulo }}</td>
-                            {% else %}
-                                <td class="text-center">{{ intercambio.ofer.titulo }}</td>
-                                <td class="text-center icon-cell"><i class='bx bx-transfer'></i></td>
-                                <td class="text-center">{{ intercambio.base.titulo }}</td>
-                            {% endif %}
-                            <td class="text-center">{{ intercambio.fecha_intercambio }}</td>
-                            <td class="text-center">{{ intercambio.hora }}</td>
-                            <td class="text-center">{{ intercambio.sucursal.nombre }}</td>
-                            <td class="text-center">
-                                {% if intercambio.estado == 'REALIZADO' %}
-                                <span class="badge badge-success">
-                                    {{ intercambio.estado }}
-                                </span>
-                            {% elif intercambio.estado == 'CANCELADO' %}
-                                <span class="badge badge-danger">
-                                    {{ intercambio.estado }}
-                                </span>
-                            {% elif intercambio.estado == 'CANCELADO_AUSENTE' %}
-                                <span class="badge badge-warning">
-                                    AUSENTE</span>
-                            {% else %}
-                                    <span class="badge badge-primary">
+                        {% for intercambio in intercambios %}
+                            <tr>
+                                {% if intercambio.base.autor == user %}
+                                    <td class="text-center">{{ intercambio.base.titulo }}</td>
+                                    <td class="text-center icon-cell"><i class='bx bx-transfer'></i></td>
+                                    <td class="text-center">{{ intercambio.ofer.titulo }}</td>
+                                {% else %}
+                                    <td class="text-center">{{ intercambio.ofer.titulo }}</td>
+                                    <td class="text-center icon-cell"><i class='bx bx-transfer'></i></td>
+                                    <td class="text-center">{{ intercambio.base.titulo }}</td>
+                                {% endif %}
+                                <td class="text-center">{{ intercambio.fecha_intercambio }}</td>
+                                <td class="text-center">{{ intercambio.hora }}</td>
+                                <td class="text-center">{{ intercambio.sucursal.nombre }}</td>
+                                <td class="text-center">
+                                    {% if intercambio.estado == 'REALIZADO' %}
+                                    <span class="badge badge-success">
                                         {{ intercambio.estado }}
                                     </span>
-                            {% endif %}
-                            </td>
-                        </tr>
-                    {% endfor %}
+                                {% elif intercambio.estado == 'CANCELADO' %}
+                                    <span class="badge badge-danger">
+                                        {{ intercambio.estado }}
+                                    </span>
+                                {% elif intercambio.estado == 'CANCELADO_AUSENTE' %}
+                                    <span class="badge badge-warning">
+                                        AUSENTE</span>
+                                {% else %}
+                                        <span class="badge badge-primary">
+                                            {{ intercambio.estado }}
+                                        </span>
+                                {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
                 </tbody>
             </table>
+            {% else %}
+                <div class="alert alert-primary text-center" role="alert">
+                    No tienes intercambios.
+                </div>
+             {% endif %}
         </div>
     </div>
 
