@@ -10,19 +10,19 @@ def validar_dni(dni):
 
     if validar_espacio_blanco(dni) or len(dni) != 8 or not dni.isdigit():
         condicion = False
-        motivo = "Formato de DNI inválido, el DNI deben ser 8 números sin espacios en blanco"
+        motivo = "Formato de DNI inválido, deben ser 8 números sin espacios en blanco."
 
     try:
         dni = int(dni)
     except ValueError:
         condicion = False
-        motivo = "Formato de DNI inválido, el DNI deben ser 8 números sin espacios en blanco"
+        motivo = "Formato de DNI inválido, deben ser 8 números sin espacios en blanco."
     else:
         try:
             usuario_existente = User.objects.get(dni=dni)
             if not usuario_existente.is_staff:
                 condicion = False
-                motivo = "El DNI ingresado ya corresponde a un usuario"
+                motivo = "El DNI ingresado ya corresponde a un usuario."
         except User.DoesNotExist:
             pass
 
@@ -37,7 +37,7 @@ def validar_correo(correo):
     # Verificar si el correo coincide con el patrón y si no contiene espacios en blanco
     if validar_espacio_blanco(correo) or not re.match(patron, correo):
         condicion = False
-        motivo = "Formato inválido para correo"
+        motivo = "Formato inválido para el correo electrónico."
     else:
         try:
             # Verificar si el correo ya está en uso por otro usuario
@@ -77,7 +77,7 @@ def validar_contraseña(contraseña):
         condicion = False
     
     if not condicion:
-        motivo = "La contraseña debe contener 6 caracteres como minimo, solo acepta letras o números, incluyendo una mayúscula y un número"
+        motivo = "La contraseña debe contener 6 carácteres como mínimo, solo acepta letras o números, incluyendo una mayúscula y un número."
 
 
     return(condicion,motivo)
@@ -87,7 +87,7 @@ def validar_confirmacion(contraseña,contraseña2):
     motivo = ""
     if contraseña != contraseña2:
         condicion = False
-        motivo = "Las contraseñas no coinciden"
+        motivo = "Las contraseñas no coinciden."
 
     
     return(condicion,motivo)
@@ -106,10 +106,10 @@ def validar_fecha(fecha):
         
         if not edad >= mayoria_edad:
             condicion = False
-            motivo = "Se debe ser mayor de edad para registrarse"
+            motivo = "Se debe ser mayor de edad para registrarse."
     except:
         condicion = False
-        motivo = "El dato ingresado en la fecha es invalido" 
+        motivo = "El dato ingresado en la fecha es invalido." 
 
     return (condicion, motivo)
 
@@ -121,7 +121,7 @@ def validar_nombre(nombre):
     # Verificar si la cadena coincide con el patrón
     if validar_espacio_blanco(nombre) or not re.match(patron, nombre):
         condicion = False
-        motivo = "Formato invalido para el campo nombre"
+        motivo = "Formato invalido para el campo nombre."
     return (condicion,motivo)
 
 def validar_apellido(apellido):
@@ -132,7 +132,7 @@ def validar_apellido(apellido):
     # Verificar si la cadena coincide con el patrón
     if validar_espacio_blanco(apellido) or not re.match(patron, apellido):
         condicion = False
-        motivo = "Formato invalido para el campo apellido"
+        motivo = "Formato invalido para el campo apellido."
     return (condicion,motivo)
 
 def verificar(usuario):

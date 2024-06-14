@@ -243,3 +243,9 @@ h1 {
     color: red; /* Cambia el color al pasar el ratón */
     font-size: 20px; /* Cambia el tamaño de la fuente al pasar el ratón */
 }
+
+/*Contenedor de alerta*/
+
+#contenedorAlerta {
+    background-color: transparent;
+}
