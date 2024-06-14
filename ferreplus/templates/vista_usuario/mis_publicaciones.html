@@ -48,7 +48,7 @@
                 <tr>
                     <td class="text-center">{{ publicacion.titulo }}</td>
                     <td class="text-center">
-                        <span class="badge badge-secondary">{{ publicacion.estado|upper }}</span>
+                        <span class="badge badge-light">{{ publicacion.estado|upper }}</span>
                     </td>
                     <td class="text-center">{{ publicacion.categoria }}</td>
                     <td class="text-center">{{ publicacion.sucursal.nombre }}</td>
@@ -131,7 +131,7 @@
                 </div>
                 <div class="mb-3">
                     <h6>Estado</h6>
-                    <span class="badge badge-secondary">{{ publicacion.estado|upper }}</span>
+                    <span class="badge badge-light" id="nuevoModalBadge">{{ publicacion.estado|upper }}</span>
                 </div>
                 <div class="mb-3">
                     <h6>Categoría</h6>

@@ -24,11 +24,6 @@
     <div class="container">
         <div id="Header" class="my-4">
             <h1>Solicitudes de Intercambio</h1>
-            <div class="mb-3 text-center">
-                {% if aviso %}
-                    <div class="alert alert-dark" role="alert">{{ aviso }}</div>
-                {% endif %}
-            </div>
         </div>
         
         <!-- Pestañas -->
@@ -40,7 +35,7 @@
                 <a class="nav-link" id="enviadas-tab" data-toggle="tab" href="#enviadas" role="tab" aria-controls="enviadas" aria-selected="false">Enviadas</a>
             </li>
             <li class="nav-item" role="presentation">
-                <a class="nav-link" id="historial" data-toggle="tab" href="#historial" role="tab" aria-controls="historial" aria-selected="false">Historial</a>
+                <a class="nav-link" id="historial-tab" data-toggle="tab" href="#historial" role="tab" aria-controls="historial" aria-selected="false">Historial</a>
             </li>
         </ul>
 
@@ -48,6 +43,7 @@
             <!-- Tabla Recibidas -->
             <div class="tab-pane fade show active" id="recibidas" role="tabpanel" aria-labelledby="recibidas-tab">
                 <div class="mb-3">
+                    {% if ofertas_recibidas %}
                     <table class="table">
                         <thead>
                             <tr>
@@ -61,7 +57,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% for oferta in ofertas %}
+                            {% for oferta in ofertas_recibidas %}
                             <tr>
                                 <td class="text-center">{{ oferta.base.titulo }}</td>
                                 <td class="text-center icon-cell"><i class='bx bx-transfer'></i></td>
@@ -89,12 +85,18 @@
                             {% endfor %}
                         </tbody>
                     </table>
+                    {% else %}
+                    <div class="alert alert-primary text-center" role="alert">
+                        No tienes ofertas recibidas.
+                    </div>
+                    {% endif %}
                 </div>
             </div>
             
             <!-- Tabla Enviadas -->
             <div class="tab-pane fade" id="enviadas" role="tabpanel" aria-labelledby="enviadas-tab">
                 <div class="mb-3">
+                    {% if ofertas_enviadas %}
                     <table class="table">
                         <thead>
                             <tr>
@@ -116,22 +118,28 @@
                                 <td class="text-center">{{ oferta.fecha_intercambio }}</td>
                                 <td class="text-center">{{ oferta.hora }}</td>
                                 <td class="text-center">{{ oferta.base.sucursal.nombre }}</td>
-                                <td class="text-center">{{ oferta.estado }}</td>
+                                <td class="text-center"><span class="badge badge-primary">{{ oferta.estado }}</span></td>
                             </tr>
                             {% endfor %}
                         </tbody>
                     </table>
+                    {% else %}
+                    <div class="alert alert-primary text-center" role="alert">
+                        No tienes ofertas enviadas.
+                    </div>
+                    {% endif %}
                 </div>
             </div>
             <!-- Tabla Historial -->
             <div class="tab-pane fade" id="historial" role="tabpanel" aria-labelledby="historial-tab">
                 <div class="mb-3">
+                    {% if ofertas_procesadas %}
                     <table class="table">
                         <thead>
                             <tr>
                                 <th scope="col" class="text-center">Tu Publicación</th>
                                 <th class="text-center"></th>
-                                <th scope="col" class="text-center">Publicación a la que se oferta</th>
+                                <th scope="col" class="text-center">Publicación</th>
                                 <th scope="col" class="text-center">Fecha</th>
                                 <th scope="col" class="text-center">Hora</th>
                                 <th scope="col" class="text-center">Sucursal</th>
@@ -140,18 +148,32 @@
                         </thead>
                         <tbody>
                             {% for oferta in ofertas_procesadas %}
-                            <tr>
-                                <td class="text-center">{{ oferta.base.titulo }}</td>
-                                <td class="text-center icon-cell"><i class='bx bx-transfer'></i></td>
-                                <td class="text-center">{{ oferta.oferta.titulo }}</td>
-                                <td class="text-center">{{ oferta.fecha_intercambio }}</td>
-                                <td class="text-center">{{ oferta.hora }}</td>
-                                <td class="text-center">{{ oferta.base.sucursal.nombre }}</td>
-                                <td class="text-center">{{ oferta.estado }}</td>
-                            </tr>
+                                <tr>
+                                    <td class="text-center">{{ oferta.base.titulo }}</td>
+                                    <td class="text-center icon-cell"><i class='bx bx-transfer'></i></td>
+                                    <td class="text-center">{{ oferta.oferta.titulo }}</td>
+                                    <td class="text-center">{{ oferta.fecha_intercambio }}</td>
+                                    <td class="text-center">{{ oferta.hora }}</td>
+                                    <td class="text-center">{{ oferta.base.sucursal.nombre }}</td>
+                                    <td class="text-center">
+                                    {% if oferta.estado == 'ACEPTADO' %}
+                                    <span class="badge badge-success">
+                                        {{ oferta.estado }}
+                                    </span>
+                                    {% else %}
+                                    <span class="badge badge-danger">
+                                        {{ oferta.estado }}
+                                    </span>
+                                    {% endif %}
+                                    </td>
                             {% endfor %}
                         </tbody>
                     </table>
+                    {% else %}
+                    <div class="alert alert-primary text-center" role="alert">
+                        No ha realizado ofertas.
+                    </div>
+                    {% endif %}
                 </div>
             </div>
         </div>

@@ -58,14 +58,14 @@ class Imagen(models.Model):
 
 
 class Oferta(models.Model):
-    PENDIENTE = 'Esperando respuesta'
-    RECHAZADO = 'Rechazado'
-    ACEPTADO = 'Aceptado'
+    PENDIENTE = 'ESPERANDO RESPUESTA'
+    RECHAZADO = 'RECHAZADO'
+    ACEPTADO = 'ACEPTADO'
 
     ESTADOS_CHOICES = [
-        (PENDIENTE, 'Esperando respuesta'),
-        (RECHAZADO, 'Rechazado'),
-        (ACEPTADO, 'Aceptado'),
+        (PENDIENTE, 'ESPERANDO RESPUESTA'),
+        (RECHAZADO, 'RECHAZADO'),
+        (ACEPTADO, 'ACEPTADO'),
     ]
 
     base = models.ForeignKey(Publicacion, on_delete=models.CASCADE, related_name='ofertas_como_base')

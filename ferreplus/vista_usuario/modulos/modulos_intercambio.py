@@ -62,5 +62,5 @@ def eliminar_ofertas_relacionadas(oferta):
         publicacion_ofertada.oferta.parte_oferta = False
         publicacion_ofertada.oferta.save()
 
-        # Elimina todas las ofertas relacionadas con la publicación base
-        ofertas_relacionadas_base.estado = Oferta.RECHAZADO
+    # Elimina todas las ofertas relacionadas con la publicación base
+    ofertas_relacionadas_base.estado = Oferta.RECHAZADO

@@ -64,21 +64,17 @@
                             <td class="text-center">
                                 {% if intercambio.estado == 'REALIZADO' %}
                                 <span class="badge badge-success">
-                                    <i class='bx bx-check'></i>
                                     {{ intercambio.estado }}
                                 </span>
                             {% elif intercambio.estado == 'CANCELADO' %}
                                 <span class="badge badge-danger">
-                                    <i class='bx bx-x' ></i>
                                     {{ intercambio.estado }}
                                 </span>
                             {% elif intercambio.estado == 'CANCELADO_AUSENTE' %}
                                 <span class="badge badge-warning">
-                                    <i class='bx bx-user-x' ></i>
                                     AUSENTE</span>
                             {% else %}
                                     <span class="badge badge-primary">
-                                        <i class='bx bx-time-five'></i>
                                         {{ intercambio.estado }}
                                     </span>
                             {% endif %}

@@ -230,3 +230,22 @@ button {
 .carousel-control-next .sr-only {
     display: none;
 }
+
+/* barrita de las tablas */
+.nav-tabs .nav-link:hover {
+    border-color: #FFD60A; /* Color de fondo al pasar el ratón */
+    color: #FFD60A; /* Color del texto */
+    border-bottom: #d7d7d7;
+}
+
+/* Cambiar el color del borde de las pestañas activas */
+.nav-tabs .nav-link.active {
+    border-color: #FFC300;
+    background-color: #FFC300;
+    color: #202020;
+    border-bottom: #d7d7d7;
+}
+
+.badge {
+    padding: 10px;
+}

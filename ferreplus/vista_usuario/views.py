@@ -249,18 +249,24 @@ def mis_ofertas(request):
             return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario', 'mis_ofertas.html'), {'aviso': 'No tienes permisos para realizar esta acción.'})
 
     else:
-        ofertas = Oferta.objects.filter(usuario_recibe=request.user, estado=Oferta.PENDIENTE)
-        ofertas_enviadas = Oferta.objects.filter(usuario_ofertante=request.user)
+        ofertas_recibidas = Oferta.objects.filter(usuario_recibe=request.user, estado=Oferta.PENDIENTE)
+        ofertas_enviadas = Oferta.objects.filter(usuario_ofertante=request.user, estado=Oferta.PENDIENTE)
+
         ofertas_procesadas = Oferta.objects.filter(
             Q(usuario_recibe=request.user) | Q(usuario_ofertante=request.user),
-            ~Q(estado=Oferta.PENDIENTE)
+            estado__in=[Oferta.ACEPTADO, Oferta.RECHAZADO]
         )
 
-        if len(ofertas) == 0:
-            error = 'Usted no ha recibido nuevas solicitudes de intercambio.'
-            return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario', 'mis_ofertas.html'), {'aviso': error})
-        else:
-            return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario', 'mis_ofertas.html'), {'ofertas': ofertas, 'ofertas_enviadas' : ofertas_enviadas, 'ofertas_procesadas' : ofertas_procesadas})
+        print(f"Ofertas recibidas: {ofertas_recibidas.count()}")
+        print(f"Ofertas enviadas: {ofertas_enviadas.count()}")
+        print(f"Ofertas procesadas: {ofertas_procesadas.count()}")
+
+        return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario', 'mis_ofertas.html'), {
+            'ofertas_recibidas': ofertas_recibidas,
+            'ofertas_enviadas': ofertas_enviadas,
+            'ofertas_procesadas': ofertas_procesadas,
+            'aviso': 'Usted no ha recibido nuevas solicitudes de intercambio.' if len(ofertas_recibidas) == 0 else None
+        })
 
 @login_required
 @normal_required
