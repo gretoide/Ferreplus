@@ -191,11 +191,9 @@ def publicacion_existente(request, publicacion_id):
 @login_required
 @normal_required
 def publicacion_privada(request, publicacion_id):
-
     publicacion_oferta = get_object_or_404(Publicacion, id=publicacion_id)
 
     if request.method == "POST":
-        
         # Obtener datos de la publicación y las imágenes del formulario
         datos_publicacion = request.POST.dict()
         usuario = request.user
@@ -207,19 +205,21 @@ def publicacion_privada(request, publicacion_id):
         
         # Verificar campos
         exito, mensaje_error = modulos_publicacion.verificar_campos_privada(datos_publicacion)
-        if len(imagenes) > 5 or len(imagenes) <= 0:
-            return render(request, 'vista_usuario/publicacion_privada.html', {'publicacion_a_ofertar': publicacion_oferta,'error': 'El máximo de imágenes es 5 y el mínimo 1.'})
         if not exito:
             return render(request, 'vista_usuario/publicacion_privada.html', {'publicacion_a_ofertar': publicacion_oferta,'error': mensaje_error})
-        else:
-            # Crear publicación (el 1 al final es para privada)
-            nueva_publicacion = modulos_publicacion.crear_publicacion_privada(datos_publicacion,usuario,imagenes,publicacion_oferta.sucursal.id)
         
-            # Mostrar mensaje de éxito
-            return redirect('oferta_privada', publicacion_id=publicacion_oferta.id, publicacion_nueva_id=nueva_publicacion.id)
-    else:
-        # Si es una solicitud GET, simplemente renderizar la página principal
-        return render(request, 'vista_usuario/publicacion_privada.html', {'publicacion_a_ofertar': publicacion_oferta})
+        # Validar que tengan la misma categoría
+        if publicacion_oferta.categoria != datos_publicacion.get('categoria'):
+            return render(request, 'vista_usuario/publicacion_privada.html', {'publicacion_a_ofertar': publicacion_oferta, 'error': 'La nueva publicación debe tener la misma categoría que la publicación de oferta.'})
+        
+        # Crear publicación (el 1 al final es para privada)
+        nueva_publicacion = modulos_publicacion.crear_publicacion_privada(datos_publicacion, usuario, imagenes, publicacion_oferta.sucursal.id)
+        
+        # Mostrar mensaje de éxito
+        return redirect('oferta_privada', publicacion_id=publicacion_oferta.id, publicacion_nueva_id=nueva_publicacion.id)
+    
+    # Si es una solicitud GET, simplemente renderizar la página principal
+    return render(request, 'vista_usuario/publicacion_privada.html', {'publicacion_a_ofertar': publicacion_oferta})
 
 @login_required
 @normal_required
@@ -280,10 +280,10 @@ def oferta_privada(request, publicacion_id, publicacion_nueva_id):
 
         if exito:
             # Mostrar mensaje de éxito
-            return render(request, 'vista_usuario/oferta_privada.html', {'exito': "La oferta se ha creado con éxito."})
+            return render(request, 'vista_usuario/oferta_privada.html', {'exito': "La oferta se ha creado con éxito.", 'publicacion_original': publicacion_original})
         else:
             # Mostrar mensaje de error
-            return render(request, 'vista_usuario/oferta_privada.html', {'aviso': mensaje})
+            return render(request, 'vista_usuario/oferta_privada.html', {'aviso': mensaje, 'publicacion_original': publicacion_original})
 
     # Renderizar el template 'oferta_privada.html' y pasar los datos necesarios
     return render(request, 'vista_usuario/oferta_privada.html', {

@@ -249,3 +249,32 @@ h1 {
 #contenedorAlerta {
     background-color: transparent;
 }
+
+/*------------------------ publicacion a la que se oferta ------------------*/
+
+
+.img-container {
+    margin-right: 5px; /* Espacio entre la imagen y el texto */
+}
+
+.img-thumbnail {
+    width: 50px; /* Ajusta el tamaño de la imagen según sea necesario */
+    height: 50px;
+    object-fit: cover; /* Para asegurar que la imagen se ajuste al contenedor sin distorsión */
+    border: none;
+}
+
+#cardPublicacion {
+    background-color: #303030; /* Color de fondo de la tarjeta */
+    color: white; /* Color del texto */
+}
+
+#cardPublicacion .card-body {
+    display: flex; /* Usar flexbox para alinear imagen y texto */
+    align-items: center; /* Alinear verticalmente en el centro */
+    color: #ffffff;
+}
+
+.badge {
+    padding: 10px;
+}

@@ -28,22 +28,56 @@
 <div class="container">
     
     <div class="mb-3">
-        <h1>Oferta privada</h1>
         <!-- Formulario de subir publicación -->
-
-        <!-- Mensaje de alerta de error -->
-        {% if error %}
-        <div class="alert alert-danger" role="alert">
-            {{ error }}
+        <div class="mb 3">
+            <div class="mb-3 text-center">
+                <h5>Solicitud de intercambio a</h5>
+            </div>
+    
+            <!-- Nueva sección para mostrar detalles de la publicación a ofertar -->
+            <div class="row justify-content-center mb-4">
+                <div class="col-md-8">
+                    <div class="card" id="cardPublicacion">
+                        <div class="card-body d-flex align-items-center">
+                            <!-- Imagen del producto -->
+                            <div class="img-container">
+                                {% if publicacion_a_ofertar.imagenes.all %}
+                                    <img src="{{ publicacion_a_ofertar.imagenes.first.imagen.url }}" alt="Imagen del producto" class="img-thumbnail" style="width: 100px; height: 100px;">
+                                {% else %}
+                                    <img src="{% static 'ruta/a/imagen/por/defecto.jpg' %}" alt="Imagen por defecto" class="img-thumbnail" style="width: 100px; height: 100px;">
+                                {% endif %}
+                            </div>
+                            <!-- Título y categoría -->
+                            <div class="ml-3">
+                                <h6>{{ publicacion_a_ofertar.titulo }}</h6>
+                                <span>Categoría <span class="badge badge-secondary">{{ publicacion_a_ofertar.categoria }}</span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>    
         </div>
-        {% endif %}
+        
+        <hr class="solid" style="border: 0; height: 1px; background-color: #808080; margin: 20px 0;">
 
-        <!-- Mensaje de alerta de éxito -->
-        {% if aviso %}
-        <div class="alert alert-success" role="alert" id="alertaExito">
-            {{ aviso }} <a class="link-warning link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="{% url 'mis_publicaciones' %}">Ver aquí.</a>
+        <h1>Oferta privada</h1>
+
+        <div class="mb-3 text-center">
+            <!-- Mensaje de alerta de error -->
+            {% if error %}
+            <div class="alert alert-danger" role="alert">
+                {{ error }}
+            </div>
+            {% endif %}
+
+            <!-- Mensaje de alerta de éxito -->
+            {% if aviso %}
+            <div class="alert alert-success" role="alert" id="alertaExito">
+                {{ aviso }} <a class="link-warning link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="{% url 'mis_publicaciones' %}">Ver aquí.</a>
+            </div>
+            {% endif %}
         </div>
-        {% endif %}
+        
 
         <div class="row">
             

@@ -19,14 +19,52 @@
 </head>
 <body>
     {% csrf_token %}
+    
+    <!-- Formulario de subir publicación -->
+    <div class="mb-3" id="containerEncuentroPrivado">
+        <div class="mb-3 text-center">
+            <h5>Solicitud de intercambio a</h5>
+        </div>
+
+        <!-- Nueva sección para mostrar detalles de la publicación a ofertar -->
+        <div class="row justify-content-center mb-4">
+            <div class="col-md-8">
+                <div class="card" id="cardPublicacion">
+                    <div class="card-body d-flex align-items-center">
+                        <!-- Imagen del producto -->
+                        <div class="img-container">
+                            {% if publicacion_original.imagenes.all %}
+                                <img src="{{ publicacion_original.imagenes.first.imagen.url }}" alt="Imagen del producto" class="img-thumbnail" style="width: 100px; height: 100px;">
+                            {% else %}
+                                <img src="{% static 'ruta/a/imagen/por/defecto.jpg' %}" alt="Imagen por defecto" class="img-thumbnail" style="width: 100px; height: 100px;">
+                            {% endif %}
+                        </div>
+                        <!-- Título y categoría -->
+                        <div class="ml-3">
+                            <h6>{{ publicacion_original.titulo }}</h6>
+                            <span>Categoría <span class="badge badge-secondary">{{ publicacion_original.categoria }}</span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>    
+
+        <hr class="solid" style="border: 0; height: 1px; background-color: #808080; margin: 20px 0;">
+
+
+    </div>
+
+
+    
     <div class="container custom-container">
+
         <form method="post" action="{{ form_action }}">
             {% csrf_token %}
             <div class="mb-3 text-center">
                 <h1 id="tituloEncuentro">Datos para el encuentro</h1>
                 <div class="mb-3 text-center">
                     {% if aviso %}
-                        <div class="alert alert-dark" role="alert">Verificar fecha y/o horario.</div>
+                        <div class="alert alert-danger" role="alert">{{ aviso }}</div>
                     {% endif %}
                     {% if exito %}
                     <div class="alert alert-success" id="mensaje-exito">

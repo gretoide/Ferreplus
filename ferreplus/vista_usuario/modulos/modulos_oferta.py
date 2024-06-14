@@ -57,6 +57,9 @@ def procesar_oferta(publicacion_base, usuario, publicacion_id, fecha_encuentro, 
         return 'Debe seleccionar una publicación para el intercambio, fecha y hora válidas.', False
 
 def procesar_oferta_privada(publicacion_base, publicacion_nueva, fecha_encuentro, hora_encuentro):
+    # Obtén la publicación seleccionada
+    publicacion_seleccionada = get_object_or_404(Publicacion, id=publicacion_nueva.id) # type: ignore
+
     # Validar fecha del encuentro
     valido_fecha, mensaje_fecha = validar_fecha_encuentro(fecha_encuentro)
     if not valido_fecha:
@@ -66,12 +69,15 @@ def procesar_oferta_privada(publicacion_base, publicacion_nueva, fecha_encuentro
     valido_hora, mensaje_hora = validar_hora_encuentro(hora_encuentro)
     if not valido_hora:
         return mensaje_hora, False
+    
+    # Validar que sean de la misma categoría
+    valido_categoria, mensaje_categoria = validar_categoria(publicacion_base.categoria, publicacion_nueva.categoria)
+    if not valido_categoria:
+        return mensaje_categoria, False
 
     if fecha_encuentro and hora_encuentro:
-        # Obtén la publicación seleccionada
-        publicacion_seleccionada = get_object_or_404(Publicacion, id=publicacion_nueva.id) # type: ignore
 
-        # Crea una nueva oferta
+        # Crea una nueva ofertar
         Oferta.objects.create(
             base=publicacion_base,
             oferta=publicacion_seleccionada,
@@ -82,4 +88,4 @@ def procesar_oferta_privada(publicacion_base, publicacion_nueva, fecha_encuentro
         )
         return '', True
 
-    return 'Debe seleccionar una publicación para el intercambio.', False
+    return '', False

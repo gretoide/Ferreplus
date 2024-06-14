@@ -388,3 +388,9 @@ input[type="radio"] + label {
     padding: 10px; /* Padding dentro del badge de categoría */
     margin-left: 5px; /* Margen izquierdo del badge de categoría */
 }
+
+#containerEncuentroPrivado {
+    width: 800px;
+    margin: 0 auto;
+    padding-top: 40px;
+}
