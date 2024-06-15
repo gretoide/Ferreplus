@@ -49,17 +49,17 @@
                 {{ form_publicacion.titulo }}
             </div>
             <div class="form-group">
-                <span>Estado</span>
+                <span>Estado <i class='bx bxs-purchase-tag' ></i></span>
                 <label for="estado" class="form-label"></label>
                 {{ form_publicacion.estado }}
             </div>
             <div class="form-group">
-                <span>Categoría</span>
+                <span>Categoría <i class='bx bxs-category' ></i></span>
                 <label for="categoria" class="form-label"></label>
                 {{ form_publicacion.categoria }}
             </div>
             <div class="form-group">
-                <span>Sucursal</span>
+                <span>Sucursal <i class='bx bxs-store' ></i></span>
                 <label for="sucursal" class="form-label"></label>
                 <select class="form-select" id="select" name="sucursal" required>
                     <option value="{{ publicacion.sucursal.id }}" selected>{{ publicacion.sucursal.nombre }}</option>

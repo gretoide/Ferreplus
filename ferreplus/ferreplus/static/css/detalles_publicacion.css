@@ -342,6 +342,8 @@ input[type="radio"] + label {
     height: 50px;
     object-fit: cover; /* Para asegurar que la imagen se ajuste al contenedor sin distorsión */
     border: none;
+    background-color: transparent;
+    border-radius: 5px;
 }
 
 #cardPublicacion {

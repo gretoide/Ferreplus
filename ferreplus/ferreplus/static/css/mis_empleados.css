@@ -261,4 +261,6 @@ button {
 .img-thumbnail {
     border: none !important; /* Elimina el borde */
     padding: 0 !important; /* Elimina el relleno */
+    max-width: 50px;
+    max-height: 50px;
 }

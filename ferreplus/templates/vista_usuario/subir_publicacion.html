@@ -113,7 +113,7 @@
             <div class="d-flex justify-content-center"> 
                 <!-- Selección del estado del producto -->
                 <div class="mb-3">
-                    <span>Estado</span>
+                    <span>Estado <i class='bx bxs-purchase-tag' ></i></span>
                         <select class="form-select"  id="select" name="estado" required>
                             <option disabled selected>Seleccionar</option>
                             <option value="Nuevo">Nuevo</option>
@@ -123,7 +123,7 @@
                 </div><!-- Agregado: Div para centrar los selects -->
                 <!-- Selección de la categoría del producto-->
                 <div class="mb-3"> <!-- Agregado: Div para agrupar el primer select -->
-                    <span>Categoría</span>
+                    <span>Categoría <i class='bx bxs-category' ></i></span>
                         <select class="form-select" id="select" name="categoria" required>
                             <option disabled selected>Seleccionar</option>
                             <option value="Electricidad">Electricidad</option>
@@ -136,7 +136,7 @@
                 </div>                                    
                 <!-- Selección de sucursal deseada para el intercambio -->
                 <div class="mb-3"> <!-- Agregado: Div para agrupar el segundo select -->
-                        <span>Sucursal de encuentro</span>
+                        <span>Sucursal <i class='bx bxs-store'></i></span>
                         <select class="form-select" id="select" name="sucursal" required>
                             <option disabled selected>Seleccionar</option>
                             {% for sucursal in sucursales %}
