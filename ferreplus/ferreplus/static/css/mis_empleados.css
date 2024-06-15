@@ -246,3 +246,19 @@ button {
 .form-inline .input-group .btn {
     margin-left: -1px; /* Ajuste adicional para reducir espacio entre el botón y el input */
 }
+
+/* imagen */
+
+.custom-img-size {
+    max-width: 50px; /* Ajusta el ancho máximo */
+    max-height: 50px; /* Ajusta el alto máximo */
+    width: auto; /* Para mantener la proporción */
+    height: auto; /* Para mantener la proporción */
+    border: none; /* Elimina cualquier borde */
+    background-color: transparent;
+}
+
+.img-thumbnail {
+    border: none !important; /* Elimina el borde */
+    padding: 0 !important; /* Elimina el relleno */
+}

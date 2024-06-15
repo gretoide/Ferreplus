@@ -31,38 +31,51 @@
             {% if publicaciones %}
             <table class="table">
                 <thead>
-                    <th class="text-center">Titulo</th>
-                    <th class="text-center">Estado</th>
-                    <th class="text-center">Categoría</th>
-                    <th class="text-center">Sucursal</th>
-                    <th class="text-center">Descripción</th>
-                    <th class="text-center">Visibilidad</th>
-                    <th class="text-center">Proceso</th>
-                    <th class="text-center">Acciones</th> <!-- Nueva columna para botones de acción -->
+                    <th class="align-middle text-center">Producto</th>
+                    <th class="align-middle text-center">Estado <i class='bx bxs-purchase-tag'></i></th>
+                    <th class="align-middle text-center">Categoría <i class='bx bxs-category' ></i></th>
+                    <th class="align-middle text-center">Sucursal <i class='bx bxs-store' ></i></th>
+                    <th class="align-middle text-center">Descripción</th>
+                    <th class="align-middle text-center">Visibilidad</th>
+                    <th class="align-middle text-center">Proceso</th>
+                    <th class="align-middle text-center">Acciones</th> <!-- Nueva columna para botones de acción -->
                 </thead>
                 {% for publicacion in publicaciones %}
                 <tr>
-                    <td class="text-center">{{ publicacion.titulo }}</td>
-                    <td class="text-center">
+                    <td class="align-middle text-center">
+                        <div class="d-flex align-items-center justify-content-center">
+                            <div class="img-container mr-3">
+                                {% if publicacion.imagenes.all %}
+                                    <img src="{{ publicacion.imagenes.first.imagen.url }}" alt="Imagen del producto" class="img-thumbnail custom-img-size">
+                                {% else %}
+                                    <img src="{% static 'ruta/a/imagen/por/defecto.jpg' %}" alt="Imagen por defecto" class="img-thumbnail custom-img-size">
+                                {% endif %}
+                            </div>
+                            <div class="titulo-container">
+                                <span>{{ publicacion.titulo }}</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="align-middle text-center">
                         <span class="badge badge-light">{{ publicacion.estado|upper }}</span>
                     </td>
-                    <td class="text-center">{{ publicacion.categoria }}</td>
-                    <td class="text-center">{{ publicacion.sucursal.nombre }}</td>
-                    <td class="text-center">{{ publicacion.descripcion }}</td>
-                    <td class="text-center">
+                    <td class="align-middle text-center">{{ publicacion.categoria }}</td>
+                    <td class="align-middle text-center">{{ publicacion.sucursal.nombre }}</td>
+                    <td class="align-middle text-center">{{ publicacion.descripcion }}</td>
+                    <td class="align-middle text-center">
                         {% if publicacion.es_privada %}
                         <i class="bi bi-eye-slash"></i> Privada
                         {% else %}
                         <i class="bi bi-eye"></i> Pública
                         {% endif %}
                     </td>
-                    <td class="text-center">
+                    <td class="align-middle text-center">
                         {% if publicacion.parte_oferta %}
                             Ofrecida en trueque
                         {% else %}
                             Disponible para trueque
                         {% endif %}
-                        <td class="text-center" id="celdaBotones">
+                        <td class="align-middle text-center" id="celdaBotones">
                             <div class="d-flex">
                                 <div>
                                     <button class="btn btn-primary" data-toggle="modal" data-target="#detallesPublicacionModal{{ publicacion.id }}">

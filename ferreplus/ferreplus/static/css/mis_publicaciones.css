@@ -266,3 +266,19 @@ button {
     display: block; /* Hace que los botones ocupen toda la anchura disponible */
     margin: 10px auto; /* Centra los botones horizontalmente y agrega espaciado */
 }
+
+/* imagen */
+
+.custom-img-size {
+    max-width: 50px; /* Ajusta el ancho máximo */
+    max-height: 50px; /* Ajusta el alto máximo */
+    width: auto; /* Para mantener la proporción */
+    height: auto; /* Para mantener la proporción */
+    border: none; /* Elimina cualquier borde */
+    background-color: transparent;
+}
+
+.img-thumbnail {
+    border: none !important; /* Elimina el borde */
+    padding: 0 !important; /* Elimina el relleno */
+}

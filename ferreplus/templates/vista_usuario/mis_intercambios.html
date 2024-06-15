@@ -12,6 +12,12 @@
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/mis_empleados.css' %}">
     <link rel="icon" type="image/x-icon" href="{% static 'favicon.png' %}">
+    <style>
+        .table td,
+        .table th {
+            vertical-align: middle; /* Alinear verticalmente el contenido en todas las celdas */
+        }
+    </style>
 </head>
 <body>
 
@@ -29,61 +35,87 @@
             <h1>Mis intercambios</h1>
         </div>
         <div class="mb-3">
-            {% if intercambios%}
+            {% if intercambios %}
             <table class="table">
                 <thead>
                     <tr>
-                        <th scope="col" class="text-center">Mi Publicación</th>
+                        <th scope="col" class="text-center">Mi producto</th>
                         <th class="text-center"></th>
-                        <th scope="col" class="text-center">Publicación ofrecida</th>
-                        <th scope="col" class="text-center">Fecha acordada</th>
-                        <th scope="col" class="text-center">Hora acordada</th>
-                        <th scope="col" class="text-center">Sucursal de encuentro</th>
+                        <th scope="col" class="text-center">Producto trueque</th>
+                        <th scope="col" class="text-center">Fecha <i class='bx bxs-calendar' ></i></th>
+                        <th scope="col" class="text-center">Hora <i class='bx bxs-time' ></i></th>
+                        <th scope="col" class="text-center">Sucursal <i class='bx bxs-store' ></i></th>
                         <th scope="col" class="text-center">Estado</th>
                     </tr>
                 </thead>
                 <tbody>
-                        {% for intercambio in intercambios %}
-                            <tr>
-                                {% if intercambio.base.autor == user %}
-                                    <td class="text-center">{{ intercambio.base.titulo }}</td>
-                                    <td class="text-center icon-cell"><i class='bx bx-transfer'></i></td>
-                                    <td class="text-center">{{ intercambio.ofer.titulo }}</td>
-                                {% else %}
-                                    <td class="text-center">{{ intercambio.ofer.titulo }}</td>
-                                    <td class="text-center icon-cell"><i class='bx bx-transfer'></i></td>
-                                    <td class="text-center">{{ intercambio.base.titulo }}</td>
-                                {% endif %}
-                                <td class="text-center">{{ intercambio.fecha_intercambio }}</td>
-                                <td class="text-center">{{ intercambio.hora }}</td>
-                                <td class="text-center">{{ intercambio.sucursal.nombre }}</td>
-                                <td class="text-center">
-                                    {% if intercambio.estado == 'REALIZADO' %}
-                                    <span class="badge badge-success">
-                                        {{ intercambio.estado }}
-                                    </span>
-                                {% elif intercambio.estado == 'CANCELADO' %}
-                                    <span class="badge badge-danger">
-                                        {{ intercambio.estado }}
-                                    </span>
-                                {% elif intercambio.estado == 'CANCELADO_AUSENTE' %}
-                                    <span class="badge badge-warning">
-                                        AUSENTE</span>
-                                {% else %}
-                                        <span class="badge badge-primary">
-                                            {{ intercambio.estado }}
-                                        </span>
-                                {% endif %}
-                                </td>
-                            </tr>
-                        {% endfor %}
+                    {% for intercambio in intercambios %}
+                    <tr>
+                        {% if intercambio.base.autor == user %}
+                        <td class="align-middle text-center"> <!-- Alinear verticalmente el contenido -->
+                            <div class="d-flex align-items-center justify-content-center">
+                                <div class="img-container mr-3" id="contenedorImagen">
+                                    {% if intercambio.base.imagenes.all %}
+                                        <img src="{{ intercambio.base.imagenes.first.imagen.url }}" alt="Imagen del producto" class="img-thumbnail" style="width: 100px; height: 100px;">
+                                    {% else %}
+                                        <img src="{% static 'ruta/a/imagen/por/defecto.jpg' %}" alt="Imagen por defecto" class="img-thumbnail" style="width: 100px; height: 100px;">
+                                    {% endif %}
+                                </div>
+                                <div class="titulo-container">
+                                    <span>{{ intercambio.base.titulo }}</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="align-middle text-center icon-cell"><i class='bx bx-transfer'></i></td>
+                        <td class="align-middle text-center"> <!-- Alinear verticalmente el contenido -->
+                            <div class="d-flex align-items-center justify-content-center">
+                                <div class="img-container mr-3">
+                                    {% if intercambio.ofer.imagenes.all %}
+                                        <img src="{{ intercambio.ofer.imagenes.first.imagen.url }}" alt="Imagen del producto" class="img-thumbnail" style="width: 100px; height: 100px;">
+                                    {% else %}
+                                        <img src="{% static 'ruta/a/imagen/por/defecto.jpg' %}" alt="Imagen por defecto" class="img-thumbnail" style="width: 100px; height: 100px;">
+                                    {% endif %}
+                                </div>
+                                <div class="titulo-container">
+                                    <span>{{ intercambio.ofer.titulo }}</span>
+                                </div>
+                            </div>
+                        </td>
+                        {% else %}
+                        <td class="align-middle text-center">{{ intercambio.ofer.titulo }}</td>
+                        <td class="align-middle text-center icon-cell"><i class='bx bx-transfer'></i></td>
+                        <td class="align-middle text-center">{{ intercambio.base.titulo }}</td>
+                        {% endif %}
+                        <td class="align-middle text-center">{{ intercambio.fecha_intercambio }}</td>
+                        <td class="align-middle text-center">{{ intercambio.hora }}</td>
+                        <td class="align-middle text-center">{{ intercambio.sucursal.nombre }}</td>
+                        <td class="align-middle text-center">
+                            {% if intercambio.estado == 'REALIZADO' %}
+                            <span class="badge badge-success">
+                                {{ intercambio.estado }}
+                            </span>
+                            {% elif intercambio.estado == 'CANCELADO' %}
+                            <span class="badge badge-danger">
+                                {{ intercambio.estado }}
+                            </span>
+                            {% elif intercambio.estado == 'CANCELADO_AUSENTE' %}
+                            <span class="badge badge-warning">
+                                AUSENTE</span>
+                            {% else %}
+                            <span class="badge badge-primary">
+                                EN CURSO
+                            </span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
                 </tbody>
             </table>
             {% else %}
-                <div class="alert alert-primary text-center" role="alert">
-                    No tienes intercambios.
-                </div>
-             {% endif %}
+            <div class="alert alert-primary text-center" role="alert">
+                No tienes intercambios.
+            </div>
+            {% endif %}
         </div>
     </div>
 
@@ -92,5 +124,5 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> 
-    </body>
+</body>
 </html>

@@ -59,13 +59,39 @@
                         <tbody>
                             {% for oferta in ofertas_recibidas %}
                             <tr>
-                                <td class="text-center">{{ oferta.base.titulo }}</td>
-                                <td class="text-center icon-cell"><i class='bx bx-transfer'></i></td>
-                                <td class="text-center">{{ oferta.oferta.titulo }}</td>
-                                <td class="text-center">{{ oferta.fecha_intercambio }}</td>
-                                <td class="text-center">{{ oferta.hora }}</td>
-                                <td class="text-center">{{ oferta.base.sucursal.nombre }}</td>
-                                <td class="text-center">
+                                <td class="align-middle text-center">
+                                    <div class="d-flex align-items-center justify-content-center">
+                                        <div class="img-container mr-3">
+                                            {% if oferta.base.imagenes.all %}
+                                                <img src="{{ oferta.base.imagenes.first.imagen.url }}" alt="Imagen del producto" class="img-thumbnail custom-img-size">
+                                            {% else %}
+                                                <img src="{% static 'ruta/a/imagen/por/defecto.jpg' %}" alt="Imagen por defecto" class="img-thumbnail custom-img-size">
+                                            {% endif %}
+                                        </div>
+                                        <div class="titulo-container">
+                                            <span>{{ oferta.base.titulo }}</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="align-middle text-center icon-cell"><i class='bx bx-transfer'></i></td>
+                                <td class="align-middle text-center">
+                                    <div class="d-flex align-items-center justify-content-center">
+                                        <div class="img-container mr-3">
+                                            {% if oferta.oferta.imagenes.all %}
+                                                <img src="{{ oferta.oferta.imagenes.first.imagen.url }}" alt="Imagen del producto" class="img-thumbnail custom-img-size">
+                                            {% else %}
+                                                <img src="{% static 'ruta/a/imagen/por/defecto.jpg' %}" alt="Imagen por defecto" class="img-thumbnail custom-img-size">
+                                            {% endif %}
+                                        </div>
+                                        <div class="titulo-container">
+                                            <span>{{ oferta.oferta.titulo }}</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="align-middle text-center">{{ oferta.fecha_intercambio }}</td>
+                                <td class="align-middle text-center">{{ oferta.hora }}</td>
+                                <td class="align-middle text-center">{{ oferta.base.sucursal.nombre }}</td>
+                                <td class="align-middle text-center">
                                     <div class="d-flex">
                                         <form method="post" action="{% url 'mis_ofertas' %}">
                                             {% csrf_token %}
@@ -112,13 +138,39 @@
                         <tbody>
                             {% for oferta in ofertas_enviadas %}
                             <tr>
-                                <td class="text-center">{{ oferta.base.titulo }}</td>
-                                <td class="text-center icon-cell"><i class='bx bx-transfer'></i></td>
-                                <td class="text-center">{{ oferta.oferta.titulo }}</td>
-                                <td class="text-center">{{ oferta.fecha_intercambio }}</td>
-                                <td class="text-center">{{ oferta.hora }}</td>
-                                <td class="text-center">{{ oferta.base.sucursal.nombre }}</td>
-                                <td class="text-center"><span class="badge badge-primary">{{ oferta.estado }}</span></td>
+                                <td class="align-middle text-center">
+                                    <div class="d-flex align-items-center justify-content-center">
+                                        <div class="img-container mr-3">
+                                            {% if oferta.oferta.imagenes.all %}
+                                                <img src="{{ oferta.oferta.imagenes.first.imagen.url }}" alt="Imagen del producto" class="img-thumbnail custom-img-size">
+                                            {% else %}
+                                                <img src="{% static 'ruta/a/imagen/por/defecto.jpg' %}" alt="Imagen por defecto" class="img-thumbnail custom-img-size">
+                                            {% endif %}
+                                        </div>
+                                        <div class="titulo-container">
+                                            <span>{{ oferta.oferta.titulo }}</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="align-middle text-center icon-cell"><i class='bx bx-transfer'></i></td>
+                                <td class="align-middle text-center">
+                                    <div class="d-flex align-items-center justify-content-center">
+                                        <div class="img-container mr-3">
+                                            {% if oferta.base.imagenes.all %}
+                                                <img src="{{ oferta.base.imagenes.first.imagen.url }}" alt="Imagen del producto" class="img-thumbnail custom-img-size">
+                                            {% else %}
+                                                <img src="{% static 'ruta/a/imagen/por/defecto.jpg' %}" alt="Imagen por defecto" class="img-thumbnail custom-img-size">
+                                            {% endif %}
+                                        </div>
+                                        <div class="titulo-container">
+                                            <span>{{ oferta.base.titulo }}</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="align-middle text-center">{{ oferta.fecha_intercambio }}</td>
+                                <td class="align-middle text-center">{{ oferta.hora }}</td>
+                                <td class="align-middle text-center">{{ oferta.base.sucursal.nombre }}</td>
+                                <td class="align-middle text-center"><span class="badge badge-primary">{{ oferta.estado }}</span></td>
                             </tr>
                             {% endfor %}
                         </tbody>
@@ -139,23 +191,77 @@
                             <tr>
                                 <th scope="col" class="text-center">Tu Publicación</th>
                                 <th class="text-center"></th>
-                                <th scope="col" class="text-center">Publicación</th>
-                                <th scope="col" class="text-center">Fecha</th>
-                                <th scope="col" class="text-center">Hora</th>
-                                <th scope="col" class="text-center">Sucursal</th>
-                                <th scope="col" class="text-center">Estado</th>
+                                <th scope="col" class="align-middle text-center">Publicación</th>
+                                <th scope="col" class="align-middle text-center">Fecha</th>
+                                <th scope="col" class="align-middle text-center">Hora</th>
+                                <th scope="col" class="talign-middle text-center">Sucursal</th>
+                                <th scope="col" class="align-middle text-center">Estado</th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for oferta in ofertas_procesadas %}
-                                <tr>
-                                    <td class="text-center">{{ oferta.base.titulo }}</td>
-                                    <td class="text-center icon-cell"><i class='bx bx-transfer'></i></td>
-                                    <td class="text-center">{{ oferta.oferta.titulo }}</td>
-                                    <td class="text-center">{{ oferta.fecha_intercambio }}</td>
-                                    <td class="text-center">{{ oferta.hora }}</td>
-                                    <td class="text-center">{{ oferta.base.sucursal.nombre }}</td>
-                                    <td class="text-center">
+                            <tr>
+                                <td class="align-middle text-center">
+                                    <div class="d-flex align-items-center justify-content-center">
+                                        <div class="img-container mr-3">
+                                            {% if user == oferta.base.autor %}
+                                                {% if oferta.base.imagenes.all %}
+                                                    <img src="{{ oferta.base.imagenes.first.imagen.url }}" alt="Imagen del producto" class="img-thumbnail custom-img-size">
+                                                {% else %}
+                                                    <img src="{% static 'ruta/a/imagen/por/defecto.jpg' %}" alt="Imagen por defecto" class="img-thumbnail custom-img-size">
+                                                {% endif %}
+                                            {% else %}
+                                                {% if oferta.oferta.imagenes.all %}
+                                                    <img src="{{ oferta.oferta.imagenes.first.imagen.url }}" alt="Imagen del producto" class="img-thumbnail custom-img-size">
+                                                {% else %}
+                                                    <img src="{% static 'ruta/a/imagen/por/defecto.jpg' %}" alt="Imagen por defecto" class="img-thumbnail custom-img-size">
+                                                {% endif %}
+                                            {% endif %}
+                                        </div>
+                                        <div class="titulo-container">
+                                            {% if user == oferta.base.autor %}
+                                                <span>{{ oferta.base.titulo }}</span>
+                                            {% else %}
+                                                <span>{{ oferta.oferta.titulo }}</span>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="align-middle text-center">
+                                    <div class="d-flex align-items-center justify-content-center">
+                                        <i class='bx bx-transfer'></i>
+                                    </div>
+                                </td>
+                                <td class="align-middle text-center">
+                                    <div class="d-flex align-items-center justify-content-center">
+                                        <div class="img-container mr-3">
+                                            {% if user != oferta.base.autor %}
+                                                {% if oferta.base.imagenes.all %}
+                                                    <img src="{{ oferta.base.imagenes.first.imagen.url }}" alt="Imagen del producto" class="img-thumbnail custom-img-size">
+                                                {% else %}
+                                                    <img src="{% static 'ruta/a/imagen/por/defecto.jpg' %}" alt="Imagen por defecto" class="img-thumbnail custom-img-size">
+                                                {% endif %}
+                                            {% else %}
+                                                {% if oferta.oferta.imagenes.all %}
+                                                    <img src="{{ oferta.oferta.imagenes.first.imagen.url }}" alt="Imagen del producto" class="img-thumbnail custom-img-size">
+                                                {% else %}
+                                                    <img src="{% static 'ruta/a/imagen/por/defecto.jpg' %}" alt="Imagen por defecto" class="img-thumbnail custom-img-size">
+                                                {% endif %}
+                                            {% endif %}
+                                        </div>
+                                        <div class="titulo-container">
+                                            {% if user != oferta.base.autor %}
+                                                <span>{{ oferta.base.titulo }}</span>
+                                            {% else %}
+                                                <span>{{ oferta.oferta.titulo }}</span>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="align-middle text-center">{{ oferta.fecha_intercambio }}</td>
+                                <td class="align-middle text-center">{{ oferta.hora }}</td>
+                                <td class="align-middle text-center">{{ oferta.base.sucursal.nombre }}</td>
+                                <td class="align-middle text-center">
                                     {% if oferta.estado == 'ACEPTADO' %}
                                     <span class="badge badge-success">
                                         {{ oferta.estado }}
@@ -165,20 +271,21 @@
                                         {{ oferta.estado }}
                                     </span>
                                     {% endif %}
-                                    </td>
+                                </td>
+                            </tr>
                             {% endfor %}
                         </tbody>
                     </table>
                     {% else %}
                     <div class="alert alert-primary text-center" role="alert">
-                        No ha realizado ofertas.
+                        No tienes ofertas en el historial.
                     </div>
                     {% endif %}
                 </div>
             </div>
         </div>
     </div>
-    
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
