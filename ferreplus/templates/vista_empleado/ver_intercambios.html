@@ -27,15 +27,16 @@
     <div class="container">
         <div id="Header">
             <h1>Intercambios de Sucursal</h1>
+            <h3 id="sucursalNombre">{{ sucursal.nombre }}</h3>
         </div>
         <div class="mb-3 text-center">
-            {% block content %}
                 {% if messages %}
                     {% for message in messages %}
-                        <div class="alert alert-dark" role="alert">{{ message }}</div>
+                        <div class="alert alert-primary" role="alert">{{ message }}</div>
                     {% endfor %}
                 {% endif %}
         </div>
+
         <div class="filtros d-flex justify-content-between align-items-center mb-3">
             <form method="POST" class="form-inline d-flex align-items-center">
                 {% csrf_token %}
@@ -63,60 +64,133 @@
                     </div>
                     <select name="orden" id="sort" class="form-control" onchange="this.form.submit()">
                         <option value="">Seleccionar</option>
-                        <option value="ascendente" {% if request.GET.sort == 'ascendente' %}selected{% endif %}> <i class='bx bx-sort-a-z'></i> Ascendente  </option>
-                        <option value="descendente" {% if request.GET.sort == 'descendente' %}selected{% endif %}> <i class='bx bx-sort-z-a' ></i> Descendente </option>
+                        <option value="ascendente" {% if request.GET.sort == 'ascendente' %}selected{% endif %}>Ascendente</option>
+                        <option value="descendente" {% if request.GET.sort == 'descendente' %}selected{% endif %}>Descendente</option>
                     </select>
                 </div>
             </form>
         </div>
-        <div class="mb-3">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col" class="text-center">Publicación Base</th>
-                        <th class="text-center"></th>
-                        <th scope="col" class="text-center">Publicación Ofrecida</th>
-                        <th scope="col" class="text-center">Fecha Acordada</th>
-                        <th scope="col" class="text-center">Hora Acordada</th>
-                        <th scope="col" class="text-center">Estado</th>
-                        <th scope="col" class="text-center">Registro</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for intercambio in intercambios %}
-                        <tr>
-                            <td class="text-center">{{ intercambio.base.titulo }}</td>
-                            <td class="text-center icon-cell"><i class='bx bx-transfer'></i></td>
-                            <td class="text-center">{{ intercambio.ofer.titulo }}</td>
-                            <td class="text-center">{{ intercambio.fecha_intercambio }}</td>
-                            <td class="text-center">{{ intercambio.hora }}</td>
-                            <td class="text-center">{{ intercambio.estado }}</td>
-                            <td class="text-center">
-                                <div class="d-flex">
-                                    <div class="btn-group-vertical">
-                                        <button id="{{intercambio.id}}" class="btn btn-danger mb-1" onclick="realizado('{{ intercambio.id }}')">
-                                            <i class='bx bx-check'></i>
-                                            <span>Realizado</span>
-                                        </button>
-                                        <button id="{{intercambio.id}}" class="btn btn-danger mb-1" onclick="cancelado('{{ intercambio.id }}')">
-                                            <i class='bx bx-x'></i>
-                                            <span>Cancelado</span>
-                                        </button>
-                                        <button id="{{intercambio.id}}" class="btn btn-danger" onclick="ausente('{{ intercambio.id }}')">
-                                            <i class='bx bx-user-x'></i>
-                                            <span>Ausente</span>
-                                        </button>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+
+        <!-- Pestañas -->
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <a class="nav-link active" id="pendientes-tab" data-toggle="tab" href="#pendientes" role="tab" aria-controls="pendientes" aria-selected="true">Pendientes</a>
+            </li>
+
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" id="historial-tab" data-toggle="tab" href="#historial" role="tab" aria-controls="historial" aria-selected="false">Historial</a>
+            </li>
+        </ul>
+
+        <div class="tab-content" id="myTabContent">
+            <!-- Tabla Pendientes -->
+            <div class="tab-pane fade show active" id="pendientes" role="tabpanel" aria-labelledby="pendientes-tab">
+                <div class="mb-3">
+                    {% if intercambios %}
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="text-center">Publicación Base</th>
+                                <th class="text-center"></th>
+                                <th scope="col" class="text-center">Publicación Ofrecida</th>
+                                <th scope="col" class="text-center">Fecha Acordada</th>
+                                <th scope="col" class="text-center">Hora Acordada</th>
+                                <th scope="col" class="text-center">Estado</th>
+                                <th scope="col" class="text-center">Registro</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for intercambio in intercambios%}
+                                <tr>
+                                    <td class="align-middle text-center">{{ intercambio.base.titulo }}</td>
+                                    <td class="align-middle text-center icon-cell"><i class='bx bx-transfer'></i></td>
+                                    <td class="align-middle text-center">{{ intercambio.ofer.titulo }}</td>
+                                    <td class="align-middle text-center">{{ intercambio.fecha_intercambio }}</td>
+                                    <td class="align-middle text-center">{{ intercambio.hora }}</td>
+                                    <td class="align-middle text-center"><span class="badge badge-primary">PENDIENTE</span></td>
+                                    <td class="align-middle text-center">
+                                        <div class="d-flex">
+                                            <div class="btn-group-vertical">
+                                                <button id="{{intercambio.id}}" class="btn btn-danger" onclick="realizado('{{ intercambio.id }}')">
+                                                    <i class='bx bx-check'></i>
+                                                    <span>Realizado</span>
+                                                </button>
+                                                <button id="{{intercambio.id}}" class="btn btn-danger" onclick="cancelado('{{ intercambio.id }}')">
+                                                    <i class='bx bx-x'></i>
+                                                    <span>Cancelado</span>
+                                                </button>
+                                                <button id="{{intercambio.id}}" class="btn btn-danger" onclick="ausente('{{ intercambio.id }}')">
+                                                    <i class='bx bx-user-x'></i>
+                                                    <span>Ausente</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% else %}
+                    <div class="alert alert-primary text-center" role="alert">
+                        No tienes intercambios pendientes.
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Tabla Historial -->
+            <div class="tab-pane fade" id="historial" role="tabpanel" aria-labelledby="historial-tab">
+                <div class="mb-3">
+                    {% if intercambios_historial %}
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="text-center">Publicación base</th>
+                                <th class="text-center"></th>
+                                <th scope="col" class="text-center">Publicación ofrecida</th>
+                                <th scope="col" class="text-center">Fecha Acordada</th>
+                                <th scope="col" class="text-center">Hora Acordada</th>
+                                <th scope="col" class="text-center">Estado</th>
+                                <th scope="col" class="text-center">Consumió</th>
+                                <th scope="col" class="text-center">Monto</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for intercambio in intercambios_historial %}
+                                <tr>
+                                    <td class="align-middle text-center">{{ intercambio.base.titulo }}</td>
+                                    <td class="align-middle text-center icon-cell"><i class='bx bx-transfer'></i></td>
+                                    <td class="align-middle text-center">{{ intercambio.ofer.titulo }}</td>
+                                    <td class="align-middle text-center">{{ intercambio.fecha_intercambio }}</td>
+                                    <td class="align-middle text-center">{{ intercambio.hora }}</td>
+                                    <td class="align-middle text-centerr">
+                                        {% if intercambio.estado == 'REALIZADO' %}
+                                            <span class="badge badge-success">REALIZADO</span>
+                                        {% elif intercambio.estado == 'CANCELADO' %}
+                                            <span class="badge badge-danger">CANCELADO</span>
+                                        {% elif intercambio.estado == 'CANCELADO_AUSENTE' %}
+                                            <span class="badge badge-warning">CANCELADO AUSENTE</span>
+                                        {% elif intercambio.estado == 'PENDIENTE' %}
+                                            <span class="badge badge-primary">PENDIENTE</span>
+                                        {% endif %}
+                                    </td>
+                                    <td class="align-middle text-center">Sí</td>
+                                    <td class="align-middle text-center">$8000</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% else %}
+                    <div class="alert alert-primary text-center" role="alert">
+                        No tienes historial de intercambios.
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
         </div>
     </div>
-    {% endblock %}
-
+</body>
     
     
 <script>

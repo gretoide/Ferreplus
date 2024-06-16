@@ -34,8 +34,8 @@ def listar_intercambios_pendientes(request):
     usuario = request.user
     # Asumiendo que el modelo User tiene una relación con Sucursal
     sucursal = usuario.sucursal
-    intercambios = Intercambio.objects.filter(
-        sucursal=sucursal, estado=Intercambio.PENDIENTE)
+    intercambios = Intercambio.objects.filter(sucursal=sucursal, estado=Intercambio.PENDIENTE)
+    intercambios_historial = Intercambio.objects.filter(sucursal=sucursal).exclude(estado=Intercambio.PENDIENTE)
 
     if request.method == "POST":
         busqueda = request.POST.dict()
@@ -61,7 +61,7 @@ def listar_intercambios_pendientes(request):
         intercambios = sorted(intercambios,key=lambda x: (x.fecha_intercambio, x.hora),reverse=True)
     else:
         intercambios = sorted(intercambios,key=lambda x:(x.fecha_intercambio,x.hora))
-    return render(request, os.path.join(TEMPLATE_DIR, 'vista_empleado', 'ver_intercambios.html'), {'intercambios': intercambios})
+    return render(request, os.path.join(TEMPLATE_DIR, 'vista_empleado', 'ver_intercambios.html'), {'intercambios': intercambios, 'intercambios_historial' : intercambios_historial, 'sucursal' : sucursal})
 
 @never_cache
 @login_required
