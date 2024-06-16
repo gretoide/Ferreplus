@@ -93,8 +93,8 @@
                                 <th scope="col" class="text-center">Publicación Base</th>
                                 <th class="text-center"></th>
                                 <th scope="col" class="text-center">Publicación Ofrecida</th>
-                                <th scope="col" class="text-center">Fecha Acordada</th>
-                                <th scope="col" class="text-center">Hora Acordada</th>
+                                <th scope="col" class="text-center">Fecha <i class='bx bxs-calendar' ></i></th>
+                                <th scope="col" class="text-center">Hora <i class='bx bxs-time' ></i></th>
                                 <th scope="col" class="text-center">Estado</th>
                                 <th scope="col" class="text-center">Registro</th>
                             </tr>
@@ -148,11 +148,11 @@
                                 <th scope="col" class="text-center">Publicación base</th>
                                 <th class="text-center"></th>
                                 <th scope="col" class="text-center">Publicación ofrecida</th>
-                                <th scope="col" class="text-center">Fecha Acordada</th>
-                                <th scope="col" class="text-center">Hora Acordada</th>
+                                <th scope="col" class="text-center">Fecha <i class='bx bxs-calendar' ></i></th>
+                                <th scope="col" class="text-center">Hora <i class='bx bxs-time' ></i></th>
                                 <th scope="col" class="text-center">Estado</th>
-                                <th scope="col" class="text-center">Consumió</th>
-                                <th scope="col" class="text-center">Monto</th>
+                                <th scope="col" class="text-center">Compró <i class='bx bxs-cart-add' ></i></th>
+                                <th scope="col" class="text-center">Monto <i class='bx bxs-coin' ></i></i></th>
 
                             </tr>
                         </thead>
@@ -170,7 +170,7 @@
                                         {% elif intercambio.estado == 'CANCELADO' %}
                                             <span class="badge badge-danger">CANCELADO</span>
                                         {% elif intercambio.estado == 'CANCELADO_AUSENTE' %}
-                                            <span class="badge badge-warning">CANCELADO AUSENTE</span>
+                                            <span class="badge badge-warning">AUSENTE</span>
                                         {% elif intercambio.estado == 'PENDIENTE' %}
                                             <span class="badge badge-primary">PENDIENTE</span>
                                         {% endif %}
