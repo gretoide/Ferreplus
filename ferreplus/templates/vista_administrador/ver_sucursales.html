@@ -49,10 +49,10 @@
                 <tbody>
                     {% for sucursal in sucursales %}
                         <tr>
-                            <td class="text-center"> {{ sucursal.id }}</td>
-                            <td class="text-center">{{ sucursal.nombre }}</td>
-                            <td class="text-center" >{{ sucursal.direccion }}</td>
-                            <td class="text-center">
+                            <td class="align-middle text-center"> {{ sucursal.id }}</td>
+                            <td class="align-middle text-center">{{ sucursal.nombre }}</td>
+                            <td class="align-middle text-center" >{{ sucursal.direccion }}</td>
+                            <td class="align-middle text-center">
                                 <div class="d-flex flex-column align-items-center">
                                     <a href="{% url 'detalle-sucursal' sucursal.id %}" class="btn btn-primary mb-2">
                                         <i class="bi bi-search"></i>

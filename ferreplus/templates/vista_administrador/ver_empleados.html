@@ -50,11 +50,11 @@
                 <tbody>
                     {% for empleado in empleados %}
                         <tr>
-                            <td class="text-center">{{ empleado.id}}</td>
-                            <td class="text-center">{{ empleado.first_name }}</td>
-                            <td class="text-center">{{ empleado.last_name }}</td>
-                            <td class="text-center">{{ empleado.cuil }}</td>
-                            <td class="text-center">
+                            <td class="align-middle text-center">{{ empleado.id}}</td>
+                            <td class="align-middle text-center">{{ empleado.first_name }}</td>
+                            <td class="align-middle text-center">{{ empleado.last_name }}</td>
+                            <td class="align-middle text-center">{{ empleado.cuil }}</td>
+                            <td class="align-middle text-center">
                                 <button id="{{empleado.id}}" type="submit" class="btn btn-danger" onclick="confirmarEliminacion('{{ empleado.id }}')"><i class="bx bx-trash"></i>
                                     <span>Eliminar</span>
                                 </button>
