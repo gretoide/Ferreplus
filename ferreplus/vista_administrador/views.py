@@ -63,8 +63,7 @@ def ejecutar_estadisticas(request):
         # Streamlit no está ejecutándose, iniciar
         subprocess.Popen(["streamlit", "run", ruta_estadisticas])
 
-    # Redireccionar a la URL de Streamlit
-    return redirect("http://localhost:8501")
+    return render(request, os.path.join(TEMPLATE_DIR, 'pagina_principal_admin.html'))
 
 @login_required
 @admin_required
