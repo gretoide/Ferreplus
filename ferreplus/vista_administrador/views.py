@@ -18,6 +18,8 @@ from django.core.exceptions import ValidationError
 import os
 import secrets
 
+import requests
+
 from django.shortcuts import render
 import os
 from pathlib import Path
@@ -26,6 +28,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from vista_usuario.models import User
 from ferreplus.modulos import modulos_carga_empleado
+import subprocess
+import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -44,6 +48,23 @@ TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates', 'vista_administrador')
 @admin_required
 def inicio_admin(request):
     return render(request, os.path.join(TEMPLATE_DIR, 'pagina_principal_admin.html'))
+
+def ejecutar_estadisticas(request):
+    # Ruta del archivo de Streamlit
+    ruta_estadisticas = os.path.join(settings.BASE_DIR, 'vista_administrador', 'ejecutar_streamlit.py')
+
+    # Verificar si Streamlit ya está ejecutándose
+    try:
+        respuesta = requests.get("http://localhost:8501")
+        if respuesta.status_code == 200:
+            # Streamlit ya está ejecutándose, redirigir directamente
+            return redirect("http://localhost:8501")
+    except requests.exceptions.ConnectionError:
+        # Streamlit no está ejecutándose, iniciar
+        subprocess.Popen(["streamlit", "run", ruta_estadisticas])
+
+    # Redireccionar a la URL de Streamlit
+    return redirect("http://localhost:8501")
 
 @login_required
 @admin_required
