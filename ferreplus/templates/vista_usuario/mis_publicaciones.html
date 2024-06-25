@@ -26,6 +26,24 @@
     <div class="container">
         <div id="Header">
             <h1>Mis publicaciones</h1>
+        <!-- Bloque de mensajes -->
+        <div class="container">
+            {% if messages %}
+            <div class="alert-container">
+                {% for message in messages %}
+                    {% if message.tags == 'error' %}
+                        <div class="alert alert-danger" role="alert">
+                    {% elif message.tags == 'success' %}
+                        <div class="alert alert-success" role="alert">
+                    {% else %}
+                        <div class="alert alert-info" role="alert">
+                    {% endif %}
+                            {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
         </div>
         <div class="mb-3">
             {% if publicaciones %}
@@ -90,11 +108,14 @@
                                     </a>
                                 </div>
                                 <div>
-                                    <button class="btn btn-danger">
-                                        <i class='bx bx-trash'></i>
-                                        <span>Eliminar</span>
-                                    </button>                
-                                </div>
+                                    <form action="{% url 'mis_publicaciones' %}" method="POST" onsubmit="return confirm('¿Estás seguro de que deseas eliminar esta publicación?');">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="publicacion_id" value="{{ publicacion.id }}">
+                                        <button type="submit" class="btn btn-danger">
+                                            <i class='bx bx-trash'></i>
+                                            <span>Eliminar</span>
+                                        </button>
+                                    </form>
                             </div>
                         </td>
                 </tr>
