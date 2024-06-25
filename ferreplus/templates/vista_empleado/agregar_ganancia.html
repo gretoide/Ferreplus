@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ferreplus Empleado | Agregar Ganancia</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/agregar_ganancia.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'favicon.png' %}">
+</head>
+<body>
+    <h1>Agregar Ganancia</h1>
+
+    <div class="container custom-container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col" class="text-center">Ingrese la ganancia del intercambio.</th>
+                    <th class="text-center"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td colspan="2">
+                        <form method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="intercambio_id" value="{{ intercambio_id }}">
+                            <div class="mb-3">
+                                <input class="form-control" type="number" min="0" name="ganancia" required>
+                            </div>
+                            <div class="mb-3 text-center">
+                                <button type="submit" class="btn btn-register">Agregar ganancia</button>
+                            </div>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="text-center" >
+                        <button id="BotonVolver" class="btn btn-secondary" style="background-color: #ff0000;">
+                            <a href="{% url 'intercambios-pendientes' %}">
+                                <span>Omitir</span>
+                            </a>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Enlace a Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> 
+</body>
+</html>

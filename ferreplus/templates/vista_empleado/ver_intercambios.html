@@ -175,8 +175,13 @@
                                             <span class="badge badge-primary">PENDIENTE</span>
                                         {% endif %}
                                     </td>
-                                    <td class="align-middle text-center">Sí</td>
-                                    <td class="align-middle text-center">$8000</td>
+                                    {% if intercambio.ganancia == 0 %}
+                                        <td class="align-middle text-center">No</td>
+                                    {% else %}
+                                        <td class="align-middle text-center">Sí</td>
+                                    {% endif %}
+                                    
+                                    <td class="align-middle text-center">{{ intercambio.ganancia }}</td>
                                 </tr>
                             {% endfor %}
                         </tbody>

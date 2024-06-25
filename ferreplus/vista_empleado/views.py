@@ -63,26 +63,51 @@ def listar_intercambios_pendientes(request):
         intercambios = sorted(intercambios,key=lambda x:(x.fecha_intercambio,x.hora))
     return render(request, os.path.join(TEMPLATE_DIR, 'vista_empleado', 'ver_intercambios.html'), {'intercambios': intercambios, 'intercambios_historial' : intercambios_historial, 'sucursal' : sucursal})
 
+
+
 @never_cache
 @login_required
 @staff_required
-def aceptarIntercambio(request, intercambio_id):
+def marcado_realizado(request, intercambio_id):
     try:
         intercambio = Intercambio.objects.get(id=intercambio_id)
     except Intercambio.DoesNotExist:
         messages.error(request, "El intercambio no existe")
         return redirect(listar_intercambios_pendientes)
+    
     intercambio.estado = Intercambio.REALIZADO
     intercambio.save()
-    messages.success(
-        request, "El intercambio ha sido marcado como exitoso.")
-    return redirect(listar_intercambios_pendientes)
+    
+    messages.success(request, "El intercambio ha sido marcado como exitoso.")
+    return redirect(agregar_ganancia, intercambio_id)
+
+@never_cache
+@login_required
+@staff_required
+def agregar_ganancia(request, intercambio_id):
+    if request.method == "POST":
+        ganancia = request.POST.get('ganancia')
+        
+
+        try:
+            intercambio = Intercambio.objects.get(id=intercambio_id)
+            intercambio.ganancia = ganancia
+            intercambio.save()
+            messages.success(request, "Ganancia agregada exitosamente.")
+        except Intercambio.DoesNotExist:
+            messages.error(request, "El intercambio no existe")
+        
+        return redirect(listar_intercambios_pendientes)
+    else:
+        return render(request, os.path.join(TEMPLATE_DIR, 'vista_empleado', 'agregar_ganancia.html'))
+
+    
 
 
 @never_cache
 @login_required
 @staff_required
-def cancelarIntercambio(request, intercambio_id):
+def marcado_cancelado(request, intercambio_id):
     try:
         intercambio = Intercambio.objects.get(id=intercambio_id)
     except Intercambio.DoesNotExist:
@@ -104,7 +129,7 @@ def cancelarIntercambio(request, intercambio_id):
     intercambio.save()
     messages.success(
         request, "El intercambio ha sido marcado como cancelado.")
-    return redirect(listar_intercambios_pendientes)
+    return redirect(agregar_ganancia, intercambio_id)
 
 
 @never_cache
@@ -146,4 +171,4 @@ def marcado_ausente(request, intercambio_id, usuario_id):
         publicacion_ofer.save()  
 
     intercambio.save()
-    return redirect(listar_intercambios_pendientes)
+    return redirect(agregar_ganancia, intercambio_id)

@@ -103,3 +103,4 @@ class Intercambio(models.Model):
     sucursal = models.ForeignKey(Sucursal, on_delete=models.SET_NULL, null=True)
     estado = models.CharField(max_length=20, choices=ESTADOS_CHOICES, default=PENDIENTE)
     usuario_ausente = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    ganancia = models.IntegerField(default=0)
