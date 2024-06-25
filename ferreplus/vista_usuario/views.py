@@ -10,6 +10,7 @@ from django.core.signing import Signer
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from pathlib import Path
+from django.contrib import messages
 import os
 import secrets
 from vista_administrador.models import Sucursal
@@ -125,14 +126,19 @@ def mis_publicaciones(request):
         publicacion = get_object_or_404(Publicacion, pk=publicacion_id)
 
         if request.user == publicacion.autor:
-            publicacion.delete()
-            return redirect('mis_publicaciones')
+            if publicacion.parte_oferta:
+                messages.error(request, "No puedes eliminar esta publicación porque es parte de una oferta.")
+            else:
+                publicacion.delete()
+                messages.success(request, "Publicación eliminada con éxito.")
         else:
-            return redirect('mis_publicaciones')
+            messages.error(request, "No tienes permiso para eliminar esta publicación.")
+
+        return redirect('mis_publicaciones')
 
     publicaciones = Publicacion.objects.filter(autor=request.user)
     
-    return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario','mis_publicaciones.html'), {'publicaciones': publicaciones})
+    return render(request, os.path.join(TEMPLATE_DIR, 'vista_usuario', 'mis_publicaciones.html'), {'publicaciones': publicaciones})
 
 @login_required
 @normal_required
