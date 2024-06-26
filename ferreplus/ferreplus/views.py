@@ -20,7 +20,7 @@ def inicio(request):
                 user = None
             
             if user:
-                if user.check_password(contrasena):
+                if user.check_password(contrasena) and user.is_active:
                     # Autenticación exitosa
                     login(request, user)
                     next_page = request.GET.get('next')  
