@@ -1,7 +1,36 @@
-# ejecuta_streamlit.py
-
+import sys
+import os
+from pathlib import Path
 import streamlit as st
-from datetime import datetime, timedelta
+
+# Obtén la dirección del directorio actual
+current_dir = Path(__file__).resolve().parent
+print("Current directory:", current_dir)
+
+# Navega hacia arriba tres niveles para llegar al directorio que contiene 'Ferreplus'
+base_dir = current_dir.parent.parent.parent
+print("Base directory:", base_dir)
+
+# Añade el directorio 'Ferreplus' al sys.path
+ferreplus_dir = base_dir / 'Ferreplus'
+sys.path.append(str(ferreplus_dir))
+print("Ferreplus directory:", ferreplus_dir)
+
+# Añade el directorio que contiene 'settings.py' al sys.path
+settings_dir = ferreplus_dir / 'ferreplus'
+sys.path.append(str(settings_dir))
+print("Settings directory:", settings_dir)
+
+print("sys.path:", sys.path)
+print("Contents of Ferreplus directory:", os.listdir(ferreplus_dir))
+print("Contents of settings directory:", os.listdir(settings_dir))
+
+# Configura el entorno de Django antes de importar modelos
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'settings')
+
+import django
+django.setup()
+
 from vista_usuario.models import Intercambio, Publicacion, Oferta, Sucursal
 
 def main():
