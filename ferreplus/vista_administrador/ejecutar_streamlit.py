@@ -165,18 +165,6 @@ def main():
                     total += int(inter.ganancia)
             st.text(total)
 
-        # Gráfico de montos por fecha (ejemplo ficticio)
-        # with st.expander("Mayores montos por fecha"):
-         #   montos_por_fecha = {}
-
-            # Aquí podrías hacer una consulta adecuada para calcular los montos por fecha
-          #  montos_por_fecha["2023-01-01"] = 5000
-           # montos_por_fecha["2023-01-02"] = 7000
-            # montos_por_fecha["2023-01-03"] = 3000
-
-          #  st.line_chart(montos_por_fecha)
-
-        # Gráfico de montos por categoría (ejemplo ficticio)
         with st.expander("Total por categoría"):
             montos_por_categoria = {}
             
