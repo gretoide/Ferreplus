@@ -22,8 +22,8 @@ def validar_dni(dni):
         motivo = "Formato de DNI inválido, el DNI deben ser 8 números sin espacios en blanco"
     else:
         try:
-            usuario_existente = User.objects.get(dni=dni)
-            if usuario_existente.is_staff:
+            usuario_existente = User.objects.get(dni=dni,is_staff=True)
+            if usuario_existente.is_active:
                 condicion = False
                 motivo = "El DNI ingresado ya corresponde a un empleado"
         except User.DoesNotExist:
@@ -70,34 +70,12 @@ def validar_fecha(fecha):
     return(condicion,motivo)
 
 
-def validar_correo_empleado(correo):
-    condicion = True
-    motivo = ""
-    patron = r'^[\w\.-]+@[\w\.-]+\.\w+$'
-    
-    # Verificar si el correo coincide con el patrón y si no contiene espacios en blanco
-    if validar_espacio_blanco(correo) or not re.match(patron, correo):
-        condicion = False
-        motivo = "Formato inválido para el correo electrónico."
-    else:
-        try:
-            # Verificar si el correo ya está en uso por otro usuario
-            user = User.objects.get(username=correo)
-            if user.is_active:
-                condicion = False
-                motivo = "Correo electrónico ya en uso"
-        except Exception as e:
-            motivo = str(e)
-            condicion = False
-
-    return (condicion, motivo)
-
 
 
 def verificar(empleado):
     lista_validaciones = [modulos_registro.validar_nombre(empleado["nombre"]),modulos_registro.validar_apellido(empleado["apellido"]),
                           validar_dni(empleado["dni"]),validar_cuil(empleado["cuil"],empleado["dni"]),
-                          validar_correo_empleado(empleado["correo_electronico"]),validar_correo_personal(empleado["correo_personal"])
+                          modulos_registro.validar_correo(empleado["correo_electronico"]),validar_correo_personal(empleado["correo_personal"])
                           ,validar_fecha(empleado["fecha_nacimiento"])]
     
     for condicion,motivo in lista_validaciones:
