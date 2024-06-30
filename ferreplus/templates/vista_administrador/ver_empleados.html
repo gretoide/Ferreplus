@@ -36,6 +36,7 @@
                         {% endfor %}
                     {% endif %}
         </div>
+        
         <div class="mb-3">
             <table class="table">
                 <thead>
@@ -66,6 +67,34 @@
                 </tbody>
             </table>
         </div>
+        <div class="container">
+            <div id="Header">
+                <h1>Ex-empleados de Ferreplus</h1>
+            </div>
+
+        <div class="mb-3">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="text-center" scope="col">Número</th>
+                        <th class="text-center" scope="col">Nombre</th>
+                        <th class="text-center" scope="col">Apellido</th>
+                        <th class="text-center" scope='col'>CUIL</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for exempleado in exempleados %}
+                        <tr>
+                            <td class="align-middle text-center">{{ exempleado.id}}</td>
+                            <td class="align-middle text-center">{{ exempleado.first_name }}</td>
+                            <td class="align-middle text-center">{{ exempleado.last_name }}</td>
+                            <td class="align-middle text-center">{{ exempleado.cuil }}</td>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+
 </div>
 {% endblock %}
 <script>
