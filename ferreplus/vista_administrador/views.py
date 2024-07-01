@@ -196,7 +196,14 @@ def eliminar_empleado(request, empleado_id):
     a_eliminar.is_active = False
     nuevo_user="###"+a_eliminar.username
     a_eliminar.username = str(nuevo_user)
-    a_eliminar.save()
+    eliminado=False
+    while not eliminado:
+        try:
+            a_eliminar.save()
+            eliminado = True
+        except:
+            nuevo_user+="#"
+            a_eliminar.username=nuevo_user
     messages.success(
         request, f"El empleado con CUIL '{a_eliminar.cuil}' se eliminó con éxito.")
     return redirect(ver_empleados)
