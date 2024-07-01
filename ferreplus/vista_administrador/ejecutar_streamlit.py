@@ -135,8 +135,8 @@ def main():
 
         with st.expander("Total de ganancia"):
             total = sum(float(inter.ganancia) for inter in intercambios if inter.ganancia)
-            st.text(total)
-
+            st.text(f"${total:.2f}")
+            
         with st.expander("Total por categoría"):
             montos_por_categoria = {}
 
