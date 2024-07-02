@@ -19,8 +19,8 @@ def validar_dni(dni):
         motivo = "Formato de DNI inválido, deben ser 8 números sin espacios en blanco."
     else:
         try:
-            usuario_existente = User.objects.get(dni=dni)
-            if not usuario_existente.is_staff:
+            usuario_existente = User.objects.get(dni=dni,is_staff=False)
+            if usuario_existente:
                 condicion = False
                 motivo = "El DNI ingresado ya corresponde a un usuario."
         except User.DoesNotExist:

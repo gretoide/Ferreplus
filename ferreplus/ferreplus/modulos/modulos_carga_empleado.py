@@ -23,9 +23,8 @@ def validar_dni(dni):
     else:
         try:
             usuario_existente = User.objects.get(dni=dni,is_staff=True,is_active=True)
-            if usuario_existente.is_active:
-                condicion = False
-                motivo = "El DNI ingresado ya corresponde a un empleado"
+            condicion = False
+            motivo = "El DNI ingresado ya corresponde a un empleado"
         except User.DoesNotExist:
             pass
 
@@ -82,3 +81,14 @@ def verificar(empleado):
         if not condicion:
             break
     return (condicion,motivo)
+
+def verificar_remplazo(dni):
+    try:
+        usuario_existente = User.objects.get(dni=dni,is_staff=True)
+        if not usuario_existente.is_active:
+            
+            return True
+    except User.DoesNotExist:
+        pass
+    
+    return False

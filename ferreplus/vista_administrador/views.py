@@ -5,6 +5,8 @@ from django.shortcuts import render, redirect
 from django.template import loader
 from django.core.mail import send_mail
 from django.utils.crypto import get_random_string
+from django.utils import timezone
+
 from django.conf import settings
 from django.conf import settings
 from django.urls import reverse
@@ -137,17 +139,30 @@ def cargar_empleado(request):
 
         if condicion_validacion:
                 sucursal = Sucursal.objects.get(id=usuario["sucursal"])
+
+                if modulos_carga_empleado.verificar_remplazo(usuario["dni"]):
+                    usuario_creado = User.objects.get(dni=usuario["dni"])
+                    usuario_creado.username = usuario["correo_electronico"]
+                    usuario_creado.first_name = usuario["nombre"]
+                    usuario_creado.last_name = usuario["apellido"]
+                    usuario_creado.sucursal = sucursal
+                    usuario_creado.is_active = True
+                    usuario_creado.last_login = None
+                    usuario_creado.date_joined = timezone.now()
+
+
+                else:
                 
-                usuario_creado = User.objects.create(
-                    username=usuario["correo_electronico"],
-                    first_name=usuario["nombre"],
-                    last_name=usuario["apellido"],
-                    dni=usuario["dni"],
-                    cuil=usuario["cuil"],
-                    fecha_nacimiento=usuario["fecha_nacimiento"],
-                    sucursal=sucursal
-    
-                )
+                    usuario_creado = User.objects.create(
+                        username=usuario["correo_electronico"],
+                        first_name=usuario["nombre"],
+                        last_name=usuario["apellido"],
+                        dni=usuario["dni"],
+                        cuil=usuario["cuil"],
+                        fecha_nacimiento=usuario["fecha_nacimiento"],
+                        sucursal=sucursal
+        
+                    )
                 if usuario["correo_personal"]:
                      usuario_creado.email = usuario["correo_personal"]
                 else:
