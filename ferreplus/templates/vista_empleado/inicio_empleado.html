@@ -14,7 +14,13 @@
 </head>
 <body>
     <!-- Botón de cierre de sesión -->
-    <div class="cerrar-sesion">
+    <div class="cerrar-sesion" style="margin-top: 5px;">
+        <a href="{% url 'editar_empleado_2' %}" style="margin-right: 15px;">
+            <button class="btn-cerrar-sesion">
+                <i class='bi bi-person-gear' id="iconoEditarPerfil"></i>
+                <span id="editarPerfilSpan">Editar perfil</span>
+            </button>
+        </a>
         <a href="{% url 'cerrar_sesion' %}" onclick="return confirmarCierreSesion()">
             <button class="btn-cerrar-sesion">
                 <i class='bx bx-log-out' id="IconoCerrarSesion"></i>
@@ -22,6 +28,7 @@
             </button>
         </a>
     </div>
+
     
     <!-- Contenido principal -->
     <div class="container">

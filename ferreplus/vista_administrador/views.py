@@ -231,3 +231,31 @@ def editar_sucursal(request, sucursal_id):
         messages.success(request,"La sucursal se modificó con éxito.")
         return redirect(detalle_sucursal,aEditar.id)
     return render(request, os.path.join(TEMPLATE_DIR, 'editar_sucursal.html'), {'sucursal': aEditar})
+
+@login_required
+@admin_required
+def editarEmpleado(request, empleadoId):
+    empleado = get_object_or_404(User, id=empleadoId)
+    sucursalEmpleado = Sucursal.objects.get(id=empleado.sucursal_id)
+    sucursales = Sucursal.objects.all()
+
+    if request.method == 'GET':
+        return render(request, os.path.join(TEMPLATE_DIR, "editar_empleado_admin.html"), {
+            'empleado': empleado,
+            'sucursales': sucursales,
+            'sucursalEmpleado': sucursalEmpleado,
+            'error': "",
+            'exito': ""
+        })
+    else:
+        empleado.first_name = request.POST["nombre"]
+        empleado.last_name = request.POST["apellido"]
+        empleado.sucursal_id = request.POST["sucursal"]
+        empleado.save()
+        return render(request, os.path.join(TEMPLATE_DIR, "editar_empleado_admin.html"), {
+            'empleado': empleado,
+            'sucursales': sucursales,
+            'sucursalEmpleado': sucursalEmpleado,
+            'error': "",
+            'exito': "Empleado actualizado correctamente."
+        })

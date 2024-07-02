@@ -9,4 +9,5 @@ urlpatterns = [
     path('intercambio-ausente/<str:intercambio_id>/', empleado_views.intercambio_ausente, name='ausentar-intercambio'),
     path('marcado-ausente/<str:usuario_id>/<str:intercambio_id>/', empleado_views.marcado_ausente, name='marcar-ausente'),
     path('agregar-ganancia/<str:intercambio_id>/', empleado_views.agregar_ganancia, name='agregar-ganancia'),
+    path('empleado/editar-empleado', empleado_views.editarEmpleado, name='editar_empleado_2'),
 ]

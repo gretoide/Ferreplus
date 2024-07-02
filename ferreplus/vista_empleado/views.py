@@ -9,6 +9,8 @@ from ferreplus.modulos.modulos_inicio_sesion import staff_required
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache
 from django.utils import timezone
+
+from vista_administrador.models import Sucursal
 from vista_usuario.models import Intercambio, User
 from django.db.models import Q
 from datetime import datetime
@@ -172,3 +174,31 @@ def marcado_ausente(request, intercambio_id, usuario_id):
 
     intercambio.save()
     return redirect(agregar_ganancia, intercambio_id)
+
+@login_required
+@staff_required
+def editarEmpleado(request):
+    empleado = get_object_or_404(User, email=request.user)
+    sucursalEmpleado = Sucursal.objects.get(id=empleado.sucursal_id)
+    sucursales = Sucursal.objects.all()
+
+    if request.method == 'GET':
+        return render(request, os.path.join(TEMPLATE_DIR, 'vista_empleado', "editar_empleado.html"), {
+            'empleado': empleado,
+            'sucursales': sucursales,
+            'sucursalEmpleado': sucursalEmpleado,
+            'error': "",
+            'exito': ""
+        })
+    else:
+        empleado.first_name = request.POST["nombre"]
+        empleado.last_name = request.POST["apellido"]
+        empleado.sucursal_id = request.POST["sucursal"]
+        empleado.save()
+        return render(request, os.path.join(TEMPLATE_DIR, 'vista_empleado', "editar_empleado.html"), {
+            'empleado': empleado,
+            'sucursales': sucursales,
+            'sucursalEmpleado': sucursalEmpleado,
+            'error': "",
+            'exito': "Empleado actualizado correctamente."
+        })
