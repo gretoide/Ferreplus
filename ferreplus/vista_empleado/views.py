@@ -194,6 +194,7 @@ def editarEmpleado(request):
         empleado.first_name = request.POST["nombre"]
         empleado.last_name = request.POST["apellido"]
         empleado.sucursal_id = request.POST["sucursal"]
+        sucursalEmpleado = Sucursal.objects.get(id=request.POST["sucursal"])
         empleado.save()
         return render(request, os.path.join(TEMPLATE_DIR, 'vista_empleado', "editar_empleado.html"), {
             'empleado': empleado,
