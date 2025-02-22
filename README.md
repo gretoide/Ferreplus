@@ -43,3 +43,12 @@ python manage.py runserver
 Acceder en el navegador a:
 
 🔗 http://127.0.0.1:8000/
+
+---
+
+🛠 **Tecnologías**
+- Django
+- SQLite (por defecto, cambiar si es necesario)
+- (Opcional) PostgreSQL / MySQL
+- (Opcional) Django REST Framework
+- (Opcional) Bootstrap / Tailwind para el frontend
